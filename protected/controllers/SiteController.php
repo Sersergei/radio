@@ -106,4 +106,18 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	public function actionRun()
+	{
+		$path = YiiBase::getPathOfAlias('application.config') . '/main.php';
+		$model = new ConfigForm(require($path));
+		if (isset($_POST['ConfigForm'])) {
+			$model->setAttributes($_POST['ConfigForm']);
+			if($model->save($path))
+			{
+				Yii::app()->user->setFlash('success config', 'Конфигурация сохранена');
+				$this->refresh();
+			}
+		}
+		$this->render('config', array('model'=>$model));
+	}
 }
