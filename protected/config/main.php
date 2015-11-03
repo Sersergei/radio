@@ -1,90 +1,60 @@
 <?php
-
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
-
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
-
-	// preloading 'log' component
-	'preload'=>array('log'),
-
-	// autoloading model and component classes
-	'import'=>array(
-		'application.models.*',
-		'application.components.*',
+	'basePath' => 'F:\OpenServer\domains\radio.com\protected\config\..',
+	'name' => 'My Web Application ',
+	'preload' => array(
+		'0' => 'log',
 	),
+	'import' => array(
+		'0' => 'application.models.*',
+		'1' => 'application.components.*',
+	),
+	'modules' => array(
+		'admin',
 
-	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-		/*
+		'user',
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-		*/
 	),
-
-	// application components
-	'components'=>array(
-
-		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+	'components' => array(
+		'user' => array(
+			'allowAutoLogin' => '1',
 		),
-
-		// uncomment the following to enable URLs in path-format
-
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'class'=>'UrlManager',
-			'showScriptName'=>false,
+		'urlManager' => array(
+			'urlFormat' => 'path',
+			'class' => 'UrlManager',
+			'showScriptName' => '',
 			'urlSuffix' => '',
-			'rules'=>array(
+			'rules' => array(
 				'<language:>' => 'site/index',
-				'<language:>/<action:(contact|login|logout)>' => 'site/<action>',
-				'<language:\w>/<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<language:\w>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<language:\w>/<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				'<language:>/<action:(contact|login|logout|Run)>' => 'site/<action>',
+				'<language:\w>/<controller:\w+>/<id:\d+>' => '<controller>/view',
+				'<language:\w>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+				'<language:\w>/<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
-
-
-		// database settings are configured in database.php
-		'db'=>require(dirname(__FILE__).'/database.php'),
-
-		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+		//'db' => array(
+			//'connectionString' => 'sqlite:F:\OpenServer\domains\radio.com\protected\config/../data/testdrive.db',
+		//),
+		'errorHandler' => array(
+			'errorAction' => 'site/error',
 		),
-
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+		'log' => array(
+			'class' => 'CLogRouter',
+			'routes' => array(
+				'0' => array(
+					'class' => 'CFileLogRoute',
+					'levels' => 'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
 			),
 		),
-
 	),
 
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+	'params' => array(
+		'adminEmail' => 'webmaster@example.com',
 	),
 );
