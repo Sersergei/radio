@@ -6,9 +6,11 @@
 class Controller extends CController
 {
 	public function init(){
-		if(empty($_GET['language']))
-			$_GET['language']='en';
-			Yii::app()->language=$_GET['language'];
+		if(empty(Yii::app()->user->getState('language')))
+			Yii::app()->language='en';
+		else
+			Yii::app()->language=Yii::app()->user->getState('language');
+		$this->layout = Yii::app()->controller->module ? $this->layout : 'column1';
 		parent::init();
 	}
 	/**

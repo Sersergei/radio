@@ -21,6 +21,7 @@ class SiteController extends Controller
 		);
 	}
 
+
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -29,7 +30,18 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+		//var_dump($user->id_category);
+		if(!$user){
+			$this->redirect('/login');
+		}
+		if($user->id_category==1){
+			$this->redirect('/admin');
+		}
+		else{
+			$this->redirect('/radio');
+		}
+
 	}
 
 	/**
@@ -77,6 +89,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		if (Yii::app()->user->isGuest) {
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -92,10 +105,16 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+				var_dump('dsfsdf');
+				$this->redirect('/');
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
+	}
+		else{
+
+			$this->render('index',array());
+		}
 	}
 
 	/**
@@ -105,19 +124,5 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}
-	public function actionRun()
-	{
-		$path = YiiBase::getPathOfAlias('application.config') . '/main.php';
-		$model = new ConfigForm(require($path));
-		if (isset($_POST['ConfigForm'])) {
-			$model->setAttributes($_POST['ConfigForm']);
-			if($model->save($path))
-			{
-				Yii::app()->user->setFlash('success config', 'Конфигурация сохранена');
-				$this->refresh();
-			}
-		}
-		$this->render('config', array('model'=>$model));
 	}
 }
