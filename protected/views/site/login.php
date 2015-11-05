@@ -4,9 +4,7 @@
 /* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
+
 ?>
 
 <h1><?php echo (Yii::t('radio','Login')); ?></h1>
