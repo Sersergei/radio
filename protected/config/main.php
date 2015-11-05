@@ -36,15 +36,6 @@ return array(
         //'shop' => array( 'debug' => 'true'),
       
 	),
-
-	// application components
-	'components'=>array(
-
-		/*'user'=>array(
-			// enable cookie-based authentication
-			//'allowAutoLogin'=>true,
-            'allowAutoLogin'=>true,
-            'loginUrl' => array('/user/login'),
 		),
 */
 
@@ -61,29 +52,7 @@ return array(
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
-		
-
-		// database settings are configured in database.php
-		//'db'=>require(dirname(__FILE__).'/database.php'),
-        'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=radio',
-            'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-        ),
-
-		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
 		),
-
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
