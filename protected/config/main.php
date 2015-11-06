@@ -40,7 +40,6 @@ return array(
 	// application components
 	'components'=>array(
 
-
 		/*'user'=>array(
 			// enable cookie-based authentication
 			//'allowAutoLogin'=>true,
@@ -61,12 +60,6 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
-		),
-		'authManager' => array(
-			// Будем использовать свой менеджер авторизации
-			'class' => 'PhpAuthManager',
-			// Роль по умолчанию. Все, кто не админы, модераторы и юзеры — гости.
-			'defaultRoles' => array('guest'),
 		),
 		
 

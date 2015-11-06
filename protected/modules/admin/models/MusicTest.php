@@ -32,7 +32,7 @@ class MusicTest extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_test, id_radiostation, id_type, date_add, date_started, id_control, test_number, date_finished', 'required'),
+			array('id_type','required'),
 			array('id_test, id_radiostation, id_type, id_control, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -57,15 +57,15 @@ class MusicTest extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_test' => 'Id Test',
-			'id_radiostation' => 'Id Radiostation',
-			'id_type' => 'Id Type',
-			'date_add' => 'Date Add',
-			'date_started' => 'Date Started',
-			'id_control' => 'Id Control',
-			'max_listeners' => 'Max Listeners',
-			'test_number' => 'Test Number',
-			'date_finished' => 'Date Finished',
+			'id_test' => Yii::t('radio', 'Id Test'),
+			'id_radiostation' =>Yii::t('radio', 'Id Radiostation'),
+			'id_type' =>Yii::t('radio', 'Id Type'),
+			'date_add' =>Yii::t('radio', 'Date Add'),
+			'date_started' =>Yii::t('radio', 'Date Started'),
+			'id_control' =>Yii::t('radio', 'Id Control'),
+			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
+			'test_number' =>Yii::t('radio', 'Test Number'),
+			'date_finished' =>Yii::t('radio', 'Date Finished'),
 		);
 	}
 
@@ -111,5 +111,18 @@ class MusicTest extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	protected function beforeSave()
+	{
+		if ($this->isNewRecord)
+		{
+			//var_dump($this->date_started);
+			if(!$this->date_started or $this->date_started > date(" Y-m-d")){
+				var_dump('fgfghfgh');
+			}
+				$this->date_add= date(" Y-m-d");
+			}
+		parent::beforeSave();
+		return true;
 	}
 }

@@ -60,7 +60,7 @@ class UsersController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		$this->performAjaxValidation($model);
 		if(isset($_POST['Users']))
 		{
 			$model->attributes=$_POST['Users'];
@@ -72,6 +72,7 @@ class UsersController extends Controller
 			'model'=>$model,
 		));
 	}
+
 
 	/**
 	 * Updates a particular model.
@@ -160,6 +161,9 @@ class UsersController extends Controller
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='users-form')
 		{
+			if( !empty($_POST['Users']['radiostation']) !=='admin'){
+				$model->setScenario ('noadmin');
+			}
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

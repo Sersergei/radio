@@ -24,6 +24,9 @@
 class Users extends CActiveRecord
 {
 	public $password_repeat;
+	public $radiostation;
+	public $location;
+	public $lang;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -40,11 +43,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('login, password,id_radiostation,email', 'required'),
+			array('login, password,radiostation,email', 'required'),
+			array('location','required','on'=>'noadmin'),
 			array('email','email'),
 			array('password_repeat', 'required'),
 			array('password', 'compare'),
-			array('id_user, sex, id_education, status, id_category, id_radiostation, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
+			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
 			array('login, password', 'length', 'max' => 20),
@@ -52,7 +56,7 @@ class Users extends CActiveRecord
 			array('date_birth, date_add', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_user, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, id_radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
+			array('id_user, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -156,7 +160,20 @@ class Users extends CActiveRecord
 	protected function beforeSave()
 	{
 		if ($this->isNewRecord)
-			$this->date_add = date(" Y-m-d");;
+			if($this->radiostation=='admin'){
+				$this->id_category=1;
+			}
+		else {
+			$radio = new Radistations();
+			$radio->name = $this->radiostation;
+			$radio->date_add = date(" Y-m-d");
+			$radio->location=$this->location;
+			$radio->id_languege=$this->lang;
+			$radio->save();
+			$radio->date_add = date(" Y-m-d");
+			$this->id_radiostation = $radio->id_radiostation;
+			$this->id_category=2;
+		}
 		parent::beforeSave();
 return true;
 	}

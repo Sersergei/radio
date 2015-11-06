@@ -43,8 +43,5 @@ class UserIdentity extends CUserIdentity
 	{
 		return $this->_id;
 	}
-	public function getRole(){
-		return $this->role;
-	}
 
 }

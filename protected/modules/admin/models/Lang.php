@@ -1,31 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "radistations".
+ * This is the model class for table "lang".
  *
- * The followings are the available columns in table 'radistations':
- * @property integer $id_radiostation
+ * The followings are the available columns in table 'lang':
+ * @property string $id_lang
  * @property string $name
- * @property string $location
- * @property integer $all_tests
- * @property string $date_add
- * @property integer $status
- * @property integer $songs
- *
- * The followings are the available model relations:
- * @property RadiostationSettings[] $radiostationSettings
- * @property Users[] $users
- * @property Users[] $users1
- * @property UsersHst[] $usersHsts
  */
-class Radistations extends CActiveRecord
+class Lang extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'radistations';
+		return 'lang';
 	}
 
 	/**
@@ -36,13 +25,11 @@ class Radistations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('all_tests, status, songs', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>20),
-			array('location', 'length', 'max'=>255),
-			array('date_add', 'safe'),
+			array('id_lang', 'required'),
+			array('name', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_radiostation, name, location, all_tests, date_add, status, songs', 'safe', 'on'=>'search'),
+			array('id_lang, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,11 +41,6 @@ class Radistations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'radiostationSettings' => array(self::HAS_MANY, 'RadiostationSettings', 'id_radiostation'),
-			'users' => array(self::HAS_MANY, 'Users', 'id_radiostation'),
-			'users1' => array(self::HAS_MANY, 'Users', 'P1'),
-			'lang' => array(self::HAS_MANY, 'Lang', 'id_lang'),
-			'usersHsts' => array(self::HAS_MANY, 'UsersHst', 'id_radiostation'),
 		);
 	}
 
@@ -68,14 +50,8 @@ class Radistations extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_radiostation' => 'Id Radiostation',
+			'id_lang' => 'Id Lang',
 			'name' => 'Name',
-			'location' => 'Location',
-			'all_tests' => 'All Tests',
-			'date_add' => 'Date Add',
-			'status' => 'Status',
-			'songs' => 'Songs',
-			'id_languege'=>'Lang',
 		);
 	}
 
@@ -97,14 +73,8 @@ class Radistations extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_radiostation',$this->id_radiostation);
+		$criteria->compare('id_lang',$this->id_lang,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('location',$this->location,true);
-		$criteria->compare('all_tests',$this->all_tests);
-		$criteria->compare('date_add',$this->date_add,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('songs',$this->songs);
-		$criteria->compare('Lang',$this->id_languege);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -115,10 +85,18 @@ class Radistations extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Radistations the static model class
+	 * @return Lang the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public static function all(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $lang){
+			$array[$lang->id_lang] = $lang->name;
+		}
+		return $array;
 	}
 }

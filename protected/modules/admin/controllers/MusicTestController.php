@@ -68,6 +68,7 @@ class MusicTestController extends Controller
 
 		if(isset($_POST['MusicTest']))
 		{
+			var_dump($_POST['MusicTest']);
 			$model->attributes=$_POST['MusicTest'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_test));

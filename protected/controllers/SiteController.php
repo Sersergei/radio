@@ -38,7 +38,7 @@ class SiteController extends Controller
 		if($user->id_category==1){
 			$this->redirect('/admin');
 		}
-		else{
+		elseif($user->id_category==2){
 			$this->redirect('/radio');
 		}
 
