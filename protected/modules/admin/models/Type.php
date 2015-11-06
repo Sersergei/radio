@@ -1,27 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "music_test".
+ * This is the model class for table "type".
  *
- * The followings are the available columns in table 'music_test':
- * @property integer $id_test
- * @property integer $id_radiostation
+ * The followings are the available columns in table 'type':
  * @property integer $id_type
- * @property string $date_add
- * @property string $date_started
- * @property integer $id_control
- * @property integer $max_listeners
- * @property integer $test_number
- * @property string $date_finished
+ * @property string $type_name
  */
-class MusicTest extends CActiveRecord
+class Type extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'music_test';
+		return 'type';
 	}
 
 	/**
@@ -32,11 +25,12 @@ class MusicTest extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_test, id_radiostation, id_type, date_add, date_started, id_control, test_number, date_finished', 'required'),
-			array('id_test, id_radiostation, id_type, id_control, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
+			array('id_type', 'required'),
+			array('id_type', 'numerical', 'integerOnly'=>true),
+			array('type_name', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test, id_radiostation, id_type, date_add, date_started, id_control, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
+			array('id_type, type_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,15 +51,8 @@ class MusicTest extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_test' => Yii::t('radio', 'Id Test'),
-			'id_radiostation' =>Yii::t('radio', 'Id Radiostation'),
-			'id_type' =>Yii::t('radio', 'Id Type'),
-			'date_add' =>Yii::t('radio', 'Date Add'),
-			'date_started' =>Yii::t('radio', 'Date Started'),
-			'id_control' =>Yii::t('radio', 'Id Control'),
-			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
-			'test_number' =>Yii::t('radio', 'Test Number'),
-			'date_finished' =>Yii::t('radio', 'Date Finished'),
+			'id_type' => 'Id Type',
+			'type_name' => 'Type Name',
 		);
 	}
 
@@ -87,15 +74,8 @@ class MusicTest extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_test',$this->id_test);
-		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('id_type',$this->id_type);
-		$criteria->compare('date_add',$this->date_add,true);
-		$criteria->compare('date_started',$this->date_started,true);
-		$criteria->compare('id_control',$this->id_control);
-		$criteria->compare('max_listeners',$this->max_listeners);
-		$criteria->compare('test_number',$this->test_number);
-		$criteria->compare('date_finished',$this->date_finished,true);
+		$criteria->compare('type_name',$this->type_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -106,7 +86,7 @@ class MusicTest extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return MusicTest the static model class
+	 * @return Type the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
