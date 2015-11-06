@@ -52,7 +52,7 @@ return array(
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
-		),
+		
 				),
 				// uncomment the following to show log messages on web pages
 				/*

@@ -20,58 +20,54 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_test'); ?>
-		<?php echo $form->textField($model,'id_test'); ?>
-		<?php echo $form->error($model,'id_test'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_radiostation'); ?>
-		<?php echo $form->textField($model,'id_radiostation'); ?>
-		<?php echo $form->error($model,'id_radiostation'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'id_type'); ?>
-		<?php echo $form->textField($model,'id_type'); ?>
+		<?php echo $form->DropDownList($model,'id_type',Type::all()); ?>
 		<?php echo $form->error($model,'id_type'); ?>
 	</div>
-
 	<div class="row">
-		<?php echo $form->labelEx($model,'date_add'); ?>
-		<?php echo $form->textField($model,'date_add'); ?>
-		<?php echo $form->error($model,'date_add'); ?>
-	</div>
+		<label for="MusicTest_date_started"><?php echo Yii::t('radio', 'Date Started'); ?></label>
+		<?php
 
+		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+			'name'=>'MusicTest[date_started]',
+			'model'=>$model,
+			'attribute'=>'date_started',
+			// additional javascript options for the date picker plugin
+			'options'=>array(
+				'dateFormat'=>'yy-mm-dd',
+				'showAnim'=>'fold',
+			),
+			'language'=>Yii::app()->language,
+			'htmlOptions'=>array(
+				'style'=>'height:20px;'
+			),
+		)); ?>
+	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'date_started'); ?>
-		<?php echo $form->textField($model,'date_started'); ?>
-		<?php echo $form->error($model,'date_started'); ?>
-	</div>
+		<label for="MusicTest_date_finished"><?php echo Yii::t('radio', 'Date Finished'); ?></label>
+		<?php
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_control'); ?>
-		<?php echo $form->textField($model,'id_control'); ?>
-		<?php echo $form->error($model,'id_control'); ?>
+		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+		'name'=>'MusicTest[date_finished]',
+			'model'=>$model,
+			'attribute'=>'date_finished',
+		// additional javascript options for the date picker plugin
+		'options'=>array(
+			'dateFormat'=>'yy-mm-dd',
+			'showAnim'=>'fold',
+		),
+			'language'=>Yii::app()->language,
+			'htmlOptions'=>array(
+			'style'=>'height:20px;'
+		),
+		)); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'max_listeners'); ?>
-		<?php echo $form->textField($model,'max_listeners'); ?>
+		<?php echo $form->DropDownList($model,'max_listeners',array('unlimited',100,120,150,200,250,300,350,400,450,500,600,700,800,900,1000)); ?>
 		<?php echo $form->error($model,'max_listeners'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'test_number'); ?>
-		<?php echo $form->textField($model,'test_number'); ?>
-		<?php echo $form->error($model,'test_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'date_finished'); ?>
-		<?php echo $form->textField($model,'date_finished'); ?>
-		<?php echo $form->error($model,'date_finished'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
