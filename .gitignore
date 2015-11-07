@@ -3,3 +3,5 @@
 /protected/runtime/*
 /protected/runtime/application.log
 /productimages/*
+/upload/*
+/musictest/*

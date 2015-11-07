@@ -65,7 +65,7 @@ class MusicTestController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+        //var_dump($_POST);
 		if(isset($_POST['MusicTest']))
 		{
 			$model->attributes=$_POST['MusicTest'];
@@ -173,8 +173,12 @@ class MusicTestController extends Controller
 	{
 
 		Yii::import("ext.EAjaxUpload.qqFileUploader");
+		$dir='./upload/'.Yii::app()->user->id.'/';
+if(!file_exists ($dir) )
+	mkdir($dir, 777, true);
 
-		$folder=Yii::getPathOfAlias('webroot').'/upload/';// folder for uploaded files
+
+		$folder=Yii::getPathOfAlias('webroot').$dir;// folder for uploaded files
 		$allowedExtensions = array("mp3");//array("jpg","jpeg","gif","exe","mov" and etc...
 		$sizeLimit = 100 * 1024 * 1024;// maximum file size in bytes
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);

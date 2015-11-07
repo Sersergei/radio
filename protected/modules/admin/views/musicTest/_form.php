@@ -78,7 +78,9 @@
 				'minSizeLimit'=>1*1024,
 				'auto'=>true,
 				'multiple' => true,
-				'onComplete'=>"js:function(id, fileName, responseJSON){  }",
+				'onComplete'=>"js:function(id, fileName, responseJSON){
+
+				  }",
 				'messages'=>array(
 					'typeError'=>"{file} has invalid extension. Only {extensions} are allowed.",
 					'sizeError'=>"{file} is too large, maximum file size is {sizeLimit}.",
