@@ -14,7 +14,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_type')); ?>:</b>
-	<?php echo CHtml::encode($data->id_type); ?>
+	<?php echo CHtml::encode($data->type->type_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('date_add')); ?>:</b>
@@ -25,8 +25,8 @@
 	<?php echo CHtml::encode($data->date_started); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_control')); ?>:</b>
-	<?php echo CHtml::encode($data->id_control); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_status')); ?>:</b>
+	<?php echo CHtml::encode($data->id_status); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('max_listeners')); ?>:</b>

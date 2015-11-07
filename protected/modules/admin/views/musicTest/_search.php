@@ -23,7 +23,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'id_type'); ?>
-		<?php echo $form->textField($model,'id_type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
 	</div>
 
 	<div class="row">
@@ -37,8 +37,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_control'); ?>
-		<?php echo $form->textField($model,'id_control'); ?>
+		<?php echo $form->label($model,'id_status'); ?>
+		<?php echo $form->textField($model,'id_status'); ?>
 	</div>
 
 	<div class="row">

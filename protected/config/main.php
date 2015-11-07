@@ -20,6 +20,7 @@ return array(
        // 'application.modules.user.models.*',
       //  'application.modules.user.components.*',
         'application.modules.admin.models.*',
+		'application.extensions.EAjaxUpload.*',
 	),
 
 	'modules'=>array(

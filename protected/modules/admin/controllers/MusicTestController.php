@@ -31,7 +31,7 @@ class MusicTestController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','upload'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -68,7 +68,6 @@ class MusicTestController extends Controller
 
 		if(isset($_POST['MusicTest']))
 		{
-			var_dump($_POST['MusicTest']);
 			$model->attributes=$_POST['MusicTest'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_test));
@@ -169,5 +168,23 @@ class MusicTestController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	public function actionUpload()
+	{
+
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+		$folder=Yii::getPathOfAlias('webroot').'/upload/';// folder for uploaded files
+		$allowedExtensions = array("mp3");//array("jpg","jpeg","gif","exe","mov" and etc...
+		$sizeLimit = 100 * 1024 * 1024;// maximum file size in bytes
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+		$result = $uploader->handleUpload($folder);
+		$return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+		$fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
+		$fileName=$result['filename'];//GETTING FILE NAME
+		//$img = CUploadedFile::getInstance($model,'image');
+
+		echo $return;// it's array
 	}
 }

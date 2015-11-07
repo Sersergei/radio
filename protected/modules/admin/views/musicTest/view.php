@@ -26,7 +26,7 @@ $this->menu=array(
 		'id_type',
 		'date_add',
 		'date_started',
-		'id_control',
+		'id_status',
 		'max_listeners',
 		'test_number',
 		'date_finished',

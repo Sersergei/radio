@@ -33,10 +33,10 @@ class MusicTest extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_type','required'),
-			array('id_test, id_radiostation, id_type, id_control, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
+			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test, id_radiostation, id_type, date_add, date_started, id_control, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
+			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,7 +48,8 @@ class MusicTest extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		);
+			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
+			);
 	}
 
 	/**
@@ -62,7 +63,7 @@ class MusicTest extends CActiveRecord
 			'id_type' =>Yii::t('radio', 'Id Type'),
 			'date_add' =>Yii::t('radio', 'Date Add'),
 			'date_started' =>Yii::t('radio', 'Date Started'),
-			'id_control' =>Yii::t('radio', 'Id Control'),
+			'id_status' =>Yii::t('radio', 'Id Status'),
 			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
 			'test_number' =>Yii::t('radio', 'Test Number'),
 			'date_finished' =>Yii::t('radio', 'Date Finished'),
@@ -86,13 +87,13 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->with=array('type'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('id_radiostation',$this->id_radiostation);
-		$criteria->compare('id_type',$this->id_type);
+		$criteria->compare('type.id_type',$this->id_type);
 		$criteria->compare('date_add',$this->date_add,true);
 		$criteria->compare('date_started',$this->date_started,true);
-		$criteria->compare('id_control',$this->id_control);
+		$criteria->compare('id_status',$this->id_status);
 		$criteria->compare('max_listeners',$this->max_listeners);
 		$criteria->compare('test_number',$this->test_number);
 		$criteria->compare('date_finished',$this->date_finished,true);
@@ -116,11 +117,10 @@ class MusicTest extends CActiveRecord
 	{
 		if ($this->isNewRecord)
 		{
-			//var_dump($this->date_started);
-			if(!$this->date_started or $this->date_started > date(" Y-m-d")){
-				var_dump('fgfghfgh');
-			}
-				$this->date_add= date(" Y-m-d");
+			$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+			$this->id_radiostation=$user->id_radiostation;
+			$this->id_status=1;
+			$this->date_add= date(" Y-m-d");
 			}
 		parent::beforeSave();
 		return true;
