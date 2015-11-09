@@ -72,7 +72,7 @@
 		array(
 			'id'=>'uploadFile',
 			'config'=>array(
-				'action'=>Yii::app()->createUrl('/admin/musictest/upload'),
+				'action'=>Yii::app()->createUrl('/admin/musicTest/upload'),
 				'allowedExtensions'=>array("mp3"),//array("jpg","jpeg","gif","exe","mov" and etc...
 				'sizeLimit'=>1000*1024*1024,// maximum file size in bytes
 				'minSizeLimit'=>1*1024,

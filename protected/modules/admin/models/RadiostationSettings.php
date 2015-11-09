@@ -45,14 +45,22 @@ class RadiostationSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user', 'required'),
+			array('id_lang', 'required'),
 			array('id_lang, id_user, not_use_music_marker, not_register_users, not_invite_users, mix_marker_1, mix_marker_2, mix_marker_3, mix_marker_4, id_radiostation, id_card_registration', 'numerical', 'integerOnly'=>true),
 			array('other_radiostations', 'length', 'max'=>1000),
+			array('mixmarker','max_array'),
 			array('test_song, mix_marker', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_radio_settings, id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, mix_marker_1, mix_marker_2, mix_marker_3, mix_marker_4, mix_marker, id_radiostation, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
 		);
+	}
+	public function max_array($attribute){
+
+		if (count($this->mixmarker)>2)
+			$this->addError($attribute,'выберите не больше 4-х миксмаркеров');
+
+
 	}
 
 	/**
