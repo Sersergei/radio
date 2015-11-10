@@ -173,20 +173,20 @@ class MusicTestController extends Controller
 	{
 
 		Yii::import("ext.EAjaxUpload.qqFileUploader");
-		$dir='./upload/'.Yii::app()->user->id.'/';
+		$dir=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
 if(!file_exists ($dir) )
-	mkdir($dir, 777, true);
+	mkdir($dir);
 
 
-		$folder=Yii::getPathOfAlias('webroot').$dir;// folder for uploaded files
+		$folder=$dir;// folder for uploaded files
 		$allowedExtensions = array("mp3");//array("jpg","jpeg","gif","exe","mov" and etc...
 		$sizeLimit = 100 * 1024 * 1024;// maximum file size in bytes
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
 		$result = $uploader->handleUpload($folder);
 		$return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 
-		$fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
-		$fileName=$result['filename'];//GETTING FILE NAME
+		//$fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
+		//$fileName=$result['filename'];//GETTING FILE NAME
 		//$img = CUploadedFile::getInstance($model,'image');
 
 		echo $return;// it's array

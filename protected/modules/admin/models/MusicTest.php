@@ -48,8 +48,8 @@ class MusicTest extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'type_id' => array(self::BELONGS_TO, 'Type', 'id_type'),
-			);
+			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
+		);
 	}
 
 	/**
@@ -87,7 +87,7 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		//$criteria->with=array('type_id'); // Р¶Р°РґРЅР°СЏ Р·Р°РіСЂСѓР·РєР°
+		$criteria->with=array('type'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('type.id_type',$this->id_type);
@@ -121,24 +121,26 @@ class MusicTest extends CActiveRecord
 			$this->id_radiostation=$user->id_radiostation;
 			$this->id_status=1;
 			$this->date_add= date(" Y-m-d");
-			}
+		}
 		parent::beforeSave();
 		return true;
 	}
 	protected function afterSave(){
 		if ($this->isNewRecord){
-			$old='./upload/'.Yii::app()->user->id.'/';
-			$new='./musictest/'.$this->id_test.'/';
+			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
+			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test.'/';
+			if(file_exists ($old) ){
 			rename($old,$new);
 			$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);
-			foreach($files as $file){
-				$songs=new Songs();
-				$songs->id_test=$this->id_test;
-				$info=$this->mp3info($file);
-				$songs->name=$info['NAME'];
-				$songs->singer=$info['ARTISTS'];
-				$songs->song_file=$file;
+			foreach($files as $file) {
+				$songs = new Songs();
+				$songs->id_test = $this->id_test;
+				$info = $this->mp3info($file);
+				$songs->name = $info['NAME'];
+				$songs->singer = $info['ARTISTS'];
+				$songs->song_file = $file;
 				$songs->save();
+			}
 			}
 		}
 	}

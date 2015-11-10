@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_lang'); ?>
-		<?php echo $form->DropDownList($model,array(1=>'ghfhfgh',2=>'ghfdhfh')); ?>
+		<?php echo $form->DropDownList($model,'id_lang',Lang::all()); ?>
 		<?php echo $form->error($model,'id_lang'); ?>
 		язык, на котором будет осуществляться общение со слушателями во время тестирования песен
 

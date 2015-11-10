@@ -15,7 +15,6 @@
         'enableAjaxValidation'=>false,
     )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -24,15 +23,10 @@
         <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all()); ?>
         <?php echo $form->error($model,'id_lang'); ?>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($model,''); ?>
-        <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all()); ?>
-        <?php echo $form->error($model,'mixmarker'); ?>
-    </div>
 
     <?php echo $form->textField($model,'lable',array('class'=>'hide','value'=>2)); ?>
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Next' : 'Save'); ?>
+        <?php echo CHtml::submitButton( 'Next'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

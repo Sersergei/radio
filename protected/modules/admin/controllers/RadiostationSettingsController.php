@@ -34,7 +34,7 @@ class RadiostationSettingsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','Bedmixmarker','Loadmixmarker'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -65,17 +65,17 @@ class RadiostationSettingsController extends Controller
 	public function actionCreate()
 	{
 		$model=new RadiostationSetingsRegister;
-
+//var_dump($_POST);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RadiostationSettings']))
+		if(isset($_POST['RadiostationSetingsRegister']))
 		{
 			//var_dump($_POST['RadiostationSettings']);
-			$model->attributes=$_POST['RadiostationSettings'];
+			$model->attributes=$_POST['RadiostationSetingsRegister'];
 
 				if ($model->validate()){
-
+					$this->register=$model;
 					$this->redirect(array('bedmixmarker'));
 				}
 		}
@@ -84,7 +84,53 @@ class RadiostationSettingsController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionBedmixmarker()
+{
 
+	$model=new RadiostationSetingsBedmixmarker;
+
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
+
+	if(isset($_POST['RadiostationSetingsBedmixmarker']))
+	{
+		//var_dump($_POST['RadiostationSettings']);
+		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+
+		if ($model->validate()){
+			$this->bed_mixmarker=$model;
+			if(count($model->mixmarker)<4){
+				$i=4-count($model->mixmarker);
+				$this->redirect(array('loadmixmarker','id'=>$i));
+			}
+			$this->redirect(array('godmixmarker'));
+		}
+	}
+
+	$this->render('bedmixmarker',array(
+		'model'=>$model,
+	));
+}
+	public function actionLoadmixmarker()
+	{
+
+		$model=new RadiostationSetingsBedmixmarker;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RadiostationSetingsBedmixmarker']))
+		{
+			//var_dump($_POST['RadiostationSettings']);
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$model->image=CUploadedFile::getInstance($model,'file');
+
+		}
+
+		$this->render('loadmixmarker',array(
+			'model'=>$model,
+		));
+	}
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -108,6 +154,7 @@ class RadiostationSettingsController extends Controller
 			'model'=>$model,
 		));
 	}
+
 
 	/**
 	 * Deletes a particular model.

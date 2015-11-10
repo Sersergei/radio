@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Ñåðãåé
+ * User: Ð¡ÐµÑ€Ð³ÐµÐ¹
  * Date: 10.11.2015
  * Time: 11:31
  */
@@ -33,9 +33,9 @@ class RadiostationSetingsRegister extends CFormModel
         return array(
             'id_lang' => Yii::t('radio', 'Languge'),
             'test_song' => Yii::t('radio', 'Test Song'),
-            'not_use_music_marker' => Yii::t('radio', ' ìóçûêàëüíûé ìàðêåð äëÿ ðåãèñòðàöèè ñëóøàòåëåé ìîåé ðàäèîñòàíöèè íå íóæåí'),
-            'not_register_users' => Yii::t('radio', 'íå ðåãèñòðèðîâàòü ñëóøàòåëåé ñ íåñîîòâåòñòâóþùèì ìóçûêàëüíûì ìàðêåðîì'),
-            'not_invite_users' => Yii::t('radio', ' íå ïðèãëàøàòü ïîëüçîâàòåëåé, êîòîðûå íå ïðîøëè ñîîòâåòñòâèå ìóçûêàëüíûì ìàðêåðîì'),
+            'not_use_music_marker' => Yii::t('radio', ' Ð¼ÑƒÐ·Ñ‹ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¼Ð°Ñ€ÐºÐµÑ€ Ð´Ð»Ñ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ ÑÐ»ÑƒÑˆÐ°Ñ‚ÐµÐ»ÐµÐ¹ Ð¼Ð¾ÐµÐ¹ Ñ€Ð°Ð´Ð¸Ð¾ÑÑ‚Ð°Ð½Ñ†Ð¸Ð¸ Ð½Ðµ Ð½ÑƒÐ¶ÐµÐ½'),
+            'not_register_users' => Yii::t('radio', 'Ð½Ðµ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÑÐ»ÑƒÑˆÐ°Ñ‚ÐµÐ»ÐµÐ¹ Ñ Ð½ÐµÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ð¼ Ð¼ÑƒÐ·Ñ‹ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¼ Ð¼Ð°Ñ€ÐºÐµÑ€Ð¾Ð¼'),
+            'not_invite_users' => Yii::t('radio', ' Ð½Ðµ Ð¿Ñ€Ð¸Ð³Ð»Ð°ÑˆÐ°Ñ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð½Ðµ Ð¿Ñ€Ð¾ÑˆÐ»Ð¸ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ðµ Ð¼ÑƒÐ·Ñ‹ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¼ Ð¼Ð°Ñ€ÐºÐµÑ€Ð¾Ð¼'),
             'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
             'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
             'id_card_registration' => Yii::t('radio', 'Id Card Registration') ,
