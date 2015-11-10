@@ -114,7 +114,7 @@ class RadiostationSettingsController extends Controller
 	public function actionLoadmixmarker()
 	{
 
-		$model=new RadiostationSetingsBedmixmarker;
+		$model=new loadmix();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -124,6 +124,10 @@ class RadiostationSettingsController extends Controller
 			//var_dump($_POST['RadiostationSettings']);
 			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 			$model->image=CUploadedFile::getInstance($model,'file');
+			if($model->save()){
+				$path=Yii::getPathOfAlias('webroot.mixmarker').'/'.$model->file->getName();
+				$model->image->saveAs($path);
+			}
 
 		}
 

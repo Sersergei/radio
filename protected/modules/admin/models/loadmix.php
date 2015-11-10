@@ -6,7 +6,7 @@
  * Date: 10.11.2015
  * Time: 23:30
  */
-class loadmix extends CActiveRecord
+class loadmix extends CFormModel
 {
 public $file;
     public function role(){
