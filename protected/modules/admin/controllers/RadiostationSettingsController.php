@@ -2,6 +2,9 @@
 
 class RadiostationSettingsController extends Controller
 {
+	public $register;
+	public $bed_mixmarker;
+	public $good_mixmarker;
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -61,7 +64,7 @@ class RadiostationSettingsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new RadiostationSettings;
+		$model=new RadiostationSetingsRegister;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -71,15 +74,10 @@ class RadiostationSettingsController extends Controller
 			//var_dump($_POST['RadiostationSettings']);
 			$model->attributes=$_POST['RadiostationSettings'];
 
-				if ($model->save())
-					$this->redirect(array('view', 'id' => $model->id_radio_settings));
+				if ($model->validate()){
 
-			//$this->render('create',array('model'=>$model));
-			/*switch ($model->lable){
-				case 1:
-					$this->render('')
-			}*/
-
+					$this->redirect(array('bedmixmarker'));
+				}
 		}
 
 		$this->render('create',array(

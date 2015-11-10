@@ -30,7 +30,6 @@ class RadiostationSettings extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
-	public $lable;
 	public $mixmarker;
 	public function tableName()
 	{
@@ -90,8 +89,8 @@ class RadiostationSettings extends CActiveRecord
 			'not_use_music_marker' => Yii::t('radio', ' музыкальный маркер для регистрации слушателей моей радиостанции не нужен'),
 			'not_register_users' => Yii::t('radio', 'не регистрировать слушателей с несоответствующим музыкальным маркером'),
 			'not_invite_users' => Yii::t('radio', ' не приглашать пользователей, которые не прошли соответствие музыкальным маркером'),
-			'mix_marker_1' => Yii::t('radio', 'Mix Marker 1'),
-			'mix_marker_2' => Yii::t('radio', 'Mix Marker 2'),
+			'mix_marker_1' => Yii::t('radio', 'Mix Marker Bed'),
+			'mix_marker_2' => Yii::t('radio', 'Mix Marker Good'),
 			'mix_marker_3' => Yii::t('radio', 'Mix Marker 3') ,
 			'mix_marker_4' => Yii::t('radio', 'Mix Marker 4') ,
 			'mix_marker' => Yii::t('radio', 'Mix Marker') ,

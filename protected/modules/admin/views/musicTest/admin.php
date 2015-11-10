@@ -47,11 +47,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id_test',
 		'id_radiostation',
-		array(
-			'name'=>'id_type',
-			'value'=>'$data->type->type_name',
-			'sortable'=>true,
-		),
+		'id_type',
 		'date_add',
 		'date_started',
 		'id_status',

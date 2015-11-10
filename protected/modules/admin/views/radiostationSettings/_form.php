@@ -21,19 +21,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_lang'); ?>
-		<?php echo $form->textField($model,'id_lang'); ?>
+		<?php echo $form->DropDownList($model,array(1=>'ghfhfgh',2=>'ghfdhfh')); ?>
 		<?php echo $form->error($model,'id_lang'); ?>
 		язык, на котором будет осуществляться общение со слушателями во время тестирования песен
 
-	</div>
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'test_song'); ?>
-		<?php echo $form->textField($model,'test_song'); ?>
-		<?php echo $form->error($model,'test_song'); ?>
-		</br>
-		загрузить песню для проверки звука (не загружайте одну из песен, которую вы собираетесь тестировать, так как двойное прослушивание повлияет на её результаты)
 	</div>
 
 	<div class="row">
@@ -65,13 +56,9 @@
 		<?php echo $form->error($model,'other_radiostations'); ?>
 
 	</div>
-	<div class="row">
-		<?php echo $form->labelEx($model,''); ?>
-		<?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all()); ?>
-		<?php echo $form->error($model,'mixmarker'); ?>
-	</div>
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Next' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Next'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
