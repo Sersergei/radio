@@ -34,7 +34,7 @@ class RadiostationSettingsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','Bedmixmarker','Loadmixmarker'),
+				'actions'=>array('create','update','Bedmixmarker','Loadmixmarker','Godmixmarker'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,10 +71,13 @@ class RadiostationSettingsController extends Controller
 
 		if(isset($_POST['RadiostationSetingsRegister']))
 		{
-			//var_dump($_POST['RadiostationSettings']);
+
 			$model->attributes=$_POST['RadiostationSetingsRegister'];
 
 				if ($model->validate()){
+					$session=new CHttpSession;
+					$session->open();
+					$session['register']=serialize($model);
 					$this->register=$model;
 					$this->redirect(array('bedmixmarker'));
 				}
@@ -98,7 +101,9 @@ class RadiostationSettingsController extends Controller
 		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 
 		if ($model->validate()){
-			$this->bed_mixmarker=$model;
+			$session=new CHttpSession;
+			$session->open();
+			$session['bed_mixmarker']=serialize($model->mixmarker);
 			if(count($model->mixmarker)<4){
 				$i=4-count($model->mixmarker);
 				$this->redirect(array('loadmixmarker','id'=>$i));
@@ -118,20 +123,45 @@ class RadiostationSettingsController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['RadiostationSetingsBedmixmarker']))
+		//var_dump($_POST);
+		if(isset($_POST['loadmix']))
 		{
-			//var_dump($_POST['RadiostationSettings']);
-			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
-			$model->image=CUploadedFile::getInstance($model,'file');
-			if($model->save()){
-				$path=Yii::getPathOfAlias('webroot.mixmarker').'/'.$model->file->getName();
-				$model->image->saveAs($path);
-			}
 
+			$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+			$result = $uploader->handleUpload($folder);
+			//$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 		}
 
 		$this->render('loadmixmarker',array(
+			'model'=>$model,
+		));
+	}
+	public function actionGodmixmarker()
+	{
+
+		$model=new RadiostationSetingsGodmixmarker;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RadiostationSetingsGodmixmarker']))
+		{
+			//var_dump($_POST['RadiostationSettings']);
+			$model->attributes=$_POST['RadiostationSetingsGudmixmarker'];
+
+			if ($model->validate()){
+				$session=new CHttpSession;
+				$session->open();
+				$session['god_mixmarker']=serialize($model->mixmarker);
+				if(count($model->mixmarker)<2){
+					$i=2-count($model->mixmarker);
+					$this->redirect(array('loadmixmarker','id'=>$i));
+				}
+				$this->redirect(array('godmixmarker'));
+			}
+		}
+
+		$this->render('bedmixmarker',array(
 			'model'=>$model,
 		));
 	}
