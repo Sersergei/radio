@@ -14,26 +14,15 @@ $this->menu=array(
 ?>
 
     <h1></h1>
-
-
 <?php
-if(empty($_GET['id']))
-    $id=1;
-else
-echo CHtml::form('','post',array('enctype'=>'multipart/form-data'));
-$i=0;
-do{
-    ?>
-<br><br>
-<?php
-    echo CHtml::activeFileField($model, 'image');
-    ++$i;
-}while($i<$_GET['id']);
-?>
-<br>
-<div class="row buttons">
-    <?php echo CHtml::submitButton( 'Next'); ?>
-</div>
-<?php
+echo CHtml::beginForm('','post',array('enctype'=>'multipart/form-data'));
+echo CHtml::error($model,'file');
+//$i=0;
+//do{
+    echo Chtml::activeFileField($model,'file[]',['multiple'=>true]);
+   // $i++;
+//}
+//while($i<$_GET['id']);
+echo CHtml::submitButton('Upload');
 echo CHtml::endForm();
 ?>

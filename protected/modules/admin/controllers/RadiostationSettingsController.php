@@ -124,13 +124,28 @@ class RadiostationSettingsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		//var_dump($_POST);
+		$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
 		if(isset($_POST['loadmix']))
 		{
-
-			$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
-			$result = $uploader->handleUpload($folder);
-			//$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$model->attributes=$_POST['loadmix'];
+			$files=CUploadedFile::getInstances($model,'file');
+			if($model->validate()){
+				foreach($files as $file){
+					$mix=new Mixmarker();
+					$name=time().str_replace(" ","",$file->getName());
+					$mix->name=$name;
+					$mix->save();
+					$marker[]=$mix->id;
+					$file->saveAs($dir.'/'.$name);
+				}
+				if($_GET['status']='bed'){
+					$session=new CHttpSession;
+					$session->open();
+					$session['bed_mixmarker']=serialize($model->mixmarker);
+				}
+			}
 		}
+
 
 		$this->render('loadmixmarker',array(
 			'model'=>$model,
