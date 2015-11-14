@@ -106,7 +106,7 @@ class RadiostationSettingsController extends Controller
 			$session['bed_mixmarker']=serialize($model->mixmarker);
 			if(count($model->mixmarker)<4){
 				$i=4-count($model->mixmarker);
-				$this->redirect(array('loadmixmarker','id'=>$i));
+				$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'bed'));
 			}
 			$this->redirect(array('godmixmarker'));
 		}
@@ -119,16 +119,16 @@ class RadiostationSettingsController extends Controller
 	public function actionLoadmixmarker()
 	{
 
-		$model=new loadmix();
+		$model=new loadmix($_GET['id']);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		//var_dump($_POST);
 		$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
 		if(isset($_POST['loadmix']))
 		{
 			$model->attributes=$_POST['loadmix'];
 			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
 			if($model->validate()){
 				foreach($files as $file){
 					$mix=new Mixmarker();
@@ -142,6 +142,7 @@ class RadiostationSettingsController extends Controller
 					$session=new CHttpSession;
 					$session->open();
 					$session['bed_mixmarker']=serialize($model->mixmarker);
+
 				}
 			}
 		}
