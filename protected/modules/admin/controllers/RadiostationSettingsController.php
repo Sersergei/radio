@@ -90,7 +90,7 @@ class RadiostationSettingsController extends Controller
 	public function actionBedmixmarker()
 {
 
-	$model=new RadiostationSetingsBedmixmarker;
+	$model=new RadiostationSetingsBedmixmarker(4);
 
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
@@ -138,12 +138,42 @@ class RadiostationSettingsController extends Controller
 					$marker[]=$mix->id;
 					$file->saveAs($dir.'/'.$name);
 				}
-				if($_GET['status']='bed'){
+				if($_GET['status']=='bed'){
 					$session=new CHttpSession;
 					$session->open();
-					$session['bed_mixmarker']=serialize($model->mixmarker);
-
+					$mix=unserialize($session['bed_mixmarker']);
+					$session['bed_mixmarker']=serialize(array_merge($mix,$marker));
+					$this->redirect(array('godmixmarker')
+					);
 				}
+				if($_GET['status']=='god'){
+					$session=new CHttpSession;
+					$session->open();
+					$mix=unserialize($session['god_mixmarker']);
+					$session['god_mixmarker']=serialize(array_merge($mix,$marker));
+					$this->redirect(array('mixmarker')
+					);
+				}
+				if($_GET['status']=='my'){
+					$session=new CHttpSession;
+					$session->open();
+					$settings=new RadiostationSettings();
+					$register=unserialize($session['register']);
+					$settings->id_card_registration=$register->id_card_registration;
+					$settings->id_lang=$register->id_lang;
+					$settings->mix_marker=$marker[0];
+					$settings->other_radiostations=$register->other_radiostations;
+					$settings->not_use_music_marker=$register->not_use_music_marker;
+					$settings->not_invite_users=$register->not_invite_users;
+					$settings->not_register_users=$register->not_register_users;
+					$settings->bed_mixmarker=$session['bed_mixmarker'];
+					$settings->god_mixmarker=$session['god_mixmarker'];
+					if($settings->save())
+
+					$this->redirect(array('TestSettings/create')
+					);
+				}
+
 			}
 		}
 
@@ -155,15 +185,14 @@ class RadiostationSettingsController extends Controller
 	public function actionGodmixmarker()
 	{
 
-		$model=new RadiostationSetingsGodmixmarker;
+		$model=new RadiostationSetingsBedmixmarker(2);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RadiostationSetingsGodmixmarker']))
+		if(isset($_POST['RadiostationSetingsBedmixmarker']))
 		{
-			//var_dump($_POST['RadiostationSettings']);
-			$model->attributes=$_POST['RadiostationSetingsGudmixmarker'];
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 
 			if ($model->validate()){
 				$session=new CHttpSession;
@@ -171,13 +200,13 @@ class RadiostationSettingsController extends Controller
 				$session['god_mixmarker']=serialize($model->mixmarker);
 				if(count($model->mixmarker)<2){
 					$i=2-count($model->mixmarker);
-					$this->redirect(array('loadmixmarker','id'=>$i));
+					$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'god'));
 				}
-				$this->redirect(array('godmixmarker'));
+				$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
 			}
 		}
 
-		$this->render('bedmixmarker',array(
+		$this->render('godmixmarker',array(
 			'model'=>$model,
 		));
 	}

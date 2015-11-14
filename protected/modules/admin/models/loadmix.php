@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Ñåğãåé
+ * User: Ğ¡ĞµÑ€Ğ³ĞµĞ¹
  * Date: 10.11.2015
  * Time: 23:30
  */
@@ -14,7 +14,6 @@ public $file;
         $this->limit=$limit;
     }
     public function rules(){
-        var_dump($this->limit);
         return array(
         array('file', 'file', 'types'=>'mp3','maxFiles'=>(1* $this->limit)),
         );

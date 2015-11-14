@@ -45,22 +45,15 @@ class RadiostationSettings extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_lang', 'required'),
-			array('id_lang, id_user, not_use_music_marker, not_register_users, not_invite_users, mix_marker_1, mix_marker_2, mix_marker_3, mix_marker_4, id_radiostation, id_card_registration', 'numerical', 'integerOnly'=>true),
+			array('id_lang, id_user, not_use_music_marker, not_register_users, not_invite_users, id_radiostation, id_card_registration', 'numerical', 'integerOnly'=>true),
 			array('other_radiostations', 'length', 'max'=>1000),
-			array('mixmarker','max_array'),
 			array('test_song, mix_marker', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_radio_settings, id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, mix_marker_1, mix_marker_2, mix_marker_3, mix_marker_4, mix_marker, id_radiostation, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
+			array('id_radio_settings, id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, mix_marker, id_radiostation, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
 		);
 	}
-	public function max_array($attribute){
 
-		if (count($this->mixmarker)>2)
-			$this->addError($attribute,'выберите не больше 4-х миксмаркеров');
-
-
-	}
 
 	/**
 	 * @return array relational rules.
@@ -89,10 +82,8 @@ class RadiostationSettings extends CActiveRecord
 			'not_use_music_marker' => Yii::t('radio', ' музыкальный маркер для регистрации слушателей моей радиостанции не нужен'),
 			'not_register_users' => Yii::t('radio', 'не регистрировать слушателей с несоответствующим музыкальным маркером'),
 			'not_invite_users' => Yii::t('radio', ' не приглашать пользователей, которые не прошли соответствие музыкальным маркером'),
-			'mix_marker_1' => Yii::t('radio', 'Mix Marker Bed'),
-			'mix_marker_2' => Yii::t('radio', 'Mix Marker Good'),
-			'mix_marker_3' => Yii::t('radio', 'Mix Marker 3') ,
-			'mix_marker_4' => Yii::t('radio', 'Mix Marker 4') ,
+			'bed_mixmarker' => Yii::t('radio', 'Mix Marker Bed'),
+			'god_mixmarker' => Yii::t('radio', 'Mix Marker Good'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker') ,
 			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
 			'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
@@ -125,10 +116,8 @@ class RadiostationSettings extends CActiveRecord
 		$criteria->compare('not_use_music_marker',$this->not_use_music_marker);
 		$criteria->compare('not_register_users',$this->not_register_users);
 		$criteria->compare('not_invite_users',$this->not_invite_users);
-		$criteria->compare('mix_marker_1',$this->mix_marker_1);
-		$criteria->compare('mix_marker_2',$this->mix_marker_2);
-		$criteria->compare('mix_marker_3',$this->mix_marker_3);
-		$criteria->compare('mix_marker_4',$this->mix_marker_4);
+		$criteria->compare('bed_mixmarker',$this->bed_mixmarker);
+		$criteria->compare('god_mixmarker',$this->god_mixmarker);
 		$criteria->compare('mix_marker',$this->mix_marker,true);
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('other_radiostations',$this->other_radiostations,true);
@@ -148,5 +137,16 @@ class RadiostationSettings extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	protected function beforeSave()
+	{
+		if ($this->isNewRecord)
+		{
+			$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+			$this->id_radiostation=$user->id_radiostation;
+
+		}
+		parent::beforeSave();
+		return true;
 	}
 }

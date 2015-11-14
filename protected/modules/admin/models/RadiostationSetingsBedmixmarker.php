@@ -9,6 +9,10 @@
 class RadiostationSetingsBedmixmarker extends CFormModel
 {
     public $mixmarker;
+    public $limit;
+    public function __construct($limit=0){
+        $this->limit=$limit;
+    }
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
@@ -22,8 +26,8 @@ class RadiostationSetingsBedmixmarker extends CFormModel
     }
     public function max_array($attribute){
 
-        if (count($this->mixmarker)>4)
-            $this->addError($attribute,'выберите не больше 4-х миксмаркеров');
+        if (count($this->mixmarker)>$this->limit)
+            $this->addError($attribute,'выберите не больше'.$this->limit.' миксмаркеров');
 
     }
 
