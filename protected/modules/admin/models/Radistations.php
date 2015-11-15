@@ -36,13 +36,13 @@ class Radistations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('all_tests, status, songs', 'numerical', 'integerOnly'=>true),
+			array('all_tests, status, id_languege', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>20),
 			array('location', 'length', 'max'=>255),
 			array('date_add', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_radiostation, name, location, all_tests, date_add, status, songs', 'safe', 'on'=>'search'),
+			array('id_radiostation, name, location, all_tests, date_add, status, id_languege', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,6 @@ class Radistations extends CActiveRecord
 			'all_tests' => 'All Tests',
 			'date_add' => 'Date Add',
 			'status' => 'Status',
-			'songs' => 'Songs',
 			'id_languege'=>'Lang',
 		);
 	}
