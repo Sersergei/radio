@@ -67,6 +67,8 @@ class RadiostationSettings extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'Radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
 			'mix' => array(self::BELONGS_TO, 'Mixmarker', 'mix_marker'),
+			'testsetings' => array(self::BELONGS_TO, 'TestSettings', 'id_radiostation'),
+			'testsetingsmult' => array(self::HAS_ONE, 'TestSettingsMult', 'id_radiostations'),
 		);
 	}
 
@@ -110,7 +112,7 @@ class RadiostationSettings extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('Radiostation','idLang','mix'); // жадная загрузка
+		$criteria->with=array('Radiostation','idLang','mix','testsetings','testsetingsmult'); // жадная загрузка
 		$criteria->compare('id_radio_settings',$this->id_radio_settings);
 		$criteria->compare('idLang.id_lang',$this->id_lang);
 		$criteria->compare('id_user',$this->id_user);

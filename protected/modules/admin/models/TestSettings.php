@@ -89,12 +89,13 @@ class TestSettings extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('idEducation'); // жадная загрузка
 		$criteria->compare('id_test_settings',$this->id_test_settings);
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('age_from',$this->age_from);
 		$criteria->compare('after_age',$this->after_age);
-		$criteria->compare('id_education',$this->id_education);
+		$criteria->compare('idEducation.id_education',$this->id_education);
 		$criteria->compare('Invitations',$this->Invitations);
 
 		return new CActiveDataProvider($this, array(
@@ -122,5 +123,16 @@ class TestSettings extends CActiveRecord
 		}
 		parent::beforeSave();
 		return true;
+	}
+	public function getsex(){
+		$arr=array(0=>'',1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman'));
+		return $arr[$this->sex];
+	}
+	public function getInvitations(){
+$arr=array(0=>'приглашение всем, кто зарегистрировался, перейдя по ссылке с нашей радиостанции',
+	1=>'приглашение только тем, кто назвал нашу станцию (P1 or P2) и указал микс нашей станции',
+	2=>'приглашение только тем, кто назвал нашу станцию (P1) и указал микс нашей станции',
+	3=>'приглашение только тем, кто указал микс нашей станции');
+		return $arr[$this->Invitations];
 	}
 }

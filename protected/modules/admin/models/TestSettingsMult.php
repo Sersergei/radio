@@ -50,7 +50,8 @@ class TestSettingsMult extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idRadiostations' => array(self::HAS_ONE, 'Radiostations', 'id_radiostations'),
+			//'idRadiostations' => array(self::HAS_ONE, 'Radiostations', 'id_radiostations'),
+			'radiostation' => array(self::HAS_MANY, 'RadiotationSettings', 'id_radiostations'),
 		);
 	}
 
@@ -110,5 +111,16 @@ class TestSettingsMult extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	protected function beforeSave()
+	{
+		if ($this->isNewRecord)
+		{
+			$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+			$this->id_radiostations=$user->id_radiostation;
+
+		}
+		parent::beforeSave();
+		return true;
 	}
 }

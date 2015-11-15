@@ -97,7 +97,7 @@ class Mixmarker extends CActiveRecord
 		$models=self::model()->findAll();
 		$array=array();
 		foreach($models as $miksmarker){
-			$array[$miksmarker->id] ='<audio src=../mixmarker/'. $miksmarker->name . ' controls></audio>';
+			$array[$miksmarker->id] ='<audio src=../../mixmarker/'. $miksmarker->name . ' controls></audio>';
 		}
 		return $array;
 	}
