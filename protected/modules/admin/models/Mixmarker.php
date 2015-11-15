@@ -38,9 +38,11 @@ class Mixmarker extends CActiveRecord
 	 */
 	public function relations()
 	{
+
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'radiostation' => array(self::HAS_MANY, 'RadiotationSettings', 'mix_marker'),
 		);
 	}
 
@@ -95,7 +97,7 @@ class Mixmarker extends CActiveRecord
 		$models=self::model()->findAll();
 		$array=array();
 		foreach($models as $miksmarker){
-			$array[$miksmarker->id] ='<audio src='.Yii::getPathOfAlias('webroot.miksmarker').'/'.$miksmarker->name.'\' controls></audio>';
+			$array[$miksmarker->id] ='<audio src=../mixmarker/'. $miksmarker->name . ' controls></audio>';
 		}
 		return $array;
 	}

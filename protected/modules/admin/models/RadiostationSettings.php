@@ -65,7 +65,8 @@ class RadiostationSettings extends CActiveRecord
 		return array(
 			'idLang' => array(self::BELONGS_TO, 'Lang', 'id_lang'),
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
-			'idRadiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
+			'Radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
+			'mix' => array(self::BELONGS_TO, 'Mixmarker', 'mix_marker'),
 		);
 	}
 
@@ -109,8 +110,9 @@ class RadiostationSettings extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('Radiostation','idLang','mix'); // жадная загрузка
 		$criteria->compare('id_radio_settings',$this->id_radio_settings);
-		$criteria->compare('id_lang',$this->id_lang);
+		$criteria->compare('idLang.id_lang',$this->id_lang);
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('test_song',$this->test_song,true);
 		$criteria->compare('not_use_music_marker',$this->not_use_music_marker);
@@ -118,8 +120,8 @@ class RadiostationSettings extends CActiveRecord
 		$criteria->compare('not_invite_users',$this->not_invite_users);
 		$criteria->compare('bed_mixmarker',$this->bed_mixmarker);
 		$criteria->compare('god_mixmarker',$this->god_mixmarker);
-		$criteria->compare('mix_marker',$this->mix_marker,true);
-		$criteria->compare('id_radiostation',$this->id_radiostation);
+		$criteria->compare('mix.mix_marker',$this->mix_marker,true);
+		$criteria->compare('adiostation.id_radiostation',$this->id_radiostation);
 		$criteria->compare('other_radiostations',$this->other_radiostations,true);
 		$criteria->compare('id_card_registration',$this->id_card_registration);
 
@@ -148,5 +150,44 @@ class RadiostationSettings extends CActiveRecord
 		}
 		parent::beforeSave();
 		return true;
+	}
+	public function getnot_use_music_marker(){
+		$arr=array('No','Yes');
+		return $arr[$this->not_use_music_marker];
+	}
+	public function getnot_register_users(){
+	$arr=array('No','Yes');
+	return $arr[$this->not_register_users];
+	}
+	public function getnot_invite_users(){
+		$arr=array('No','Yes');
+		return $arr[$this->not_invite_users];
+	}
+	public function getid_card_registration(){
+		$arr=array('No','Yes');
+		return $arr[$this->id_card_registration];
+	}
+	public function getmixmarker(){
+		//var_dump('khgk');
+		return '<audio src=../mixmarker/'.$this->mix->name.' controls></audio>';
+		//return $this->mix->name;
+	}
+	public function getbedmixmarker(){
+		$arr=unserialize($this->bed_mixmarker);
+		$content="";
+		foreach($arr as $mix){
+			$mix=Mixmarker::model()->findByPk($mix);
+			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+		}
+		return $content;
+	}
+	public function getgodmixmarker(){
+		$arr=unserialize($this->god_mixmarker);
+		$content="";
+		foreach($arr as $mix){
+			$mix=Mixmarker::model()->findByPk($mix);
+			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+		}
+		return $content;
 	}
 }

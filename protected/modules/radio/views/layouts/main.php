@@ -31,7 +31,7 @@
 			'items'=>array(
 				array('label'=>Yii::t('radio','User'), 'url'=>array('/radio/users')),
 				array('label'=>Yii::t('radio','Test'), 'url'=>array('/radio/MusicTest')),
-				//array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>Yii::t('radio','Test Settings'), 'url'=>array('/radio/radiostationSettings')),
 				array('label'=>Yii::t('radio','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
