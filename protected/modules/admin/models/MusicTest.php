@@ -49,6 +49,7 @@ class MusicTest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
+			'radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' )
 		);
 	}
 
@@ -87,11 +88,11 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('type'); // жадная загрузка
+		$criteria->with=array('type','radiostation'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
-		$criteria->compare('id_radiostation',$this->id_radiostation);
+		$criteria->compare('radiostation.id_radiostation',$this->id_radiostation);
 		$criteria->compare('type.id_type',$this->id_type);
-		$criteria->compare('date_add',$this->date_add,true);
+		$criteria->compare('t.date_add',$this->date_add);
 		$criteria->compare('date_started',$this->date_started,true);
 		$criteria->compare('id_status',$this->id_status);
 		$criteria->compare('max_listeners',$this->max_listeners);
@@ -158,5 +159,13 @@ class MusicTest extends CActiveRecord
 		}
 
 		return $id3tag = unpack($format, $tmp);
+	}
+	public function getStatus(){
+		$arr=array(1=>'ready',2=>'started',3=>'finished');
+		return $arr[$this->id_status];
+	}
+	public function getMaxLisners(){
+		$arr=array('unlim',100,120,150,200,250,300,350,400,450,500,600,700,800,900,1000);
+		return $arr[$this->max_listeners];
 	}
 }

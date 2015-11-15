@@ -59,6 +59,7 @@ class Radistations extends CActiveRecord
 			'users1' => array(self::HAS_MANY, 'Users', 'P1'),
 			'lang' => array(self::HAS_MANY, 'Lang', 'id_lang'),
 			'usersHsts' => array(self::HAS_MANY, 'UsersHst', 'id_radiostation'),
+			'MusicTest' => array(self::HAS_MANY, 'MusicTest', 'id_radiostation'),
 		);
 	}
 

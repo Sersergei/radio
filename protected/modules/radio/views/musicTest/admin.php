@@ -44,11 +44,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'name' => 'id_radiostation',
 			'type' => 'raw',
-			'value' => '$data->id_radiostation',
+			'value' => '$data->radiostation->name',
 			'filter'=>false,
 		),
+		array(
+			'name' => 'id_type',
+			'type' => 'raw',
+			'value' => '$data->type->type_name',
+		),
 
-		'id_type',
+
 		array(
 			'name' => 'date_add',
 			'type' => 'raw',
@@ -97,9 +102,18 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 				),
 			),true),
 		),
+		array(
+			'name' => 'id_status',
+			'type' => 'raw',
+			'value' => '$data->getStatus()',
+		),
+		array(
+			'name' => 'max_listeners',
+			'type' => 'raw',
+			'value' => '$data->getMaxLisners()',
+		),
 
-		'id_status',
-		'max_listeners',
+
 		/*
 		'max_listeners',
 		'test_number',
