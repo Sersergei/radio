@@ -54,7 +54,7 @@ class Radistations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'radiostationSettings' => array(self::HAS_MANY, 'RadiostationSettings', 'id_radiostation'),
+			'radiostationSettings' => array(self::HAS_ONE, 'RadiostationSettings', 'id_radiostation'),
 			'users' => array(self::HAS_MANY, 'Users', 'id_radiostation'),
 			'users1' => array(self::HAS_MANY, 'Users', 'P1'),
 			'lang' => array(self::HAS_MANY, 'Lang', 'id_lang'),
@@ -96,7 +96,7 @@ class Radistations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->with=array('radiostationSettings'); // жадная загрузка
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('location',$this->location,true);
