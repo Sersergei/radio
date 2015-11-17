@@ -45,7 +45,7 @@ class Users extends CActiveRecord
 		return array(
 			array('name_listener,date_birth,sex,id_education,P1,P2,email', 'required','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
-			array('location,password_repeat','required','on'=>'noadmin'),
+			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
 			array('password', 'compare'),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),

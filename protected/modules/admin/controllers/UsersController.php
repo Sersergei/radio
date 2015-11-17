@@ -58,12 +58,14 @@ class UsersController extends Controller
 	{
 		$model=new Users;
 
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		$this->performAjaxValidation($model);
 		if(isset($_POST['Users']))
 		{
 			$model->attributes=$_POST['Users'];
+			$model->scenario = 'admin';
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_user));
 		}
@@ -161,7 +163,7 @@ class UsersController extends Controller
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='users-form')
 		{
-			if( !empty($_POST['Users']['radiostation']) !=='admin'){
+			if( $_POST['Users']['radiostation'] !=='admin'){
 				$model->setScenario ('noadmin');
 			}
 			echo CActiveForm::validate($model);
