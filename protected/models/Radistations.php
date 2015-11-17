@@ -118,4 +118,12 @@ class Radistations extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	public static function all(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $radio){
+			$array[$radio->id_radiostation] = $radio->name;
+		}
+		return $array;
+	}
 }

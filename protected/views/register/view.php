@@ -13,7 +13,19 @@
 )); ?>
 
 <div class="row">
-	<?php echo $form->labelEx($model,'name_listener'); ?>
-	<?php echo $form->radioButtonList($model,'Mixmarker',$arr); ?>
-	<?php echo $form->error($model,'name_listener'); ?>
+	<?php echo $form->labelEx($model,'mixmarker'); ?>
+	<br>
+	<p><input name="mixmarker" type="radio" value="<?php echo $arr[0] ?>"><?php echo $mix[$arr[0]];?></p>
+	<p><input name="mixmarker" type="radio" value="<?php echo $arr[1] ?>"><?php echo $mix[$arr[1]];?></p>
+	<p><input name="mixmarker" type="radio" value="<?php echo $arr[2] ?>"><?php echo $mix[$arr[2]];?></p>
+	<p><input name="mixmarker" type="radio" value="<?php echo $arr[3] ?>"><?php echo $mix[$arr[3]];?></p>
+	<p><input name="mixmarker" type="radio" value="<?php echo $arr[4] ?>"><?php echo $mix[$arr[4]];?></p>
+
+
+	<?php echo $form->error($model,'mixmarker'); ?>
 </div>
+<div class="row buttons">
+	<?php echo CHtml::submitButton('Next'); ?>
+</div>
+
+<?php $this->endWidget(); ?>

@@ -51,6 +51,7 @@ class RegisterController extends Controller
 
     }
     public function actionChoosingMix(){
+
         $session=new CHttpSession;
         $session->open();
         $radio=unserialize($session['radiostation']);
@@ -68,8 +69,25 @@ class RegisterController extends Controller
         $criteria=new CDbCriteria;
         $criteria->addInCondition('id',$arr);
         $model=Mixmarker::model()->findAll($criteria);
-        $arr=$this->mixmsrker($model);
-        $this->render('view',array('model'=>$model,'arr'=>$arr));
+        $mix=$this->mixmsrker($model);
+        $models=new Mix;
+
+        if (isset($_POST['yt0'])) {
+            if (isset($_POST['mixmarker']))
+            $models->mixmarker = $_POST['mixmarker'];
+            if ($models->validate()){
+                if(in_array($models->mixmarker,$bed_mixmarker)){
+                    $session['marker']='-';
+                }
+                elseif($models->mixmarker==$mixmarker){
+                    $session['marker']='+';
+                }
+                else $session['marker']=0;
+                $this->redirect('Viewregister');
+            }
+
+        }
+        $this->render('view',array('model'=>$models,'arr'=>$arr,'mix'=>$mix));
 
 
 
@@ -89,6 +107,7 @@ class RegisterController extends Controller
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
                 $model->scenario = 'user';
+                $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 if ($model->save())
                     $this->redirect(array('/site/mesage', 'id' => $model->id_user));
@@ -103,6 +122,7 @@ class RegisterController extends Controller
         foreach($model as $mix){
             $array[$mix->id] ='<audio src=../../mixmarker/'. $mix->name . ' controls></audio>';
         }
+
         return $array;
     }
 

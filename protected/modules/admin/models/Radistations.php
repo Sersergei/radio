@@ -96,7 +96,7 @@ class Radistations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('radiostationSettings'); // жадная загрузка
+		$criteria->with=array('radiostationSettings'); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('location',$this->location,true);
@@ -120,5 +120,13 @@ class Radistations extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public static function all(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $radio){
+			$array[$radio->id_radiostation] = $radio->name;
+		}
+		return $array;
 	}
 }
