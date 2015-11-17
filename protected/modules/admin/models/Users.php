@@ -43,10 +43,10 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('login, password,radiostation,email', 'required'),
-			array('location','required','on'=>'noadmin'),
+			array('name_listener,date_birth,sex,id_education,P1,P2,email', 'required','on'=>'user'),
+			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
+			array('location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
-			array('password_repeat', 'required'),
 			array('password', 'compare'),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
