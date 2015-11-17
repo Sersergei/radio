@@ -1,41 +1,19 @@
-<?php
-/* @var $this UsersController */
-/* @var $model Users */
 
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->id_user,
-);
-
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Update Users', 'url'=>array('update', 'id'=>$model->id_user)),
-	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_user),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
-?>
-
-<h1>View Users #<?php echo $model->id_user; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id_user',
-		'name_listener',
-		'email',
-		'date_birth',
-		'sex',
-		'id_education',
-		'login',
-		'password',
-		'date_add',
-		'status',
-		'id_category',
-		'id_radiostation',
-		'mix_marker',
-		'P1',
-		'id_card',
-		'mobile_ID',
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'users-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+	'clientOptions'=>array(
+		'validateOnChange'=>true,
+		'validateOnSubmit'=>true
 	),
 )); ?>
+
+<div class="row">
+	<?php echo $form->labelEx($model,'name_listener'); ?>
+	<?php echo $form->radioButtonList($model,'Mixmarker',$arr); ?>
+	<?php echo $form->error($model,'name_listener'); ?>
+</div>

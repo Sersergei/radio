@@ -37,14 +37,40 @@ class RegisterController extends Controller
         if($settings){
             $session=new CHttpSession;
             $session->open();
-            $session['radiostation']=$id;
-           // if($settings->radiostationSettings->not_use_music_marker)
+            $session['radiostation']=serialize($settings);
+
+            if($settings->radiostationSettings->not_use_music_marker)
                 $this->redirect('Viewregister');
+            else $this->redirect('ChoosingMix');
         }
        else{
            $error=Yii::t('radio','404 ERROR');
            $this->render('error', $error);
        }
+
+
+    }
+    public function actionChoosingMix(){
+        $session=new CHttpSession;
+        $session->open();
+        $radio=unserialize($session['radiostation']);
+        $bed_mixmarker=unserialize($radio->radiostationSettings->bed_mixmarker);
+        $god_mixmarker=unserialize($radio->radiostationSettings->god_mixmarker);
+        $mixmarker=$radio->radiostationSettings->mix_marker;
+        $god_mixmarker[]=$mixmarker;
+        shuffle($bed_mixmarker);
+        $i=5-count($god_mixmarker);
+        while (count($bed_mixmarker)>$i){
+            array_pop($bed_mixmarker);
+        }
+        $arr=array_merge($bed_mixmarker,$god_mixmarker);
+        shuffle($arr); //вывели перемешаный масив из миксмаркеров;
+        $criteria=new CDbCriteria;
+        $criteria->addInCondition('id',$arr);
+        $model=Mixmarker::model()->findAll($criteria);
+        $arr=$this->mixmsrker($model);
+        $this->render('view',array('model'=>$model,'arr'=>$arr));
+
 
 
     }
@@ -55,7 +81,8 @@ class RegisterController extends Controller
 
 
             $model = new Users;
-            $model->id_radiostation=$session['radiostation'];
+            $radio=unserialize($session['radiostation']);
+            $model->id_radiostation=$radio->id_radiostation;
             $model->id_category=3;
 
             // Uncomment the following line if AJAX validation is needed
@@ -71,6 +98,12 @@ class RegisterController extends Controller
                 'model' => $model,
             ));
         }
+    }
+    protected function mixmsrker($model){
+        foreach($model as $mix){
+            $array[$mix->id] ='<audio src=../../mixmarker/'. $mix->name . ' controls></audio>';
+        }
+        return $array;
     }
 
     /**
