@@ -67,7 +67,9 @@ class Users extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array();
+		return array(
+			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
+		);
 	}
 
 	/**
@@ -114,6 +116,7 @@ class Users extends CActiveRecord
 
 		$criteria = new CDbCriteria;
 
+		$criteria->with=array('radio');
 		$criteria->compare('id_user', $this->id_user);
 		$criteria->compare('name_listener', $this->name_listener, true);
 		$criteria->compare('email', $this->email, true);
@@ -125,7 +128,7 @@ class Users extends CActiveRecord
 		$criteria->compare('date_add', $this->date_add, true);
 		$criteria->compare('status', $this->status);
 		$criteria->compare('id_category', $this->id_category);
-		$criteria->compare('id_radiostation', $this->id_radiostation);
+		$criteria->compare('radio.id_radiostation', $this->id_radiostation);
 		$criteria->compare('mix_marker', $this->mix_marker, true);
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);

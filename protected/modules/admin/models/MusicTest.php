@@ -49,7 +49,8 @@ class MusicTest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
-			'radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' )
+			'radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
+			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
 		);
 	}
 
@@ -88,7 +89,7 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('type','radiostation'); // жадная загрузка
+		$criteria->with=array('type,radiostation,songs'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('radiostation.id_radiostation',$this->id_radiostation);
 		$criteria->compare('type.id_type',$this->id_type);

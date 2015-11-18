@@ -69,6 +69,7 @@ class RadiostationSettings extends CActiveRecord
 			'mix' => array(self::BELONGS_TO, 'Mixmarker', 'mix_marker'),
 			'testsetings' => array(self::BELONGS_TO, 'TestSettings', 'id_radiostation'),
 			'testsetingsmult' => array(self::HAS_ONE, 'TestSettingsMult', 'id_radiostations'),
+
 		);
 	}
 

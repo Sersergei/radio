@@ -49,6 +49,7 @@ class Songs extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'musicTestDetails' => array(self::HAS_MANY, 'MusicTestDetail', 'id_song'),
+			'musicTest' => array(self::BELONGS_TO, 'MusicTest', 'id_test'),
 		);
 	}
 

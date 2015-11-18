@@ -1,5 +1,5 @@
 <?php
-
+Yii::setPathOfAlias('booster', dirname(__FILE__) . DIRECTORY_SEPARATOR . '../booster');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -21,6 +21,7 @@ return array(
       //  'application.modules.user.components.*',
         'application.modules.admin.models.*',
 		'application.extensions.EAjaxUpload.*',
+
 	),
 
 	'modules'=>array(
@@ -42,7 +43,7 @@ return array(
 	// application components
 	'components'=>array(
 		'bootstrap' => array(
-			'class' => 'booster.components.Bootstrap'
+			'class' => 'booster.components.Booster'
 		),
 
 		/*'user'=>array(
@@ -62,6 +63,7 @@ return array(
 				//'<language:>' => 'site/index',
 				'<action:(contact|login|logout|Run)>' => 'site/<action>',
 				'<controller:\w+>/<id:\d+>' => 'register',
+				//'test/index/<id:\d+>/<category:\w+>' => 'test/<id>/<category>',
 				//'<controller:\w+>/<id:\d+>' => '<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
