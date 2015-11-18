@@ -11,7 +11,7 @@ return array(
     'language'=>'ru',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log,bootstrap'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -41,6 +41,9 @@ return array(
 
 	// application components
 	'components'=>array(
+		'bootstrap' => array(
+			'class' => 'booster.components.Bootstrap'
+		),
 
 		/*'user'=>array(
 			// enable cookie-based authentication
