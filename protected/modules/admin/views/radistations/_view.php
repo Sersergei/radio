@@ -29,9 +29,7 @@
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('songs')); ?>:</b>
-	<?php echo CHtml::encode($data->songs); ?>
-	<br />
+
 
 
 </div>

@@ -89,7 +89,7 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('type,radiostation,songs'); // жадная загрузка
+		$criteria->with=array('type','radiostation','songs'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('radiostation.id_radiostation',$this->id_radiostation);
 		$criteria->compare('type.id_type',$this->id_type);

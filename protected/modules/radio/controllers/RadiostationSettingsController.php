@@ -30,15 +30,15 @@ class RadiostationSettingsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array(),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','Bedmixmarker','Loadmixmarker','Godmixmarker'),
+				'actions'=>array('index','view','create','update','Bedmixmarker','Loadmixmarker','Godmixmarker','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array(,'delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -146,6 +146,9 @@ class RadiostationSettingsController extends Controller
 					$session=new CHttpSession;
 					$session->open();
 					$mix=unserialize($session['bed_mixmarker']);
+
+					if(!$mix)
+						$mix=array();
 					$session['bed_mixmarker']=serialize(array_merge($mix,$marker));
 					$this->redirect(array('godmixmarker')
 					);
@@ -154,6 +157,8 @@ class RadiostationSettingsController extends Controller
 					$session=new CHttpSession;
 					$session->open();
 					$mix=unserialize($session['god_mixmarker']);
+					if(!$mix)
+						$mix=array();
 					$session['god_mixmarker']=serialize(array_merge($mix,$marker));
 					$this->redirect(array('mixmarker')
 					);

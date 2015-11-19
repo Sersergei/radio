@@ -55,11 +55,7 @@
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'songs'); ?>
-		<?php echo $form->textField($model,'songs'); ?>
-		<?php echo $form->error($model,'songs'); ?>
-	</div>
+
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

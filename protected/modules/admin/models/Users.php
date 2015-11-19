@@ -47,7 +47,7 @@ class Users extends CActiveRecord
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
-			array('password', 'compare'),
+			array('password', 'compare','compareAttribute' => 'password_repeat'),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
@@ -56,7 +56,8 @@ class Users extends CActiveRecord
 			array('date_birth, date_add', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_user, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
+			array('password_repeat, radiostation,location','safe'),
+			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
 		);
 	}
 

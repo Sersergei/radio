@@ -97,14 +97,14 @@ class Radistations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('radiostationSettings,settings'); // ������ ��������
+		$criteria->with=array('radiostationSettings','settings'); // ������ ��������
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('location',$this->location,true);
 		$criteria->compare('all_tests',$this->all_tests);
 		$criteria->compare('date_add',$this->date_add,true);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('songs',$this->songs);
+		//$criteria->compare('songs',$this->songs);
 		$criteria->compare('Lang',$this->id_languege);
 
 		return new CActiveDataProvider($this, array(

@@ -27,6 +27,6 @@ $this->menu=array(
 		'all_tests',
 		'date_add',
 		'status',
-		'songs',
+		//'mix',
 	),
 )); ?>
