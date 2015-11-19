@@ -3,13 +3,22 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . Yii::t('radio','Login');
 
 ?>
 
 <h1><?php echo (Yii::t('radio','Login')); ?></h1>
 
-<p>Please fill out the following form with your login credentials:</p>
+
+
+<?php if(Yii::app()->user->hasFlash('error')): ?>
+
+	<div class="success">
+		<?php echo Yii::app()->user->getFlash('error'); ?>
+	</div>
+
+<?php endif; ?>
+
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(

@@ -103,10 +103,21 @@ class SiteController extends Controller
 		if(isset($_POST['LoginForm']))
 		{
 			$model->attributes=$_POST['LoginForm'];
+
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				var_dump('dsfsdf');
-				$this->redirect('/');
+			$identity=new UserIdentity($model->username,$model->password);
+
+			if($identity->authenticate()) {
+				Yii::app()->user->login($identity);
+				$this->redirect(Yii::app()->user->returnUrl);
+
+			}
+
+			else
+				Yii::app()->user->setFlash('error',Yii::t('radio','Неправильное имя пользователя или пароль'));
+
+
+
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));

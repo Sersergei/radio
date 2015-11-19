@@ -47,6 +47,7 @@ class Users extends CActiveRecord
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
+			array('email, login','unique'),
 			array('password', 'compare','compareAttribute' => 'password_repeat'),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
@@ -163,20 +164,20 @@ class Users extends CActiveRecord
 
 	protected function beforeSave()
 	{
-		if ($this->isNewRecord)
-			if($this->radiostation=='admin'){
-				$this->id_category=1;
+		if ($this->isNewRecord) {
+			if ($this->radiostation == 'admin') {
+				$this->id_category = 1;
+			} else {
+				$radio = new Radistations();
+				$radio->name = $this->radiostation;
+				$radio->date_add = date(" Y-m-d");
+				$radio->location = $this->location;
+				$radio->id_languege = $this->lang;
+				$radio->save();
+				$radio->date_add = date(" Y-m-d");
+				$this->id_radiostation = $radio->id_radiostation;
+				$this->id_category = 2;
 			}
-		else {
-			$radio = new Radistations();
-			$radio->name = $this->radiostation;
-			$radio->date_add = date(" Y-m-d");
-			$radio->location=$this->location;
-			$radio->id_languege=$this->lang;
-			$radio->save();
-			$radio->date_add = date(" Y-m-d");
-			$this->id_radiostation = $radio->id_radiostation;
-			$this->id_category=2;
 		}
 		parent::beforeSave();
 return true;
