@@ -50,7 +50,7 @@ class TestSettings extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idRadiostation' => array(self::BELONGS_TO, 'RadiostationSettings', 'id_radiostation'),
+			'idRadiostation' => array(self::HAS_MANY, 'RadiostationSettings', 'id_radiostation'),
 			'idEducation' => array(self::BELONGS_TO, 'EducationMult', 'id_education'),
 		);
 	}

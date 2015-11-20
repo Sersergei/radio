@@ -12,8 +12,19 @@ $this->menu=array(
     array('label'=>'Manage RadiostationSettings', 'url'=>array('admin')),
 );
 ?>
-
     <h1></h1>
+<?php if($_GET['status']=='my')
+    echo  Yii::t('radio','Загрузите свой миксмаркер');
+elseif ($_GET['status']=='bed')
+    echo  Yii::t('radio','Загрузите неподходящий миксмаркер');
+elseif ($_GET['status']=='god')
+    echo  Yii::t('radio','Загрузите подходящий миксмаркер');
+else
+    echo('');
+?>
+
+
+
 <?php
 echo CHtml::beginForm('','post',array('enctype'=>'multipart/form-data'));
 echo CHtml::error($model,'file');

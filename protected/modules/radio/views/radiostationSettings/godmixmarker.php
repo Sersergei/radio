@@ -13,9 +13,9 @@ $this->menu=array(
 );
 ?>
 
-    <h1></h1>
+    <h1><p><?php echo Yii::t('radio','Подходящие миксмаркеры') ?></p></h1>
 
-
+    <p><?php echo Yii::t('radio','Выберите 2-а миксмаркера') ?></p>
 <?php
 
 $this->renderPartial('_form1', array('model' => $model));

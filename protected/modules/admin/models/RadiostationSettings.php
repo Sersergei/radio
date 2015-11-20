@@ -67,7 +67,7 @@ class RadiostationSettings extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'Radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
 			'mix' => array(self::BELONGS_TO, 'Mixmarker', 'mix_marker'),
-			'testsetings' => array(self::BELONGS_TO, 'TestSettings', 'id_radiostation'),
+			'testsetings' => array(self::HAS_ONE, 'TestSettings', 'id_radiostation'),
 			'testsetingsmult' => array(self::HAS_ONE, 'TestSettingsMult', 'id_radiostations'),
 
 		);

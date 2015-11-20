@@ -18,7 +18,8 @@ $this->menu=array(
 
 <h1>View RadiostationSettings #<?php echo $model->id_radio_settings; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(
@@ -67,6 +68,7 @@ $this->menu=array(
 			'type' => 'raw',
 			'value' => $model->getgodmixmarker(),
 		),
+
 		'other_radiostations',
 		array(
 			'name' => 'sex',
