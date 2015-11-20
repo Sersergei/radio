@@ -5,13 +5,11 @@ $this->breadcrumbs=array(
 	$this->module->id,
 );
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
+<h1>Страница управления музыкальными тестами</h1>
+<p>Ссылка на приглашение слушателей пройти регистрацию:</p>
+<?php
+$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+//$model=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+echo Yii::app()->getBaseUrl(true)."/register/".$user->id_radiostation; ?>
 
 <p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>

@@ -160,8 +160,8 @@ class RadiostationSettingsController extends Controller
 					if(!$mix)
 						$mix=array();
 					$session['god_mixmarker']=serialize(array_merge($mix,$marker));
-					$this->redirect(array('mixmarker')
-					);
+					$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
+
 				}
 				if($_GET['status']=='my'){
 					$session=new CHttpSession;

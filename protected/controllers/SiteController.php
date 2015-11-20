@@ -28,6 +28,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
@@ -110,14 +111,10 @@ class SiteController extends Controller
 			if($identity->authenticate()) {
 				Yii::app()->user->login($identity);
 				$this->redirect(Yii::app()->user->returnUrl);
-
 			}
 
 			else
 				Yii::app()->user->setFlash('error',Yii::t('radio','Неправильное имя пользователя или пароль'));
-
-
-
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));

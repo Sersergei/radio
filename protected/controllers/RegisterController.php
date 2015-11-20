@@ -45,7 +45,7 @@ class RegisterController extends Controller
         }
        else{
            $error=Yii::t('radio','404 ERROR');
-           $this->render('error', $error);
+           $this->render('Error', $error);
        }
 
 
