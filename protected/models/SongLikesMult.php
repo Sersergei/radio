@@ -1,25 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "music_test_detail".
+ * This is the model class for table "song_likes_mult".
  *
- * The followings are the available columns in table 'music_test_detail':
- * @property integer $id_test_det
- * @property integer $id_test
- * @property integer $id_user
- * @property string $date_last
- * @property integer $finaly
- * @property integer $id_song
+ * The followings are the available columns in table 'song_likes_mult':
  * @property integer $id_like
+ * @property integer $id_lang
+ * @property string $song_like
+ *
+ * The followings are the available model relations:
+ * @property MusicTestDetail[] $musicTestDetails
+ * @property Lang $idLang
  */
-class MusicTestDetail extends CActiveRecord
+class SongLikesMult extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'music_test_detail';
+		return 'song_likes_mult';
 	}
 
 	/**
@@ -30,11 +30,11 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'required'),
-			array('id_test_det, id_test, id_user, finaly, id_song, id_like', 'numerical', 'integerOnly'=>true),
+			array('id_lang', 'numerical', 'integerOnly'=>true),
+			array('song_like', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'safe', 'on'=>'search'),
+			array('id_like, id_lang, song_like', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +46,8 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'musicTestDetails' => array(self::HAS_MANY, 'MusicTestDetail', 'id_like'),
+			'idLang' => array(self::BELONGS_TO, 'Lang', 'id_lang'),
 		);
 	}
 
@@ -55,13 +57,9 @@ class MusicTestDetail extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_test_det' => 'Id Test Det',
-			'id_test' => 'Id Test',
-			'id_user' => 'Id User',
-			'date_last' => 'Date Last',
-			'finaly' => 'Finaly',
-			'id_song' => 'Id Song',
 			'id_like' => 'Id Like',
+			'id_lang' => 'Id Lang',
+			'song_like' => 'Song Like',
 		);
 	}
 
@@ -83,13 +81,9 @@ class MusicTestDetail extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_test_det',$this->id_test_det);
-		$criteria->compare('id_test',$this->id_test);
-		$criteria->compare('id_user',$this->id_user);
-		$criteria->compare('date_last',$this->date_last,true);
-		$criteria->compare('finaly',$this->finaly);
-		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
+		$criteria->compare('id_lang',$this->id_lang);
+		$criteria->compare('song_like',$this->song_like,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -100,10 +94,18 @@ class MusicTestDetail extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return MusicTestDetail the static model class
+	 * @return SongLikesMult the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public static function all(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $song){
+			$array[$song->id_like] =Yii::t('radio', $song->song_like) ;
+		}
+		return $array;
 	}
 }

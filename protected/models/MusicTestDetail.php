@@ -11,6 +11,12 @@
  * @property integer $finaly
  * @property integer $id_song
  * @property integer $id_like
+ *
+ * The followings are the available model relations:
+ * @property MusicTest $idTest
+ * @property Users $idUser
+ * @property Songs $idSong
+ * @property SongLikesMult $idLike
  */
 class MusicTestDetail extends CActiveRecord
 {
@@ -30,8 +36,8 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'required'),
-			array('id_test_det, id_test, id_user, finaly, id_song, id_like', 'numerical', 'integerOnly'=>true),
+			array('id_user, date_last, id_song, id_like', 'required'),
+			array('id_test, id_user, id_song, id_like', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'safe', 'on'=>'search'),
@@ -46,6 +52,10 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idTest' => array(self::BELONGS_TO, 'MusicTest', 'id_test'),
+			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'idSong' => array(self::BELONGS_TO, 'Songs', 'id_song'),
+			'idLike' => array(self::BELONGS_TO, 'SongLikesMult', 'id_like'),
 		);
 	}
 

@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Сергей
+ * User: РЎРµСЂРіРµР№
  * Date: 20.11.2015
  * Time: 14:08
  */
@@ -14,22 +14,43 @@ class UsersInvitation
         $this->Email();
     }
     private function Email(){
+        var_dump($this->filter());
         if($this->filter()){
-            
+            $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
+            $this->user->link=$linc;
+            if($this->user->save()){
+                $text=$this->user->radio->settings->invitation_text;
+                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc;
+                $text=$text.'<br>Р”Р»СЏ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РїРµСЂРµР№РґРёС‚Рµ РїРѕ  <a href ='.$href.'> СЃСЃС‹Р»РєРµ </a>';
+                $subject=$this->user->radio->settings->invitation_topic;
+                $email=Yii::app()->params['adminEmail'];
+                $headers="From: radio <{$email}>\r\n".
+                    "Reply-To: {$email}\r\n".
+                    "MIME-Version: 1.0\r\n".
+                    "Content-Type: text/plain; charset=UTF-8";
+
+                mail($this->user->email,$subject,$text,$headers);
+            }
+
         }
     }
     private function Filter(){
         $setings=$this->user->radio->MusicTest;
-        $test=falce;
-        foreach($setings as $tests){ //роверка есть ли щас активный тест со типом call-out
+        $test=false;
+        foreach($setings as $tests){ //СЂРѕРІРµСЂРєР° РµСЃС‚СЊ Р»Рё С‰Р°СЃ Р°РєС‚РёРІРЅС‹Р№ С‚РµСЃС‚ СЃРѕ С‚РёРїРѕРј call-out
             if(($tests->id_type==1) and ($tests->id_status==2))
                 $test=true;
         }
+
         if(!$test)
-            return falce; //если нету то отправля ем falce
+            return false; //РµСЃР»Рё РЅРµС‚Сѓ С‚Рѕ РѕС‚РїСЂР°РІР»СЏ РµРј falce
         $testsettings=$this->user->radio->testsettings;
-        if(!($testsettings->sex and $testsettings->sex==$this->user->sex)) //проверяем на пол
-            return false;
+        if(($testsettings->sex )){//РїСЂРѕРІРµСЂСЏРµРј РЅР° РїРѕР»
+            if($testsettings->sex!==$this->user->sex)
+                return false;
+        }
+
+
         if(!$testsettings->age_from)
             $age_from=14;
         else
@@ -40,23 +61,28 @@ class UsersInvitation
             $after_age=65;
         else
             $after_age=$testsettings->after_age;
-        if(!($age_from<=$this->yer() and $this->yer() <=$after_age) ) //проверка на возраст
-            return falce;
-        if(!($testsettings->id_education and $testsettings->id_education==$this->user->id_education)) // проверка на образование
+
+        if(!($age_from< $this->yer() and $this->yer() <$after_age) ) //РїСЂРѕРІРµСЂРєР° РЅР° РІРѕР·СЂР°СЃС‚
             return false;
-        if($testsettings->Invitations==1)
+
+        if($testsettings->id_education){
+            if($testsettings->id_education!==$this->user->id_education)
+                return false;
+        } // РїСЂРѕРІРµСЂРєР° РЅР° РѕР±СЂР°Р·РѕРІР°РЅРёРµ
+
+        if($testsettings->Invitations==0)
             return true;
-        if($testsettings->Invitations==2){
+        if($testsettings->Invitations==1){
             if(($this->user->id_radiostation==$this->user->P1 or $this->user->id_radiostation==$this->user->P2)and $this->user->mix_marker='+')
                 return true;
             else return false;
         }
-        if($testsettings->Invitations==3){
+        if($testsettings->Invitations==2){
             if(($this->user->id_radiostation==$this->user->P1)and $this->user->mix_marker=='+')
                 return true;
             else return false;
         }
-        if($testsettings->Invitations==4){
+        if($testsettings->Invitations==3){
             if($this->user->mix_marker=='+')
                 return true;
             else return false;
