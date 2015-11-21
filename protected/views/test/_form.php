@@ -18,31 +18,22 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_test'); ?>
-		<?php echo $form->textField($model,'id_test',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'id_test'); ?>
-	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_user'); ?>
-		<?php echo $form->textField($model,'id_user',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'id_user'); ?>
+		<?php echo $form->labelEx($model,'never'); ?>
+		<?php echo $form->radioButton($model,'never',array('never'=>'Never')); ?>
+		<?php echo $form->error($model,'never'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_song'); ?>
-		<?php echo $form->textField($model,'id_song',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'id_song'); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_like'); ?>
-		<?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all()); ?>
+	<div class="radio">
+
+		<p><?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array(
+			'labelOptions'=>array('style'=>'display:inline'))) ?></p>
 		<?php echo $form->error($model,'id_like'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Next'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

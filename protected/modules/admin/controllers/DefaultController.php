@@ -23,8 +23,6 @@ class DefaultController extends Controller
 	}
 	public function actionIndex()
 	{
-		$user=Users::model()->findByPk(22);
-		$r=new UsersInvitation($user);
 		$this->render('index');
 	}
 }

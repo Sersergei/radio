@@ -20,6 +20,7 @@
  */
 class MusicTestDetail extends CActiveRecord
 {
+	public $never;
 	/**
 	 * @return string the associated database table name
 	 */

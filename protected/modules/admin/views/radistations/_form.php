@@ -19,11 +19,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_radiostation'); ?>
-		<?php echo $form->textField($model,'id_radiostation'); ?>
-		<?php echo $form->error($model,'id_radiostation'); ?>
-	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
@@ -35,12 +31,6 @@
 		<?php echo $form->labelEx($model,'location'); ?>
 		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'location'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'all_tests'); ?>
-		<?php echo $form->textField($model,'all_tests'); ?>
-		<?php echo $form->error($model,'all_tests'); ?>
 	</div>
 
 	<div class="row">

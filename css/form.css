@@ -162,3 +162,21 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+//*
+.row {
+	clear:both;
+	text-align:right;
+	line-height:25px;
+}
+label {
+	float:left;
+	padding-right:10px;
+
+}
+form {float:left}
+*/
+
+
+div.radio input{
+	display: inline;
+}

@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Radistations', 'url'=>array('index')),
-	array('label'=>'Create Radistations', 'url'=>array('create')),
-);
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -48,7 +45,28 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id_radiostation',
 		'name',
 		'location',
-		'all_tests',
+		array(
+			'name' => 'all_tests',
+			'type' => 'raw',
+			'value' => 'count($data->MusicTest)',
+		),
+		array(
+			'name' => 'active_test',
+			'type' => 'raw',
+			'value' => 'count($data->MusicTest(array("condition"=>"id_status=2")))',
+		),
+		array(
+			'name' => 'finished_test',
+			'type' => 'html',
+			'value' => 'count($data->MusicTest(array("condition"=>"id_status=3")))',
+		),
+		array(
+			'name' => 'users',
+			'type' => 'raw',
+			'value' => '$data->finduser()->login',
+		),
+
+
 		'date_add',
 		'status',
 		/*

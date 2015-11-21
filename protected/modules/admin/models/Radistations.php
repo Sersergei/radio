@@ -20,6 +20,8 @@
  */
 class Radistations extends CActiveRecord
 {
+	public $active_test;
+	public $finished_test;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -129,5 +131,14 @@ class Radistations extends CActiveRecord
 			$array[$radio->id_radiostation] = $radio->name;
 		}
 		return $array;
+	}
+	public  function finduser(){
+		//var_dump('efgevefv');
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'id_radiostation = :id_radiostation AND id_category =:id_category';
+		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_category'=>2);
+		$user=Users::model()->find($criteria);
+
+		return $user;
 	}
 }

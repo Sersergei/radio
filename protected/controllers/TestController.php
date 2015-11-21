@@ -70,7 +70,6 @@ class TestController extends Controller
 		Yii::app()->request->cookies['ansver']=$cookie;
 
 		if($mix=Mixmarker::model()->findbyPk($r))
-
 			$sound='<audio src=../../mixmarker/'. $mix->name . ' controls></audio><br>'.Yii::t('radio', 'Если вы слышите песню можете начинать тестирование');
 		$this->render('index',array('model'=>$sound,'message'=>Yii::t('radio', 'Songs'),'buton'=>'Songs'));
 	}
@@ -97,6 +96,7 @@ class TestController extends Controller
 			$model->id_user=$user->id_user;
 
 			$model->id_song=$testsongs[$sound]->id_song;
+			$song=$testsongs[$sound]->song_file;
 
 			if(isset($_POST['MusicTestDetail']))
 			{
@@ -135,16 +135,13 @@ class TestController extends Controller
 					$cookie = new CHttpCookie('ansver',serialize($ansver));//устанавливаем куки масива ответов песни на 30 мин
 					$cookie->expire = time() + 1800;
 					Yii::app()->request->cookies['ansver']=$cookie;
-
 					$this->redirect(array('/test/Songs'));
-
-
 				}
 
 			}
 
 			$this->render('create',array(
-				'model'=>$model,
+				'model'=>$model,'song'=>$song,
 			));
 		}
 		else{
