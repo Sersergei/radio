@@ -21,6 +21,10 @@ return array(
       //  'application.modules.user.components.*',
         'application.modules.admin.models.*',
 		'application.extensions.EAjaxUpload.*',
+		'ext.eoauth.*',
+		'ext.eoauth.lib.*',
+		'ext.lightopenid.*',
+		'ext.eauth.services.*',
 
 	),
 
@@ -45,6 +49,15 @@ return array(
 		'bootstrap' => array(
 			'class' => 'booster.components.Booster'
 		),
+		'eauth' => array(
+			'class' => 'ext.eauth.EAuth',
+			'popup' => true, // Use the popup window instead of redirecting.
+			'services' => array( // You can change the prov
+				'facebook' => array(
+					'class' => 'FacebookOAuthService',
+					'client_id' => '433471736844421',
+					'client_secret' => 'fc529565e8593e0f6c059cff10b355a9',
+				),)),
 
 		/*'user'=>array(
 			// enable cookie-based authentication

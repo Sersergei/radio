@@ -41,34 +41,35 @@ class TestController extends Controller
 		$testsongs=$test->songs;//список тестируемых песен
 
 		$soundtest=array_rand($testsongs, 1); //выбираем случайную песню
+		if(!Yii::app()->request->cookies['soundtest']) {
+			$cookie = new CHttpCookie('soundtest', $soundtest);//устанавливаем куки тестируемой песни на 30 мин
+			$cookie->expire = time() + 1800;
+			Yii::app()->request->cookies['soundtest'] = $cookie;
 
-		$cookie = new CHttpCookie('soundtest', $soundtest);//устанавливаем куки тестируемой песни на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['soundtest']=$cookie;
+			$cookie = new CHttpCookie('testsongs', serialize($testsongs));//устанавливаем куки масива песен на 30 мин
+			$cookie->expire = time() + 1800;
+			Yii::app()->request->cookies['testsongs'] = $cookie;
 
-		$cookie = new CHttpCookie('testsongs', serialize($testsongs));//устанавливаем куки масива песен на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['testsongs']=$cookie;
+			$dur = 0;
+			$session = new CHttpSession;
+			$session->open();
+			$session['dur'] = $dur;
+			$session['time'] = time();
+			//$cookie = new CHttpCookie('dur', $dur);//устанавливаем куки  защита от дураков на 30 мин
+			//$cookie->expire = time() + 1800;
+			//Yii::app()->request->cookies['dur']=$cookie;
 
-		$dur=0;
-		$session = new CHttpSession;
-		$session->open();
-		$session['dur'] = $dur;
-		//$cookie = new CHttpCookie('dur', $dur);//устанавливаем куки  защита от дураков на 30 мин
-		//$cookie->expire = time() + 1800;
-		//Yii::app()->request->cookies['dur']=$cookie;
+			$last = 0;
+			$session['last'] = $last;
+			//$cookie = new CHttpCookie('last', $last);//устанавливаем куки  последнего ответа на 30 мин
+			//$cookie->expire = time() + 1800;
+			//Yii::app()->request->cookies['last']=$cookie;
 
-		$last=0;
-		$session['last']=$last;
-		//$cookie = new CHttpCookie('last', $last);//устанавливаем куки  последнего ответа на 30 мин
-		//$cookie->expire = time() + 1800;
-		//Yii::app()->request->cookies['last']=$cookie;
-
-		$ansver=array();
-		$cookie = new CHttpCookie('ansver',serialize($ansver));//устанавливаем куки масива ответов на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['ansver']=$cookie;
-
+			$ansver = array();
+			$cookie = new CHttpCookie('ansver', serialize($ansver));//устанавливаем куки масива ответов на 30 мин
+			$cookie->expire = time() + 1800;
+			Yii::app()->request->cookies['ansver'] = $cookie;
+		}
 		if($mix=Mixmarker::model()->findbyPk($r))
 			$sound='<audio src=../../mixmarker/'. $mix->name . ' controls></audio><br>'.Yii::t('radio', 'Если вы слышите песню можете начинать тестирование');
 		$this->render('index',array('model'=>$sound,'message'=>Yii::t('radio', 'Songs'),'buton'=>'Songs'));
@@ -161,7 +162,14 @@ class TestController extends Controller
 			$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
 			$criteria->params = array(':id_radiostation'=>$user->id_radiostation, ':id_status'=>2);
 			$test=MusicTest::model()->find($criteria);
-
+			$usertest=new Usertest();
+			$usertest->id_user=$user->id_user;
+			$usertest->id_music=$test->id_test;
+			$usertest->date=date(" Y-m-d");
+			$session = new CHttpSession;
+			$session->open();
+			$usertest->time=time()-$session['time'];
+			$usertest->save();
 			foreach($ansver as $an){
 				$model=new MusicTestDetail();
 				$model->attributes=$an;

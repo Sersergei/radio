@@ -11,4 +11,6 @@ $this->menu=array(
 
 <h1>Create Users</h1>
 
+
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php Yii::app()->eauth->renderWidget(); ?>

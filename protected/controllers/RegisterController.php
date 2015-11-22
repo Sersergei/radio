@@ -93,8 +93,27 @@ class RegisterController extends Controller
 
     }
     public function actionViewregister(){
+
+        $service = Yii::app()->request->getQuery('service');
+        if (isset($service)) {
+            $authIdentity = Yii::app()->eauth->getIdentity($service);
+            //$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+            $authIdentity->cancelUrl = $this->createAbsoluteUrl('register/Viewregister');
+            //var_dump($authIdentity->isAuthenticated);
+            if ($authIdentity->authenticate()) {
+                $session=new CHttpSession;
+                $session->open();
+                $session['userdate']=$authIdentity->getAttribute('name');
+                $this->redirect(array('register/Viewregister'));
+
+            }
+
+            // Что-то пошло не так, перенаправляем на страницу входа
+            $this->redirect(array('register/Viewregister'));
+        }
         $session=new CHttpSession;
         $session->open();
+        var_dump($session['userdate']);
         if(isset($session['radiostation'])) {
 
 

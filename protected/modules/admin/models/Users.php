@@ -71,6 +71,7 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
+
 		);
 	}
 

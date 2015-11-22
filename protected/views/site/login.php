@@ -6,7 +6,7 @@
 $this->pageTitle=Yii::app()->name . Yii::t('radio','Login');
 
 ?>
-
+<div id="center">
 <h1><?php echo (Yii::t('radio','Login')); ?></h1>
 
 
@@ -18,9 +18,10 @@ $this->pageTitle=Yii::app()->name . Yii::t('radio','Login');
 	</div>
 
 <?php endif; ?>
-
+</div>
 
 <div class="form">
+	<div id="center">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -57,4 +58,5 @@ $this->pageTitle=Yii::app()->name . Yii::t('radio','Login');
 	</div>
 
 <?php $this->endWidget(); ?>
+	</div>
 </div><!-- form -->

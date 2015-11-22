@@ -36,6 +36,7 @@
 
 div.form
 {
+
 }
 
 div.form input,
@@ -162,7 +163,9 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
-//*
+
+
+/*
 .row {
 	clear:both;
 	text-align:right;
@@ -174,9 +177,16 @@ label {
 
 }
 form {float:left}
-*/
+
 
 
 div.radio input{
 	display: inline;
 }
+/*
+#login-form{
+	background-color: lightblue;
+	width:28%;
+	margin: 5 auto;
+	text-align: center;
+} */

@@ -18,7 +18,6 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'never'); ?>
 		<?php echo $form->radioButton($model,'never',array('never'=>'Never')); ?>
@@ -27,8 +26,8 @@
 
 	<div class="radio">
 
-		<p><?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array(
-			'labelOptions'=>array('style'=>'display:inline'))) ?></p>
+		<?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array( 'separator'=>'',
+			'labelOptions'=> array('style' => 'display: inline'))); ?>
 		<?php echo $form->error($model,'id_like'); ?>
 	</div>
 

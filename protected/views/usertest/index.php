@@ -1,21 +1,20 @@
 <?php
-/* @var $this UsersController */
+/* @var $this UsertestController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Users',
+	'Usertests',
 );
 
 $this->menu=array(
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	array('label'=>'Create Usertest', 'url'=>array('create')),
+	array('label'=>'Manage Usertest', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Users</h1>
+<h1>Usertests</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
-ss
