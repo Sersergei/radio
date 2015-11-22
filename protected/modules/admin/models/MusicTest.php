@@ -40,9 +40,12 @@ class MusicTest extends CActiveRecord
 			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
 		);
 	}
-	private function active($attribute){
-
-		if (count($this->mixmarker)>$this->limit)
+	public function active($attribute){
+		$criteria=new CDbCriteria();
+		$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
+		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_status'=>2);
+		$model= self::model()->find($criteria);
+		if ($model)
 			$this->addError('У вас уже есть активный тест закройте ево чтобы актевировать данный');
 	}
 
@@ -55,7 +58,7 @@ class MusicTest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
-			'radiostation' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
+			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
 			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
 		);
 	}
@@ -95,9 +98,9 @@ class MusicTest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('type','radiostation','songs'); // жадная загрузка
+		$criteria->with=array('type','radio'); // жадная загрузка
 		$criteria->compare('id_test',$this->id_test);
-		$criteria->compare('radiostation.id_radiostation',$this->id_radiostation);
+		$criteria->compare('t.id_radiostation',$this->id_radiostation);
 		$criteria->compare('type.id_type',$this->id_type);
 		$criteria->compare('t.date_add',$this->date_add);
 		$criteria->compare('date_started',$this->date_started,true);
@@ -105,6 +108,7 @@ class MusicTest extends CActiveRecord
 		$criteria->compare('max_listeners',$this->max_listeners);
 		$criteria->compare('test_number',$this->test_number);
 		$criteria->compare('date_finished',$this->date_finished,true);
+		$criteria->together = true;
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

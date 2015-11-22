@@ -136,6 +136,8 @@ class MusicTestController extends Controller
 		$model=new MusicTest('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->id_radiostation=$user->id_radiostation;
+		$test=MusicTest::model()->find();
+		var_dump($test);
 		if(isset($_GET['MusicTest']))
 			$model->attributes=$_GET['MusicTest'];
 
