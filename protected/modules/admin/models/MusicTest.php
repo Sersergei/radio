@@ -33,11 +33,17 @@ class MusicTest extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_type','required'),
+			array('id_status','active'),
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
 		);
+	}
+	private function active($attribute){
+
+		if (count($this->mixmarker)>$this->limit)
+			$this->addError('У вас уже есть активный тест закройте ево чтобы актевировать данный');
 	}
 
 	/**
