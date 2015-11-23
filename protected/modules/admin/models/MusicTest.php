@@ -46,7 +46,7 @@ class MusicTest extends CActiveRecord
 		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_status'=>2);
 		$model= self::model()->find($criteria);
 		if ($model)
-			$this->addError('У вас уже есть активный тест закройте ево чтобы актевировать данный');
+			$this->addError($attribute,'У вас уже есть активный тест закройте ево чтобы актевировать данный');
 	}
 
 	/**
@@ -155,6 +155,15 @@ class MusicTest extends CActiveRecord
 			}
 			}
 		}
+		if($this->id_status==2){
+			$criteria=new CDbCriteria();
+			$criteria->condition = 'id_radiostation = :id_radiostation ';
+			$criteria->params = array(':id_radiostation'=>$this->id_radiostation);
+			$model=Users::model()->findAll($criteria);
+			foreach($model as $user){
+				new UsersInvitation($user);
+			}
+		}
 	}
 	protected function mp3info($file){
 		$f = fopen($file, 'rb');
@@ -171,12 +180,14 @@ class MusicTest extends CActiveRecord
 
 		return $id3tag = unpack($format, $tmp);
 	}
-	public function getStatus(){
-		$arr=array(1=>'ready',2=>'started',3=>'finished');
-		return $arr[$this->id_status];
-	}
+
+
 	public function getMaxLisners(){
 		$arr=array('unlim',100,120,150,200,250,300,350,400,450,500,600,700,800,900,1000);
 		return $arr[$this->max_listeners];
+	}
+	public function getStatus(){
+		$arr= array(1=>Yii::t('radio','Ready'),2=>Yii::t('radio','Started'),3=>Yii::t('radio','Finished'));
+		return $arr[$this->id_status];
 	}
 }

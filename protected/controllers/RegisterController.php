@@ -113,7 +113,7 @@ class RegisterController extends Controller
         }
         $session=new CHttpSession;
         $session->open();
-        var_dump($session['userdate']);
+
         if(isset($session['radiostation'])) {
 
 

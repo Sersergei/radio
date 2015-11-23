@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List MusicTest', 'url'=>array('index')),
 	array('label'=>'Create MusicTest', 'url'=>array('create')),
 	array('label'=>'Update MusicTest', 'url'=>array('update', 'id'=>$model->id_test)),
 	array('label'=>'Delete MusicTest', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_test),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage MusicTest', 'url'=>array('admin')),
+	array('label'=>'Manage MusicTest', 'url'=>array('index')),
 );
 ?>
 
@@ -22,13 +21,29 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_test',
-		'id_radiostation',
-		'id_type',
+		array(
+			'label' => 'id_radiostation',
+			'type' => 'raw',
+			'value' => $model->radio->name,
+		),
+		array(
+			'label' => 'id_type',
+			'type' => 'raw',
+			'value' => $model->type->type_name,
+		),
 		'date_add',
 		'date_started',
-		'id_status',
-		'max_listeners',
-		'test_number',
 		'date_finished',
+		array(
+			'name' => 'id_status',
+			'type' => 'raw',
+			'value' => $model->getStatus(),
+		),
+		array(
+			'name' => 'max_listeners',
+			'type' => 'raw',
+			'value' => $model->getMaxLisners(),
+		),
+
 	),
 )); ?>

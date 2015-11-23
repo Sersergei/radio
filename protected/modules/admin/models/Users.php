@@ -168,7 +168,7 @@ class Users extends CActiveRecord
 		if ($this->isNewRecord) {
 			if ($this->radiostation == 'admin') {
 				$this->id_category = 1;
-			} else {
+			} elseif(isset($this->radiostation)) {
 				$radio = new Radistations();
 				$radio->name = $this->radiostation;
 				$radio->date_add = date(" Y-m-d");
@@ -179,8 +179,16 @@ class Users extends CActiveRecord
 				$this->id_radiostation = $radio->id_radiostation;
 				$this->id_category = 2;
 			}
+			else{
+				$this->id_category=3;
+			}
 		}
 		parent::beforeSave();
 return true;
+	}
+	protected function afterSave(){
+		if($this->id_category=3){
+			new UsersInvitation($this);
+		}
 	}
 }
