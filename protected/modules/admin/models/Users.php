@@ -175,13 +175,15 @@ class Users extends CActiveRecord
 				$radio->location = $this->location;
 				$radio->id_languege = $this->lang;
 				$radio->save();
-				$radio->date_add = date(" Y-m-d");
+				$this->date_add= date(" Y-m-d");
+
 				$this->id_radiostation = $radio->id_radiostation;
 				$this->id_category = 2;
 			}
 			else{
 				$this->id_category=3;
 			}
+			$this->date_add= date(" Y-m-d");
 		}
 		parent::beforeSave();
 return true;
