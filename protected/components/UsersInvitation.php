@@ -14,13 +14,13 @@ class UsersInvitation
         $this->Email();
     }
     private function Email(){
-        var_dump($this->filter());
+
         if($this->filter()){
             $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
             $this->user->link=$linc;
             if($this->user->save()){
                 $text=$this->user->radio->settings->invitation_text;
-                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc;
+                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$this->user->radio->lang->lang;
                 $text=$text.'<br>Для прохождения тестирования перейдите по  <a href ='.$href.'> ссылке </a>';
                 $subject=$this->user->radio->settings->invitation_topic;
                 $email=Yii::app()->params['adminEmail'];
