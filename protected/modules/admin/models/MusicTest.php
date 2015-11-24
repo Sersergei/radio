@@ -44,8 +44,8 @@ class MusicTest extends CActiveRecord
 		$criteria=new CDbCriteria();
 		$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
 		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_status'=>2);
-		$model= self::model()->find($criteria);
-		if ($model)
+		//$model= self::model()->find($criteria);
+		if (self::model()->find($criteria) and $this->id_status==2)
 			$this->addError($attribute,'У вас уже есть активный тест закройте ево чтобы актевировать данный');
 	}
 

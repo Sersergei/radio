@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List MusicTest', 'url'=>array('index')),
-	array('label'=>'Manage MusicTest', 'url'=>array('admin')),
+
+	array('label'=>'Manage MusicTest', 'url'=>array('index')),
 );
 ?>
 
