@@ -16,6 +16,10 @@
  */
 class MusicTest extends CActiveRecord
 {
+	public $date;
+	public function __construct(){
+		$this->date=date(" Y-m-d");
+	}
 	/**
 	 * @return string the associated database table name
 	 */
@@ -34,6 +38,9 @@ class MusicTest extends CActiveRecord
 		return array(
 			array('id_type','required'),
 			array('id_status','active'),
+			array('date_finished','datefinished'),
+			array('date_started','datestarted'),
+
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -44,10 +51,24 @@ class MusicTest extends CActiveRecord
 		$criteria=new CDbCriteria();
 		$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
 		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_status'=>2);
-		//$model= self::model()->find($criteria);
-		if (self::model()->find($criteria) and $this->id_status==2)
-			$this->addError($attribute,'У вас уже есть активный тест закройте ево чтобы актевировать данный');
+		$model= self::model()->find($criteria);
+		if ($model) {
+			if ($this->id_status == 2 and $model->id_test!==$this->id_test )
+				$this->addError($attribute,Yii::t('radio','У вас уже есть активный тест закройте его чтобы активировать данный') );
+		}
 	}
+	public function datestarted($attribute){
+
+		if(strtotime($this->date_started)< strtotime($this->date))
+			$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
+	}
+	public function datefinished($attribute){
+		if (strtotime($this->date_finished!=='0000-00-00') )
+		if(strtotime($this->date_started)> strtotime($this->date_finished))
+			$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
+	}
+
+
 
 	/**
 	 * @return array relational rules.
@@ -78,6 +99,7 @@ class MusicTest extends CActiveRecord
 			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
 			'test_number' =>Yii::t('radio', 'Test Number'),
 			'date_finished' =>Yii::t('radio', 'Date Finished'),
+			'date'=>Yii::t('radio', 'Date'),
 		);
 	}
 
@@ -155,11 +177,12 @@ class MusicTest extends CActiveRecord
 			}
 			}
 		}
-		if($this->id_status==2){
+		if($this->id_status==2 and $this->id_type==1 ){
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'id_radiostation = :id_radiostation ';
 			$criteria->params = array(':id_radiostation'=>$this->id_radiostation);
-			$model=Users::model()->findAll($criteria);
+			$model=Users::model()->findAll($criteria);//щем юзеров
+			if($model)
 			foreach($model as $user){
 				new UsersInvitation($user);
 			}
