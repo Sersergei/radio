@@ -48,8 +48,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name_listener',
 		'email',
 		'date_birth',
-		'sex',
-		'id_education',
+		array(
+			'name' => 'sex',
+			'type' => 'raw',
+			'value' => '$data->getsex()',
+
+		),
+		array(
+			'name' => 'id_education',
+			'type' => 'raw',
+			'value' => '$data->education->education_level',
+
+		),
+
 		'date_add',
 		'P1',
 		'status',

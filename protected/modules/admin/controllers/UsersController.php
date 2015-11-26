@@ -90,6 +90,7 @@ class UsersController extends Controller
 
 		if(isset($_POST['Users']))
 		{
+
 			$model->attributes=$_POST['Users'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_user));
