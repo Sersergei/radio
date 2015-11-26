@@ -95,7 +95,7 @@ class TestSettingsController extends Controller
 		{
 			$model->attributes=$_POST['TestSettings'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_test_settings));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('update',array(
