@@ -19,106 +19,107 @@ $this->menu=array(
 <h1>View RadiostationSettings #<?php echo $model->id_radio_settings; ?></h1>
 
 <?php
+
 $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
+	'data'=>$radiostation,
 	'attributes'=>array(
 		array(
 			'name' => 'id_radiostation',
 			'type' => 'raw',
-			'value' => $model->Radiostation->name,
+			'value' => $radiostation->Radiostation->name,
 		),
 		array(
 			'name' => 'id_lang',
 			'type' => 'raw',
-			'value' => $model->idLang->name,
+			'value' => $radiostation->idLang->name,
 		),
 		'test_song',
 		array(
 			'name' => 'not_use_music_marker',
 			'type' => 'raw',
-			'value' => $model->getnot_use_music_marker(),
+			'value' => $radiostation->getnot_use_music_marker(),
 		),
 		array(
 			'name' => 'not_register_users',
 			'type' => 'raw',
-			'value' => $model->getnot_register_users(),
+			'value' => $radiostation->getnot_register_users(),
 		),
 		array(
 			'name' => 'not_invite_users',
 			'type' => 'raw',
-			'value' => $model->getnot_invite_users(),
+			'value' => $radiostation->getnot_invite_users(),
 		),
 		array(
 			'name' => 'id_card_registration',
 			'type' => 'raw',
-			'value' => $model->getid_card_registration(),
+			'value' => $radiostation->getid_card_registration(),
 		),
 		array(
 			'name' => 'mix_marker',
 			'type' => 'raw',
-			'value' => $model->getmixmarker(),
+			'value' => $radiostation->getmixmarker(),
 		),
 		array(
 			'name' => 'bed_marker',
 			'type' => 'raw',
-			'value' => $model->getbedmixmarker(),
+			'value' => $radiostation->getbedmixmarker(),
 		),
 		array(
 			'name' => 'god_marker',
 			'type' => 'raw',
-			'value' => $model->getgodmixmarker(),
+			'value' => $radiostation->getgodmixmarker(),
 		),
 
 		'other_radiostations',
 		array(
 			'name' => 'sex',
 			'type' => 'raw',
-			'value' => $model->testsetings->getsex(),
+			'value' => $test->getsex(),
 		),
 		array(
 			'name' => 'age_from',
 			'type' => 'raw',
-			'value' => $model->testsetings->age_from,
+			'value' => $test->age_from,
 		),
 		array(
 			'name' => 'after_age',
 			'type' => 'raw',
-			'value' => $model->testsetings->after_age,
+			'value' => $test->after_age,
 		),
 		array(
 			'name' => 'id_education',
 			'type' => 'raw',
-			'value' => $model->testsetings->idEducation->education_level,
+			'value' => $test->idEducation->education_level,
 		),
 		array(
 			'name' => 'Invitations',
 			'type' => 'raw',
-			'value' => $model->testsetings->getInvitations(),
+			'value' => $test->getInvitations(),
 		),
 		array(
 			'name' => 'text_before_test',
 			'type' => 'raw',
-			'value' => $model->testsetingsmult->text_before_test,
+			'value' => $testsetingsmult->text_before_test,
 		),
 		array(
 			'name' => 'text_after_test',
 			'type' => 'raw',
-			'value' => $model->testsetingsmult->text_after_test,
+			'value' => $testsetingsmult->text_after_test,
 		),
 		array(
 			'name' => 'invitation_topic',
 			'type' => 'raw',
-			'value' => $model->testsetingsmult->invitation_topic,
+			'value' => $testsetingsmult->invitation_topic,
 		),
 		array(
 			'name' => 'invitation_text',
 			'type' => 'raw',
-			'value' => $model->testsetingsmult->invitation_text,
+			'value' => $testsetingsmult->invitation_text,
 		),
 		array(
 			'name' => 'test_song',
 			'type' => 'raw',
-			'value' => $model->testsetingsmult->test_song,
+			'value' => $testsetingsmult->test_song,
 		),
 	),
 )); ?>
