@@ -16,10 +16,8 @@
  */
 class MusicTest extends CActiveRecord
 {
-	public $date;
-	public function __construct(){
-		$this->date=date(" Y-m-d");
-	}
+	
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -58,12 +56,14 @@ class MusicTest extends CActiveRecord
 		}
 	}
 	public function datestarted($attribute){
+$date=date("Y-m-d");
 
-		if(strtotime($this->date_started)< strtotime($this->date))
+if ($this->date_started )
+		if(strtotime($this->date_started)< strtotime($date))
 			$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
 	}
 	public function datefinished($attribute){
-		if (strtotime($this->date_finished!=='0000-00-00') )
+		if ($this->date_finished )
 		if(strtotime($this->date_started)> strtotime($this->date_finished))
 			$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
 	}
@@ -149,15 +149,38 @@ class MusicTest extends CActiveRecord
 	}
 	protected function beforeSave()
 	{
-		if ($this->isNewRecord)
-		{
-			$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-			$this->id_radiostation=$user->id_radiostation;
-			$this->id_status=1;
-			$this->date_add= date(" Y-m-d");
+		if ($this->isNewRecord) {
+			$user = Users::model()->find('id_user=:user', array(':user' => Yii::app()->user->id));
+			$this->id_radiostation = $user->id_radiostation;
+			$this->id_status = 1;
+			$this->date_add = date(" Y-m-d");
 		}
-		parent::beforeSave();
-		return true;
+		if ($this->id_status == 2 and $this->id_type == 1) {
+			$old = $this->getModified('id_status');
+			if ($old) {
+				$criteria = new CDbCriteria();
+				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
+				$criteria->params = array(':id_radiostation' => $this->id_radiostation, ':id_category' => 3);
+				$model = Users::model()->findAll($criteria);
+				if ($model) {
+					if ($model->id_test !== $this->id_test)
+						foreach ($model as $user) {
+							new UsersInvitation($user);
+						}
+				}
+			}
+}
+			parent::beforeSave();
+			return true;
+		
+	}
+private function getModified($param){
+		$old=MusicTest::model()->findbypk($this->id_test);
+		if($old->id_status==$this->id_status){
+			return false;
+		}
+		else return true;
+
 	}
 	protected function afterSave(){
 		if ($this->isNewRecord){
@@ -177,16 +200,7 @@ class MusicTest extends CActiveRecord
 			}
 			}
 		}
-		if($this->id_status==2 and $this->id_type==1 ){
-			$criteria=new CDbCriteria();
-			$criteria->condition = 'id_radiostation = :id_radiostation ';
-			$criteria->params = array(':id_radiostation'=>$this->id_radiostation);
-			$model=Users::model()->findAll($criteria);//щем юзеров
-			if($model)
-			foreach($model as $user){
-				new UsersInvitation($user);
-			}
-		}
+		
 	}
 	protected function mp3info($file){
 		$f = fopen($file, 'rb');
