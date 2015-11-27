@@ -48,7 +48,7 @@ class Users extends CActiveRecord
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
 			array('email, login','unique'),
-			array('password', 'compare','compareAttribute' => 'password_repeat'),
+			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
@@ -71,6 +71,7 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
+			'education'=>array(self::BELONGS_TO,'EducationMult','id_education')
 
 		);
 	}
@@ -162,6 +163,12 @@ class Users extends CActiveRecord
 	{
 		return CPasswordHelper::hashPassword($password);
 	}
+	public function getsex(){
+		$arr=array(0=>'',1=>Yii::t('radio','Man'),2=>Yii::t('radio','Woman'));
+		if(!isset($this->sex))
+			return $arr[0];
+		return $arr[$this->sex];
+	}
 
 	protected function beforeSave()
 	{
@@ -185,11 +192,12 @@ class Users extends CActiveRecord
 			}
 			$this->date_add= date(" Y-m-d");
 		}
+
 		parent::beforeSave();
 return true;
 	}
 	protected function afterSave(){
-		if($this->id_category=3){
+		if($this->id_category==3){
 			new UsersInvitation($this);
 		}
 	}

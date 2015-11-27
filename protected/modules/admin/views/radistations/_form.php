@@ -38,6 +38,11 @@
 		<?php echo $form->textField($model,'date_add'); ?>
 		<?php echo $form->error($model,'date_add'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'id_languege'); ?>
+		<?php echo $form->DropDownList($model,'id_languege',Lang::all()); ?>
+		<?php echo $form->error($model,'id_languege'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>

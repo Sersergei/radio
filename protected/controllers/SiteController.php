@@ -58,6 +58,9 @@ class SiteController extends Controller
 				$this->render('error', $error);
 		}
 	}
+	public function actiomMesage(){
+		$this->render('message');
+	}
 
 	/**
 	 * Displays the contact page
