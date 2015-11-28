@@ -39,7 +39,13 @@ class RegisterController extends Controller
             $session->open();
             $session['radiostation']=serialize($settings);
 
-            if($settings->radiostationSettings->not_use_music_marker)
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'id_radiostation = :id_radiostation';
+            $criteria->params = array(':id_radiostation' => $id);
+            $radiostationSettings=RadiostationSettings::model()->find($criteria);
+           // var_dump($radiostationSettings->not_use_music_marker);
+
+            if(!$radiostationSettings->not_use_music_marker)
                 $this->redirect('Viewregister');
             else $this->redirect('ChoosingMix');
         }

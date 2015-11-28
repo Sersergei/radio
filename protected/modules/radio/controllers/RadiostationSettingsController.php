@@ -54,12 +54,12 @@ class RadiostationSettingsController extends Controller
 	public function actionIndex()
 	{
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-		$radiostation=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
-		$test=TestSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
-		$testsetingsmult=TestSettingsMult::model()->find('id_radiostations=:id', array(':id'=>$user->id_radiostation));
-		if($radiostation) {
+		$model=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+		if($model) {
+			$testsettings=TestSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+			$testsettingsmult=TestSettingsMult::model()->find('id_radiostations=:id', array(':id'=>$user->id_radiostation));
 			$this->render('view', array(
-				'radiostation' => $radiostation,'test'=>$test,'testsetingsmult'=>$testsetingsmult
+				'model' => $model,'testsetings'=>$testsettings,'testsetingsmult'=>$testsettingsmult
 			));
 		}
 		else $this->redirect(array('create'));
@@ -237,7 +237,7 @@ class RadiostationSettingsController extends Controller
 		{
 			$model->attributes=$_POST['RadiostationSettings'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_radio_settings));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('update',array(

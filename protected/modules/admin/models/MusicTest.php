@@ -16,8 +16,8 @@
  */
 class MusicTest extends CActiveRecord
 {
-	
-	
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -56,16 +56,16 @@ class MusicTest extends CActiveRecord
 		}
 	}
 	public function datestarted($attribute){
-$date=date("Y-m-d");
+		$date=date("Y-m-d");
 
-if ($this->date_started )
-		if(strtotime($this->date_started)< strtotime($date))
-			$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
+		if ($this->date_started )
+			if(strtotime($this->date_started)< strtotime($date))
+				$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
 	}
 	public function datefinished($attribute){
 		if ($this->date_finished )
-		if(strtotime($this->date_started)> strtotime($this->date_finished))
-			$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
+			if(strtotime($this->date_started)> strtotime($this->date_finished))
+				$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
 	}
 
 
@@ -169,12 +169,12 @@ if ($this->date_started )
 						}
 				}
 			}
-}
-			parent::beforeSave();
-			return true;
-		
+		}
+		parent::beforeSave();
+		return true;
+
 	}
-private function getModified($param){
+	private function getModified($param){
 		$old=MusicTest::model()->findbypk($this->id_test);
 		if($old->id_status==$this->id_status){
 			return false;
@@ -187,20 +187,20 @@ private function getModified($param){
 			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
 			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test.'/';
 			if(file_exists ($old) ){
-			rename($old,$new);
-			$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);
-			foreach($files as $file) {
-				$songs = new Songs();
-				$songs->id_test = $this->id_test;
-				$info = $this->mp3info($file);
-				$songs->name = $info['NAME'];
-				$songs->singer = $info['ARTISTS'];
-				$songs->song_file = $file;
-				$songs->save();
-			}
+				rename($old,$new);
+				$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);
+				foreach($files as $file) {
+					$songs = new Songs();
+					$songs->id_test = $this->id_test;
+					$info = $this->mp3info($file);
+					$songs->name = $info['NAME'];
+					$songs->singer = $info['ARTISTS'];
+					$songs->song_file = $file;
+					$songs->save();
+				}
 			}
 		}
-		
+
 	}
 	protected function mp3info($file){
 		$f = fopen($file, 'rb');

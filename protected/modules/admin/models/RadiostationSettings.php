@@ -167,13 +167,14 @@ class RadiostationSettings extends CActiveRecord
 		return $arr[$this->not_invite_users];
 	}
 	public function getid_card_registration(){
+
 		$arr=array('No','Yes');
 		return $arr[$this->id_card_registration];
 	}
-	public function getmixmarker(){
-		//var_dump('khgk');
-		return '<audio src=../mixmarker/'.$this->mix->name.' controls></audio>';
-		//return $this->mix->name;
+	public function getMixmarker(){
+		$mix=Mixmarker::model()->findByPk($this->mix_marker);
+		return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
+		//return 5;
 	}
 	public function getbedmixmarker(){
 		$arr=unserialize($this->bed_mixmarker);

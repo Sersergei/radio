@@ -17,12 +17,33 @@ class UsersInvitation
 
         if($this->filter()){
             $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
-            $this->user->link=$linc;
-            if($this->user->save()){
-                $text=$this->user->radio->settings->invitation_text;
-                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$this->user->radio->lang->lang;
+
+           $this->user->link=$linc;
+
+            $this->user->scenario ='update';
+            $this->user->isNewRecord=false;
+
+            if($this->user->saveAttributes(array ('link'))){
+
+                $criteria = new CDbCriteria();
+                $criteria->condition = 'id_radiostations = :id_radiostations';
+                $criteria->params = array(':id_radiostations' => $this->user->id_radiostation);
+                $settings=TestSettingsMult::model()->find($criteria);
+                $text=$settings->invitation_text;
+
+
+                $criteria = new CDbCriteria();
+                $criteria->condition = 'id_radiostation = :id_radiostation';
+                $criteria->params = array(':id_radiostation' => $this->user->id_radiostation);
+                $radiosettings=RadiostationSettings::model()->find($criteria);
+
+
+                $lang=Lang::model()->findByPk($radiosettings->id_lang);
+
+
+                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
                 $text=$text.'<br>Для прохождения тестирования перейдите по  <a href ='.$href.'> ссылке </a>';
-                $subject=$this->user->radio->settings->invitation_topic;
+                $subject=$settings->invitation_topic;
                 $email=Yii::app()->params['adminEmail'];
                 $headers="From: radio <{$email}>\r\n".
                     "Reply-To: {$email}\r\n".
@@ -31,20 +52,24 @@ class UsersInvitation
 
                 mail($this->user->email,$subject,$text,$headers);
             }
+            else var_dump($this->user->getErrors());
 
         }
     }
     private function Filter(){
-        $setings=$this->user->radio->MusicTest;
-        $test=false;
-        foreach($setings as $tests){ //роверка есть ли щас активный тест со типом call-out
-            if(($tests->id_type==1) and ($tests->id_status==2))
-                $test=true;
-        }
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id_radiostation = :id_radiostation AND id_type=:id_type AND id_status=:id_status';
+        $criteria->params = array(':id_radiostation' => $this->user->id_radiostation,':id_status'=>2,':id_type'=>1);
+        $musictest=MusicTest::model()->find($criteria);
 
-        if(!$test)
+        if(!$musictest)
             return false; //если нету то отправля ем falce
-        $testsettings=$this->user->radio->testsettings;
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id_radiostation = :id_radiostation';
+        $criteria->params = array(':id_radiostation' => $this->user->id_radiostation);
+        $testsettings=TestSettings::model()->find($criteria);
+
         if(($testsettings->sex )){//проверяем на пол
             if($testsettings->sex!==$this->user->sex)
                 return false;
@@ -64,6 +89,7 @@ class UsersInvitation
 
         if(!($age_from< $this->yer() and $this->yer() <$after_age) ) //проверка на возраст
             return false;
+
 
         if($testsettings->id_education){
             if($testsettings->id_education!==$this->user->id_education)
