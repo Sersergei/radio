@@ -56,8 +56,10 @@ class RadiostationSettingsController extends Controller
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
 		$model=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
 		if($model) {
+			$testsettings=TestSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+			$testsettingsmult=TestSettingsMult::model()->find('id_radiostations=:id', array(':id'=>$user->id_radiostation));
 			$this->render('view', array(
-				'model' => $model,
+				'model' => $model,'testsetings'=>$testsettings,'testsetingsmult'=>$testsettingsmult
 			));
 		}
 		else $this->redirect(array('create'));

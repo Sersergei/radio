@@ -52,7 +52,7 @@ class Users extends CActiveRecord
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
-			array('login, password', 'length', 'max' => 20),
+			array('login, password', 'length', 'max' => 20,'min'=>6),
 			array('mix_marker', 'length', 'max' => 1),
 			array('date_birth, date_add', 'safe'),
 			// The following rule is used by search().
