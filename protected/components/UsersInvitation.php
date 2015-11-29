@@ -14,7 +14,7 @@ class UsersInvitation
         $this->Email();
     }
     private function Email(){
-
+var_dump($this->Filter());
         if($this->filter()){
             $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
 

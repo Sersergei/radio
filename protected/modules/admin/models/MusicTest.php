@@ -162,8 +162,8 @@ class MusicTest extends CActiveRecord
 				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
 				$criteria->params = array(':id_radiostation' => $this->id_radiostation, ':id_category' => 3);
 				$model = Users::model()->findAll($criteria);
+
 				if ($model) {
-					if ($model->id_test !== $this->id_test)
 						foreach ($model as $user) {
 							new UsersInvitation($user);
 						}
