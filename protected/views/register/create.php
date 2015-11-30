@@ -13,4 +13,9 @@ $this->menu=array(
 
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php  $path=new ServiceUserIdentity();
+$path=$path->seturl(); ?>
+<a href="<?php echo $path ?>">Перейти на фейсбук</a>
+
 <?php Yii::app()->eauth->renderWidget(); ?>
+

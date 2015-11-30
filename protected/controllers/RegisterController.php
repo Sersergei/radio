@@ -184,46 +184,14 @@ class RegisterController extends Controller
     }
     public function actionFacebook(){
 
+if($_GET['code']){
+    $face=new ServiceUserIdentity();
 
-        if (isset($_GET['code'])) {
-            $result = false;
-$face=new ServiceUserIdentity();
-            $params = array(
-                'client_id'     => $face->client_id,
-                'redirect_uri'  => $face->redirect_uri,
-                'client_secret' => $face->client_secret,
-                'code'          => $_GET['code']
-            );
-
-
-
-    $url = 'https://graph.facebook.com/oauth/access_token';
-
-    $tokenInfo = null;
-    parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
-
-    if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
-        $params = array('access_token' => $tokenInfo['access_token']);
-
-        $userInfo = json_decode(file_get_contents('https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params))), true);
-
-        if (isset($userInfo['id'])) {
-            $userInfo = $userInfo;
-            $result = true;
-        }
-    }
-
-    if ($result) {
-        echo "Социальный ID пользователя: " . $userInfo['id'] . '<br />';
-        echo "Имя пользователя: " . $userInfo['name'] . '<br />';
-        echo "Email: " . $userInfo['email'] . '<br />';
-        echo "Ссылка на профиль пользователя: " . $userInfo['link'] . '<br />';
-        echo "Пол пользователя: " . $userInfo['gender'] . '<br />';
-        echo "ДР: " . $userInfo['birthday'] . '<br />';
-        echo '<img src="http://graph.facebook.com/' . $userInfo['username'] . '/picture?type=large" />'; echo "<br />";
-    }
-
+   var_dump($face->getToken($_GET['code']));
 }
+        else {
+            exit ('Ошибка параметров');
+        }
 
     }
 
