@@ -71,7 +71,7 @@ class RegisterController extends Controller
             array_pop($bed_mixmarker);
         }
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
-        shuffle($arr); //âûâåëè ïåğåìåøàíûé ìàñèâ èç ìèêñìàğêåğîâ;
+        shuffle($arr); //Ğ²Ñ‹Ğ²ĞµĞ»Ğ¸ Ğ¿ĞµÑ€ĞµĞ¼ĞµÑˆĞ°Ğ½Ñ‹Ğ¹ Ğ¼Ğ°ÑĞ¸Ğ² Ğ¸Ğ· Ğ¼Ğ¸ĞºÑĞ¼Ğ°Ñ€ĞºĞµÑ€Ğ¾Ğ²;
         $criteria=new CDbCriteria;
         $criteria->addInCondition('id',$arr);
         $model=Mixmarker::model()->findAll($criteria);
@@ -99,31 +99,7 @@ class RegisterController extends Controller
 
     }
     public function actionViewregister(){
-            $service = Yii::app()->request->getQuery('service');
-            if (isset($service)) {
-                $authIdentity = Yii::app()->eauth->getIdentity($service);
-                $authIdentity->redirectUrl = Yii::app()->user->returnUrl;
-                $authIdentity->cancelUrl = $this->createAbsoluteUrl('register/Viewregister');
 
-                if ($authIdentity->authenticate()) {
-                    $identity = new EAuthUserIdentity($authIdentity);
-
-                    // óñïåøíàÿ àâòîğèçàöèÿ
-                    if ($identity->authenticate()) {
-                        Yii::app()->user->login($identity);
-
-                        // ñïåöèàëüíîå ïåğåíàïğàâëåíèÿ äëÿ êîğğåêòíîãî çàêğûòèÿ âñïëûâàşùåãî îêíà
-                        $authIdentity->redirect();
-                    }
-                    else {
-                        // çàêğûòèå âñïëûâàşùåãî îêíà è ïåğåíàïğàâëåíèå íà cancelUrl
-                        $authIdentity->cancel();
-                    }
-                }
-
-                // àâòîğèçàöèÿ íå óäàëàñü, ïåğåíàïğàâëÿåì íà ñòğàíèöó âõîäà
-                $this->redirect(array('register/Viewregister'));
-            }
         $session=new CHttpSession;
         $session->open();
 
@@ -134,6 +110,12 @@ class RegisterController extends Controller
             $radio=unserialize($session['radiostation']);
             $model->id_radiostation=$radio->id_radiostation;
             $model->id_category=3;
+            if(isset($session['name']))
+                $model->name_listener=$session['name'];
+            if(isset($session['email']))
+                $model->email=$session['email'];
+            if(isset($session['bersday']))
+                $model->date_birth=$session['bersday'];
 
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
@@ -142,7 +124,7 @@ class RegisterController extends Controller
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 if ($model->save())
-                    $this->redirect(array('/site/mesage', 'id' => $model->id_user));
+                    $this->redirect(array('Message'));
             }
 
             $this->render('create', array(
@@ -186,16 +168,31 @@ class RegisterController extends Controller
 
 if($_GET['code']){
     $face=new ServiceUserIdentity();
+$result=$face->getToken($_GET['code']);
 
-   var_dump($face->getToken($_GET['code']));
-}
-        else {
-            exit ('Îøèáêà ïàğàìåòğîâ');
-        }
+    //$convertedText = mb_convert_encoding($result->name, 'utf8', mb_detect_encoding($result->name));
 
+    $session=new CHttpSession;
+    $session->open();
+    if(isset($result->name))
+    $session['name']=$result->name;
+    if(isset($result->email))
+    $session['email']=$result->email;
+    if(isset($result->birthday)){
+        $date=$pieces = explode("/", $result->birthday);
+        $date=$date[2]."-".$date[0]."-".$date[1];
+        $session['bersday']=$date;
     }
 
-
-
+}
+        else {
+            exit ('ĞÑˆĞ¸Ğ±ĞºĞ° Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ğ¾Ğ²');
+        }
+$this->redirect(array('register/Viewregister'));
+    }
+    public function actionMessage(){
+        $message=Yii::t('radio','Ğ¡Ğ¿Ğ°ÑĞ¸Ğ±Ğ¾ Ğ·Ğ° Ñ€ĞµĞ³Ğ¸ÑÑ‚Ñ€Ğ°Ñ†Ğ¸Ñ Ğ¿Ñ€Ğ¸Ğ³Ğ»Ğ°ÑˆĞµĞ½Ğ¸Ğµ Ğ½Ğ° Ñ‚ĞµÑÑ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ Ğ²Ğ°Ğ¼ Ğ¿Ñ€Ğ¸Ğ¹Ğ´ĞµÑ‚ Ğ½Ğ° Ğ¿Ğ¾Ñ‡Ñ‚Ñƒ');
+        $this->render('message',array('message'=>$message));
+    }
 
 }

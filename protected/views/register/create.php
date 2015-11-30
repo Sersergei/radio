@@ -15,7 +15,5 @@ $this->menu=array(
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
 <?php  $path=new ServiceUserIdentity();
 $path=$path->seturl(); ?>
-<a href="<?php echo $path ?>">Οεπειςθ νΰ τειρασκ</a>
-
-<?php Yii::app()->eauth->renderWidget(); ?>
+<a href="<?php echo $path ?>">Π’ΠΎΠΉΡ‚ΠΈ Ρ‡ΠµΡ€ΠµΠ· Ρ„ΠµΠΉΡΠ±ΡƒΠΊ</a>
 

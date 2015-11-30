@@ -22,7 +22,7 @@ public $url = 'https://www.facebook.com/dialog/oauth';
             'scope'=> 'email,user_birthday'
         );
 
-        return $this->url."?"."client_id=".$this->client_id."&redirect_uri=".$this->redirect_uri."&response_type=code";
+        return $this->url."?"."client_id=".$this->client_id."&redirect_uri=".$this->redirect_uri."&response_type=code&scope=email";
     }
     public function getToken($code){
         $ku=curl_init();
@@ -36,15 +36,35 @@ public $url = 'https://www.facebook.com/dialog/oauth';
             exit(curl_error($ku));
         }
         if($i=json_decode($result)){
+
             if($i->error){
                 exit ($i->error->message);
             }
+
         }
         else{
-            parce_str($result,$token);
+
+                $token=array();
+            parse_str($result,$token);
+
             if($token['access_token']){
-                return $token['access_token'];
+
+                return $this->get_data($token['access_token']);
             }
         }
+
+    }
+    public function get_data($token){
+        $ku=curl_init();
+
+        $query="access_token=".$token;
+        curl_setopt($ku,CURLOPT_URL,$this->get_data."?fields=email,name,birthday,gender&".$query);
+        curl_setopt($ku,CURLOPT_RETURNTRANSFER,TRUE);
+        $result=curl_exec($ku);
+        if(!$result){
+            exit(curl_error($ku));
+        }
+        return json_decode($result);
+
     }
 }
