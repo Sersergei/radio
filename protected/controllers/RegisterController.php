@@ -99,24 +99,31 @@ class RegisterController extends Controller
 
     }
     public function actionViewregister(){
+            $service = Yii::app()->request->getQuery('service');
+            if (isset($service)) {
+                $authIdentity = Yii::app()->eauth->getIdentity($service);
+                $authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+                $authIdentity->cancelUrl = $this->createAbsoluteUrl('register/Viewregister');
 
-        $service = Yii::app()->request->getQuery('service');
-        if (isset($service)) {
-            $authIdentity = Yii::app()->eauth->getIdentity($service);
-            //$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
-            $authIdentity->cancelUrl = $this->createAbsoluteUrl('register/Viewregister');
-            //var_dump($authIdentity->isAuthenticated);
-            if ($authIdentity->authenticate()) {
-                $session=new CHttpSession;
-                $session->open();
-                $session['userdate']=$authIdentity->getAttribute('name');
+                if ($authIdentity->authenticate()) {
+                    $identity = new EAuthUserIdentity($authIdentity);
+
+                    // успешная авторизация
+                    if ($identity->authenticate()) {
+                        Yii::app()->user->login($identity);
+
+                        // специальное перенаправления для корректного закрытия всплывающего окна
+                        $authIdentity->redirect();
+                    }
+                    else {
+                        // закрытие всплывающего окна и перенаправление на cancelUrl
+                        $authIdentity->cancel();
+                    }
+                }
+
+                // авторизация не удалась, перенаправляем на страницу входа
                 $this->redirect(array('register/Viewregister'));
-
             }
-
-            // Что-то пошло не так, перенаправляем на страницу входа
-            $this->redirect(array('register/Viewregister'));
-        }
         $session=new CHttpSession;
         $session->open();
 
@@ -174,6 +181,50 @@ class RegisterController extends Controller
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    public function actionFacebook(){
+
+
+        if (isset($_GET['code'])) {
+            $result = false;
+$face=new ServiceUserIdentity();
+            $params = array(
+                'client_id'     => $face->client_id,
+                'redirect_uri'  => $face->redirect_uri,
+                'client_secret' => $face->client_secret,
+                'code'          => $_GET['code']
+            );
+
+
+
+    $url = 'https://graph.facebook.com/oauth/access_token';
+
+    $tokenInfo = null;
+    parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
+
+    if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
+        $params = array('access_token' => $tokenInfo['access_token']);
+
+        $userInfo = json_decode(file_get_contents('https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params))), true);
+
+        if (isset($userInfo['id'])) {
+            $userInfo = $userInfo;
+            $result = true;
+        }
+    }
+
+    if ($result) {
+        echo "Социальный ID пользователя: " . $userInfo['id'] . '<br />';
+        echo "Имя пользователя: " . $userInfo['name'] . '<br />';
+        echo "Email: " . $userInfo['email'] . '<br />';
+        echo "Ссылка на профиль пользователя: " . $userInfo['link'] . '<br />';
+        echo "Пол пользователя: " . $userInfo['gender'] . '<br />';
+        echo "ДР: " . $userInfo['birthday'] . '<br />';
+        echo '<img src="http://graph.facebook.com/' . $userInfo['username'] . '/picture?type=large" />'; echo "<br />";
+    }
+
+}
+
     }
 
 
