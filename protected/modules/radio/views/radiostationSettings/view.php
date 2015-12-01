@@ -19,7 +19,6 @@ $this->menu=array(
 <h1>View RadiostationSettings #<?php echo $model->id_radio_settings; ?></h1>
 
 <?php
-
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 
@@ -59,24 +58,24 @@ array(
 'type' => 'raw',
 'value' => $model->getid_card_registration(),
 ),
-/*
+
         array(
         'name' => 'mix_marker',
         'type' => 'raw',
-        'value' => $model->getMixmarker(),
+        'value' => $model->Mixmarkerget(),
         ),
 
-*/
+
         array(
         'name' => 'bed_marker',
         'type' => 'raw',
-        'value' => $model->getbedmixmarker(),
+        'value' => $model->bedmixmarkerget(),
         ),
 
         array(
         'name' => 'god_marker',
         'type' => 'raw',
-        'value' => $model->getgodmixmarker(),
+        'value' => $model->godmixmarkerget(),
         ),
 
         'other_radiostations',

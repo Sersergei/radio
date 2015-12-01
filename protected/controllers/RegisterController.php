@@ -188,12 +188,12 @@ $result=$face->getToken($_GET['code']);
 
 }
         else {
-            exit ('РћС€РёР±РєР° РїР°СЂР°РјРµС‚СЂРѕРІ');
+            exit ('Ошибка параметров');
         }
 $this->redirect(array('register/Viewregister'));
     }
     public function actionMessage(){
-        $message=Yii::t('radio','РЎРїР°СЃРёР±Рѕ Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЋ РїСЂРёРіР»Р°С€РµРЅРёРµ РЅР° С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ РІР°Рј РїСЂРёР№РґРµС‚ РЅР° РїРѕС‡С‚Сѓ');
+        $message=Yii::t('radio','Спасибо что зарегистрировались на нашем сервисе приглашение о тестировании прийдет на Вашу почту');
         $this->render('message',array('message'=>$message));
     }
 

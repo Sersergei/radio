@@ -33,7 +33,7 @@ $this->pageTitle=Yii::app()->name . Yii::t('radio','Login');
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 
-		<?php// echo $form->labelEx($model,'username'); ?>
+
 		<label>
 			<?php echo Yii::t('radio','Username') ?>
 			<?php echo $form->textField($model,'username'); ?>

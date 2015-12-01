@@ -171,26 +171,39 @@ class RadiostationSettings extends CActiveRecord
 		$arr=array('No','Yes');
 		return $arr[$this->id_card_registration];
 	}
-	public function getMixmarker(){
-		$mix=Mixmarker::model()->findByPk($this->mix_marker);
-		return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
-		//return 5;
+	public function Mixmarkerget(){
+if(isset($this->mix_marker)){
+	$mix=Mixmarker::model()->findByPk($this->mix_marker);
+	return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
+}
+
+		return NULL;
 	}
-	public function getbedmixmarker(){
-		$arr=unserialize($this->bed_mixmarker);
-		$content="";
-		foreach($arr as $mix){
-			$mix=Mixmarker::model()->findByPk($mix);
-			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+	public function bedmixmarkerget(){
+		if(isset($this->bed_mixmarker)){
+			$arr=unserialize($this->bed_mixmarker);
+			$content="";
+			foreach($arr as $mix){
+				if($mix){
+					$mix=Mixmarker::model()->findByPk($mix);
+					$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+				}
+
+			}
+			return $content;
 		}
-		return $content;
+		return NULL;
 	}
-	public function getgodmixmarker(){
+	public function godmixmarkerget(){
+		if(isset($this->god_mixmarker))
 		$arr=unserialize($this->god_mixmarker);
 		$content="";
 		foreach($arr as $mix){
-			$mix=Mixmarker::model()->findByPk($mix);
-			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+			if($mix){
+				$mix=Mixmarker::model()->findByPk($mix);
+				$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+			}
+
 		}
 		return $content;
 	}

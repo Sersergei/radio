@@ -108,7 +108,7 @@ $model=Users::model()->findByPk($model);
 
 			$model->id_song=$test[$sound];
 			$song=Songs::model()->findByPk($test[$sound])->song_file;
-
+			$song="..".stristr($song,'/musictest',false);
 			if(isset($_POST['MusicTestDetail']))
 			{
 
