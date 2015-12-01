@@ -58,7 +58,7 @@ class Users extends CActiveRecord
 			array('date_birth, date_add', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('password_repeat, radiostation,location,link','safe'),
+			array('password_repeat, radiostation,location,link,password,login','safe'),
 			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
 		);
 	}

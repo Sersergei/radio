@@ -8,8 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List TestSettingsMult', 'url'=>array('index')),
-	array('label'=>'Manage TestSettingsMult', 'url'=>array('admin')),
+
 );
 ?>
 

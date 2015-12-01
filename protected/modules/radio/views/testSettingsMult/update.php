@@ -9,9 +9,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List TestSettingsMult', 'url'=>array('index')),
-	array('label'=>'Create TestSettingsMult', 'url'=>array('create')),
-	array('label'=>'View TestSettingsMult', 'url'=>array('view', 'id'=>$model->id_test_mult)),
+
 	array('label'=>'Manage TestSettingsMult', 'url'=>array('admin')),
 );
 ?>

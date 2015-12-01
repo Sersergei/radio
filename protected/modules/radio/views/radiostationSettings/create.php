@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List RadiostationSettings', 'url'=>array('index')),
-	array('label'=>'Manage RadiostationSettings', 'url'=>array('admin')),
-);
+
 ?>
 
 <h1>Create RadiostationSettings</h1>

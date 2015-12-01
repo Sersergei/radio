@@ -8,11 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List TestSettingsMult', 'url'=>array('index')),
-	array('label'=>'Create TestSettingsMult', 'url'=>array('create')),
 	array('label'=>'Update TestSettingsMult', 'url'=>array('update', 'id'=>$model->id_test_mult)),
-	array('label'=>'Delete TestSettingsMult', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_test_mult),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage TestSettingsMult', 'url'=>array('admin')),
+
 );
 ?>
 

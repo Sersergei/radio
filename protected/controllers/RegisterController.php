@@ -29,32 +29,34 @@ class RegisterController extends Controller
     public function actionIndex($id)
     {
 
-        $model=new Users();
-        $model->id_radiostation=$id;
+        $model = new Users();
+        $model->id_radiostation = $id;
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-    $settings=Radistations::model()->findbyPk($id);
-        if($settings){
-            $session=new CHttpSession;
+        $settings = Radistations::model()->findbyPk($id);
+
+
+
+        if ($settings) {
+            $session = new CHttpSession;
             $session->open();
-            $session['radiostation']=serialize($settings);
+            $session['radiostation'] = serialize($settings);
 
             $criteria = new CDbCriteria();
             $criteria->condition = 'id_radiostation = :id_radiostation';
             $criteria->params = array(':id_radiostation' => $id);
-            $radiostationSettings=RadiostationSettings::model()->find($criteria);
-           // var_dump($radiostationSettings->not_use_music_marker);
-
-            if(!$radiostationSettings->not_use_music_marker)
+            $radiostationSettings = RadiostationSettings::model()->find($criteria);
+            // var_dump($radiostationSettings->not_use_music_marker);
+            if ($radiostationSettings) {
+            if (!$radiostationSettings->not_use_music_marker)
                 $this->redirect('Viewregister');
             else $this->redirect('ChoosingMix');
+        } else {
+                $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
         }
-       else{
-           $error=Yii::t('radio','404 ERROR');
-           $this->render('Error', $error);
-       }
-
-
+    }
+        else
+        $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
     }
     public function actionChoosingMix(){
 
@@ -71,7 +73,7 @@ class RegisterController extends Controller
             array_pop($bed_mixmarker);
         }
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
-        shuffle($arr); //вывели перемешаный масив из миксмаркеров;
+        shuffle($arr); //РІС‹РІРµР»Рё РїРµСЂРµРјРµС€Р°РЅС‹Р№ РјР°СЃРёРІ РёР· РјРёРєСЃРјР°СЂРєРµСЂРѕРІ;
         $criteria=new CDbCriteria;
         $criteria->addInCondition('id',$arr);
         $model=Mixmarker::model()->findAll($criteria);
@@ -186,12 +188,12 @@ $result=$face->getToken($_GET['code']);
 
 }
         else {
-            exit ('Ошибка параметров');
+            exit ('РћС€РёР±РєР° РїР°СЂР°РјРµС‚СЂРѕРІ');
         }
 $this->redirect(array('register/Viewregister'));
     }
     public function actionMessage(){
-        $message=Yii::t('radio','Спасибо за регистрацию приглашение на тестирование вам прийдет на почту');
+        $message=Yii::t('radio','РЎРїР°СЃРёР±Рѕ Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЋ РїСЂРёРіР»Р°С€РµРЅРёРµ РЅР° С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ РІР°Рј РїСЂРёР№РґРµС‚ РЅР° РїРѕС‡С‚Сѓ');
         $this->render('message',array('message'=>$message));
     }
 

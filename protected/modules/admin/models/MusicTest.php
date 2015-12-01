@@ -57,13 +57,14 @@ class MusicTest extends CActiveRecord
 	}
 	public function datestarted($attribute){
 		$date=date("Y-m-d");
-
-		if ($this->date_started )
+		if($this->date_started)
+		if ($this->date_started!=='0000-00-00')
 			if(strtotime($this->date_started)< strtotime($date))
 				$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
 	}
 	public function datefinished($attribute){
-		if ($this->date_finished )
+		if($this->date_finished)
+		if ($this->date_finished !=='0000-00-00')
 			if(strtotime($this->date_started)> strtotime($this->date_finished))
 				$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
 	}
