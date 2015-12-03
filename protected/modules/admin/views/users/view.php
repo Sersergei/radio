@@ -22,20 +22,14 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_user',
-		'name_listener',
+
 		'email',
 		'date_birth',
-		'sex',
-		'id_education',
 		'login',
 		'password',
 		'date_add',
 		'status',
 		'id_category',
 		'id_radiostation',
-		'mix_marker',
-		'P1',
-		'id_card',
-		'mobile_ID',
 	),
 )); ?>

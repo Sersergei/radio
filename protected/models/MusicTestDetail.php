@@ -20,6 +20,8 @@
  */
 class MusicTestDetail extends CActiveRecord
 {
+	public $positive;
+	public $favorite;
 	public $never;
 	/**
 	 * @return string the associated database table name

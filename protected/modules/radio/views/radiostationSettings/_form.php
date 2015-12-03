@@ -23,7 +23,9 @@
 		<?php echo $form->labelEx($model,'id_lang'); ?>
 		<?php echo $form->DropDownList($model,'id_lang',Lang::all()); ?>
 		<?php echo $form->error($model,'id_lang'); ?>
-		язык, на котором будет осуществляться общение со слушателями во время тестирования песен
+		<br>
+		<?php echo Yii::t('radio','Language for music-test') ?>
+
 
 	</div>
 
@@ -54,7 +56,8 @@
 		<?php echo $form->labelEx($model,'other_radiostations'); ?>
 		<?php echo $form->textField($model,'other_radiostations',array('size'=>60,'maxlength'=>1000)); ?>
 		<?php echo $form->error($model,'other_radiostations'); ?>
-
+		<br>
+		<?php echo Yii::t('radio','Add all radiostations of your regions (separate them with commas)') ?>
 	</div>
 
 	<div class="row buttons">

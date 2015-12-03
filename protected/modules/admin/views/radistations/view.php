@@ -9,7 +9,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Radistations', 'url'=>array('index')),
-	array('label'=>'Create Radistations', 'url'=>array('create')),
 	array('label'=>'Update Radistations', 'url'=>array('update', 'id'=>$model->id_radiostation)),
 	array('label'=>'Delete Radistations', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_radiostation),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Radistations', 'url'=>array('admin')),

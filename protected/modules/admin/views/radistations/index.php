@@ -7,7 +7,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Radistations', 'url'=>array('create')),
 	array('label'=>'Manage Radistations', 'url'=>array('admin')),
 );
 ?>
