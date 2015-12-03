@@ -28,17 +28,17 @@ class RadiostationSetingsRegister extends CFormModel
             array('id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
         );
     }
-    public function attributeNames()
+    public function attributeLabels()
     {
         return array(
             'id_lang' => Yii::t('radio', 'Languge'),
             'test_song' => Yii::t('radio', 'Test Song'),
-            'not_use_music_marker' => Yii::t('radio', ' музыкальный маркер для регистрации слушателей моей радиостанции не нужен'),
-            'not_register_users' => Yii::t('radio', 'не регистрировать слушателей с несоответствующим музыкальным маркером'),
-            'not_invite_users' => Yii::t('radio', ' не приглашать пользователей, которые не прошли соответствие музыкальным маркером'),
+            'not_use_music_marker' => Yii::t('radio', 'Not use music marker'),
+            'not_register_users' => Yii::t('radio', 'Not register if user doesn\'t choosed right music-maker'),
+            'not_invite_users' => Yii::t('radio', ' Not invite for music test if user doesn\'t choosed right music-maker'),
             'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
             'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
-            'id_card_registration' => Yii::t('radio', 'Id Card Registration') ,
+            'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
         );
     }
 

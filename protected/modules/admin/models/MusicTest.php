@@ -186,7 +186,7 @@ class MusicTest extends CActiveRecord
 	protected function afterSave(){
 		if ($this->isNewRecord){
 			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
-			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test.'/';
+			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test;
 			if(file_exists ($old) ){
 				rename($old,$new);
 				$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);

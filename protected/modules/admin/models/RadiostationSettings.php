@@ -84,14 +84,14 @@ class RadiostationSettings extends CActiveRecord
 			'id_user' => Yii::t('radio', 'Id User'),
 			'test_song' => Yii::t('radio', 'Test Song'),
 			'not_use_music_marker' => Yii::t('radio', ' музыкальный маркер для регистрации слушателей моей радиостанции не нужен'),
-			'not_register_users' => Yii::t('radio', 'не регистрировать слушателей с несоответствующим музыкальным маркером'),
-			'not_invite_users' => Yii::t('radio', ' не приглашать пользователей, которые не прошли соответствие музыкальным маркером'),
+			'not_register_users' => Yii::t('radio', 'Not register if user doesn\'t choosed right music-maker'),
+			'not_invite_users' => Yii::t('radio', 'Not invite for music test if user doesn\'t choosed right music-maker'),
 			'bed_mixmarker' => Yii::t('radio', 'Mix Marker Bed'),
 			'god_mixmarker' => Yii::t('radio', 'Mix Marker Good'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker') ,
 			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
 			'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
-			'id_card_registration' => Yii::t('radio', 'Id Card Registration') ,
+			'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
 		);
 	}
 
@@ -171,39 +171,26 @@ class RadiostationSettings extends CActiveRecord
 		$arr=array('No','Yes');
 		return $arr[$this->id_card_registration];
 	}
-	public function Mixmarkerget(){
-if(isset($this->mix_marker)){
-	$mix=Mixmarker::model()->findByPk($this->mix_marker);
-	return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
-}
-
-		return NULL;
+	public function getMixmarker(){
+		$mix=Mixmarker::model()->findByPk($this->mix_marker);
+		return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
+		//return 5;
 	}
-	public function bedmixmarkerget(){
-		if(isset($this->bed_mixmarker)){
-			$arr=unserialize($this->bed_mixmarker);
-			$content="";
-			foreach($arr as $mix){
-				if($mix){
-					$mix=Mixmarker::model()->findByPk($mix);
-					$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
-				}
-
-			}
-			return $content;
+	public function getbedmixmarker(){
+		$arr=unserialize($this->bed_mixmarker);
+		$content="";
+		foreach($arr as $mix){
+			$mix=Mixmarker::model()->findByPk($mix);
+			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
 		}
-		return NULL;
+		return $content;
 	}
-	public function godmixmarkerget(){
-		if(isset($this->god_mixmarker))
+	public function getgodmixmarker(){
 		$arr=unserialize($this->god_mixmarker);
 		$content="";
 		foreach($arr as $mix){
-			if($mix){
-				$mix=Mixmarker::model()->findByPk($mix);
-				$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
-			}
-
+			$mix=Mixmarker::model()->findByPk($mix);
+			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
 		}
 		return $content;
 	}

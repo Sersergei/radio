@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h1>Create RadiostationSettings</h1>
+<h1><?php echo Yii::t('radio','Create Radiostation Settings') ?>  </h1>
 
 
 <?php
