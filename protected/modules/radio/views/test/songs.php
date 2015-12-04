@@ -41,7 +41,27 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
-			'value' => '$data->id_like',
+			'value' => '$data->getfavorite(5)*100/count($data)',
+		),
+		array(
+			'name' => 'like',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(4)*100/count($data)',
+		),
+		array(
+			'name' => 'normal',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(3)*100/count($data)',
+		),
+		array(
+			'name' => 'tired',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(2)*100/count($data)',
+		),
+		array(
+			'name' => 'dislike',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(1)*100/count($data)',
 		),
 		array(
 			'class'=>'CButtonColumn',

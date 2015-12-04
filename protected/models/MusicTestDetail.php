@@ -20,7 +20,10 @@
  */
 class MusicTestDetail extends CActiveRecord
 {
-	public $positive;
+	public $like;
+	public $normal;
+	public $tired;
+	public $dislike;
 	public $favorite;
 	public $never;
 	/**
@@ -107,6 +110,14 @@ class MusicTestDetail extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	public function getfavorite($like){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_test',$this->id_test);
+		$criteria->compare('id_song',$this->id_song);
+		$criteria->compare('id_like',$like);
+		$model=MusicTestDetail::model()->findall($criteria);
+		return count($model);
 	}
 
 	/**
