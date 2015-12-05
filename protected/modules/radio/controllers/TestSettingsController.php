@@ -87,7 +87,6 @@ class TestSettingsController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -95,7 +94,7 @@ class TestSettingsController extends Controller
 		{
 			$model->attributes=$_POST['TestSettings'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_test_settings));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('update',array(

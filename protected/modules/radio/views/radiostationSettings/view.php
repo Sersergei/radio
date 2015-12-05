@@ -10,13 +10,16 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List RadiostationSettings', 'url'=>array('index')),
-	array('label'=>'Update RadiostationSettings', 'url'=>array('update', 'id'=>$model->id_radio_settings)),
-	array('label'=>'Delete RadiostationSettings', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_radio_settings),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Update God mix-marker', 'url'=>array('updategodmixmarker', 'id'=>$model->id_radio_settings)),
+	array('label'=>'Update Bed mix-marker', 'url'=>array('updatebedmixmarker', 'id'=>$model->id_radio_settings)),
+	array('label'=>'Update Test Settings Text', 'url'=>array('testSettingsMult/update', 'id'=>$testsetingsmult->id_test_mult)),
+	array('label'=>'Update Test Settings', 'url'=>array('testSettings/update', 'id'=>$testsetings->id_test_settings)),
+	array('label'=>'Update Radiostation Settings', 'url'=>array('update', 'id'=>$model->id_radio_settings)),
 
 );
 ?>
 
-<h1>View RadiostationSettings #<?php echo $model->id_radio_settings; ?></h1>
+<h1>View Radiostation Settings </h1>
 
 <?php
 
@@ -37,7 +40,7 @@ array(
     'value' => $model->idLang->name,
 ),
 
-'test_song',
+
 array(
 'name' => 'not_use_music_marker',
 'type' => 'raw',
@@ -97,11 +100,13 @@ array(
 			'type' => 'raw',
 			'value' => $testsetings->after_age,
 		),
+
 		array(
 			'name' => 'id_education',
 			'type' => 'raw',
-			'value' => $testsetings->idEducation->education_level,
+			'value' => $testsetings->geteducation(),
 		),
+
 		array(
 			'name' => 'Invitations',
 			'type' => 'raw',

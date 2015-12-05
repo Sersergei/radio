@@ -2,11 +2,7 @@
 /* @var $this TestSettingsController */
 /* @var $model TestSettings */
 
-$this->breadcrumbs=array(
-	'Test Settings'=>array('index'),
-	$model->id_test_settings=>array('view','id'=>$model->id_test_settings),
-	'Update',
-);
+
 
 $this->menu=array(
 	array('label'=>'List TestSettings', 'url'=>array('index')),

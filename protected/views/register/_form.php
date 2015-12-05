@@ -45,6 +45,11 @@
 			'options'=>array(
 				'dateFormat'=>'yy-mm-dd',
 				'showAnim'=>'fold',
+				'changeMonth' => 'true',
+				'changeYear'=>'true',
+				'maxDate'=>-365*14,
+				'minDate'=>-365*80,
+				'readonly'=>'true',
 			),
 			'language'=>Yii::app()->language,
 			'htmlOptions'=>array(

@@ -2,15 +2,7 @@
 /* @var $this TestSettingsController */
 /* @var $model TestSettings */
 
-$this->breadcrumbs=array(
-	'Test Settings'=>array('index'),
-	'Manage',
-);
 
-$this->menu=array(
-	array('label'=>'List TestSettings', 'url'=>array('index')),
-	array('label'=>'Create TestSettings', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

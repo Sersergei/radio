@@ -68,7 +68,7 @@ class TestSettingsMultController extends Controller
 		{
 			$model->attributes=$_POST['TestSettingsMult'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_test_mult));
+				$this->redirect(array('radiostationSettings'));
 		}
 
 		$this->render('create',array(
@@ -92,7 +92,7 @@ class TestSettingsMultController extends Controller
 		{
 			$model->attributes=$_POST['TestSettingsMult'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_test_mult));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('update',array(

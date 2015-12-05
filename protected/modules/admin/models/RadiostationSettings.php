@@ -83,7 +83,7 @@ class RadiostationSettings extends CActiveRecord
 			'id_lang' => Yii::t('radio', 'Languge'),
 			'id_user' => Yii::t('radio', 'Id User'),
 			'test_song' => Yii::t('radio', 'Test Song'),
-			'not_use_music_marker' => Yii::t('radio', ' музыкальный маркер для регистрации слушателей моей радиостанции не нужен'),
+			'not_use_music_marker' => Yii::t('radio', 'Not use music-marker'),
 			'not_register_users' => Yii::t('radio', 'Not register if user doesn\'t choosed right music-maker'),
 			'not_invite_users' => Yii::t('radio', 'Not invite for music test if user doesn\'t choosed right music-maker'),
 			'bed_mixmarker' => Yii::t('radio', 'Mix Marker Bed'),

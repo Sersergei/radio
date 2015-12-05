@@ -35,7 +35,8 @@ class TestSettings extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Invitations', 'required'),
-			array('id_radiostation, sex, age_from, after_age, id_education, Invitations', 'numerical', 'integerOnly'=>true),
+			array('id_radiostation, age_from, after_age, Invitations', 'numerical', 'integerOnly'=>true),
+			array('sex,id_education','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_settings, id_radiostation, sex, age_from, after_age, id_education, Invitations', 'safe', 'on'=>'search'),
@@ -64,9 +65,9 @@ class TestSettings extends CActiveRecord
 			'id_test_settings' =>Yii::t('radio', 'Id Test Settings') ,
 			'id_radiostation' =>Yii::t('radio', 'Id Radiostation') ,
 			'sex' => Yii::t('radio', 'Sex'),
-			'age_from' =>Yii::t('radio', 'Age From') ,
-			'after_age' =>Yii::t('radio', 'After Age') ,
-			'id_education' =>Yii::t('radio', 'Id Education') ,
+			'age_from' =>Yii::t('radio', 'Age min') ,
+			'after_age' =>Yii::t('radio', 'Age max') ,
+			'id_education' =>Yii::t('radio', 'Education') ,
 			'Invitations' =>Yii::t('radio', 'Invitations') ,
 		);
 	}
@@ -121,12 +122,35 @@ class TestSettings extends CActiveRecord
 			$this->id_radiostation=$user->id_radiostation;
 
 		}
+		$this->id_education=serialize($this->id_education);
+		$this->sex=serialize($this->sex);
+
 		parent::beforeSave();
 		return true;
 	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->id_education=unserialize($this->id_education);
+		$this->sex=unserialize($this->sex);
+	}
 	public function getsex(){
 		$arr=array(0=>'',1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman'));
-		return $arr[$this->sex];
+		$result="";
+		if($this->sex)
+			foreach($this->sex as $sex){
+				$result.=$arr[$sex].",";
+			}
+		return substr($result, 0, -1);
+	}
+	public function geteducation(){
+		$result="";
+		if($this->id_education)
+		foreach($this->id_education as $id){
+			$education=EducationMult::model()->findByPk($id)->education_level;
+			$result.=Yii::t('radio',$education)." ,";
+		}
+		return substr($result, 0, -1);
 	}
 	public function getInvitations(){
 $arr=array(0=>'приглашение всем, кто зарегистрировался, перейдя по ссылке с нашей радиостанции',

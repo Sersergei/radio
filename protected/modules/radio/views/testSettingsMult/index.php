@@ -1,15 +1,4 @@
-<?php
-/* @var $this TestSettingsMultController */
-/* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Test Settings Mults',
-);
-
-$this->menu=array(
-
-);
-?>
 
 <h1>Test Settings Mults</h1>
 

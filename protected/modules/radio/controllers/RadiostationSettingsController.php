@@ -103,18 +103,31 @@ class RadiostationSettingsController extends Controller
 
 	if(isset($_POST['RadiostationSetingsBedmixmarker']))
 	{
-		//var_dump($_POST['RadiostationSettings']);
-		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 
+		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+		$files=CUploadedFile::getInstances($model,'file');
+		$model->file=$files;
+		$model->setScenario ('before');
 		if ($model->validate()){
-			$session=new CHttpSession;
-			$session->open();
-			$session['bed_mixmarker']=serialize($model->mixmarker);
-			if(count($model->mixmarker)<4){
-				$i=4-count($model->mixmarker);
-				$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'bed'));
+			$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+			if($files)
+			foreach($files as $file){
+				$mix=new Mixmarker();
+				$name=time().str_replace(" ","",$file->getName());
+				$mix->name=$name;
+				$mix->save();
+				$model->mixmarker[]=$mix->id;
+				$file->saveAs($dir.'/'.$name);
 			}
-			$this->redirect(array('godmixmarker'));
+			$model->setScenario ('after');
+			if($model->validate()){
+				$session=new CHttpSession;
+				$session->open();
+				//$bedmixmarker=array_merge($mix,$model->mixmarker);
+				$session['bed_mixmarker']=serialize($model->mixmarker);
+				$this->redirect(array('godmixmarker'));
+			}
+
 		}
 	}
 
@@ -179,10 +192,12 @@ class RadiostationSettingsController extends Controller
 					$settings->not_register_users=$register->not_register_users;
 					$settings->bed_mixmarker=$session['bed_mixmarker'];
 					$settings->god_mixmarker=$session['god_mixmarker'];
-					if($settings->save())
+					if($settings->save()){
+						unset($session['bed_mixmarker']);
+						unset($session['god_mixmarker']);
+						$this->redirect(array('TestSettings/create'));
+					}
 
-					$this->redirect(array('TestSettings/create')
-					);
 				}
 
 			}
@@ -204,18 +219,30 @@ class RadiostationSettingsController extends Controller
 		if(isset($_POST['RadiostationSetingsBedmixmarker']))
 		{
 			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
-
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('beforegod');
 			if ($model->validate()){
-				$session=new CHttpSession;
-				$session->open();
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+					$session=new CHttpSession;
+					$session->open();
+
 				$session['god_mixmarker']=serialize($model->mixmarker);
-				if(count($model->mixmarker)<2){
-					$i=2-count($model->mixmarker);
-					$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'god'));
-				}
+
 				$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
 			}
-		}
+		}}
 
 		$this->render('godmixmarker',array(
 			'model'=>$model,
@@ -244,6 +271,82 @@ class RadiostationSettingsController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionUpdatebedmixmarker($id){
+		$radiosettings=$this->loadModel($id);
+		$mix=unserialize($radiosettings->bed_mixmarker);
+		$model=new RadiostationSetingsBedmixmarker(4);
+		$model->mixmarker=$mix;
+		if(isset($_POST['RadiostationSetingsBedmixmarker'])){
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('before');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+
+					$radiosettings->bed_mixmarker=serialize($model->mixmarker);
+					$radiosettings->save();
+					$this->redirect(array('/radio/radiostationSettings'));
+				}
+
+			}
+
+		}
+		$this->render('updatebedmix',array(
+			'model'=>$model,
+		));
+	}
+	public function actionUpdategodmixmarker($id){
+		$radiosettings=$this->loadModel($id);
+		$mix=unserialize($radiosettings->god_mixmarker);
+		$model=new RadiostationSetingsBedmixmarker(2);
+		$model->mixmarker=$mix;
+		$model->id=$id;
+		if(isset($_POST['RadiostationSetingsBedmixmarker'])){
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('beforegod');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+
+					$radiosettings->god_mixmarker=serialize($model->mixmarker);
+					$radiosettings->save();
+					$this->redirect(array('/radio/radiostationSettings'));
+				}
+
+			}
+
+		}
+		$this->render('updatebedmix',array(
+			'model'=>$model,
+		));
+	}
+
 
 
 	/**

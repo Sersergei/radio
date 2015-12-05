@@ -14,7 +14,7 @@ class UsersInvitation
         $this->Email();
     }
     private function Email(){
-var_dump($this->Filter());
+
         if($this->filter()){
             $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
 
@@ -71,7 +71,7 @@ var_dump($this->Filter());
         $testsettings=TestSettings::model()->find($criteria);
 
         if(($testsettings->sex )){//проверяем на пол
-            if($testsettings->sex!==$this->user->sex)
+            if(!in_array($this->user->sex,$testsettings->sex))
                 return false;
         }
 
@@ -92,7 +92,7 @@ var_dump($this->Filter());
 
 
         if($testsettings->id_education){
-            if($testsettings->id_education!==$this->user->id_education)
+            if(!in_array($this->user->id_education,$testsettings->id_education))
                 return false;
         } // проверка на образование
 
