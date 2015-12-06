@@ -203,4 +203,9 @@ return true;
 			new UsersInvitation($this);
 		}
 	}
+	protected function afterDelete(){
+		Usertest::model()->deleteAll("`id_user`={$this->id_user}");
+		MusicTestDetail::model()->deleteAll("`id_user`={$this->id_user}");
+		parent::afterDelete();
+	}
 }

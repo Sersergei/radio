@@ -99,7 +99,7 @@ class Radistations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('radiostationSettings','settings','MusicTest','testsettings'); // ������ ��������
+		//$criteria->with=array('radiostationSettings','settings','MusicTest','testsettings'); // ������ ��������
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('location',$this->location,true);
@@ -133,12 +133,30 @@ class Radistations extends CActiveRecord
 		return $array;
 	}
 	public  function finduser(){
-		//var_dump('efgevefv');
+
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'id_radiostation = :id_radiostation AND id_category =:id_category';
 		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_category'=>2);
 		$user=Users::model()->find($criteria);
 
 		return $user;
+	}
+	protected function afterSave(){
+		if ($this->isNewRecord){
+			$license=new License();
+			$license->id_radiostation=$this->id_radiostation;
+			$license->save();
+		}
+
+	}
+	protected function afterDelete()
+	{
+		Users::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		RadiostationSettings::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		TestSettings::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		TestSettingsMult::model()->deleteAll("`id_radiostations`={$this->id_radiostation}");
+		MusicTest::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+
+		parent::afterDelete();
 	}
 }

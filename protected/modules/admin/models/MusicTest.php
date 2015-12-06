@@ -228,4 +228,10 @@ class MusicTest extends CActiveRecord
 		$arr= array(1=>Yii::t('radio','Ready'),2=>Yii::t('radio','Started'),3=>Yii::t('radio','Finished'));
 		return $arr[$this->id_status];
 	}
+	protected function afterDelete(){
+		Songs::model()->deleteAll("`id_test`={$this->id_test}");
+		Usertest::model()->deleteAll("`id_music`={$this->id_test}");
+		MusicTestDetail::model()->deleteAll("`id_test`={$this->id_test}");
+		parent::afterDelete();
+	}
 }

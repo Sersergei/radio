@@ -124,7 +124,7 @@ class RadiostationSettings extends CActiveRecord
 		$criteria->compare('bed_mixmarker',$this->bed_mixmarker);
 		$criteria->compare('god_mixmarker',$this->god_mixmarker);
 		$criteria->compare('mix.mix_marker',$this->mix_marker,true);
-		$criteria->compare('adiostation.id_radiostation',$this->id_radiostation);
+		$criteria->compare('Radiostation.id_radiostation',$this->id_radiostation);
 		$criteria->compare('other_radiostations',$this->other_radiostations,true);
 		$criteria->compare('id_card_registration',$this->id_card_registration);
 
@@ -193,5 +193,14 @@ class RadiostationSettings extends CActiveRecord
 			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
 		}
 		return $content;
+	}
+	public static function getradiostation($id){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$id);
+		$settings=RadiostationSettings::model()->find($criteria);
+		$arr=explode(",",$settings->other_radiostations);
+		$arr[$id]=$settings->Radiostation->name;
+		return $arr;
+
 	}
 }

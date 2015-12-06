@@ -5,8 +5,13 @@
 ?>
 
 <div class="form">
+	<figure id="audioplayer">
+		<audio controls src="/musictest/54/01. Engel.mp3"></audio>
+	</figure>
+<?php
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+
+$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
@@ -70,12 +75,12 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P1'); ?>
-		<?php echo $form->DropDownList($model,'P1',Radistations::all()); ?>
+		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation)); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P2'); ?>
-		<?php echo $form->DropDownList($model,'P2',Radistations::all()); ?>
+		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation)); ?>
 		<?php echo $form->error($model,'P2'); ?>
 	</div>
 
@@ -86,3 +91,28 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php
+Yii::app()->clientScript->registerScript('loading', '
+var audioPlayer = document.getElementById("audioplayer"),
+audioTrack = document.getElementById("audiotrack"),
+playButton = document.createElement("button");
+playButton.type = "button";
+audioPlayer.appendChild(playButton);
+audioTrack.removeAttribute("controls");
+
+
+var muteButton = document.createElement("button");
+setText(muteButton,"Mute");
+muteButton.type = "button";
+audioPlayer.appendChild(muteButton);
+muteButton.addEventListener("click", muter);
+function muter() {
+if (audioTrack.volume == 0) {
+setText(this,"Mute");
+audioTrack.volume = 1;
+} else {
+setText(this,"Unmute");
+audioTrack.volume = 0;
+} }
+', CClientScript::POS_READY);
+?>
