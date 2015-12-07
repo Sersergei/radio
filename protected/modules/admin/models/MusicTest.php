@@ -16,7 +16,7 @@
  */
 class MusicTest extends CActiveRecord
 {
-
+	private $licens;
 
 	/**
 	 * @return string the associated database table name
@@ -38,12 +38,23 @@ class MusicTest extends CActiveRecord
 			array('id_status','active'),
 			array('date_finished','datefinished'),
 			array('date_started','datestarted'),
+			array('license','license'),
 
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
 		);
+	}
+	public function license($attribute){
+		if($this->radio->license->test_count>count($this->radio->MusicTest) and $this->radio->license->test_count){
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+			$this->radio->status=0;
+		}
+		if(!$this->radio->status){
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+		}
+
 	}
 	public function active($attribute){
 		$criteria=new CDbCriteria();
