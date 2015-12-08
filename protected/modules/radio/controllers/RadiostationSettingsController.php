@@ -135,6 +135,57 @@ class RadiostationSettingsController extends Controller
 		'model'=>$model,
 	));
 }
+
+
+
+
+
+	public function actionMymixmarker()
+	{
+
+		$model=new RadiostationSetingsBedmixmarker(1);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RadiostationSetingsBedmixmarker']))
+		{
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('before');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+					$session=new CHttpSession;
+					$session->open();
+					//$bedmixmarker=array_merge($mix,$model->mixmarker);
+					$session['bed_mixmarker']=serialize($model->mixmarker);
+					$this->redirect(array('godmixmarker'));
+				}
+
+			}
+		}
+
+		$this->render('bedmixmarker',array(
+			'model'=>$model,
+		));
+	}
+
+
+
+
 	public function actionLoadmixmarker()
 	{
 

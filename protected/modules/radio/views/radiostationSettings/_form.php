@@ -60,8 +60,9 @@
 		<?php echo Yii::t('radio','Add all radiostations of your regions (separate them with commas)') ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Next'); ?>
+	<div class="row button">
+		<?php echo CHtml::Button('sdfsd',array('submit'=>array('/radio'),'class'=>'back')); ?>
+		<?php echo CHtml::submitButton('Next',array('class'=>'next')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
