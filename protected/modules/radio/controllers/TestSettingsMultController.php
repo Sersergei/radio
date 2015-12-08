@@ -68,7 +68,7 @@ class TestSettingsMultController extends Controller
 		{
 			$model->attributes=$_POST['TestSettingsMult'];
 			if($model->save())
-				$this->redirect(array('radiostationSettings'));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('create',array(

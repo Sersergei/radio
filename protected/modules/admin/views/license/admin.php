@@ -47,6 +47,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'id_radiostation',
+		array(
+			'name' => 'Radiostation',
+			'type' => 'raw',
+			'value' => '$data->radio->',
+		),
 		'date',
 		'test_count',
 		array(
