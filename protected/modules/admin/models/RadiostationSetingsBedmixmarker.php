@@ -23,6 +23,7 @@ class RadiostationSetingsBedmixmarker extends CFormModel
             array('mixmarker','max_array','on'=>'before,beforegod'),
             array('mixmarker','repeat','on'=>'beforegod'),
             array('mixmarker','min_array','on'=>'after'),
+            array('mixmarker','required','on'=>'after'),
             array('file', 'file', 'types'=>'mp3','maxFiles'=>($this->limit-count($this->mixmarker)),'allowEmpty' => TRUE),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -37,7 +38,7 @@ class RadiostationSetingsBedmixmarker extends CFormModel
 }
     public function min_array($attribute){
 
-        if (count($this->mixmarker)<$this->limit)
+        if (count($this->mixmarker)<$this->limit and !$this->mixmarker)
             $this->addError($attribute,'выберите не меньше'.$this->limit.' миксмаркеров');
 
     }
@@ -47,6 +48,13 @@ class RadiostationSetingsBedmixmarker extends CFormModel
         if(isset($session['bed_mixmarker'])){
             $bed=unserialize($session['bed_mixmarker']);
 
+        }
+        elseif(isset($session['god_mixmarker'])){
+            $bed=unserialize($session['god_mixmarker']);
+
+        }
+        elseif($session['my_mixmarker']){
+            $bed=$session['my_mixmarker'];
         }
         else{
             $settings=RadiostationSettings::model()->findByPk($this->id);

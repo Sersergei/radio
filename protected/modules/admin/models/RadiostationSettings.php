@@ -173,7 +173,7 @@ class RadiostationSettings extends CActiveRecord
 	}
 	public function getMixmarker(){
 		$mix=Mixmarker::model()->findByPk($this->mix_marker);
-		return '<audio src=../mixmarker/'.$mix->name.' controls></audio>';
+		return '<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio>';
 		//return 5;
 	}
 	public function getbedmixmarker(){
@@ -181,7 +181,7 @@ class RadiostationSettings extends CActiveRecord
 		$content="";
 		foreach($arr as $mix){
 			$mix=Mixmarker::model()->findByPk($mix);
-			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+			$content=$content.'<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio><br>';
 		}
 		return $content;
 	}
@@ -190,7 +190,7 @@ class RadiostationSettings extends CActiveRecord
 		$content="";
 		foreach($arr as $mix){
 			$mix=Mixmarker::model()->findByPk($mix);
-			$content=$content.'<audio src=../mixmarker/'.$mix->name.' controls></audio><br>';
+			$content=$content.'<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio><br>';
 		}
 		return $content;
 	}

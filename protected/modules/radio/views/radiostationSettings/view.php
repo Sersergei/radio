@@ -28,59 +28,59 @@ $this->widget('zii.widgets.CDetailView', array(
 
 	'attributes'=>array(
 
-    array(
-        'name' => 'id_radiostation',
-        'type' => 'raw',
-        'value' => $model->Radiostation->name,
-    ),
+		array(
+			'name' => 'id_radiostation',
+			'type' => 'raw',
+			'value' => $model->Radiostation->name,
+		),
 
-array(
-    'name' => 'id_lang',
-    'type' => 'raw',
-    'value' => $model->idLang->name,
-),
+		array(
+			'name' => 'id_lang',
+			'type' => 'raw',
+			'value' => $model->idLang->name,
+		),
 
 
-array(
-'name' => 'not_use_music_marker',
-'type' => 'raw',
-'value' => $model->getnot_use_music_marker(),
-),
+		array(
+			'name' => 'not_use_music_marker',
+			'type' => 'raw',
+			'value' => $model->getnot_use_music_marker(),
+		),
 
-array(
-'name' => 'not_register_users',
-'type' => 'raw',
-'value' => $model->getnot_register_users(),
-),
-array(
-'name' => 'not_invite_users',
-'type' => 'raw',
-'value' => $model->getnot_invite_users(),
-),
-array(
-'name' => 'id_card_registration',
-'type' => 'raw',
-'value' => $model->getid_card_registration(),
-),
-/*
-        array(
-        'name' => 'mix_marker',
-        'type' => 'raw',
-        'value' => $model->getMixmarker(),
-        ),
+		array(
+			'name' => 'not_register_users',
+			'type' => 'raw',
+			'value' => $model->getnot_register_users(),
+		),
+		array(
+			'name' => 'not_invite_users',
+			'type' => 'raw',
+			'value' => $model->getnot_invite_users(),
+		),
+		array(
+			'name' => 'id_card_registration',
+			'type' => 'raw',
+			'value' => $model->getid_card_registration(),
+		),
+		/*
+                array(
+                'name' => 'mix_marker',
+                'type' => 'raw',
+                'value' => $model->getMixmarker(),
+                ),
 
-*/
-        array(
-        'name' => 'bed_marker',
-        'type' => 'raw',
-        'value' => $model->getbedmixmarker(),
-        ),
+        */
+		array(
+			'name' => 'bed_marker',
+			'type' => 'raw',
+			'value' => $model->getbedmixmarker(),
+		),
 
-        array(
-        'name' => 'god_marker',
-        'type' => 'raw',
-        'value' => $model->getgodmixmarker(),
-        ),
+		array(
+			'name' => 'god_marker',
+			'type' => 'raw',
+			'value' => $model->getgodmixmarker(),
+		),
 
         'other_radiostations',
 

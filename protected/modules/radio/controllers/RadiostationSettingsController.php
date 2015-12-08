@@ -64,6 +64,32 @@ class RadiostationSettingsController extends Controller
 		}
 		else $this->redirect(array('create'));
 	}
+	public function actionCheck(){
+		var_dump($_POST);
+		$session=new CHttpSession;
+		$session->open();
+		$settings=new RadiostationSettings();
+		$register=unserialize($session['register']);
+		$settings->id_card_registration=$register->id_card_registration;
+		$settings->id_lang=$register->id_lang;
+		$settings->mix_marker=$session['my_mixmarker'];;
+		$settings->other_radiostations=$register->other_radiostations;
+		$settings->not_use_music_marker=$register->not_use_music_marker;
+		$settings->not_invite_users=$register->not_invite_users;
+		$settings->not_register_users=$register->not_register_users;
+		$settings->bed_mixmarker=$session['bed_mixmarker'];
+		$settings->god_mixmarker=$session['god_mixmarker'];
+		if(isset($_POST['yt2'])){
+			if($settings->save()){
+				unset($session['my_mixmarker']);
+				unset($session['bed_mixmarker']);
+				unset($session['god_mixmarker']);
+				$this->redirect(array('TestSettings/create'));
+			}
+		}
+
+		$this->render('check',array('model'=>$settings));
+	}
 
 	/**
 	 * Creates a new model.
@@ -85,7 +111,7 @@ class RadiostationSettingsController extends Controller
 					$session->open();
 					$session['register']=serialize($model);
 					$this->register=$model;
-					$this->redirect(array('bedmixmarker'));
+					$this->redirect(array('mymixmarker'));
 				}
 		}
 
@@ -95,8 +121,11 @@ class RadiostationSettingsController extends Controller
 	}
 	public function actionBedmixmarker()
 {
+	$session=new CHttpSession;
+	$session->open();
+	$i=4-count(unserialize($session['god_mixmarker']));
 
-	$model=new RadiostationSetingsBedmixmarker(4);
+	$model=new RadiostationSetingsBedmixmarker($i);
 
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
@@ -107,7 +136,7 @@ class RadiostationSettingsController extends Controller
 		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 		$files=CUploadedFile::getInstances($model,'file');
 		$model->file=$files;
-		$model->setScenario ('before');
+		$model->setScenario ('beforegod');
 		if ($model->validate()){
 			$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
 			if($files)
@@ -121,18 +150,17 @@ class RadiostationSettingsController extends Controller
 			}
 			$model->setScenario ('after');
 			if($model->validate()){
-				$session=new CHttpSession;
-				$session->open();
+
 				//$bedmixmarker=array_merge($mix,$model->mixmarker);
 				$session['bed_mixmarker']=serialize($model->mixmarker);
-				$this->redirect(array('godmixmarker'));
+				$this->redirect(array('check'));
 			}
 
 		}
 	}
 
 	$this->render('bedmixmarker',array(
-		'model'=>$model,
+		'model'=>$model,'i'=>$i,
 	));
 }
 
@@ -163,7 +191,7 @@ class RadiostationSettingsController extends Controller
 						$name=time().str_replace(" ","",$file->getName());
 						$mix->name=$name;
 						$mix->save();
-						$model->mixmarker[]=$mix->id;
+						$model->mixmarker=$mix->id;
 						$file->saveAs($dir.'/'.$name);
 					}
 				$model->setScenario ('after');
@@ -171,14 +199,14 @@ class RadiostationSettingsController extends Controller
 					$session=new CHttpSession;
 					$session->open();
 					//$bedmixmarker=array_merge($mix,$model->mixmarker);
-					$session['bed_mixmarker']=serialize($model->mixmarker);
+					$session['my_mixmarker']=$model->mixmarker[0];
 					$this->redirect(array('godmixmarker'));
-				}
 
+				}
 			}
 		}
 
-		$this->render('bedmixmarker',array(
+		$this->render('mymixmarker',array(
 			'model'=>$model,
 		));
 	}
@@ -262,6 +290,7 @@ class RadiostationSettingsController extends Controller
 	public function actionGodmixmarker()
 	{
 
+
 		$model=new RadiostationSetingsBedmixmarker(2);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -291,7 +320,7 @@ class RadiostationSettingsController extends Controller
 
 				$session['god_mixmarker']=serialize($model->mixmarker);
 
-				$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
+				$this->redirect(array('bedmixmarker'));
 			}
 		}}
 

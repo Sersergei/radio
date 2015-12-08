@@ -1,8 +1,4 @@
-<?php
-/* @var $this RadiostationSettingsController */
-/* @var $model RadiostationSettings */
-/* @var $form CActiveForm */
-?>
+
 
 <div class="form">
 
@@ -29,7 +25,9 @@
 
     <?php echo $form->textField($model,'lable',array('class'=>'hide','value'=>2)); ?>
     <div class="row buttons">
-        <?php echo CHtml::submitButton( 'Next'); ?>
+        <?php echo CHtml::Button('back',array('onclick'=>'javascript:history.back()','class'=>'back')); ?>
+        <?php echo CHtml::Button('return',array('submit'=>array('/radio/radiostationSettings'),'class'=>'return')); ?>
+        <?php echo CHtml::submitButton('Next',array('class'=>'next')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

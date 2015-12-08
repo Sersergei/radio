@@ -252,9 +252,44 @@ div.search-form
 	cursor: hand;
 	background-image: url("../images/back.jpg");
 }
+.return{
+	width:45px;
+	height: 45px;
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+	text-indent: -1000em;
+	cursor: pointer;
+	cursor: hand;
+	background-image: url("../images/return.jpg");
+}
 #header-setting{
 	margin-left: -15px;
 	width: 936px;
 	height: 60px;
 	background-image: url("../images/settings_test_menu1.jpg");
+}
+#header-mymix{
+	margin-left: -15px;
+	width: 936px;
+	height: 60px;
+	background-image: url("../images/settings_test_menu2.jpg");
+}
+#header-godmix{
+	margin-left: -15px;
+	width: 936px;
+	height: 60px;
+	background-image: url("../images/settings_test_menu3.jpg");
+}
+#header-bedmix{
+	   margin-left: -15px;
+	   width: 936px;
+	   height: 60px;
+	   background-image: url("../images/settings_test_menu4.jpg");
+   }
+#header-check{
+	margin-left: -15px;
+	width: 936px;
+	height: 60px;
+	background-image: url("../images/settings_test_menu5.jpg");
 }
