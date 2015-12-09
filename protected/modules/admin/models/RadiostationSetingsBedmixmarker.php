@@ -57,7 +57,7 @@ class RadiostationSetingsBedmixmarker extends CFormModel
             $bed[]=$session['my_mixmarker'];
         }
 
-        if($bed){
+        if(isset($bed)){
             if($this->mixmarker)
                 foreach($this->mixmarker as $mix){
 

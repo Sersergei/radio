@@ -173,6 +173,7 @@ class RadiostationSettings extends CActiveRecord
 	}
 	public function getMixmarker(){
 		$mix=Mixmarker::model()->findByPk($this->mix_marker);
+		if($mix)
 		return '<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio>';
 		
 	}

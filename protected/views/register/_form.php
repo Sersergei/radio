@@ -1,13 +1,4 @@
-<?php
-/* @var $this UsersController */
-/* @var $model Users */
-/* @var $form CActiveForm */
-?>
 
-<div class="form">
-	<figure id="audioplayer">
-		<audio controls src="/musictest/54/01. Engel.mp3"></audio>
-	</figure>
 <?php
 
 

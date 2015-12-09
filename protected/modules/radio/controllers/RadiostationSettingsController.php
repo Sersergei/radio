@@ -127,6 +127,8 @@ class RadiostationSettingsController extends Controller
 		$i=(5-count(unserialize($session['god_mixmarker'])));
 
 	$model=new RadiostationSetingsBedmixmarker($i);
+	$model->mixmarker=unserialize($session['bed_mixmarker']);
+	unset ($session['bed_mixmarker']);
 
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
@@ -172,14 +174,14 @@ class RadiostationSettingsController extends Controller
 
 	public function actionMymixmarker()
 	{
-
+		$session=new CHttpSession;
+		$session->open();
 		$model=new RadiostationSetingsBedmixmarker(1);
-
+		unset($session['my_mixmarker']);
 
 		if(isset($_POST['RadiostationSetingsBedmixmarker']))
 		{
-			$session=new CHttpSession;
-			$session->open();
+
 			$settings=unserialize($session['register']);
 
 
@@ -232,7 +234,7 @@ class RadiostationSettingsController extends Controller
 		$model=new RadiostationSetingsBedmixmarker($i);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+$model->mixmarker=unserialize($session['god_mixmarker']);
 		if(isset($_POST['RadiostationSetingsBedmixmarker']))
 		{
 			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
