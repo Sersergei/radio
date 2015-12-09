@@ -49,25 +49,26 @@ class RadiostationSetingsBedmixmarker extends CFormModel
            $bed=unserialize($session['bed_mixmarker']);
 
         }
-        elseif(isset($session['god_mixmarker'])){
+        elseif($session['god_mixmarker']){
+
             $bed=unserialize($session['god_mixmarker']);
-
+        }
+        elseif($session['my_mixmarker']){
+            $bed[]=$session['my_mixmarker'];
         }
 
-        else{
-            $settings=RadiostationSettings::model()->findByPk($this->id);
-            $bed=unserialize($settings->bed_mixmarker);
-        }
+        if($bed){
+            if($this->mixmarker)
+                foreach($this->mixmarker as $mix){
 
-        if($this->mixmarker)
-        foreach($this->mixmarker as $mix){
-
-            if(in_array($mix,$bed)){
-                $this->addError($attribute,Yii::t('radio','Вы выбрали такойже миксмаркр вернитесь назад и
+                    if(in_array($mix,$bed)){
+                        $this->addError($attribute,Yii::t('radio','Вы выбрали такойже миксмаркр вернитесь назад и
                      переопределите  миксмаркер либо выберети другой '));
-                break;
-            }
+                        break;
+                    }
+                }
         }
+
     }
 
 }

@@ -19,13 +19,13 @@ $this->widget('zii.widgets.CDetailView', array(
             'value' => $model->idLang->name,
         ),
 
-*/
+
         array(
             'name' => 'not_use_music_marker',
             'type' => 'raw',
             'value' => $model->getnot_use_music_marker(),
         ),
-
+*/
         array(
             'name' => 'not_register_users',
             'type' => 'raw',
