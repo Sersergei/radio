@@ -48,7 +48,7 @@ class UsersInvitation
                 $headers="From: radio <{$email}>\r\n".
                     "Reply-To: {$email}\r\n".
                     "MIME-Version: 1.0\r\n".
-                    "Content-Type: text/plain; charset=UTF-8";
+                    "Content-Type: text/html; charset=UTF-8 \r\n";
 
                 mail($this->user->email,$subject,$text,$headers);
             }
