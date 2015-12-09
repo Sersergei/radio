@@ -19,9 +19,9 @@
 
 	<?php echo $form->errorSummary($model); ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'never'); ?>
-		<?php echo $form->radioButton($model,'never',array('never'=>'Never')); ?>
-		<?php echo $form->error($model,'never'); ?>
+		<?php //echo $form->labelEx($model,'never'); ?>
+		<?php //echo $form->radioButton($model,'never',array('never'=>'Never')); ?>
+		<?php// echo $form->error($model,'never'); ?>
 	</div>
 
 	<div class="radio">
