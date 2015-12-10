@@ -1,3 +1,4 @@
+var y;
 $(document).ready(function(){
 
 
@@ -6,12 +7,17 @@ $(document).ready(function(){
        // window.location = self.location;
     }
     $(".mini_controls .mini-play").on("click",function(){
-        $(this).css("display","none");
-        $(".mini_controls .mini-pause").css("display", "block");
+
+        $(".mini_controls .mini-pause").hide();
+       // $(".mini-play:hidden").parent().next().children(audio);
+        $(".mini_controls .mini-play").show();
+        $(this).hide();
+        $( this ).next(".mini-pause").show();
     });
     $(".mini_controls .mini-pause").on("click",function(){
         $(this).css("display","none");
-        $(".mini_controls .mini-play").css("display", "block");
+        $(".mini_controls .mini-pause").hide();
+        $(".mini_controls .mini-play").show();
     });
 
     //Переключение потоков DANCE_RADIO
@@ -126,3 +132,11 @@ $(document).ready(function(){
         });
     },1000);
 });
+function play (x){
+    if (y!==undefined){
+        y.pause();
+    }
+
+    x.play();
+    y=x;
+}

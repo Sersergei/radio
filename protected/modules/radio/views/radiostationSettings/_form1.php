@@ -18,8 +18,8 @@
     <?php //echo Chtml::activeFileField($model,'file[]',['multiple'=>true]); ?>
 </div>
     <div class="row">
-        <?php echo $form->labelEx($model,''); ?>
-        <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all(),array('labelOptions'=>array('style'=>'display:inline'))); ?>
+
+        <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all(),array('separator'=>'','labelOptions'=>array('style'=>'display:inline'))); ?>
         <?php echo $form->error($model,'id_lang'); ?>
     </div>
 
