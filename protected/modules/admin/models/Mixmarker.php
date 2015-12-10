@@ -105,9 +105,32 @@ class Mixmarker extends CActiveRecord
 			$name=explode(".",$miksmarker->name);
 			$name=$name[0];
 			$i=preg_replace("/[0-9]/","", $name);
-			$array[$miksmarker->id] ='<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'. $miksmarker->name . ' controls></audio></br>
-			<spain>'.$i.'</spain>';
+			$array[$miksmarker->id] ="<div class='lm-inner clearfix'>
+
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"document.getElementById('player_".$miksmarker->id."').play()\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$miksmarker->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$miksmarker->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $miksmarker->name." ></audio>
+</div>
+</div>";
 		}
 		return $array;
 	}
 }
+/*
+$arr="<div class='lm-inner clearfix'>
+        <div class='mini_controls'>
+
+        </div>
+
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display: block;' onclick='document.getElementById('player_".$miksmarker->id."').play()'></a>
+                <a href='javascript:void(0)' class='mini-pause ' style='display: none;' onclick='document.getElementById('player_".$miksmarker->id."').pause()'></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$miksmarker->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $miksmarker->name." ></audio>
+</div>
+</div>";
+*/

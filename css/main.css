@@ -293,3 +293,37 @@ div.search-form
 	height: 60px;
 	background-image: url("../images/settings_test_menu5.jpg");
 }
+.mini-play {
+	background: url("../images/sprite.png") no-repeat scroll 0 -1293px rgba(0, 0, 0, 0);
+	display: inline-block;
+	float: left;
+	height: 28px;
+	margin-right: 12px;
+	width: 28px;
+}
+.mini-pause {
+	background: url("../images/sprite.png") no-repeat scroll 0 -689px rgba(0, 0, 0, 0);
+	display: inline-block;
+	float: left;
+	height: 28px;
+	margin-right: 12px;
+	width: 28px;
+}
+.play {
+	background-image: url("../images/sprite.png");
+	background-position: 0 -1483px;
+	background-repeat: no-repeat;
+	display: block;
+	font-size: 0;
+	height: 62px;
+	width: 62px;
+}
+.play {
+	background-image: url("../images/sprite.png");
+	background-position: 0 -1483px;
+	background-repeat: no-repeat;
+	display: block;
+	font-size: 0;
+	height: 62px;
+	width: 62px;
+}
