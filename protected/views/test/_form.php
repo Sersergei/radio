@@ -26,12 +26,13 @@
 
 	<div class="radio">
 
-		<?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array(
-			'labelOptions'=> array('style' => 'display: inline'))); ?>
-		<?php echo $form->error($model,'id_like'); ?>
 	</div>
 
 	<div class="row buttons">
+		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::submitButton('Next'); ?>
 		<?php echo CHtml::submitButton('Next'); ?>
 	</div>
 

@@ -17,6 +17,7 @@
 class MusicTest extends CActiveRecord
 {
 	private $licens;
+	private $_status;
 
 	/**
 	 * @return string the associated database table name
@@ -47,11 +48,14 @@ class MusicTest extends CActiveRecord
 		);
 	}
 	public function license($attribute){
+
 		if($this->radio->license->test_count>count($this->radio->MusicTest) and $this->radio->license->test_count){
 			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
 			$this->radio->status=0;
+
 		}
 		if(!$this->radio->status){
+
 			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
 		}
 
@@ -159,41 +163,23 @@ class MusicTest extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	protected function afterFind()
+	{
+		$this->_status=$this->id_status;
+
+	}
 	protected function beforeSave()
 	{
 		if ($this->isNewRecord) {
-			$user = Users::model()->find('id_user=:user', array(':user' => Yii::app()->user->id));
-			$this->id_radiostation = $user->id_radiostation;
 			$this->id_status = 1;
 			$this->date_add = date(" Y-m-d");
 		}
-		if ($this->id_status == 2 and $this->id_type == 1) {
-			$old = $this->getModified('id_status');
-			if ($old) {
-				$criteria = new CDbCriteria();
-				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
-				$criteria->params = array(':id_radiostation' => $this->id_radiostation, ':id_category' => 3);
-				$model = Users::model()->findAll($criteria);
 
-				if ($model) {
-						foreach ($model as $user) {
-							new UsersInvitation($user);
-						}
-				}
-			}
-		}
 		parent::beforeSave();
 		return true;
 
 	}
-	private function getModified($param){
-		$old=MusicTest::model()->findbypk($this->id_test);
-		if($old->id_status==$this->id_status){
-			return false;
-		}
-		else return true;
 
-	}
 	protected function afterSave(){
 		if ($this->isNewRecord){
 			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
@@ -209,6 +195,20 @@ class MusicTest extends CActiveRecord
 					$songs->singer = $info['ARTISTS'];
 					$songs->song_file = $file;
 					$songs->save();
+				}
+			}
+		}
+		if ($this->id_status == 2 and $this->id_type == 1) {
+			if ($this->_status!=$this->id_status) {
+				$criteria = new CDbCriteria();
+				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
+				$criteria->params = array(':id_radiostation' => $this->id_radiostation, ':id_category' => 3);
+				$model = Users::model()->findAll($criteria);
+
+				if ($model) {
+					foreach ($model as $user) {
+						new UsersInvitation($user);
+					}
 				}
 			}
 		}

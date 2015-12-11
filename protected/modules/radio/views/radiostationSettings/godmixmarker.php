@@ -1,4 +1,4 @@
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
+
 <div id="header-godmix"></div>
 
     <h1><p><?php echo Yii::t('radio','Mix-markers similiar on format your radiostation') ?></p></h1>

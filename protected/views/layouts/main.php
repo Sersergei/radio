@@ -6,9 +6,11 @@
 	<meta name="language" content="en">
 	<title></title>
 	<!-- blueprint CSS framework -->
+	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/layout.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/prettyPhoto.css" >
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/player.js', CClientScript::POS_HEAD); ?>
 	<!--[if lt IE 8]>
 
 	<![endif]-->

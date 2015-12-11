@@ -165,3 +165,21 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     margin-bottom: 10px;
 }
 
+.play {
+    background-image: url("../images/sprite.png");
+    background-position: 0 -1483px;
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 62px;
+    width: 62px;
+}
+.pause {
+    background-image: url("../images/sprite.png");
+    background-position: 0 -957px;
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 62px;
+    width: 62px;
+}
