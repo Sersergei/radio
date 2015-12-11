@@ -17,12 +17,13 @@
 <div class="row">
     <?php //echo Chtml::activeFileField($model,'file[]',['multiple'=>true]); ?>
 </div>
-    <div class="row">
+    <div class="main">
+    <div class="mix">
 
-        <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all(),array('separator'=>'','labelOptions'=>array('style'=>'display:inline'))); ?>
+        <?php echo $form->checkboxList($model,'mixmarker',Mixmarker::all(),array('separator'=>'<td>','labelOptions'=>array('style'=>'display:inline'))); ?>
         <?php echo $form->error($model,'id_lang'); ?>
     </div>
-
+</div>
     <?php echo $form->textField($model,'lable',array('class'=>'hide','value'=>2)); ?>
     <div class="row buttons">
         <?php echo CHtml::Button('back',array('onclick'=>'javascript:history.back()','class'=>'back')); ?>

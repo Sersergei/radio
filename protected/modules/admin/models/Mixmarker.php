@@ -105,7 +105,7 @@ class Mixmarker extends CActiveRecord
 			$name=explode(".",$miksmarker->name);
 			$name=$name[0];
 			$i=preg_replace("/[0-9]/","", $name);
-			$array[$miksmarker->id] ="<div class='lm-inner'>
+			$array[$miksmarker->id] ="<div class='lm-inner clearfix'>
 			<spain>".$i."</spain>
          <div class='mini_controls'>
                 <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$miksmarker->id."'); play(x);\"></a>

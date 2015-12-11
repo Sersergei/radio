@@ -26,7 +26,7 @@
 
 	<div class="radio">
 
-		<?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array( 'separator'=>'',
+		<?php echo $form->radioButtonList($model,'id_like',SongLikesMult::all(),array(
 			'labelOptions'=> array('style' => 'display: inline'))); ?>
 		<?php echo $form->error($model,'id_like'); ?>
 	</div>
