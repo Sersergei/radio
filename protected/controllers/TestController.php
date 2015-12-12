@@ -111,11 +111,28 @@ $model=Users::model()->findByPk($model);
 
 			$song="/".stristr($song,'musictest');
 			$song=str_replace('\\','/',$song);
-
-			if(isset($_POST['MusicTestDetail']))
+			if(isset($_POST['yt1'])){
+				$ansver=5;
+			}
+			if(isset($_POST['yt2'])){
+				$ansver=4;
+			}
+			if(isset($_POST['yt3'])){
+				$ansver=3;
+			}
+			if(isset($_POST['yt4'])){
+				$ansver=2;
+			}
+			if(isset($_POST['yt5'])){
+				$ansver=1;
+			}
+			if(isset($_POST['never'])){
+				$model->never=5;
+			}
+			if(isset($ansver))
 			{
 
-				$model->attributes=$_POST['MusicTestDetail'];
+				$model->id_like=$ansver;
 				$model->date_last=date(" Y-m-d");
 
 				if($model->validate()){

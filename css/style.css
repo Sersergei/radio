@@ -183,3 +183,6 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     height: 62px;
     width: 62px;
 }
+.divnever{
+    display: none;
+}

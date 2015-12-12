@@ -24,16 +24,17 @@
 		<?php// echo $form->error($model,'never'); ?>
 	</div>
 
-	<div class="radio">
-
+	<div class="divnever">
+		<?php echo Yii::t('radio','Even if you don`t know the song, do you like it?'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Next'); ?>
-		<?php echo CHtml::submitButton('Next'); ?>
-		<?php echo CHtml::submitButton('Next'); ?>
-		<?php echo CHtml::submitButton('Next'); ?>
-		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::Button(Yii::t('radio','I never heard of it'),array('class'=>'never')); ?>
+		<?php echo CHtml::submitButton(Yii::t('radio','I love it')); ?>
+		<?php echo CHtml::submitButton(Yii::t('radio','I just like it')); ?>
+		<?php echo CHtml::submitButton(Yii::t('radio','I would listen to it')); ?>
+		<?php echo CHtml::submitButton(Yii::t('radio','I`am tired of it')); ?>
+		<?php echo CHtml::submitButton(Yii::t('radio','I don`t like it')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
