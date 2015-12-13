@@ -110,8 +110,7 @@ $model=Users::model()->findByPk($model);
 			}
 			$session = new CHttpSession;
 			$session->open();
-			$session['old_sound']=$sound;// последний музікальній тест
-			$session[old_test]=Yii::app()->request->cookies['test']->value;// список последних осташихся
+
 			$con=$session['con'];
 			$progress=100-((count($test)/$con)*100);
 
@@ -152,7 +151,8 @@ $model=Users::model()->findByPk($model);
 			}
 			if(isset($ansver))
 			{
-
+				$session['old_sound']=$sound;// последний музікальній тест
+				$session[old_test]=Yii::app()->request->cookies['test']->value;// список последних осташихся
 				$model->id_like=$ansver;
 				$model->date_last=date(" Y-m-d");
 
@@ -204,7 +204,7 @@ $model=Users::model()->findByPk($model);
 	public function actionRepeat(){
 		$session = new CHttpSession;
 		$session->open();
-		$cookie = new CHttpCookie('test', serialize($session['old_test']));//устанавливаем куки масива песен на 30 мин
+		$cookie = new CHttpCookie('test', $session['old_test']);//устанавливаем куки масива песен на 30 мин
 		$cookie->expire = time() + 1800;
 		Yii::app()->request->cookies['test'] = $cookie;
 		$cookie = new CHttpCookie('soundtest', $session['old_sound']);//устанавливаем куки масива песен на 30 мин
