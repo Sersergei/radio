@@ -181,7 +181,7 @@ $model=Users::model()->findByPk($model);
 					}
 
 					$ansver=unserialize(Yii::app()->request->cookies['ansver']->value);
-					$ans=array('date_last'=>$model->date_last,'id_song'=>$model->id_song,'id_like'=>$model->id_like);
+					$ans=array('date_last'=>$model->date_last,'id_song'=>$model->id_song,'id_like'=>$model->id_like,'never'=>$model->never);
 					$ansver[]=$ans;
 					$cookie = new CHttpCookie('ansver',serialize($ansver));//устанавливаем куки масива ответов песни на 30 мин
 					$cookie->expire = time() + 1800;
@@ -249,6 +249,7 @@ $model=Users::model()->findByPk($model);
 			}
 			$user->link='';
 			$user->save();
+
 			$text=$user->radio->settings->text_after_test;
 			$this->render('finish',array('model'=>$text,'message'=>''));
 		}

@@ -43,7 +43,7 @@ class MusicTestDetail extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_user, date_last, id_song, id_like', 'required'),
-			array('id_test, id_user, id_song, id_like', 'numerical', 'integerOnly'=>true),
+			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'safe', 'on'=>'search'),
@@ -111,11 +111,31 @@ class MusicTestDetail extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	public function getfavorite($like){
+	public function getfavorite($like,$p=Null){
 		$criteria=new CDbCriteria;
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$like);
+		if($p==1){
+			$criteria->compare('idUser.P1',$this->idUser->id_radiostation);
+		}
+		if($p==2){
+			$criteria->compare('idUser.P2',$this->idUser->id_radiostation);
+		}
+		$model=MusicTestDetail::model()->findall($criteria);
+		return count($model);
+	}
+	public function getnever($p=Null){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_test',$this->id_test);
+		$criteria->compare('id_song',$this->id_song);
+		$criteria->compare('never',1);
+		if($p==1){
+			$criteria->compare('idUser.P1',$this->idUser->id_radiostation);
+		}
+		if($p==2){
+			$criteria->compare('idUser.P2',$this->idUser->id_radiostation);
+		}
 		$model=MusicTestDetail::model()->findall($criteria);
 		return count($model);
 	}

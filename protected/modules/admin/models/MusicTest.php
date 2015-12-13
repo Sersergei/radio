@@ -212,6 +212,13 @@ class MusicTest extends CActiveRecord
 				}
 			}
 		}
+		if($this->id_status==3){
+			$model=Users::model()->findAll("id_radiostation=".$this->id_radiostation);
+			foreach($model as $user){
+				$user->link="";
+				$user->save();
+			}
+		}
 
 	}
 	protected function mp3info($file){

@@ -64,8 +64,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => '$data->getfavorite(1)*100/count($data)',
 		),
 		array(
-			'class'=>'CButtonColumn',
+			'name' => 'never',
+			'type' => 'raw',
+			'value' => '$data->getnever()*100/count($data)',
 		),
+
 	),
 )); ?>
 <a href="?file=1">Скачать отчет</a>

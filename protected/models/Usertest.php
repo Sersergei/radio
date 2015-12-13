@@ -104,4 +104,13 @@ class Usertest extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	protected function afterSave(){
+		$cou=count(Usertest::model()->findAll("id_music={$this->id_music}"));
+
+		$max_lisners=MusicTest::model()->findByPk($this->id_music);
+		if($max_lisners->getMaxLisners()<=$cou){
+			$max_lisners->id_status=3;
+			$max_lisners->save();
+		}
+	}
 }
