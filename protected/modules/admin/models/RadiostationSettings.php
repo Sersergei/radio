@@ -174,7 +174,15 @@ class RadiostationSettings extends CActiveRecord
 	public function getMixmarker(){
 		$mix=Mixmarker::model()->findByPk($this->mix_marker);
 		if($mix)
-		return '<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio>';
+		return "<div class='lm-inner clearfix'>
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
+</div>
+</div>";
 
 	}
 	public function getbedmixmarker(){
@@ -183,7 +191,15 @@ class RadiostationSettings extends CActiveRecord
 			$content = "";
 			foreach ($arr as $mix) {
 				$mix = Mixmarker::model()->findByPk($mix);
-				$content = $content . '<audio src=' . Yii::app()->getBaseUrl(true) . '/mixmarker/' . $mix->name . ' controls></audio><br>';
+				$content = $content . "<div class='lm-inner clearfix'>
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
+</div>
+</div>";
 			}
 			return $content;
 		}
@@ -195,7 +211,15 @@ class RadiostationSettings extends CActiveRecord
 			$content="";
 			foreach($arr as $mix){
 				$mix=Mixmarker::model()->findByPk($mix);
-				$content=$content.'<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'.$mix->name.' controls></audio><br>';
+				$content=$content."<div class='lm-inner clearfix'>
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
+</div>
+</div>";
 			}
 			return $content;
 		}

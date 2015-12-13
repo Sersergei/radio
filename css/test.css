@@ -1,0 +1,63 @@
+.testsong{
+    border: 0;
+    cellpadding:0;
+    cellspacing:0;
+    border-collapse: collapse;
+    width: 700px;
+    height:500px;
+    background-image: url("../images/bg_co.png");
+}
+.never{
+    border: none;
+    background-image: url("../images/test_right_medium.png");
+    width:335px;
+    height:29px;
+}
+.down{
+    background-image: url("../images/test_right_down.png");
+    width:335px;
+    height:29px;
+    border: none;
+}
+
+.play {
+    background-image: url("../images/sprite.png");
+    background-position: 0 -1483px;
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 62px;
+    width: 62px;
+}
+.pause {
+    background-image: url("../images/sprite.png");
+    background-position: 0 -957px;
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 62px;
+    width: 62px;
+}
+.divnever{
+    display: none;
+}
+.lm-inner{
+    float: left;
+    margin-left: -101px;
+}
+.col-2{
+    margin-left: 25%;
+    align-content: center;
+}
+.message{
+    background-color: #F0DDFB;
+}
+.previus{
+    background-image: url("../images/previus_song.png");
+
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 63px;
+    width: 63px;
+}
