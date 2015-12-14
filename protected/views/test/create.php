@@ -39,6 +39,9 @@
                 </tr>
                 <tr>
                     <td width="498" height="29" colspan="3" align="right">
+                        <div class="divnever">
+                            <?php echo Yii::t('radio','Even if you don`t know the song, do you like it?'); ?>
+                        </div>
                         <?php echo CHtml::Button(Yii::t('radio','I never heard of it'),array('class'=>'never')); ?>
                     </td>
                 </tr>
@@ -56,9 +59,7 @@
                         <div align="left"> <?php echo Yii::t('radio','If you wanna listen
                             this song again, click the button please!') ?></div> </td>
                     <td width="337" height="29" align="right">
-                        <div class="divnever">
-                            <?php echo Yii::t('radio','Even if you don`t know the song, do you like it?'); ?>
-                        </div>
+
                         <?php echo CHtml::submitButton(Yii::t('radio','I love it'),array('class'=>'never')); ?>
                         </td>
                 </tr>

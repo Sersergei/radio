@@ -30,7 +30,7 @@ class TestController extends Controller
 //выбор песни для настройки аудио
 	if($user=Yii::app()->request->cookies['user']){
 		$model=$user->value;
-$model=Users::model()->findByPk($model);
+		$model=Users::model()->findByPk($model);
 		$criteria=new CDbCriteria();
 		$criteria->condition = 'id_radiostation = :id_radiostation';
 		$criteria->params = array(':id_radiostation'=>$model->id_radiostation);
@@ -152,7 +152,7 @@ $model=Users::model()->findByPk($model);
 			if(isset($ansver))
 			{
 				$session['old_sound']=$sound;// последний музікальній тест
-				$session[old_test]=Yii::app()->request->cookies['test']->value;// список последних осташихся
+				$session['old_test']=Yii::app()->request->cookies['test']->value;// список последних осташихся
 				$model->id_like=$ansver;
 				$model->date_last=date(" Y-m-d");
 
