@@ -38,7 +38,7 @@ class MusicTest extends CActiveRecord
 			array('id_type','required'),
 			array('id_status','active'),
 			array('date_finished','datefinished'),
-			array('date_started','datestarted'),
+		//	array('date_started','datestarted'),
 			array('license','license'),
 
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),

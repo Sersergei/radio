@@ -26,6 +26,18 @@ class MusicTestDetail extends CActiveRecord
 	public $dislike;
 	public $favorite;
 	public $never;
+	public $favorite_P1;
+	public $like_P1;
+	public $normal_P1;
+	public $tired_P1;
+	public $dislike_P1;
+	public $never_P1;
+	public $favorite_P2;
+	public $like_P2;
+	public $normal_P2;
+	public $tired_P2;
+	public $dislike_P2;
+	public $never_P2;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -117,9 +129,11 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$like);
 		if($p==1){
+			$criteria->with="idUser";
 			$criteria->compare('idUser.P1',$this->idUser->id_radiostation);
 		}
 		if($p==2){
+			$criteria->with="idUser";
 			$criteria->compare('idUser.P2',$this->idUser->id_radiostation);
 		}
 		$model=MusicTestDetail::model()->findall($criteria);
@@ -131,9 +145,11 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('never',1);
 		if($p==1){
+			$criteria->with="idUser";
 			$criteria->compare('idUser.P1',$this->idUser->id_radiostation);
 		}
 		if($p==2){
+			$criteria->with="idUser";
 			$criteria->compare('idUser.P2',$this->idUser->id_radiostation);
 		}
 		$model=MusicTestDetail::model()->findall($criteria);

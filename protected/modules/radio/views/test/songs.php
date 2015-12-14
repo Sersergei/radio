@@ -68,7 +68,67 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type' => 'raw',
 			'value' => '$data->getnever()*100/count($data)',
 		),
+		array(
+			'name' => 'favorite_P1',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(5,1)*100/count($data)',
+		),
+		array(
+			'name' => 'like_P1',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(4,1)*100/count($data)',
+		),
+		array(
+			'name' => 'normal_P1',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(3,1)*100/count($data)',
+		),
+		array(
+			'name' => 'tired_P1',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(2,1)*100/count($data)',
+		),
+		array(
+			'name' => 'dislike_P1',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(1,1)*100/count($data)',
+		),
+		array(
+			'name' => 'never_P1',
+			'type' => 'raw',
+			'value' => '$data->getnever(1)*100/count($data)',
+		),
+		array(
+			'name' => 'favorite_P2',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(5,2)*100/count($data)',
+		),
+		array(
+			'name' => 'like_P2',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(4,2)*100/count($data)',
+		),
+		array(
+			'name' => 'normal_P2',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(3,2)*100/count($data)',
+		),
+		array(
+			'name' => 'tired_P2',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(2,2)*100/count($data)',
+		),
+		array(
+			'name' => 'dislike_P2',
+			'type' => 'raw',
+			'value' => '$data->getfavorite(1,2)*100/count($data)',
+		),
+		array(
+			'name' => 'never_P2',
+			'type' => 'raw',
+			'value' => '$data->getnever(2)*100/count($data)',
+		),
 
-	),
-)); ?>
+
+	))); ?>
 <a href="?file=1">Скачать отчет</a>
