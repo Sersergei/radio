@@ -131,4 +131,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 
 	))); ?>
-<a href="?file=1">Скачать отчет</a>
+<a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>
+<a href="?file=1&type=CSV">Скачать отчет csv</a>

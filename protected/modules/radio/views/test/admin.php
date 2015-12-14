@@ -70,47 +70,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	),
 ));
 
-$this->widget('EExcelView', array(
-	'id'=>'provider-problem-grid',
-	'dataProvider'=>$model->search(),
-	'grid_mode' => 'export',
-	'filename' => 'report.xlsx',
-	'filter'=>$model,
-	'title'=>'Проблемы с провайдерами',
-	'autoWidth'=>true,
-	'stream' => false,
-	'exportType' => 'Excel2007',
-	'template'=>"{items}\n{exportbuttons}\n{pager}",
-	'columns'=>array(
-		array(
-			'name' => 'user',
-			'type' => 'raw',
-			'value' => '$data->user->name_listener',
-		),
-		array(
-			'name' => 'email',
-			'type' => 'raw',
-			'value' => '$data->user->email',
-		),
-		array(
-			'name' => 'sex',
-			'type' => 'raw',
-			'value' => '$data->user->sex',
-		),
-		array(
-			'name' => 'P1',
-			'type' => 'raw',
-			'value' => '$data->user->radio->name',
-		),
-
-		'id_music',
-		'date',
-		'time',
-
-
-	),
-
-));
 
 
 
@@ -119,4 +78,5 @@ $this->widget('EExcelView', array(
 
 
 ?>
-<a href="?file=1">Скачать отчет</a>
+<a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>
+<a href="?file=1&type=CSV">Скачать отчет csv</a>
