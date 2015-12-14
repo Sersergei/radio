@@ -48,7 +48,11 @@ class MusicTest extends CActiveRecord
 		);
 	}
 	public function license($attribute){
+		if($this->radio->status){
 
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+		}
+else{
 		if($this->radio->license->test_count<=count($this->radio->MusicTest) and $this->radio->license->test_count){
 
 			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
@@ -56,10 +60,7 @@ class MusicTest extends CActiveRecord
 
 		}
 
-		if($this->radio->status){
-
-			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
-		}
+}
 
 	}
 	public function active($attribute){
