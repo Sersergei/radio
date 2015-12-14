@@ -125,6 +125,7 @@ class LicenseController extends Controller
 	{
 		$model=new License('search');
 		$model->unsetAttributes();  // clear any default values
+
 		if(isset($_GET['License']))
 			$model->attributes=$_GET['License'];
 

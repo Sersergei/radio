@@ -49,12 +49,14 @@ class MusicTest extends CActiveRecord
 	}
 	public function license($attribute){
 
-		if($this->radio->license->test_count>count($this->radio->MusicTest) and $this->radio->license->test_count){
+		if($this->radio->license->test_count<=count($this->radio->MusicTest) and $this->radio->license->test_count){
+
 			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
-			$this->radio->status=0;
+			$this->radio->status=1;
 
 		}
-		if(!$this->radio->status){
+
+		if($this->radio->status){
 
 			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
 		}
@@ -190,10 +192,16 @@ class MusicTest extends CActiveRecord
 				foreach($files as $file) {
 					$songs = new Songs();
 					$songs->id_test = $this->id_test;
-					$info = $this->mp3info($file);
-					$songs->name = $info['NAME'];
-					$songs->singer = $info['ARTISTS'];
+					//$info = $this->mp3info($file);
+
+						$name=stristr($file,$this->id_test);
+						$name=stristr($name,'.mp3',true);
+					$name=str_replace($this->id_test."\\","",$name);
+					$name=explode("-", $name);
+					$songs->name = $name[1];
+					$songs->singer = $name[0];
 					$songs->song_file = $file;
+					$songs->validate();
 					$songs->save();
 				}
 			}
