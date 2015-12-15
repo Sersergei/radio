@@ -216,7 +216,7 @@ else{
 
 				if ($model) {
 					foreach ($model as $user) {
-						new UsersInvitation($user);
+						new UsersInvitation($user,$this->id_test);
 					}
 				}
 			}

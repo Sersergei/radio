@@ -9,9 +9,15 @@
 class UsersInvitation
 {
     private $user;
-    public function __construct(Users $user ){
-        $this->user=$user;
-        $this->Email();
+    public function __construct(Users $user,$id_test=Null ){
+        if($id_test){
+            $this->test=Usertest::model()->find("id_user=".$user->id_user."id_music=".$id_test);
+        }
+        if($this->test){
+            $this->user=$user;
+            $this->Email();
+        }
+
     }
     private function Email(){
 
@@ -57,6 +63,7 @@ class UsersInvitation
         }
     }
     private function Filter(){
+
         $criteria = new CDbCriteria();
         $criteria->condition = 'id_radiostation = :id_radiostation AND id_type=:id_type AND id_status=:id_status';
         $criteria->params = array(':id_radiostation' => $this->user->id_radiostation,':id_status'=>2,':id_type'=>1);

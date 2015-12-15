@@ -1,3 +1,6 @@
+.col-2{
+    font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+}
 .testsong{
     border: 0;
     cellpadding:0;
@@ -8,6 +11,12 @@
     background-image: url("../images/bg_co.png");
 }
 .never{
+    border: none;
+    background-image: url("../images/test_right_medium.png");
+    width:335px;
+    height:29px;
+}
+.never1{
     border: none;
     background-image: url("../images/test_right_medium.png");
     width:335px;
