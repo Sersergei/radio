@@ -38,6 +38,13 @@ class MusicTestDetail extends CActiveRecord
 	public $tired_P2;
 	public $dislike_P2;
 	public $never_P2;
+	public $song_name;
+	public $positive;
+	public $negative;
+	public $positive_P1;
+	public $negative_P1;
+	public $positive_P2;
+	public $negative_P2;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -118,6 +125,7 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('finaly',$this->finaly);
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
+		$criteria->group='id_song';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

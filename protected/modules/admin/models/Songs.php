@@ -31,7 +31,7 @@ class Songs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('singer, name, song_file, id_test', 'required'),
+			array('name, song_file, id_test', 'required'),
 			array('id_test', 'numerical', 'integerOnly'=>true),
 			array('singer, name', 'length', 'max'=>100),
 			// The following rule is used by search().

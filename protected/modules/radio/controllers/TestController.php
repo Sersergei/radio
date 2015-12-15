@@ -21,7 +21,7 @@ class TestController extends Controller
                'id'=>'provider-problem-grid',
                'dataProvider'=>$model->search(),
                'grid_mode' => 'export',
-               'filename' => 'report.xlsx',
+               'filename' => 'report',
                'filter'=>$model,
                'title'=>'',
                'autoWidth'=>false,
@@ -76,14 +76,13 @@ class TestController extends Controller
         $model->id_test = $id;
         if (isset($_GET['MusicTestDetail']))
             $model->attributes = $_GET['MusicTestDetail'];
-        $this->render('songs', array('model' => $model));
-        if (isset($_GET['file'])) {
 
+        if (isset($_GET['file'])) {
             $this->widget('EExcelView', array(
                 'id' => 'provider-problem-grid',
                 'dataProvider' => $model->search(),
                 'grid_mode' => 'export',
-                'filename' => 'report.xlsx',
+                'filename' => 'report',
                 'filter' => $model,
                 'title' => '',
                 'autoWidth' => false,
@@ -93,10 +92,24 @@ class TestController extends Controller
                 'columns' => array(
 
                     array(
-                        'name' => 'id_song',
+                        'name' => 'song_name',
                         'type' => 'raw',
-                        'value' => '$data->idSong->singer',
+                        'value' => '$data->idSong->name',
                     ),
+                    array(
+                        'name' => 'positive',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(5)*100/count($data))+
+                        ($data->getfavorite(4)*100/count($data))+
+                        ($data->getfavorite(3)*100/count($data))',
+                    ),
+                    array(
+                        'name' => 'negative',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(2)*100/count($data))+
+                        ($data->getfavorite(1)*100/count($data))',
+                    ),
+
                     array(
                         'name' => 'favorite',
                         'type' => 'raw',
@@ -126,6 +139,19 @@ class TestController extends Controller
                         'name' => 'never',
                         'type' => 'raw',
                         'value' => '$data->getnever()*100/count($data)',
+                    ),
+                    array(
+                        'name' => 'positive_P1',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(5,1)*100/count($data))+
+                                    ($data->getfavorite(4,1)*100/count($data))+
+                                    ($data->getfavorite(3,1)*100/count($data))+',
+                    ),
+                    array(
+                        'name' => 'negative_P1',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(2,1)*100/count($data)+
+                                    ($data->getfavorite(1,1)*100/count($data))',
                     ),
                     array(
                         'name' => 'favorite_P1',
@@ -158,6 +184,19 @@ class TestController extends Controller
                         'value' => '$data->getnever(1)*100/count($data)',
                     ),
                     array(
+                        'name' => 'positive_P2',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(5,2)*100/count($data))+
+                                    ($data->getfavorite(4,2)*100/count($data))+
+                                    ($data->getfavorite(3,2)*100/count($data))',
+                    ),
+                    array(
+                        'name' => 'negative_P2',
+                        'type' => 'raw',
+                        'value' => '($data->getfavorite(2,2)*100/count($data)+
+                                    ($data->getfavorite(1,2)*100/count($data))',
+                    ),
+                    array(
                         'name' => 'favorite_P2',
                         'type' => 'raw',
                         'value' => '$data->getfavorite(5,2)*100/count($data)',
@@ -187,10 +226,9 @@ class TestController extends Controller
                         'type' => 'raw',
                         'value' => '$data->getnever(2)*100/count($data)',
                     ),
-
-
                 )));
 
         }
+        $this->render('songs', array('model' => $model));
     }
 }

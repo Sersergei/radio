@@ -250,8 +250,8 @@ class TestController extends Controller
 	public function actionFinish(){
 		if($like=Yii::app()->request->cookies['like']){
 			$like=unserialize($like->value);
-			$never=Yii::app()->request->cookies['never']->value;
-			$date_last=Yii::app()->request->cookies['date_last']->value;
+			$never=unserialize(Yii::app()->request->cookies['never']->value);
+			$date_last=unserialize(Yii::app()->request->cookies['date_last']->value);
 
 			$user=Yii::app()->request->cookies['user'];
 			$user=$user->value;

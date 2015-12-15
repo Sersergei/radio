@@ -34,10 +34,24 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'columns'=>array(
 
 		array(
-			'name' => 'id_song',
+			'name' => 'song_name',
 			'type' => 'raw',
-			'value' => '$data->idSong->singer',
+			'value' => '$data->idSong->name',
 		),
+		array(
+			'name' => 'positive',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(5)*100/count($data))+
+                        ($data->getfavorite(4)*100/count($data))+
+                        ($data->getfavorite(3)*100/count($data))',
+		),
+		array(
+			'name' => 'negative',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(2)*100/count($data))+
+                        ($data->getfavorite(1)*100/count($data))',
+		),
+
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
@@ -67,6 +81,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'never',
 			'type' => 'raw',
 			'value' => '$data->getnever()*100/count($data)',
+		),
+		array(
+			'name' => 'positive_P1',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(5,1)*100/count($data))+
+                                    ($data->getfavorite(4,1)*100/count($data))+
+                                    ($data->getfavorite(3,1)*100/count($data))',
+		),
+		array(
+			'name' => 'negative_P1',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(2,1)*100/count($data))+
+                                    ($data->getfavorite(1,1)*100/count($data))',
 		),
 		array(
 			'name' => 'favorite_P1',
@@ -99,6 +126,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => '$data->getnever(1)*100/count($data)',
 		),
 		array(
+			'name' => 'positive_P2',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(5,2)*100/count($data))+
+                                    ($data->getfavorite(4,2)*100/count($data))+
+                                    ($data->getfavorite(3,2)*100/count($data))',
+		),
+		array(
+			'name' => 'negative_P2',
+			'type' => 'raw',
+			'value' => '($data->getfavorite(2,2)*100/count($data))+
+                                    ($data->getfavorite(1,2)*100/count($data))',
+		),
+		array(
 			'name' => 'favorite_P2',
 			'type' => 'raw',
 			'value' => '$data->getfavorite(5,2)*100/count($data)',
@@ -128,7 +168,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type' => 'raw',
 			'value' => '$data->getnever(2)*100/count($data)',
 		),
-
 
 	))); ?>
 <a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>

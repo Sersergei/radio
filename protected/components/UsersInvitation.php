@@ -9,11 +9,15 @@
 class UsersInvitation
 {
     private $user;
+    private $test;
     public function __construct(Users $user,$id_test=Null ){
         if($id_test){
-            $this->test=Usertest::model()->find("id_user=".$user->id_user."id_music=".$id_test);
+            $this->test=Usertest::model()->find("id_user=".$user->id_user." and id_music=".$id_test);
         }
-        if($this->test){
+        else{
+            $this->test=0;
+        }
+        if(!$this->test){
             $this->user=$user;
             $this->Email();
         }

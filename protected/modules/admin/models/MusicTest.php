@@ -198,9 +198,9 @@ else{
 						$name=stristr($file,$this->id_test);
 						$name=stristr($name,'.mp3',true);
 					$name=str_replace($this->id_test."\\","",$name);
-					$name=explode("-", $name);
-					$songs->name = $name[1];
-					$songs->singer = $name[0];
+
+					$songs->name = $name;
+
 					$songs->song_file = $file;
 					$songs->validate();
 					$songs->save();
