@@ -74,6 +74,9 @@ class TestController extends Controller
         $model = new MusicTestDetail('search');
         $model->unsetAttributes();
         $model->id_test = $id;
+
+        //$model->sex=5;
+       var_dump($_GET[sex]);
         if (isset($_GET['MusicTestDetail']))
             $model->attributes = $_GET['MusicTestDetail'];
 

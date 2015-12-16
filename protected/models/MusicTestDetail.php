@@ -45,6 +45,11 @@ class MusicTestDetail extends CActiveRecord
 	public $negative_P1;
 	public $positive_P2;
 	public $negative_P2;
+	public $sex;
+	public $age_from;
+	public $after_age;
+	public $id_education;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -65,7 +70,7 @@ class MusicTestDetail extends CActiveRecord
 			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like', 'safe', 'on'=>'search'),
+			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -117,7 +122,7 @@ class MusicTestDetail extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->with='idUser';
 		$criteria->compare('id_test_det',$this->id_test_det);
 		$criteria->compare('id_test',$this->id_test);
 		$criteria->compare('id_user',$this->id_user);
@@ -125,6 +130,7 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('finaly',$this->finaly);
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
+		$criteria->compare('idUser.sex',$this->sex,true);
 		$criteria->group='id_song';
 
 		return new CActiveDataProvider($this, array(
