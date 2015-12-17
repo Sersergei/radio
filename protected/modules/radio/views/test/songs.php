@@ -46,133 +46,48 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'positive',
 			'type' => 'raw',
-			'value' => '($data->getfavorite(5)*100/count($data))+
-                        ($data->getfavorite(4)*100/count($data))+
-                        ($data->getfavorite(3)*100/count($data))',
+			'value' => 'round(($data->Coun5*100/$data->Coun)+
+                        ($data->Coun4*100/$data->Coun)+
+                        ($data->Coun3*100/$data->Coun),2)',
 		),
 		array(
 			'name' => 'negative',
 			'type' => 'raw',
-			'value' => '($data->getfavorite(2)*100/count($data))+
-                        ($data->getfavorite(1)*100/count($data))',
+			'value' => 'round(($data->Coun2*100/$data->Coun)+
+                        ($data->Coun1*100/$data->Coun),2)',
 		),
 
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
-			'value' => '$data->getfavorite(5)*100/count($data)',
+			'value' => 'round($data->Coun5*100/$data->Coun,2)',
 		),
 		array(
 			'name' => 'like',
 			'type' => 'raw',
-			'value' => '$data->getfavorite(4)*100/count($data)',
+			'value' => 'round($data->Coun4*100/$data->Coun,2)',
 		),
 		array(
 			'name' => 'normal',
 			'type' => 'raw',
-			'value' => '$data->getfavorite(3)*100/count($data)',
+			'value' => 'round($data->Coun3*100/$data->Coun,2)',
 		),
 		array(
 			'name' => 'tired',
 			'type' => 'raw',
-			'value' => '$data->getfavorite(2)*100/count($data)',
+			'value' => 'round($data->Coun2*100/$data->Coun,2)',
 		),
 		array(
 			'name' => 'dislike',
 			'type' => 'raw',
-			'value' => '$data->getfavorite(1)*100/count($data)',
+			'value' => 'round($data->Coun1*100/$data->Coun,2)',
 		),
 		array(
 			'name' => 'never',
 			'type' => 'raw',
-			'value' => '$data->getnever()*100/count($data)',
+			'value' =>  'round($data->never*100/$data->Coun,2)',
 		),
-		array(
-			'name' => 'positive_P1',
-			'type' => 'raw',
-			'value' => '($data->getfavorite(5,1)*100/count($data))+
-                                    ($data->getfavorite(4,1)*100/count($data))+
-                                    ($data->getfavorite(3,1)*100/count($data))',
-		),
-		array(
-			'name' => 'negative_P1',
-			'type' => 'raw',
-			'value' => '($data->getfavorite(2,1)*100/count($data))+
-                                    ($data->getfavorite(1,1)*100/count($data))',
-		),
-		array(
-			'name' => 'favorite_P1',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(5,1)*100/count($data)',
-		),
-		array(
-			'name' => 'like_P1',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(4,1)*100/count($data)',
-		),
-		array(
-			'name' => 'normal_P1',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(3,1)*100/count($data)',
-		),
-		array(
-			'name' => 'tired_P1',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(2,1)*100/count($data)',
-		),
-		array(
-			'name' => 'dislike_P1',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(1,1)*100/count($data)',
-		),
-		array(
-			'name' => 'never_P1',
-			'type' => 'raw',
-			'value' => '$data->getnever(1)*100/count($data)',
-		),
-		array(
-			'name' => 'positive_P2',
-			'type' => 'raw',
-			'value' => '($data->getfavorite(5,2)*100/count($data))+
-                                    ($data->getfavorite(4,2)*100/count($data))+
-                                    ($data->getfavorite(3,2)*100/count($data))',
-		),
-		array(
-			'name' => 'negative_P2',
-			'type' => 'raw',
-			'value' => '($data->getfavorite(2,2)*100/count($data))+
-                                    ($data->getfavorite(1,2)*100/count($data))',
-		),
-		array(
-			'name' => 'favorite_P2',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(5,2)*100/count($data)',
-		),
-		array(
-			'name' => 'like_P2',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(4,2)*100/count($data)',
-		),
-		array(
-			'name' => 'normal_P2',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(3,2)*100/count($data)',
-		),
-		array(
-			'name' => 'tired_P2',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(2,2)*100/count($data)',
-		),
-		array(
-			'name' => 'dislike_P2',
-			'type' => 'raw',
-			'value' => '$data->getfavorite(1,2)*100/count($data)',
-		),
-		array(
-			'name' => 'never_P2',
-			'type' => 'raw',
-			'value' => '$data->getnever(2)*100/count($data)',
-		),
+
 
 	))); ?>
 <a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>

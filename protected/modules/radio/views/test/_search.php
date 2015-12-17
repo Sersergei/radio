@@ -14,13 +14,14 @@
 <div class="chek">
 	<div class="sex">
 		<?php echo $form->labelEx($model,'sex'); ?>
+		</br>
 		<?php echo $form->checkBoxList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman'))); ?>
 		<?php echo $form->error($model,'sex'); ?>
 	</div>
 </div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'age_from'); ?>
-		<?php echo $form->textField($model,'age_from',array( 'separator'=>'<p>')); ?>
+		<?php echo $form->textField($model,'age_from'); ?>
 		<?php echo $form->error($model,'age_from'); ?>
 
 		<?php echo $form->textField($model,'after_age'); ?>
@@ -29,8 +30,19 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_education'); ?>
-		<?php echo $form->checkBoxList($model,'id_education',EducationMult::all()); ?>
+		</br>
+		<?php echo $form->checkBoxList($model,'id_education',EducationMult::all(),array( 'separator'=>'</br></br>')); ?>
 		<?php echo $form->error($model,'id_education'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'P1'); ?>
+		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
+		<?php echo $form->error($model,'P1'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'P2'); ?>
+		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
+		<?php echo $form->error($model,'P2'); ?>
 	</div>
 
 

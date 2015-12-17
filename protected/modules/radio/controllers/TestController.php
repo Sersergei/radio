@@ -75,10 +75,26 @@ class TestController extends Controller
         $model->unsetAttributes();
         $model->id_test = $id;
 
-        //$model->sex=5;
-       var_dump($_GET[sex]);
+       // $model->sex=array(0,1);
+        if($_GET['MusicTestDetail']['P1']==0){
+            unset($_GET['MusicTestDetail']['P1']);
+        }
+        if($_GET['MusicTestDetail']['P2']==0){
+            unset($_GET['MusicTestDetail']['P2']);
+        }
         if (isset($_GET['MusicTestDetail']))
+
             $model->attributes = $_GET['MusicTestDetail'];
+
+        if(!$model->sex){
+            $model->sex=array(1,2);
+        }
+
+
+        if(!$model->id_education){
+
+        $model->id_education=array_keys(EducationMult::all());
+    }
 
         if (isset($_GET['file'])) {
             $this->widget('EExcelView', array(
