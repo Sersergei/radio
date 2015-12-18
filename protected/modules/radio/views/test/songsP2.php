@@ -44,50 +44,56 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'type' => 'raw',
 			'value' => '$data->idSong->name',
 		),
+
 		array(
-			'name' => 'positive',
+			'name' => 'positive_P2',
 			'type' => 'raw',
-			'value' => 'round(($data->Coun5*100/$data->Coun)+
-                        ($data->Coun4*100/$data->Coun)+
-                        ($data->Coun3*100/$data->Coun),2)',
+			'value' => 'round(($data->CounP25*100/$data->CounP2)+
+                        ($data->CounP24*100/$data->CounP2)+
+                        ($data->CounP23*100/$data->CounP2),2)',
 		),
 		array(
-			'name' => 'negative',
+			'name' => 'negative_P2',
 			'type' => 'raw',
-			'value' => 'round(($data->Coun2*100/$data->Coun)+
-                        ($data->Coun1*100/$data->Coun),2)',
+			'value' => 'round(($data->CounP22*100/$data->CounP2)+
+                        ($data->CounP21*100/$data->CounP2),2)',
 		),
 
 		array(
-			'name' => 'favorite',
+			'name' => 'favorite_P2',
 			'type' => 'raw',
-			'value' => 'round($data->Coun5*100/$data->Coun,2)',
+			'value' => 'round($data->CounP25*100/$data->CounP2,2)',
 		),
 		array(
-			'name' => 'like',
+			'name' => 'like_P2',
 			'type' => 'raw',
-			'value' => 'round($data->Coun4*100/$data->Coun,2)',
+			'value' => 'round($data->CounP24*100/$data->CounP2,2)',
 		),
 		array(
-			'name' => 'normal',
+			'name' => 'normal_P2',
 			'type' => 'raw',
-			'value' => 'round($data->Coun3*100/$data->Coun,2)',
+			'value' => 'round($data->CounP23*100/$data->CounP2,2)',
 		),
 		array(
-			'name' => 'tired',
+			'name' => 'tired_P2',
 			'type' => 'raw',
-			'value' => 'round($data->Coun2*100/$data->Coun,2)',
+			'value' => 'round($data->CounP22*100/$data->CounP2,2)',
 		),
 		array(
-			'name' => 'dislike',
+			'name' => 'dislike_P2',
 			'type' => 'raw',
-			'value' => 'round($data->Coun1*100/$data->Coun,2)',
+			'value' => 'round($data->CounP21*100/$data->CounP2,2)',
 		),
-				array(
-			'name' => 'never',
+		array(
+			'name' => 'never_P2',
 			'type' => 'raw',
-			'value' =>  'round($data->never*100/$data->Coun,2)',
+			'value' =>  'round($data->neverP2*100/$data->CounP2,2)',
 		),
+
+
+
+
+
 	))); ?>
 <a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>
 <a href="?file=1&type=CSV">Скачать отчет csv</a>

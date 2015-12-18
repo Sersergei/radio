@@ -100,6 +100,7 @@ else{
 			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
 			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
+			'detail'=>array(self::HAS_MANY, 'MusicTestDetail','id_test'),
 		);
 	}
 

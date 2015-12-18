@@ -57,6 +57,20 @@ class MusicTestDetail extends CActiveRecord
 	public $Coun3;
 	public $Coun4;
 	public $Coun5;
+	public $CounP1;
+	public $CounP11;
+	public $CounP12;
+	public $CounP13;
+	public $CounP14;
+	public $CounP15;
+	public $CounP2;
+	public $CounP21;
+	public $CounP22;
+	public $CounP23;
+	public $CounP24;
+	public $CounP25;
+	public $neverP1;
+	public $neverP2;
 
 
 	/**
@@ -131,16 +145,16 @@ class MusicTestDetail extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with='idUser';
+		$criteria->with=array('idUser','idTest');
 		$criteria->compare('id_test_det',$this->id_test_det);
-		$criteria->compare('id_test',$this->id_test);
+		$criteria->compare('idTest.id_test',$this->id_test);
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('date_last',$this->date_last,true);
 		$criteria->compare('finaly',$this->finaly);
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
-		$criteria->compare('t.P1',$this->P1);
-		$criteria->compare('idUser.P2',$this->P2);
+		$criteria->addInCondition('idUser.P1',$this->P1);
+		$criteria->addInCondition('idUser.P2',$this->P2);
 		$criteria->addInCondition('idUser.sex',$this->sex);
 		$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=1 THEN 1 ELSE NULL END) as never,
@@ -149,7 +163,20 @@ class MusicTestDetail extends CActiveRecord
 		COUNT(CASE WHEN id_like=3 THEN 1 ELSE NULL END) as Coun3,
 		COUNT(CASE WHEN id_like=2 THEN 1 ELSE NULL END) as Coun2,
 		COUNT(CASE WHEN id_like=1 THEN 1 ELSE NULL END) as Coun1,
-		COUNT(CASE WHEN id_user=0 THEN 1 ELSE NULL END) as CounP11,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} THEN 1 ELSE NULL END) as CounP1,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND never=1 THEN 1 ELSE NULL END) as neverP1,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=5 THEN 1 ELSE NULL END) as CounP15,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=4 THEN 1 ELSE NULL END) as CounP14,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=3 THEN 1 ELSE NULL END) as CounP13,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=2 THEN 1 ELSE NULL END) as CounP12,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=1 THEN 1 ELSE NULL END) as CounP11,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} THEN 1 ELSE NULL END) as CounP2,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND never=1 THEN 1 ELSE NULL END) as neverP2,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=5 THEN 1 ELSE NULL END) as CounP25,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=4 THEN 1 ELSE NULL END) as CounP24,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=3 THEN 1 ELSE NULL END) as CounP23,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=2 THEN 1 ELSE NULL END) as CounP22,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=1 THEN 1 ELSE NULL END) as CounP21
 
                                                   ";
 		//$criteria->select = '`t`.*, COUNT(`t`.`id_like`) as Coun1';

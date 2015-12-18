@@ -131,7 +131,9 @@ class TestSettings extends CActiveRecord
 	protected function afterFind()
 	{
 		parent::afterFind();
+		if($this->id_education)
 		$this->id_education=unserialize($this->id_education);
+		if($this->sex)
 		$this->sex=unserialize($this->sex);
 	}
 	public function getsex(){

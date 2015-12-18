@@ -36,12 +36,14 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P1'); ?>
-		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
+		</br>
+		<?php echo $form->checkBoxList($model,'P1',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P2'); ?>
-		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
+		</br>
+		<?php echo $form->checkBoxList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 		<?php echo $form->error($model,'P2'); ?>
 	</div>
 

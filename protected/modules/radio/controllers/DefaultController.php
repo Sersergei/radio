@@ -20,3 +20,4 @@ class DefaultController extends Controller
 		$this->render('index',array('license'=>$license,'href'=>$href));
 	}
 }
+?>

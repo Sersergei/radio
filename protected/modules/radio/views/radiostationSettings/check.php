@@ -1,3 +1,4 @@
+<?php  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
 <div id="header-check"></div>
 
 <?php

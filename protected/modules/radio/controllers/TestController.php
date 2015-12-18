@@ -76,15 +76,13 @@ class TestController extends Controller
         $model->id_test = $id;
 
        // $model->sex=array(0,1);
-        if($_GET['MusicTestDetail']['P1']==0){
-            unset($_GET['MusicTestDetail']['P1']);
-        }
-        if($_GET['MusicTestDetail']['P2']==0){
-            unset($_GET['MusicTestDetail']['P2']);
-        }
-        if (isset($_GET['MusicTestDetail']))
+
+        if (isset($_GET['MusicTestDetail'])){
 
             $model->attributes = $_GET['MusicTestDetail'];
+        }
+
+
 
         if(!$model->sex){
             $model->sex=array(1,2);
@@ -95,6 +93,10 @@ class TestController extends Controller
 
         $model->id_education=array_keys(EducationMult::all());
     }
+        if(!$model->P1)
+            $model->P1=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
+        if(!$model->P2)
+            $model->P2=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
 
         if (isset($_GET['file'])) {
             $this->widget('EExcelView', array(
@@ -110,6 +112,7 @@ class TestController extends Controller
                 'template' => "{items}\n{exportbuttons}\n{pager}",
                 'columns' => array(
 
+
                     array(
                         'name' => 'song_name',
                         'type' => 'raw',
@@ -118,136 +121,148 @@ class TestController extends Controller
                     array(
                         'name' => 'positive',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(5)*100/count($data))+
-                        ($data->getfavorite(4)*100/count($data))+
-                        ($data->getfavorite(3)*100/count($data))',
+                        'value' => 'round(($data->Coun5*100/$data->Coun)+
+                        ($data->Coun4*100/$data->Coun)+
+                        ($data->Coun3*100/$data->Coun),2)',
                     ),
                     array(
                         'name' => 'negative',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(2)*100/count($data))+
-                        ($data->getfavorite(1)*100/count($data))',
+                        'value' => 'round(($data->Coun2*100/$data->Coun)+
+                        ($data->Coun1*100/$data->Coun),2)',
                     ),
 
                     array(
                         'name' => 'favorite',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(5)*100/count($data)',
+                        'value' => 'round($data->Coun5*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'like',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(4)*100/count($data)',
+                        'value' => 'round($data->Coun4*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'normal',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(3)*100/count($data)',
+                        'value' => 'round($data->Coun3*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'tired',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(2)*100/count($data)',
+                        'value' => 'round($data->Coun2*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'dislike',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(1)*100/count($data)',
+                        'value' => 'round($data->Coun1*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'never',
                         'type' => 'raw',
-                        'value' => '$data->getnever()*100/count($data)',
+                        'value' =>  'round($data->never*100/$data->Coun,2)',
                     ),
                     array(
                         'name' => 'positive_P1',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(5,1)*100/count($data))+
-                                    ($data->getfavorite(4,1)*100/count($data))+
-                                    ($data->getfavorite(3,1)*100/count($data))+',
+                        'value' => 'round(($data->CounP15*100/$data->CounP1)+
+                        ($data->CounP14*100/$data->CounP1)+
+                        ($data->CounP13*100/$data->CounP1),2)',
                     ),
                     array(
                         'name' => 'negative_P1',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(2,1)*100/count($data)+
-                                    ($data->getfavorite(1,1)*100/count($data))',
+                        'value' => 'round(($data->CounP12*100/$data->CounP1)+
+                        ($data->CounP11*100/$data->CounP1),2)',
                     ),
+
                     array(
                         'name' => 'favorite_P1',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(5,1)*100/count($data)',
+                        'value' => 'round($data->CounP15*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'like_P1',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(4,1)*100/count($data)',
+                        'value' => 'round($data->CounP14*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'normal_P1',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(3,1)*100/count($data)',
+                        'value' => 'round($data->CounP13*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'tired_P1',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(2,1)*100/count($data)',
+                        'value' => 'round($data->CounP12*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'dislike_P1',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(1,1)*100/count($data)',
+                        'value' => 'round($data->CounP11*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'never_P1',
                         'type' => 'raw',
-                        'value' => '$data->getnever(1)*100/count($data)',
+                        'value' =>  'round($data->neverP1*100/$data->CounP1,2)',
                     ),
                     array(
                         'name' => 'positive_P2',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(5,2)*100/count($data))+
-                                    ($data->getfavorite(4,2)*100/count($data))+
-                                    ($data->getfavorite(3,2)*100/count($data))',
+                        'value' => 'round(($data->CounP25*100/$data->CounP2)+
+                        ($data->CounP24*100/$data->CounP2)+
+                        ($data->CounP23*100/$data->CounP2),2)',
                     ),
                     array(
                         'name' => 'negative_P2',
                         'type' => 'raw',
-                        'value' => '($data->getfavorite(2,2)*100/count($data)+
-                                    ($data->getfavorite(1,2)*100/count($data))',
+                        'value' => 'round(($data->CounP22*100/$data->CounP2)+
+                        ($data->CounP21*100/$data->CounP2),2)',
                     ),
+
                     array(
                         'name' => 'favorite_P2',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(5,2)*100/count($data)',
+                        'value' => 'round($data->CounP25*100/$data->CounP2,2)',
                     ),
                     array(
                         'name' => 'like_P2',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(4,2)*100/count($data)',
+                        'value' => 'round($data->CounP24*100/$data->CounP2,2)',
                     ),
                     array(
                         'name' => 'normal_P2',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(3,2)*100/count($data)',
+                        'value' => 'round($data->CounP23*100/$data->CounP2,2)',
                     ),
                     array(
                         'name' => 'tired_P2',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(2,2)*100/count($data)',
+                        'value' => 'round($data->CounP22*100/$data->CounP2,2)',
                     ),
                     array(
                         'name' => 'dislike_P2',
                         'type' => 'raw',
-                        'value' => '$data->getfavorite(1,2)*100/count($data)',
+                        'value' => 'round($data->CounP21*100/$data->CounP2,2)',
                     ),
                     array(
                         'name' => 'never_P2',
                         'type' => 'raw',
-                        'value' => '$data->getnever(2)*100/count($data)',
+                        'value' =>  'round($data->neverP2*100/$data->CounP2,2)',
                     ),
+
                 )));
 
         }
+        if(isset($_GET['status'])){
+            if($_GET['status']=='P1'){
+                $this->render('songsP1', array('model' => $model));
+            }
+            else{
+                $this->render('songsP2', array('model' => $model));
+            }
+        }
+        else
         $this->render('songs', array('model' => $model));
     }
 }

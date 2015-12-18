@@ -12,7 +12,6 @@ echo $license;
 ?>
 
 <p><?php echo $href; ?></p>
-<?php
- ?>
+
 
 <p>
