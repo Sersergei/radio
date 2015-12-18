@@ -157,6 +157,7 @@ class Radistations extends CActiveRecord
 		TestSettings::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
 		TestSettingsMult::model()->deleteAll("`id_radiostations`={$this->id_radiostation}");
 		MusicTest::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		License::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
 
 		parent::afterDelete();
 	}

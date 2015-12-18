@@ -34,9 +34,11 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php
 		$this->widget('CMaskedTextField',array(
 			'mask'=>'9999-99-99',
+			'value'=>$model->date_birth,
 			'placeholder'=>'x',
 			'model'=>$model,
 			'name'=>'date_birth',
+			//'attribute'=>'date_birth',
 		));
 		/*$this->widget('zii.widgets.jui.CJuiDatePicker',array(
 			'name'=>'date_birth',

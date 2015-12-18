@@ -48,6 +48,10 @@ class RegisterController extends Controller
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
             // var_dump($radiostationSettings->not_use_music_marker);
             if ($radiostationSettings) {
+                if($radiostationSettings->id_card_registration){
+                    $this->redirect('Idcard');
+                }
+
             if (!$radiostationSettings->not_use_music_marker)
                 $this->redirect('Viewregister');
             else $this->redirect('ChoosingMix');
@@ -193,6 +197,10 @@ $result=$face->getToken($_GET['code']);
             exit ('Ошибка параметров');
         }
 $this->redirect(array('register/Viewregister'));
+    }
+    public function actionIdcard(){
+        $card=new Idcard;
+
     }
     public function actionMessage(){
         $message=Yii::t('radio','Спасибо за регистрацию приглашение на тестирование вам прийдет на почту');

@@ -1,4 +1,4 @@
-
+<?php  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
 
 <div id="header-mymix"></div>
     <h1><?php echo Yii::t('radio','Add or choose  mix marker') ?></h1>
