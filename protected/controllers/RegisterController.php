@@ -122,9 +122,11 @@ class RegisterController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
+
                 $model->scenario = 'user';
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
+                $model->date_birth=$_POST['date_birth'];
                 if ($model->save())
                     $this->redirect(array('Message'));
             }

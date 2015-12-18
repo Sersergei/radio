@@ -33,10 +33,14 @@ $('.search-form form').submit(function(){
 <a href="?status=P1">P1</a></br>
 <a href="?status=P2">P2</a></br>
 <?php
+
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'usertest-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'template'=>"". Yii::t('radio','Users:')."{$model->search()->data[0]->Coun} {pager}{items}{pager}",
+
+
 	'columns'=>array(
 
 		array(

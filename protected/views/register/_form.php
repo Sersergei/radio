@@ -32,8 +32,13 @@ $form=$this->beginWidget('CActiveForm', array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_birth'); ?>
 		<?php
-
-		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+		$this->widget('CMaskedTextField',array(
+			'mask'=>'9999-99-99',
+			'placeholder'=>'x',
+			'model'=>$model,
+			'name'=>'date_birth',
+		));
+		/*$this->widget('zii.widgets.jui.CJuiDatePicker',array(
 			'name'=>'date_birth',
 			'model'=>$model,
 			'attribute'=>'date_birth',
@@ -51,7 +56,7 @@ $form=$this->beginWidget('CActiveForm', array(
 			'htmlOptions'=>array(
 				'style'=>'height:20px;'
 			),
-		)); ?>
+		)); */?>
 		<?php echo $form->error($model,'date_birth'); ?>
 	</div>
 	<div class="row">

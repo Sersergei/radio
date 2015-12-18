@@ -43,7 +43,7 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name_listener,date_birth,sex,id_education,P1,P2,email', 'required','on'=>'user,update'),
+			array('name_listener,date_birth,sex,id_education,P1,email', 'required','on'=>'user,update'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
@@ -55,7 +55,8 @@ class Users extends CActiveRecord
 			array('email', 'length', 'max' => 100),
 			array('login, password', 'length', 'max' => 20,'min'=>6,'on'=>'noadmin,admin '),
 			array('mix_marker', 'length', 'max' => 1),
-			array('date_birth, date_add', 'safe'),
+			array('date_birth','date','format'=>'yyyy-mm-dd'),
+			array('date_add', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('password_repeat, radiostation,location,link,password,login','safe'),
