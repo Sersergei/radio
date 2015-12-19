@@ -209,46 +209,46 @@ class TestController extends Controller
                     array(
                         'name' => 'positive_P2',
                         'type' => 'raw',
-                        'value' => 'round(($data->CounP25*100/$data->CounP2)+
-                        ($data->CounP24*100/$data->CounP2)+
+                        'value' => 'round(($data->CounP25*100/$data->getCounP2()+
+                        ($data->CounP24*100/$data->getCounP2()+
                         ($data->CounP23*100/$data->CounP2),2)',
                     ),
                     array(
                         'name' => 'negative_P2',
                         'type' => 'raw',
-                        'value' => 'round(($data->CounP22*100/$data->CounP2)+
-                        ($data->CounP21*100/$data->CounP2),2)',
+                        'value' => 'round(($data->CounP22*100/$data->getCounP2())+
+                        ($data->CounP21*100/$data->getCounP2()),2)',
                     ),
 
                     array(
                         'name' => 'favorite_P2',
                         'type' => 'raw',
-                        'value' => 'round($data->CounP25*100/$data->CounP2,2)',
+                        'value' => 'round($data->CounP25*100/$data->getCounP2(),2)',
                     ),
                     array(
                         'name' => 'like_P2',
                         'type' => 'raw',
-                        'value' => 'round($data->CounP24*100/$data->CounP2,2)',
+                        'value' => 'round($data->CounP24*100/$data->getCounP2(),2)',
                     ),
                     array(
                         'name' => 'normal_P2',
                         'type' => 'raw',
-                        'value' => 'round($data->CounP23*100/$data->CounP2,2)',
+                        'value' => 'round($data->CounP23*100/$data->getCounP2(),2)',
                     ),
                     array(
                         'name' => 'tired_P2',
                         'type' => 'raw',
-                        'value' => 'round($data->CounP22*100/$data->CounP2,2)',
+                        'value' => 'round($data->CounP22*100/$data->getCounP2(),2)',
                     ),
                     array(
                         'name' => 'dislike_P2',
                         'type' => 'raw',
-                        'value' => 'round($data->CounP21*100/$data->CounP2,2)',
+                        'value' => 'round($data->CounP21*100/$data->getCounP2(),2)',
                     ),
                     array(
                         'name' => 'never_P2',
                         'type' => 'raw',
-                        'value' =>  'round($data->neverP2*100/$data->CounP2,2)',
+                        'value' =>  'round($data->neverP2*100/$data->getCounP2(),2)',
                     ),
 
                 )));

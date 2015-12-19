@@ -48,12 +48,15 @@ class RegisterController extends Controller
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
             // var_dump($radiostationSettings->not_use_music_marker);
             if ($radiostationSettings) {
+
+
+            if ($radiostationSettings->not_use_music_marker){
                 if($radiostationSettings->id_card_registration){
                     $this->redirect('Idcard');
                 }
-
-            if (!$radiostationSettings->not_use_music_marker)
                 $this->redirect('Viewregister');
+            }
+
             else $this->redirect('ChoosingMix');
         } else {
                 $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
@@ -95,6 +98,13 @@ class RegisterController extends Controller
                     $session['marker']='+';
                 }
                 else $session['marker']=0;
+
+                $radiostation=unserialize($session['radiostation']);
+
+                    if($radiostation->radiostationSettings->id_card_registration){
+
+                        $this->redirect('Idcard');
+                    }
                 $this->redirect('Viewregister');
             }
 
@@ -116,6 +126,9 @@ class RegisterController extends Controller
             $radio=unserialize($session['radiostation']);
             $model->id_radiostation=$radio->id_radiostation;
             $model->id_category=3;
+            if(isset($session['sex'])){
+                $model->sex=$session['sex'];
+            }
             if(isset($session['name']))
                 $model->name_listener=$session['name'];
             if(isset($session['email']))
@@ -142,7 +155,19 @@ class RegisterController extends Controller
     }
     protected function mixmsrker($model){
         foreach($model as $mix){
-            $array[$mix->id] ='<audio src=../../mixmarker/'. $mix->name . ' controls></audio>';
+            $name=explode(".",$mix->name);
+            $name=$name[0];
+            $i=preg_replace("/[0-9]/","", $name);
+            $array[$mix->id] ="<div class='lm-inner clearfix'>
+
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
+</div>
+</div>";
         }
 
         return $array;
@@ -199,8 +224,41 @@ $result=$face->getToken($_GET['code']);
 $this->redirect(array('register/Viewregister'));
     }
     public function actionIdcard(){
-        $card=new Idcard;
+        $model=new Idcard;
+        if (isset($_POST['Idcard'])) {
+            $model->attributes = $_POST['Idcard'];
+            if($model->validate()){
 
+
+            $session=new CHttpSession;
+            $session->open();
+           /* Там всё просто XYYMMDDZZZC Х пол 1 мужики 21 века,
+            2 женщины 21 века, 3 мужики 20 века, 4 женщины 20 века,
+            YY-год рождения, MM - месяц рождения,
+            DD - дата рождения,
+           ZZZ - нам не нужно и
+           С - сумма всех чисел карты, проверочный код
+
+*/
+            $sex=$model->card{0};
+            if($sex==1){
+                $session['sex']=1;
+                $er=20;
+            }elseif($sex==2){
+                $session['sex']=2;
+                $er=20;
+            }elseif($sex==3){
+                $session['sex']=1;
+                $er=19;
+            }elseif($sex==4){
+                $session['sex']=2;
+                $er=19;
+            }
+            $session['bersday']=$er.$model->card{1}.$model->card{2}."-".$model->card{3}.$model->card{4}."-".$model->card{5}.$model->card{6};
+                $this->redirect(array('register/Viewregister'));
+            }
+            }
+        $this->render('idcard',array('model'=>$model));
     }
     public function actionMessage(){
         $message=Yii::t('radio','Спасибо за регистрацию приглашение на тестирование вам прийдет на почту');

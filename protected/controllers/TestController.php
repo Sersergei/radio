@@ -232,18 +232,21 @@ class TestController extends Controller
 	public function actionRepeat(){
 		$session = new CHttpSession;
 		$session->open();
-		$cookie = new CHttpCookie('test', $session['old_test']);//устанавливаем куки масива песен на 30 мин
+
+$test=unserialize(Yii::app()->request->cookies['test']->value);
+		if($session['con']!=count($test)){
+			$cookie = new CHttpCookie('test', $session['old_test']);//устанавливаем куки масива песен на 30 мин
 		$cookie->expire = time() + 1800;
 		Yii::app()->request->cookies['test'] = $cookie;
 		$cookie = new CHttpCookie('soundtest', $session['old_sound']);//устанавливаем куки масива песен на 30 мин
 		$cookie->expire = time() + 1800;
 		Yii::app()->request->cookies['soundtest'] = $cookie;
-		$like=unserialize(Yii::app()->request->cookies['like']->value);
+		$like = unserialize(Yii::app()->request->cookies['like']->value);
 		array_pop($like);
-		$cookie = new CHttpCookie('like',serialize($like));//устанавливаем куки масива песен на 30 мин
+		$cookie = new CHttpCookie('like', serialize($like));//устанавливаем куки масива песен на 30 мин
 		$cookie->expire = time() + 1800;
 		Yii::app()->request->cookies['like'] = $cookie;
-
+	}
 		$this->redirect('Songs');
 
 	}

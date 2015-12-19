@@ -34,8 +34,7 @@
                 </tr>
                 <tr>
                     <td width="127" height="152" rowspan="5"></td>
-                    <td width="498" height="37" colspan="3"><?php echo Yii::t('radio','What do you think about this
-                        song?'); ?></td>
+                    <td width="498" height="37" colspan="3"><?php echo Yii::t('radio','What do you think about this song?'); ?></td>
                 </tr>
                 <tr>
                     <td width="498" height="29" colspan="3" align="right">
@@ -56,8 +55,7 @@
                                 <audio id="player" class="track_player" src="<?php echo $song ?>" autoplay></audio>
                             </div>
                         </div>
-                        <div align="left"> <?php echo Yii::t('radio','If you wanna listen
-                            this song again, click the button please!') ?></div> </td>
+                        <div align="left"> <?php echo Yii::t('radio','If you wanna listen this song again, click the button please!') ?></div> </td>
                     <td width="337" height="29" align="right">
 
                         <?php echo CHtml::submitButton(Yii::t('radio','I love it'),array('class'=>'never1')); ?>
@@ -82,11 +80,11 @@
                     </td>
                     <td width="161" height="32" align="right"></td>
                     <td width="337" height="29" align="right">
-                        <?php echo CHtml::submitButton(Yii::t('radio','I`am tired of it'),array('class'=>'never1')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I`m tired of it'),array('class'=>'never1')); ?>
                     </td>
                 </tr>
                 <tr>
-                    <td width="161" height="29"><?php echo Yii::t('radio','listen a previous song')?></td>
+                    <td width="161" height="29"><?php echo Yii::t('radio','listen a previous song again')?></td>
                     <td width="337" height="29" align="right">
                         <?php echo CHtml::submitButton(Yii::t('radio','I don`t like it'),array('class'=>'down')); ?>
                       </td>

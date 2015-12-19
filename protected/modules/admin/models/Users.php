@@ -44,6 +44,7 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name_listener,date_birth,sex,id_education,P1,email', 'required','on'=>'user,update'),
+			array('P2','notP1','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
@@ -62,6 +63,10 @@ class Users extends CActiveRecord
 			array('password_repeat, radiostation,location,link,password,login','safe'),
 			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
 		);
+	}
+	public function notP1($attribute){
+		if($this->P1==$this->P2)
+			$this->addError($attribute,Yii::t('radio','Вы уже выбрали такую станцыю'));
 	}
 
 	/**
@@ -85,11 +90,11 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id_user' => Yii::t('radio', 'Id User'),
-			'name_listener' => Yii::t('radio', 'Name Listener'),
-			'email' => Yii::t('radio', 'Email'),
-			'date_birth' => Yii::t('radio', 'Date Birth'),
-			'sex' => Yii::t('radio', 'Sex'),
-			'id_education' => Yii::t('radio', 'Id Education'),
+			'name_listener' => Yii::t('radio', 'Your Name*'),
+			'email' => Yii::t('radio', 'Email*'),
+			'date_birth' => Yii::t('radio', 'Date Birth*'),
+			'sex' => Yii::t('radio', 'Sex*'),
+			'id_education' => Yii::t('radio', 'What education do you have?*'),
 			'login' => Yii::t('radio', 'Login'),
 			'password' => Yii::t('radio', 'Password'),
 			'password_repeat' => Yii::t('radio', 'rePassword'),
@@ -98,7 +103,8 @@ class Users extends CActiveRecord
 			'id_category' => Yii::t('radio', 'Id Category'),
 			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker'),
-			'P1' => Yii::t('radio', 'P1'),
+			'P1' => Yii::t('radio', 'What radiostation are you listen more than other on last week?*'),
+			'P2' => Yii::t('radio', 'What other radiostations are you listen yet on last week?'),
 			'id_card' => Yii::t('radio', 'Id Card'),
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
 		);

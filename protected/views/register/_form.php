@@ -63,22 +63,22 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'sex'); ?>
-		<?php echo $form->DropDownList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman'))); ?>
+		<?php echo $form->DropDownList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman')),array('empty' => '')); ?>
 		<?php echo $form->error($model,'sex'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_education'); ?>
-		<?php echo $form->DropDownList($model,'id_education', EducationMult::all()); ?>
+		<?php echo $form->DropDownList($model,'id_education', EducationMult::all(),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_education'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P1'); ?>
-		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation)); ?>
+		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation)),array('empty' => ''); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P2'); ?>
-		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation)); ?>
+		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P2'); ?>
 	</div>
 
@@ -89,28 +89,3 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-<?php
-Yii::app()->clientScript->registerScript('loading', '
-var audioPlayer = document.getElementById("audioplayer"),
-audioTrack = document.getElementById("audiotrack"),
-playButton = document.createElement("button");
-playButton.type = "button";
-audioPlayer.appendChild(playButton);
-audioTrack.removeAttribute("controls");
-
-
-var muteButton = document.createElement("button");
-setText(muteButton,"Mute");
-muteButton.type = "button";
-audioPlayer.appendChild(muteButton);
-muteButton.addEventListener("click", muter);
-function muter() {
-if (audioTrack.volume == 0) {
-setText(this,"Mute");
-audioTrack.volume = 1;
-} else {
-setText(this,"Unmute");
-audioTrack.volume = 0;
-} }
-', CClientScript::POS_READY);
-?>

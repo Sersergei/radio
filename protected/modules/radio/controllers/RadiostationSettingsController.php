@@ -202,8 +202,8 @@ class RadiostationSettingsController extends Controller
 						$model->mixmarker=$mix->id;
 						$file->saveAs($dir.'/'.$name);
 					}
-
-					$session['my_mixmarker']=$model->mixmarker[0];
+					$session['my_mixmarker']=$mix->id;
+					//$session['my_mixmarker']=$model->mixmarker[0];
 
 				}
 				$this->redirect(array('godmixmarker'));

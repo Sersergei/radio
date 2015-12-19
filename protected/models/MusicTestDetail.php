@@ -250,4 +250,12 @@ class MusicTestDetail extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	public function getCounP2(){
+		if($this->CounP2){
+			return $this->CounP2;
+		}
+		else{
+			return 1;
+		}
+	}
 }

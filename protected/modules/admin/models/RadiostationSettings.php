@@ -172,9 +172,15 @@ class RadiostationSettings extends CActiveRecord
 		return $arr[$this->id_card_registration];
 	}
 	public function getMixmarker(){
+
 		$mix=Mixmarker::model()->findByPk($this->mix_marker);
-		if($mix)
-		return "<div class='lm-inner clearfix'>
+
+		if($mix){
+			$name=explode(".",$mix->name);
+			$name=$name[0];
+			$i=preg_replace("/[0-9]/","", $name);
+			return "<div class='lm-inner clearfix'>
+<spain>".$i."</spain>
          <div class='mini_controls'>
                 <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
                 <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
@@ -183,6 +189,7 @@ class RadiostationSettings extends CActiveRecord
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
 </div>
 </div>";
+		}
 
 	}
 	public function getbedmixmarker(){
@@ -191,7 +198,11 @@ class RadiostationSettings extends CActiveRecord
 			$content = "";
 			foreach ($arr as $mix) {
 				$mix = Mixmarker::model()->findByPk($mix);
+				$name=explode(".",$mix->name);
+				$name=$name[0];
+				$i=preg_replace("/[0-9]/","", $name);
 				$content = $content . "<div class='lm-inner clearfix'>
+				<spain>".$i ."</spain>
          <div class='mini_controls'>
                 <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
                 <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
@@ -211,7 +222,11 @@ class RadiostationSettings extends CActiveRecord
 			$content="";
 			foreach($arr as $mix){
 				$mix=Mixmarker::model()->findByPk($mix);
+				$name=explode(".",$mix->name);
+				$name=$name[0];
+				$i=preg_replace("/[0-9]/","", $name);
 				$content=$content."<div class='lm-inner clearfix'>
+				<spain>".$i."</spain>
          <div class='mini_controls'>
                 <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
                 <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>

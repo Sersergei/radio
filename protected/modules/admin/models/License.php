@@ -104,10 +104,10 @@ class License extends CActiveRecord
 
 		$radio=Radistations::model()->findByPk($this->id_radiostation);
 		if(strtotime($this->date)>strtotime(date("Y-m-d")) or $this->test_count>count($radio->MusicTest)){
-			$radio->status=1;
+			$radio->status=0;
 		}
 		else{
-			$radio->status=0;
+			$radio->status=1;
 		}
 		$radio->save();
 	}

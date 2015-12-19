@@ -154,8 +154,11 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     width: 300px;
     float: right;
     border-radius: 6px;
-
-
+}
+.rows input{
+    width: 300px;
+    float: left;
+    border-radius: 6px;
 }
 .row label{
     width: 200px;
@@ -199,4 +202,28 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     background-image: url("../images/test_right_medium.png");
     width:335px;
     height:29px;
+}
+.mini-play {
+    background: url("../images/sprite.png") no-repeat scroll 0 -1293px rgba(0, 0, 0, 0);
+    display: inline-block;
+    float: left;
+    height: 28px;
+    margin-right: 12px;
+    width: 28px;
+}
+.mini-pause {
+    background: url("../images/sprite.png") no-repeat scroll 0 -689px rgba(0, 0, 0, 0);
+    display: inline-block;
+    float: left;
+    height: 28px;
+    margin-right: 12px;
+    width: 28px;
+}
+.mix table, table td {
+      border: medium none;
+      border-collapse: collapse;
+      padding: 5px;
+  }
+table, table td {
+    font-size: small;
 }

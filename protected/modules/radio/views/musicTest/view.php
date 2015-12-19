@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create MusicTest', 'url'=>array('create')),
 	array('label'=>'Update MusicTest', 'url'=>array('update', 'id'=>$model->id_test)),
-	array('label'=>'Delete MusicTest', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_test),'confirm'=>'Are you sure you want to delete this item?')),
+
 	array('label'=>'Manage MusicTest', 'url'=>array('index')),
 );
 ?>
