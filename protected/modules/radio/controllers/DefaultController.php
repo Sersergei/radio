@@ -11,7 +11,7 @@ class DefaultController extends Controller
 
 			$license=Yii::t('radio','Остаток тестов по лицензии:').($user->radio->license->test_count-count($user->radio->MusicTest));
 		}
-		if(!$user->radio->status){
+		if($user->radio->status){
 			$license=Yii::t('radio','У вас закончилась лицензия обратитесь к администратору ресурса');
 		}
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));

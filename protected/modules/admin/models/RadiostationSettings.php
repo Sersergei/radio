@@ -244,8 +244,12 @@ class RadiostationSettings extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->compare('id_radiostation',$id);
 		$settings=RadiostationSettings::model()->find($criteria);
-		$arr=explode(",",$settings->other_radiostations);
+		if($settings->other_radiostations){
+			$arr=explode(",",$settings->other_radiostations);
+		}
+
 		$arr[$id]=$settings->Radiostation->name;
+
 		return $arr;
 
 	}

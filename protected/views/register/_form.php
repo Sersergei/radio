@@ -71,12 +71,13 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php echo $form->DropDownList($model,'id_education', EducationMult::all(),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_education'); ?>
 	</div>
-	<div class="row">
+	<div class="row1">
 		<?php echo $form->labelEx($model,'P1'); ?>
-		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation)),array('empty' => ''); ?>
+		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
-	<div class="row">
+<br>
+	<div class="row2" style="display: none">
 		<?php echo $form->labelEx($model,'P2'); ?>
 		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P2'); ?>

@@ -52,6 +52,7 @@ class RegisterController extends Controller
 
             if ($radiostationSettings->not_use_music_marker){
                 if($radiostationSettings->id_card_registration){
+
                     $this->redirect('Idcard');
                 }
                 $this->redirect('Viewregister');
@@ -126,6 +127,7 @@ class RegisterController extends Controller
             $radio=unserialize($session['radiostation']);
             $model->id_radiostation=$radio->id_radiostation;
             $model->id_category=3;
+
             if(isset($session['sex'])){
                 $model->sex=$session['sex'];
             }

@@ -18,4 +18,7 @@ $(document).ready(function() {
         $(".divnever").css("display","block");
         $(".divnever").append("<input type='hidden' value=1 name='never'>");
     })
+  $(".row1").on("click",function(){
+      $(".row2").css("display","block");
+  })
 });
