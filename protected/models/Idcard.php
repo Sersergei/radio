@@ -21,6 +21,13 @@ class Idcard extends CFormModel
 
         );
     }
+    public function attributeLabels()
+    {
+        return array(
+            'card' => 'ID-card',
+
+        );
+    }
     public function idcards($attribute){
         $i=substr($this->card, -1);
         $num=substr($this->card, 0, -1);

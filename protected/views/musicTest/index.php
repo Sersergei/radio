@@ -12,7 +12,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Music Tests</h1>
+<h1><?php echo Yii::t('radio','Music Tests') ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -71,6 +71,7 @@ class MusicTestDetail extends CActiveRecord
 	public $CounP25;
 	public $neverP1;
 	public $neverP2;
+	public $region;
 
 
 	/**
@@ -156,22 +157,23 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->addInCondition('idUser.P1',$this->P1);
 		$criteria->addInCondition('idUser.P2',$this->P2);
 		$criteria->addInCondition('idUser.sex',$this->sex);
+		$criteria->addInCondition('idUser.sregion',$this->regin);
 		$criteria->select = "`t`.*, COUNT(*) as Coun,
-		COUNT(CASE WHEN never=1 THEN 1 ELSE NULL END) as never,
+		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,
 		COUNT(CASE WHEN id_like=4 THEN 1 ELSE NULL END) as Coun4,
 		COUNT(CASE WHEN id_like=3 THEN 1 ELSE NULL END) as Coun3,
 		COUNT(CASE WHEN id_like=2 THEN 1 ELSE NULL END) as Coun2,
 		COUNT(CASE WHEN id_like=1 THEN 1 ELSE NULL END) as Coun1,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} THEN 1 ELSE NULL END) as CounP1,
-		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND never=1 THEN 1 ELSE NULL END) as neverP1,
+		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND never=5 THEN 1 ELSE NULL END) as neverP1,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=5 THEN 1 ELSE NULL END) as CounP15,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=4 THEN 1 ELSE NULL END) as CounP14,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=3 THEN 1 ELSE NULL END) as CounP13,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=2 THEN 1 ELSE NULL END) as CounP12,
 		COUNT(CASE WHEN idUser.P1= {$this->idTest->id_radiostation} AND id_like=1 THEN 1 ELSE NULL END) as CounP11,
 		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} THEN 1 ELSE NULL END) as CounP2,
-		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND never=1 THEN 1 ELSE NULL END) as neverP2,
+		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND never=5 THEN 1 ELSE NULL END) as neverP2,
 		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=5 THEN 1 ELSE NULL END) as CounP25,
 		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=4 THEN 1 ELSE NULL END) as CounP24,
 		COUNT(CASE WHEN idUser.P2= {$this->idTest->id_radiostation} AND id_like=3 THEN 1 ELSE NULL END) as CounP23,

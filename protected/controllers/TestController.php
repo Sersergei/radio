@@ -105,7 +105,7 @@ class TestController extends Controller
         <div class='lm-track lmtr-top'>
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." autoplay></audio>
 </div>
-</div>".Yii::t('radio', 'Если вы слышите песню можете начинать тестирование');
+</div>".Yii::t('radio', 'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!');
 
 		$this->render('index',array('model'=>$sound,'message'=>Yii::t('radio', 'Songs'),'buton'=>'Songs'));
 	}

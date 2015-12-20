@@ -34,7 +34,7 @@ class TestSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Invitations', 'required'),
+			array('Invitations,region', 'required'),
 			array('id_radiostation, age_from, after_age, Invitations', 'numerical', 'integerOnly'=>true),
 			array('sex,id_education','safe'),
 			// The following rule is used by search().
@@ -69,6 +69,7 @@ class TestSettings extends CActiveRecord
 			'after_age' =>Yii::t('radio', 'Age max') ,
 			'id_education' =>Yii::t('radio', 'Education') ,
 			'Invitations' =>Yii::t('radio', 'Invitations') ,
+			'region'=>Yii::t('radio','Enter all regions of your respondents (separate them with commas)'),
 		);
 	}
 
@@ -155,10 +156,21 @@ class TestSettings extends CActiveRecord
 		return substr($result, 0, -1);
 	}
 	public function getInvitations(){
-$arr=array(0=>'приглашение всем, кто зарегистрировался, перейдя по ссылке с нашей радиостанции',
-	1=>'приглашение только тем, кто назвал нашу станцию (P1 or P2) и указал микс нашей станции',
-	2=>'приглашение только тем, кто назвал нашу станцию (P1) и указал микс нашей станции',
-	3=>'приглашение только тем, кто указал микс нашей станции');
+$arr=array(0=>Yii::t('radio','приглашение всем, кто зарегистрировался, перейдя по ссылке с нашей радиостанции'),
+	1=>Yii::t('radio','приглашение только тем, кто назвал нашу станцию (P1 or P2) и указал микс нашей станции'),
+	2=>Yii::t('radio','приглашение только тем, кто назвал нашу станцию (P1) и указал микс нашей станции'),
+	3=>Yii::t('radio','приглашение только тем, кто указал микс нашей станции'));
 		return $arr[$this->Invitations];
 	}
+	public static function getregion($id){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$id);
+		$settings=TestSettings::model()->find($criteria);
+		if($settings->region){
+			$arr=explode(",",$settings->region);
+		}
+		return $arr;
+
+	}
+
 }

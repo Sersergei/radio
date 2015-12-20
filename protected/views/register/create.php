@@ -9,12 +9,12 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Users</h1>
+<h1><?php echo Yii::t('radio','Registration'); ?></h1>
 
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
 <?php  $path=new ServiceUserIdentity();
 $path=$path->seturl(); ?>
 
-<a href="<?php echo $path ?>">Войти через фейсбук</a>
+<a href="<?php echo $path ?>"><?php echo Yii::t('radio','Login with Facebook'); ?></a>
 

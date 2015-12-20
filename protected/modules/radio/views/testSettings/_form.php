@@ -34,6 +34,11 @@
 		<?php echo $form->textField($model,'after_age'); ?>
 		<?php echo $form->error($model,'after_age'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'region'); ?>
+		<?php echo $form->textField($model,'region'); ?>
+		<?php echo $form->error($model,'region'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_education'); ?>

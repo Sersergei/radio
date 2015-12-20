@@ -15,7 +15,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"> <?php echo Yii::t('radio','Fields with* are required.'); ?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 	<div class="row">
@@ -31,6 +31,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_birth'); ?>
+		<?php echo Yii::t('radio','YYYY-MM-DD'); ?>
 		<?php
 		$this->widget('CMaskedTextField',array(
 			'mask'=>'9999-99-99',
@@ -66,6 +67,11 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php echo $form->DropDownList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman')),array('empty' => '')); ?>
 		<?php echo $form->error($model,'sex'); ?>
 	</div>
+<div class="row">
+	<?php echo $form->labelEx($model,'region'); ?>
+	<?php echo $form->DropDownList($model,'region', TestSettings::getregion($model->id_radiostation),array('empty' => '')); ?>
+	<?php echo $form->error($model,'region'); ?>
+</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_education'); ?>
 		<?php echo $form->DropDownList($model,'id_education', EducationMult::all(),array('empty' => '')); ?>
@@ -84,7 +90,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('radio','Create') : Yii::t('radio','Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

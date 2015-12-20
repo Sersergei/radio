@@ -11,14 +11,14 @@
 		'validateOnSubmit'=>true
 	),
 )); ?>
-
+<div class="chosemix">
 <div class="row">
 	<?php echo Yii::t('radio','Choose one music-mix, which you like more than other') ?>
 	<br>
 	<table class="mix">
 		<tr>
-		<td><p align="left"><input  name="mixmarker" type="radio"  value="<?php echo $arr[0] ?>"></p><hr></td>
-			<td ><?php echo $mix[$arr[0]];?></td>
+		<td><p align="right" position="relative" width="30px"><input  name="mixmarker" type="radio"  value="<?php echo $arr[0] ?>"></p><hr></td>
+			<td ><p margin-buttom="10px"  ><?php echo $mix[$arr[0]];?></p></td>
 
 		</tr>
 				<tr>
@@ -42,8 +42,8 @@
 
 	<?php echo $form->error($model,'mixmarker'); ?>
 </div>
-<div class="rows" float="left" border-reight="30px">
+<div class="mix" float="left" border-reight="30px">
 	<?php echo CHtml::submitButton('Next'); ?>
 </div>
-
+</div>
 <?php $this->endWidget(); ?>

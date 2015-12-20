@@ -50,9 +50,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'positive_P2',
 			'type' => 'raw',
-			'value' => 'round(($data->CounP25*100/$data->getCounP2()+
-                        ($data->CounP24*100/$data->getCounP2()+
-                        ($data->CounP23*100/$data->CounP2),2)',
+			'value' => 'round(($data->CounP25*100/$data->getCounP2())+
+                        ($data->CounP24*100/$data->getCounP2())+
+                        ($data->CounP23*100/$data->getCounP2()),2)',
 		),
 		array(
 			'name' => 'negative_P2',

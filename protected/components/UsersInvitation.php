@@ -52,7 +52,7 @@ class UsersInvitation
 
 
                 $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
-                $text=$text.'<br>Для прохождения тестирования перейдите по  <a href ='.$href.'> ссылке </a>';
+                $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>';
                 $subject=$settings->invitation_topic;
                 $email=Yii::app()->params['adminEmail'];
                 $headers="From: radio <{$email}>\r\n".

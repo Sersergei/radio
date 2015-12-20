@@ -80,7 +80,7 @@ class RadiostationSettings extends CActiveRecord
 	{
 		return array(
 			'id_radio_settings' => Yii::t('radio', 'Id Radio Settings'),
-			'id_lang' => Yii::t('radio', 'Languge'),
+			'id_lang' => Yii::t('radio', 'Language'),
 			'id_user' => Yii::t('radio', 'Id User'),
 			'test_song' => Yii::t('radio', 'Test Song'),
 			'not_use_music_marker' => Yii::t('radio', 'Not use music-marker'),
@@ -198,6 +198,7 @@ class RadiostationSettings extends CActiveRecord
 			$content = "";
 			foreach ($arr as $mix) {
 				$mix = Mixmarker::model()->findByPk($mix);
+				if($mix){
 				$name=explode(".",$mix->name);
 				$name=$name[0];
 				$i=preg_replace("/[0-9]/","", $name);
@@ -210,7 +211,7 @@ class RadiostationSettings extends CActiveRecord
         <div class='lm-track lmtr-top'>
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
 </div>
-</div>";
+</div>";}
 			}
 			return $content;
 		}
@@ -222,6 +223,7 @@ class RadiostationSettings extends CActiveRecord
 			$content="";
 			foreach($arr as $mix){
 				$mix=Mixmarker::model()->findByPk($mix);
+				if($mix){
 				$name=explode(".",$mix->name);
 				$name=$name[0];
 				$i=preg_replace("/[0-9]/","", $name);
@@ -234,7 +236,7 @@ class RadiostationSettings extends CActiveRecord
         <div class='lm-track lmtr-top'>
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
 </div>
-</div>";
+</div>";}
 			}
 			return $content;
 		}

@@ -93,6 +93,8 @@ class TestController extends Controller
 
         $model->id_education=array_keys(EducationMult::all());
     }
+        if(!$model->region)
+            $model->region=array_keys(TestSettings::getregion($model->idTest->id_radiostation));
         if(!$model->P1)
             $model->P1=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
         if(!$model->P2)
@@ -209,10 +211,9 @@ class TestController extends Controller
                     array(
                         'name' => 'positive_P2',
                         'type' => 'raw',
-                        'value' => 'round(($data->CounP25*100/$data->getCounP2()+
-                        ($data->CounP24*100/$data->getCounP2()+
-                        ($data->CounP23*100/$data->CounP2),2)',
-                    ),
+                        'value' => 'round(($data->CounP25*100/$data->getCounP2())+
+                        ($data->CounP24*100/$data->getCounP2())+
+                        ($data->CounP23*100/$data->getCounP2()),2)',),
                     array(
                         'name' => 'negative_P2',
                         'type' => 'raw',

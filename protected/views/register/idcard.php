@@ -9,7 +9,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Users</h1>
+<h1><?php echo Yii::t('radio','Registration'); ?></h1>
 
 
 

@@ -43,7 +43,14 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name_listener,date_birth,sex,id_education,P1,email', 'required','on'=>'user,update'),
+			array('name_listener,date_birth,sex,id_education,P1,email,region', 'required','on'=>'update'),
+			array('P1', 'required','on'=>'user'),
+			array('email','required','message'=>Yii::t('radio','enter your email'),'on'=>'user'),
+			array('sex','required','message'=>Yii::t('radio','enter your sex'),'on'=>'user'),
+			array('name_listener','required','message'=>Yii::t('radio','enter your name'),'on'=>'user'),
+			array('date_birth','required','message'=>Yii::t('radio','enter your Date Birth'),'on'=>'user'),
+			array('id_education','required','message'=>Yii::t('radio','enter your education'),'on'=>'user'),
+			array('region','required','message'=>Yii::t('radio','enter your region'),'on'=>'user'),
 			array('P2','notP1','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
@@ -57,7 +64,7 @@ class Users extends CActiveRecord
 			array('login, password', 'length', 'max' => 20,'min'=>6,'on'=>'noadmin,admin '),
 			array('mix_marker', 'length', 'max' => 1),
 			array('date_birth','date','format'=>'yyyy-mm-dd'),
-			array('date_add', 'safe'),
+			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('password_repeat, radiostation,location,link,password,login','safe'),
@@ -107,6 +114,7 @@ class Users extends CActiveRecord
 			'P2' => Yii::t('radio', 'What other radiostations are you listen yet on last week?'),
 			'id_card' => Yii::t('radio', 'Id Card'),
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
+			'region'=>Yii::t('radio','Where are you from?'),
 		);
 	}
 

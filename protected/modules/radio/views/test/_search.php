@@ -27,13 +27,19 @@
 		<?php echo $form->textField($model,'after_age'); ?>
 		<?php echo $form->error($model,'after_age'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'region'); ?>
+		</br>
+		<?php echo $form->checkBoxList($model,'region',TestSettings::getregion($model->idTest->id_radiostation),array( 'separator'=>'</br></br>')); ?>
+		<?php echo $form->error($model,'region'); ?>
+	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_education'); ?>
-		</br>
-		<?php echo $form->checkBoxList($model,'id_education',EducationMult::all(),array( 'separator'=>'</br></br>')); ?>
-		<?php echo $form->error($model,'id_education'); ?>
-	</div>
+	<?php echo $form->labelEx($model,'id_education'); ?>
+	</br>
+	<?php echo $form->checkBoxList($model,'id_education',EducationMult::all(),array( 'separator'=>'</br></br>')); ?>
+	<?php echo $form->error($model,'id_education'); ?>
+</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'P1'); ?>
 		</br>

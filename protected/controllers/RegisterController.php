@@ -263,7 +263,7 @@ $this->redirect(array('register/Viewregister'));
         $this->render('idcard',array('model'=>$model));
     }
     public function actionMessage(){
-        $message=Yii::t('radio','Спасибо за регистрацию приглашение на тестирование вам прийдет на почту');
+        $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
         $this->render('message',array('message'=>$message));
     }
 

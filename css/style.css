@@ -1,6 +1,6 @@
 /* CSS RESET */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time {margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, output, section, summary {display:block}
+article, aside, details, figcaption, figure, footer, header, menu, nav, output, section, summary {display:block}
 meter,progress,mark, time {display:inline}
 ol, ul {list-style:none}
 blockquote,q {quotes:none}
@@ -13,11 +13,11 @@ input,select,textarea {font-family:Arial, Helvetica, sans-serif;font-size:1em;ve
 textarea {overflow:auto}
 /* GLOBAL */
 html {min-width:1088px}
-body {background:url(../images/body-bg.png) repeat-x #1d1d1d;font-family:Arial, Helvetica, sans-serif;font-size:100%;line-height:1em;color:#000}
+body {font-family:Arial, Helvetica, sans-serif;font-size:100%;line-height:1em;color:#000}
 .innercopy, .innercopy a {border:0;float:right;background:#fff;color:#f00;width:50%;line-height:10px;font-size:10px;margin:-220% 0 0 0;overflow:hidden;padding:0}
 #main {width:1088px;margin:0 auto;min-height:100%;margin-bottom:-129px}
 .af {height:129px}
-header {position:relative;height:398px;background:url(../images/header-bg.jpg) 0 0 no-repeat}
+header {position:relative;height:190px;background:url(../images/header-bg.jpg) 0 0 no-repeat}
 /* ELEMENTS */
 a {color:#74be00;outline:none}
 a:hover {text-decoration:none}
@@ -36,11 +36,18 @@ header nav li a {font:28px/50px Arial, Helvetica, sans-serif;color:#000;width:16
 header nav li a:hover,header nav li.active a {color:#037f00}
 /* header>* */
 /* #content */
-#page1 #content {background:none;padding-top:380px}
+#page1 #content {background:none;padding-top:380px;}
 #page4 .img-box {margin-right:44px;margin-bottom:20px}
 #page4 .img-box img {margin-bottom:6px}
 #page4 .img-box.lst {margin-right:0}
-#content {min-height:400px;background:url(../images/content-bg.png) no-repeat 0 0;padding:43px 0 60px 0;overflow:hidden;font-size:12px;line-height:20px;color:#fff;position:relative}
+#content {min-height:400px;
+    /*background:url(../images/content-bg.png) no-repeat 0 0;*/
+    padding:43px 0 60px 0;
+    overflow:hidden;
+    font-size:12px;
+    line-height:20px;
+    /*color:#fff;*/
+    position:relative}
 .contacts span {width:70px;display:inline-block}
 h2 {font:30px/1.2em Arial, Helvetica, sans-serif;color:#fff;margin-bottom:16px}
 table.dates {width:586px;font:12px/20px Arial, Helvetica, sans-serif;color:#fff}
@@ -59,16 +66,16 @@ table.dates .col2 {width:80px}
 table.dates .col3 {width:180px}
 .soc-ico li {float:left;margin-right:4px}
 /* footer */
-footer {text-align:center;height:129px;overflow:hidden;background:url(../images/footer-bg.png) repeat-x;position:relative;z-index:1}
+footer {text-align:center;height:129px;overflow:hidden;position:relative;z-index:1}
 footer span {font:12px/20px Arial, Helvetica, sans-serif;color:#fff;padding-top:37px;display:block}
 footer span a {color:#176300}
 /* footer>.privacy */
 /* forms css */
 #form1 {width:505px}
-#form1 label {float:left;width:100%;background:url(../images/contacts-input.png) right 0 no-repeat;margin-bottom:4px}
+#form1 label {float:left;width:100%; right;margin-bottom:4px}
 #form1 label.msg {background-image:url(../images/contacts-textarea.png)}
 #form1 label.msg textarea {height:534px}
-#form1 label input,#form1 label textarea {float:right;width:400px;background:none;border:none;padding:6px 8px}
+/*#form1 label input,#form1 label textarea {float:right;width:400px;background:none;border:none;padding:6px 8px}*/
 #form1 .btns {float:right;padding-top:14px}
 #form1 .btns a {float:left;margin-left:12px}
 #subscribe {width:157px;margin-bottom:22px}
@@ -150,7 +157,7 @@ dl.img-box dt,.img-box-set dl dt {float:left}
 #user-form{
     width: 500px;
 }
-.row input,select{
+ input,select{
     width: 300px;
     float: right;
     border-radius: 6px;
@@ -210,6 +217,8 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     height: 28px;
     margin-right: 12px;
     width: 28px;
+    margin-bottom: 10px;
+    margin-left: -35px;
 }
 .mini-pause {
     background: url("../images/sprite.png") no-repeat scroll 0 -689px rgba(0, 0, 0, 0);
@@ -218,6 +227,8 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     height: 28px;
     margin-right: 12px;
     width: 28px;
+    margin-bottom: 10px;
+    margin-left: -35px;
 }
 .mix table, table td {
       border: medium none;
@@ -226,4 +237,45 @@ dl.img-box dt,.img-box-set dl dt {float:left}
   }
 table, table td {
     font-size: small;
+}
+a.mini-pause {
+    margin-bottom: 10px;
+    margin-left: -35px;
+}
+a .mini-play {
+    margin-bottom: 10px;
+    margin-left: -35px;
+}
+.chosemix{
+    margin-left: 60%;
+}
+.uk {
+    background: url("../images/Ukraine.png") no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.en {
+    background: url("../images/United-States.png") no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.et {
+    background: url("../images/Estonia.png") no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.by {
+    background: url("../images/Belarus.png") no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.mix input{
+    width: 70px;
+}
+.mix button{
+    width: 150px;
 }
