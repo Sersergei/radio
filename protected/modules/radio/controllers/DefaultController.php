@@ -15,8 +15,8 @@ class DefaultController extends Controller
 			$license=Yii::t('radio','У вас закончилась лицензия обратитесь к администратору ресурса');
 		}
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-
-		$href=Yii::t('radio','Ссылка на приглашение слушателей пройти регистрацию:').Yii::app()->getBaseUrl(true)."/register/".$user->id_radiostation;
+var_dump($user->radio->lang);
+		$href=Yii::t('radio','Ссылка на приглашение слушателей пройти регистрацию:').Yii::app()->getBaseUrl(true)."/register/".$user->id_radiostation."?lang=";
 		$this->render('index',array('license'=>$license,'href'=>$href));
 	}
 }
