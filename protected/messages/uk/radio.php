@@ -8,7 +8,7 @@ return array(
     'I just like it'=>'Щось в цій пісні мені подобається',
     'I would listen to it'=>'Ця пісня байдужа мені',
     'I`m tired of it'=>'Колись ця пісня мені подобалась',
-    'I don`t like it'=>'Ця пісня ніколи мені не подобалась',
+    'I don`t like it'=>'Ця пісня мені не подобається',
     'listen a previous song again'=>'прослухати попередню пісню ще раз',
     'Choose one music-mix, which you like more than other'=>'Оберіть один з міксів, який вам подобається більше за інші',
     'Next'=>'Далі',

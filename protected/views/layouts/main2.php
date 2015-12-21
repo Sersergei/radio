@@ -7,6 +7,7 @@
 	<title></title>
 	<!-- blueprint CSS framework -->
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
+
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/test.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/layout.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/prettyPhoto.css" >

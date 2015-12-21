@@ -13,10 +13,12 @@ $(document).ready(function() {
         $(this).css("display", "none");
         $(".play").css("display", "block");
     });
-    $(".never").on("click",function(){
+    $(".em1").on("click",function(){
         $(this).css("display","none");
         $(".divnever").css("display","block");
         $(".divnever").append("<input type='hidden' value=1 name='never'>");
+        $(".em5").css("display","none");
+
     })
   $(".row1").on("click",function(){
       $(".row2").css("display","block");

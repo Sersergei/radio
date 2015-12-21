@@ -97,11 +97,7 @@ class TestController extends Controller
 			Yii::app()->request->cookies['date_last'] = $cookie;
 		}
 		if($mix=Mixmarker::model()->findbyPk($r))
-			$sound="<div class='lm-inner clearfix'>
-         <div class='mini_controls'>
-                <a href='javascript:void(0)' class='mini-play' style='display:none ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
-                <a href='javascript:void(0)' class='mini-pause' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
-            </div>
+			$sound="<div class='
         <div class='lm-track lmtr-top'>
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." autoplay></audio>
 </div>
