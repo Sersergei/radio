@@ -51,46 +51,46 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'positive',
 			'type' => 'raw',
-			'value' => 'round(($data->Coun5*100/$data->Coun)+
-                        ($data->Coun4*100/$data->Coun)+
-                        ($data->Coun3*100/$data->Coun),2)',
+			'value' => 'round(($data->Coun5*100/$data->getCoun())+
+                        ($data->Coun4*100/$data->getCoun())+
+                        ($data->Coun3*100/$data->getCoun()),2)',
 		),
 		array(
 			'name' => 'negative',
 			'type' => 'raw',
-			'value' => 'round(($data->Coun2*100/$data->Coun)+
-                        ($data->Coun1*100/$data->Coun),2)',
+			'value' => 'round(($data->Coun2*100/$data->getCoun())+
+                        ($data->Coun1*100/$data->getCoun()),2)',
 		),
 
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
-			'value' => 'round($data->Coun5*100/$data->Coun,2)',
+			'value' => 'round($data->Coun5*100/$data->getCoun(),2)',
 		),
 		array(
 			'name' => 'like',
 			'type' => 'raw',
-			'value' => 'round($data->Coun4*100/$data->Coun,2)',
+			'value' => 'round($data->Coun4*100/$data->getCoun(),2)',
 		),
 		array(
 			'name' => 'normal',
 			'type' => 'raw',
-			'value' => 'round($data->Coun3*100/$data->Coun,2)',
+			'value' => 'round($data->Coun3*100/$data->getCoun(),2)',
 		),
 		array(
 			'name' => 'tired',
 			'type' => 'raw',
-			'value' => 'round($data->Coun2*100/$data->Coun,2)',
+			'value' => 'round($data->Coun2*100/$data->getCoun(),2)',
 		),
 		array(
 			'name' => 'dislike',
 			'type' => 'raw',
-			'value' => 'round($data->Coun1*100/$data->Coun,2)',
+			'value' => 'round($data->Coun1*100/$data->getCoun(),2)',
 		),
 				array(
 			'name' => 'never',
 			'type' => 'raw',
-			'value' =>  'round($data->never*100/$data->Coun,2)',
+			'value' =>  'round($data->never*100/$data->getCoun(),2)',
 		),
 	))); ?>
 <a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>

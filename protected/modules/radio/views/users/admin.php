@@ -55,14 +55,20 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 		),
 		array(
-			'name' => 'id_education',
+			'name' => 'education',
 			'type' => 'raw',
 			'value' => '$data->education->education_level',
 
 		),
 
 		'date_add',
-		'P1',
+		array(
+			'name' => 'radiostation',
+			'type' => 'raw',
+			'value' => '$data->P1',
+
+		),
+
 		'status',
 		/*
 		'login',

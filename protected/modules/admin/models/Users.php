@@ -215,7 +215,14 @@ return true;
 	protected function afterSave(){
 		if ($this->isNewRecord)
 			if($this->id_category==3){
-			new UsersInvitation($this);
+
+				$criteria = new CDbCriteria;
+				$criteria->compare('id_radiostation', $this->id_radiostation);
+				$criteria->compare('id_status',2);
+				$musictest=MusicTest::model()->find($criteria);
+				if($musictest){
+					new UsersInvitation($this,$musictest->id_test);
+				}
 		}
 	}
 	protected function afterDelete(){

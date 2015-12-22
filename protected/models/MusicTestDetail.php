@@ -157,7 +157,7 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->addInCondition('idUser.P1',$this->P1);
 		$criteria->addInCondition('idUser.P2',$this->P2);
 		$criteria->addInCondition('idUser.sex',$this->sex);
-		$criteria->addInCondition('idUser.sregion',$this->regin);
+		$criteria->addInCondition('idUser.region',$this->region);
 		$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,
@@ -255,6 +255,22 @@ class MusicTestDetail extends CActiveRecord
 	public function getCounP2(){
 		if($this->CounP2){
 			return $this->CounP2;
+		}
+		else{
+			return 1;
+		}
+	}
+	public function getCounP1(){
+		if($this->CounP1){
+			return $this->CounP1;
+		}
+		else{
+			return 1;
+		}
+	}
+	public function getCoun(){
+		if($this->Coun){
+			return $this->Coun;
 		}
 		else{
 			return 1;
