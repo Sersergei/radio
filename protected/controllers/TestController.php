@@ -97,11 +97,10 @@ class TestController extends Controller
 			Yii::app()->request->cookies['date_last'] = $cookie;
 		}
 		if($mix=Mixmarker::model()->findbyPk($r))
-			$sound="<div class='
+			$sound="<div class='songstext'>
         <div class='lm-track lmtr-top'>
             <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." autoplay></audio>
-</div>
-</div>".Yii::t('radio', 'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!');
+</div>".Yii::t('radio', 'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!').'</div>';
 
 		$this->render('index',array('model'=>$sound,'message'=>Yii::t('radio', 'Songs'),'buton'=>'Songs'));
 	}

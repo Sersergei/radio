@@ -10,7 +10,7 @@ class ServiceUserIdentity
 {
 public $client_id = '433471736844421';
 public $client_secret = 'fc529565e8593e0f6c059cff10b355a9';
-public $redirect_uri = 'http://radio.colocall.com/register/facebook';
+public $redirect_uri = 'http://radiomusictest.com/register/facebook';
 public $url = 'https://www.facebook.com/dialog/oauth';
     public $Token='https://graph.facebook.com/oauth/access_token';
     public $get_data='https://graph.facebook.com/me';

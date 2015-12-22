@@ -33,7 +33,7 @@ return array(
     'You chosen this radio station. You must choose other radio, which listened less, than your favorite station'=>'Ви вже обрали цю радіостанцію, тепер виберіть іншу станцію, яку Ви слухали трохи рідше, ніж улюблену станцію',
     'Thank you! The invitation to test you come to the email'=>'Дякуємо за реєстрацію! Запрошення на тестування музики прийде Вам на email',
     'For beginning testing music you must click this'=>'Для того, щоб розпочати тестування музики, вам необхідно натиснути на це',
-    'link'=>'посилання',
+    'link'=>'  посилання',
     'Next'=>'Вперед',
     'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!'=>'За пару секунд я почну програвати Вам фрагменти пісень. Перевірте чи грає зараз музика в колонках або навушниках, а також перевірте рівень гучності. Не надто тихо або голосно? Після прослуховування кожної пісні, я задам вам кілька запитань. Дякую за ваш час!',
     'Next'=>'Вперед',
