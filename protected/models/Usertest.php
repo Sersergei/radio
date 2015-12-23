@@ -15,6 +15,9 @@ class Usertest extends CActiveRecord
 	public $email;
 	public $sex;
 	public $P1;
+	public $P2;
+	public $education;
+	public $region;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -82,12 +85,18 @@ class Usertest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->with=array('user');
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('id_music',$this->id_music);
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('time',$this->time,true);
+		$criteria->compare('user.sex',$this->sex);
+		$criteria->compare('user.id_education',$this->education);
+		$criteria->compare('user.P1',$this->p1);
+		$criteria->compare('user.P2',$this->p2);
+		$criteria->compare('user.region',$this->region);
+		$criteria->addBetweenCondition('user.date_birth',$this->after_age(),$this->age_from());
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

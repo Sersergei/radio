@@ -266,4 +266,18 @@ class TestController extends Controller
         else
         $this->render('songs', array('model' => $model));
     }
+    public function actionStatistic($id){
+        $model = new Usertest('search');
+        $model->id_music=$id;
+        $count_all=count($model);
+        $model->sex=1;
+        $count_all_man=count($model);
+        $model->sex=2;
+        $count_all_woman=count($model);
+        $model->unsetAttributes();
+        var_dump($model);
+
+
+
+    }
 }
