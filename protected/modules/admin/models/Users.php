@@ -63,7 +63,9 @@ class Users extends CActiveRecord
 			array('email', 'length', 'max' => 100),
 			array('login, password', 'length', 'max' => 20,'min'=>6,'on'=>'noadmin,admin '),
 			array('mix_marker', 'length', 'max' => 1),
-			array('date_birth','date','format'=>'yyyy-mm-dd'),
+			array('date_birth','date','format'=>'yyyy-mm-dd','on'=>'user'),
+			array('date_birth','datestarted','on'=>'user'),
+			array('date_birth','datefinished','on'=>'user'),
 			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -74,6 +76,22 @@ class Users extends CActiveRecord
 	public function notP1($attribute){
 		if($this->P1==$this->P2)
 			$this->addError($attribute,Yii::t('radio','Вы уже выбрали такую станцыю'));
+	}
+	public function datestarted($attribute){
+		$date=date("Y-m-d");
+		$date_last=100*365*60*60*24;
+		if($this->date_birth)
+			if ($this->date_birth!=='0000-00-00')
+				if(strtotime($this->date_birth)< (strtotime($date)-$date_last))
+					$this->addError($attribute,Yii::t('radio',"Ви ввели некоректну дату"));
+	}
+	public function datefinished($attribute){
+		$date=date("Y-m-d");
+		$date_last=7*365*60*60*24;
+		if($this->date_birth)
+			if ($this->date_birth!=='0000-00-00')
+				if(strtotime($this->date_birth)> (strtotime($date)-$date_last))
+					$this->addError($attribute,Yii::t('radio',"Ви ввели некоректну дату"));
 	}
 
 	/**
