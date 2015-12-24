@@ -109,3 +109,59 @@
             ));?></td>
     </tr>
 </table>
+<span><?php echo Yii::t('radio','Рзабивка по образованию') ?></span>
+<table>
+    <?php
+    foreach($model['education'] as $key=>$education){ ?>
+    <tr>
+        <td width="80px"><?php echo $model['educations'][$key]." ".$education."(".$education*100/$model['count_all']."%)" ?> </td>
+
+    <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+            'id'=>'education'.$key ,
+            'value'=>$education*100/$model['count_all'],
+            'htmlOptions'=>array(
+                'style'=>'width:292px; height:30px; float:left;'
+            ),
+        ));?></td>
+    </tr>
+  <?php  } ?>
+
+</table>
+
+<span><?php echo Yii::t('radio','Рзабивка по P1') ?></span>
+<table>
+    <?php
+    foreach($model['P1'] as $key=>$P1){ ?>
+        <tr>
+            <td width="80px"><?php echo $model['radiostations'][$key]." ".$P1."(".$P1*100/$model['count_all']."%)" ?> </td>
+
+            <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+                    'id'=>'P1'.$key ,
+                    'value'=>$P1*100/$model['count_all'],
+                    'htmlOptions'=>array(
+                        'style'=>'width:292px; height:30px; float:left;'
+                    ),
+                ));?></td>
+        </tr>
+    <?php  } ?>
+
+</table>
+
+<span><?php echo Yii::t('radio','Рзабивка по P2') ?></span>
+<table>
+    <?php
+    foreach($model['P2'] as $key=>$P2){ ?>
+        <tr>
+            <td width="80px"><?php echo $model['radiostations'][$key]." ".$P2."(".$P2*100/$model['count_all']."%)" ?> </td>
+
+            <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+                    'id'=>'P2'.$key ,
+                    'value'=>$P2*100/$model['count_all'],
+                    'htmlOptions'=>array(
+                        'style'=>'width:292px; height:30px; float:left;'
+                    ),
+                ));?></td>
+        </tr>
+    <?php  } ?>
+
+</table>

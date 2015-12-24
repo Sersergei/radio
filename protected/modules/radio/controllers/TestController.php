@@ -334,6 +334,33 @@ class TestController extends Controller
         $model->after_age=100;
         $model->age_from=50;
         $statistic['count_50']=count($model->user());
+        $model->after_age=Null;
+        $model->age_from=Null;
+        $statistic['educations']=EducationMult::all();
+        $educations=array_keys($statistic['educations']);
+        foreach($educations as $education){
+            $model->education=$education;
+            $statistic['education'][$education]=count($model->user());
+        }
+
+
+
+        $model->education=Null;
+        $statistic['radiostations']=RadiostationSettings::getradiostation($model->test->id_radiostation);
+        $radiostations=array_keys($statistic['radiostations']);
+        foreach($radiostations as $radiostation){
+            $model->P1=$radiostation;
+            $statistic['P1'][$radiostation]=count($model->user());
+        }
+
+        $model->P1=Null;
+        foreach($radiostations as $radiostation){
+            $model->P2=$radiostation;
+            $statistic['P2'][$radiostation]=count($model->user());
+        }
+
+        
+
 
         $this->render('statistic', array('model' => $statistic));
     }

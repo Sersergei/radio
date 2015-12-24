@@ -53,6 +53,7 @@ class Usertest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'test' => array(self::BELONGS_TO, 'MusicTest', 'id_music'),
 		);
 	}
 
