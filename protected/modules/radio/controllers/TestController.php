@@ -269,15 +269,72 @@ class TestController extends Controller
     public function actionStatistic($id){
         $model = new Usertest('search');
         $model->id_music=$id;
-        $count_all=count($model);
+        $statistic['count_all']=count($model->user());
+
         $model->sex=1;
-        $count_all_man=count($model);
+        $statistic['count_all_man']=count($model->user());
         $model->sex=2;
-        $count_all_woman=count($model);
+        $statistic['count_all_woman']=count($model->user());
+
+            $model->sex=Null;
         $model->unsetAttributes();
-        var_dump($model);
+        $model->id_music=$id;
+        $model->after_age=14;
+        $model->age_from=1;
+        $statistic['count_0_14']=count($model->user());
 
 
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=19;
+        $model->age_from=15;
+        $statistic['count_15_19']=count($model->user());
 
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=24;
+        $model->age_from=20;
+        $statistic['count_20_24']=count($model->user());
+
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=29;
+        $model->age_from=25;
+        $statistic['count_25_29']=count($model->user());
+
+        $model->sex=Null;
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=34;
+        $model->age_from=30;
+        $statistic['count_30_34']=count($model->user());
+
+
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=39;
+        $model->age_from=35;
+        $statistic['count_35_39']=count($model->user());
+
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=44;
+        $model->age_from=40;
+        $statistic['count_40_44']=count($model->user());
+
+
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=49;
+        $model->age_from=45;
+        $statistic['count_45_49']=count($model->user());
+
+        $model->unsetAttributes();
+        $model->id_music=$id;
+        $model->after_age=100;
+        $model->age_from=50;
+        $statistic['count_50']=count($model->user());
+
+        $this->render('statistic', array('model' => $statistic));
     }
 }
