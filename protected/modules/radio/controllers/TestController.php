@@ -359,7 +359,14 @@ class TestController extends Controller
             $statistic['P2'][$radiostation]=count($model->user());
         }
 
-        
+        $model->P2=Null;
+        $statistic['regions']=TestSettings::getregion($model->test->id_radiostation);
+        $regions=array_keys($statistic['regions']);
+
+       foreach($regions as $region){
+            $model->region=$region;
+            $statistic['region'][$region]=count($model->user());
+        }
 
 
         $this->render('statistic', array('model' => $statistic));
