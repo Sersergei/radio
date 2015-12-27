@@ -128,9 +128,31 @@
 
 </table>
 
+<span><?php echo Yii::t('radio','Рзабивка по Регионам') ?></span>
+<table>
+    <?php
+    arsort($model['region']);
+    foreach($model['region'] as $key=>$region){ ?>
+        <tr>
+            <td width="80px"><?php echo $model['regions'][$key]." ".$region."(".round($region*100/$model['count_all'],2)."%)" ?> </td>
+
+            <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+                    'id'=>'region'.$key ,
+                    'value'=>$region*100/$model['count_all'],
+                    'htmlOptions'=>array(
+                        'style'=>'width:292px; height:30px; float:left;'
+                    ),
+                ));?></td>
+        </tr>
+    <?php  } ?>
+
+</table>
+
+
 <span><?php echo Yii::t('radio','Рзабивка по P1') ?></span>
 <table>
     <?php
+    arsort($model['P1']);
     foreach($model['P1'] as $key=>$P1){ ?>
         <tr>
             <td width="80px"><?php echo $model['radiostations'][$key]." ".$P1."(".round($P1*100/$model['count_all'],2)."%)" ?> </td>
@@ -150,6 +172,7 @@
 <span><?php echo Yii::t('radio','Рзабивка по P2') ?></span>
 <table>
     <?php
+    arsort($model['P2']);
     foreach($model['P2'] as $key=>$P2){ ?>
         <tr>
             <td width="80px"><?php echo $model['radiostations'][$key]." ".$P2."(".round($P2*100/$model['count_all'],2)."%)" ?> </td>
@@ -166,21 +189,3 @@
 
 </table>
 
-<span><?php echo Yii::t('radio','Рзабивка по Регионам') ?></span>
-<table>
-    <?php
-    foreach($model['region'] as $key=>$region){ ?>
-        <tr>
-            <td width="80px"><?php echo $model['regions'][$key]." ".$region."(".round($region*100/$model['count_all'],2)."%)" ?> </td>
-
-            <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
-                    'id'=>'region'.$key ,
-                    'value'=>$region*100/$model['count_all'],
-                    'htmlOptions'=>array(
-                        'style'=>'width:292px; height:30px; float:left;'
-                    ),
-                ));?></td>
-        </tr>
-    <?php  } ?>
-
-</table>
