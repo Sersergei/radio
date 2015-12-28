@@ -67,6 +67,8 @@ class UsersInvitation
         }
     }
     private function Filter(){
+        if($this->user->status)
+            return false;
 
         $criteria = new CDbCriteria();
         $criteria->condition = 'id_radiostation = :id_radiostation AND id_type=:id_type AND id_status=:id_status';

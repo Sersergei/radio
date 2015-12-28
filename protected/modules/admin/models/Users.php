@@ -237,7 +237,8 @@ return true;
 				new EmailActive($this);
 			}
 		}
-			if($this->id_category==3 and $this->status!==1 and $this->status!==$this->_status){
+
+			if($this->id_category==3 and $this->status!=1 and $this->status!=$this->_status){
 
 				$criteria = new CDbCriteria;
 				$criteria->compare('id_radiostation', $this->id_radiostation);

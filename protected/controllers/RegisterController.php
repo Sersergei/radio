@@ -265,8 +265,27 @@ $this->redirect(array('register/Viewregister'));
     }
 
     public function actionMessage(){
-        $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
+        $message=Yii::t('radio','To complete the registration click on the link in the email');
         $this->render('message',array('message'=>$message));
+    }
+    public function actionActive($id=NULL,$linc=NULL){
+        $criteria=new CDbCriteria();
+        $criteria->condition = 'id_user = :id AND link = :link';
+        $criteria->params = array(':id'=>$_GET['id'], ':link'=>$_GET['linc']);
+        $model=Users::model()->find($criteria);
+        if($model){
+            $model->status=Null;
+            $model->link=Null;
+            $model->save();
+            $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
+            $this->render('message',array('message'=>$message));
+        }
+        else{
+            $message=Yii::t('radio','Sorry link is not valid registration go again');
+            $this->render('message',array('message'=>$message));
+        }
+
+
     }
 
 }
