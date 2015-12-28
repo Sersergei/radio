@@ -77,7 +77,7 @@ class RegisterController extends Controller
         if($mixmarker){
             $god_mixmarker[]=$mixmarker;
         }
-       
+
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
         shuffle($arr); //РІС‹РІРµР»Рё РїРµСЂРµРјРµС€Р°РЅС‹Р№ РјР°СЃРёРІ РёР· РјРёРєСЃРјР°СЂРєРµСЂРѕРІ;
         $criteria=new CDbCriteria;
@@ -144,8 +144,11 @@ class RegisterController extends Controller
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
-                if ($model->save())
+                $model->status=1;//забанен
+                if ($model->save()){
                     $this->redirect(array('Message'));
+                }
+
             }
 
             $this->render('create', array(
@@ -260,6 +263,7 @@ $this->redirect(array('register/Viewregister'));
             }
         $this->render('idcard',array('model'=>$model));
     }
+
     public function actionMessage(){
         $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
         $this->render('message',array('message'=>$message));

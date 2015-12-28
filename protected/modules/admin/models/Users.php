@@ -27,6 +27,7 @@ class Users extends CActiveRecord
 	public $radiostation;
 	public $location;
 	public $lang;
+	public $_status;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -231,8 +232,12 @@ class Users extends CActiveRecord
 return true;
 	}
 	protected function afterSave(){
-		if ($this->isNewRecord)
-			if($this->id_category==3){
+		if ($this->isNewRecord){
+			if($this->id_category==3 and $this->status==1){
+				new EmailActive($this);
+			}
+		}
+			if($this->id_category==3 and $this->status!==1 and $this->status!==$this->_status){
 
 				$criteria = new CDbCriteria;
 				$criteria->compare('id_radiostation', $this->id_radiostation);
@@ -247,5 +252,10 @@ return true;
 		Usertest::model()->deleteAll("`id_user`={$this->id_user}");
 		MusicTestDetail::model()->deleteAll("`id_user`={$this->id_user}");
 		parent::afterDelete();
+	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->_status=$this->status;
 	}
 }
