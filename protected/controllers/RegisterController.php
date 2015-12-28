@@ -74,12 +74,10 @@ class RegisterController extends Controller
         $bed_mixmarker=unserialize($radio->radiostationSettings->bed_mixmarker);
         $god_mixmarker=unserialize($radio->radiostationSettings->god_mixmarker);
         $mixmarker=$radio->radiostationSettings->mix_marker;
-        $god_mixmarker[]=$mixmarker;
-        shuffle($bed_mixmarker);
-        $i=5-count($god_mixmarker);
-        while (count($bed_mixmarker)>$i){
-            array_pop($bed_mixmarker);
+        if($mixmarker){
+            $god_mixmarker[]=$mixmarker;
         }
+       
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
         shuffle($arr); //РІС‹РІРµР»Рё РїРµСЂРµРјРµС€Р°РЅС‹Р№ РјР°СЃРёРІ РёР· РјРёРєСЃРјР°СЂРєРµСЂРѕРІ;
         $criteria=new CDbCriteria;
