@@ -146,6 +146,7 @@ class RegisterController extends Controller
                 $model->date_birth=$_POST['date_birth'];
                 $model->status=1;//забанен
                 if ($model->save()){
+                    new EmailActive($model);
                     $this->redirect(array('Message'));
                 }
 
@@ -269,15 +270,32 @@ $this->redirect(array('register/Viewregister'));
         $this->render('message',array('message'=>$message));
     }
     public function actionActive($id=NULL,$linc=NULL){
+    $criteria=new CDbCriteria();
+    $criteria->condition = 'id_user = :id AND activate = :activate';
+    $criteria->params = array(':id'=>$_GET['id'], ':activate'=>$_GET['linc']);
+    $model=Users::model()->find($criteria);
+    if($model){
+        $model->status=Null;
+        $model->save();
+        $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
+        $this->render('message',array('message'=>$message));
+    }
+    else{
+        $message=Yii::t('radio','Sorry link is not valid registration go again');
+        $this->render('message',array('message'=>$message));
+    }
+
+
+}
+    public function actionDisActive($id=NULL,$linc=NULL){
         $criteria=new CDbCriteria();
-        $criteria->condition = 'id_user = :id AND link = :link';
-        $criteria->params = array(':id'=>$_GET['id'], ':link'=>$_GET['linc']);
+        $criteria->condition = 'id_user = :id AND activate = :activate';
+        $criteria->params = array(':id'=>$_GET['id'], ':activate'=>$_GET['linc']);
         $model=Users::model()->find($criteria);
         if($model){
-            $model->status=Null;
-            $model->link=Null;
+            $model->status=1;
             $model->save();
-            $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
+            $message=Yii::t('radio','Вы отписались от наших тестов');
             $this->render('message',array('message'=>$message));
         }
         else{

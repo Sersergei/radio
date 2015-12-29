@@ -11,6 +11,7 @@ class UsersInvitation
     private $user;
     private $test;
     public function __construct(Users $user,$id_test=Null ){
+
         if($id_test){
             $this->test=Usertest::model()->find("id_user=".$user->id_user." and id_music=".$id_test);
         }
@@ -50,9 +51,12 @@ class UsersInvitation
 
                 $lang=Lang::model()->findByPk($radiosettings->id_lang);
 
+                $hrefUnscribe=Yii::app()->getBaseUrl(true).'/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
+                $text_before='<br><br><br>'.'<a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';
+
 
                 $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
-                $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>';
+                $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>'.$text_before;
                 $subject=$settings->invitation_topic;
                 $email=Yii::app()->params['adminEmail'];
                 $headers="From: radio <{$email}>\r\n".
@@ -65,6 +69,7 @@ class UsersInvitation
             else var_dump($this->user->getErrors());
 
         }
+
     }
     private function Filter(){
         if($this->user->status)

@@ -232,11 +232,6 @@ class Users extends CActiveRecord
 return true;
 	}
 	protected function afterSave(){
-		if ($this->isNewRecord){
-			if($this->id_category==3 and $this->status==1){
-				new EmailActive($this);
-			}
-		}
 
 			if($this->id_category==3 and $this->status!=1 and $this->status!=$this->_status){
 
