@@ -295,7 +295,7 @@ $this->redirect(array('register/Viewregister'));
         if($model){
             $model->status=1;
             $model->save();
-            $message=Yii::t('radio','Вы отписались от наших тестов');
+            $message=Yii::t('radio','We canceled subscribe');
             $this->render('message',array('message'=>$message));
         }
         else{

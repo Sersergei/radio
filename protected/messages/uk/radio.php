@@ -33,7 +33,7 @@ return array(
     'You chosen this radio station. You must choose other radio, which listened less, than your favorite station'=>'Ви вже обрали цю радіостанцію, тепер виберіть іншу станцію, яку Ви слухали трохи рідше, ніж улюблену станцію',
     'Thank you! The invitation to test you come to the email'=>'Дякуємо за реєстрацію! Запрошення на тестування музики прийде Вам на email',
     'For beginning testing music you must click this'=>'Для того, щоб розпочати тестування музики, вам необхідно натиснути на це',
-    'link'=>'  посилання',
+    'link'=>'посилання',
     'Next'=>'Вперед',
     'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!'=>'За пару секунд я почну програвати Вам фрагменти пісень. Перевірте чи грає зараз музика в колонках або навушниках, а також перевірте рівень гучності. Не надто тихо або голосно? Після прослуховування кожної пісні, я задам вам кілька запитань. Дякую за ваш час!',
     'Next'=>'Вперед',
@@ -49,5 +49,6 @@ return array(
     'Thank you for your request to be added to the web radiomusictest.com We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
     'Дякуємо за ваш запит до мережі radiomusictest.com Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
     'To complete the registration click on the link in the email'=>'Для завершення реєстрації перейдіть за посиланням, зазначенм в листі',
+    'We canceled subscribe'=>'Ми скасували підписку на наші музичні тести',
 );
 
