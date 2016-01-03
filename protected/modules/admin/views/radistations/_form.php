@@ -49,6 +49,16 @@
 		<?php echo $form->textField($model,'status'); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'date'); ?>
+		<?php echo $form->textField($model,'date'); ?>
+		<?php echo $form->error($model,'date'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'test_count'); ?>
+		<?php echo $form->textField($model,'test_count'); ?>
+		<?php echo $form->error($model,'test_count'); ?>
+	</div>
 
 
 

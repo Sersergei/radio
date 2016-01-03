@@ -100,7 +100,7 @@ class License extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	protected function afterSave(){
+	/*protected function afterSave(){
 
 		$radio=Radistations::model()->findByPk($this->id_radiostation);
 		if(strtotime($this->date)>strtotime(date("Y-m-d")) or $this->test_count>count($radio->MusicTest)){
@@ -111,5 +111,5 @@ class License extends CActiveRecord
 		}
 		$radio->save();
 	}
-
+*/
 }
