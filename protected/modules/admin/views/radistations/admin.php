@@ -6,6 +6,10 @@ $this->breadcrumbs=array(
 	'Radistations'=>array('index'),
 	'Manage',
 );
+$this->menu=array(
+	//array('label'=>'List Users', 'url'=>array('index')),
+	array('label'=>'Create Radiostation', 'url'=>array('users/create')),
+);
 
 
 

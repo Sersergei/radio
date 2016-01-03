@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-);
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -62,16 +59,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => '$data->education->education_level',
 
 		),
+		'status',
+		'mix_marker',
+		'id_card',
+		'date_add',
 		/*
 		'login',
 		'password',
-		'date_add',
-		'status',
+
 		'id_category',
 		'id_radiostation',
-		'mix_marker',
 		'P1',
-		'id_card',
 		'mobile_ID',
 		*/
 		array(

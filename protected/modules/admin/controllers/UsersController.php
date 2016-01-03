@@ -67,7 +67,7 @@ class UsersController extends Controller
 			$model->attributes=$_POST['Users'];
 			$model->scenario = 'admin';
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_user));
+				$this->redirect(array('/admin/radistations'));
 		}
 
 		$this->render('create',array(
@@ -117,7 +117,7 @@ class UsersController extends Controller
 
 	/**
 	 * Lists all models.
-	 */
+
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Users');
@@ -129,10 +129,11 @@ class UsersController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionIndex()
 	{
 		$model=new Users('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->id_category=3;
 		if(isset($_GET['Users']))
 			$model->attributes=$_GET['Users'];
 
