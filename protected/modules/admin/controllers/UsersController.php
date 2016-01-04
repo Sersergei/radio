@@ -137,7 +137,7 @@ class UsersController extends Controller
 		if(isset($_GET['Users'])){
 
 			$model->attributes=$_GET['Users'];
-			var_dump($_GET);
+			
 		}
 
 
