@@ -24,6 +24,8 @@ class Radistations extends CActiveRecord
 	public $finished_test;
 	public $date;
 	public $test_count;
+	public $login;
+	public $password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,7 +45,7 @@ class Radistations extends CActiveRecord
 			array('all_tests, status, id_languege', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>20),
 			array('location', 'length', 'max'=>255),
-			array('date_add, date, test_count', 'safe'),
+			array('date_add, date, test_count,login, password', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_radiostation, name, location, all_tests, date_add, status, id_languege', 'safe', 'on'=>'search'),
@@ -170,6 +172,10 @@ class Radistations extends CActiveRecord
 												'test_count'=>$this->test_count),
 										'id_radiostation=:id_radiostation',
 										array('id_radiostation'=>$this->id_radiostation));
+			Users::model()->updateall(array('login'=>$this->login,
+											'password'=>$this->password),
+											'id_radiostation=:id_radiostation and id_category=:id_category',
+											array('id_radiostation'=>$this->id_radiostation,'id_category'=>2));
 		}
 
 	}
