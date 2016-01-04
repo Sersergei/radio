@@ -134,8 +134,12 @@ class UsersController extends Controller
 		$model=new Users('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->id_category=3;
-		if(isset($_GET['Users']))
+		if(isset($_GET['Users'])){
+
 			$model->attributes=$_GET['Users'];
+			var_dump($_GET);
+		}
+
 
 		$this->render('admin',array(
 			'model'=>$model,

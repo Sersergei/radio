@@ -51,18 +51,27 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'sex',
 			'type' => 'raw',
 			'value' => '$data->getsex()',
-			'filter'=>false,
-		),
+			'filter'=>CHtml::activeDropDownList($model,'sex',array(1=>yii::t('radio','Man'),2=>yii::t('radio','Woman')),array(
+				'empty'=>'',
+			)),),
 		array(
 			'name' => 'id_education',
 			'type' => 'raw',
 			'value' => '$data->education->education_level',
-
-		),
+			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
+				'empty'=>'',
+			)),),
 		'status',
 		'mix_marker',
 		'id_card',
 		'date_add',
+		array(
+			'name' => 'id_radiostation',
+			'type' => 'raw',
+			'value' => '$data->radio->name',
+			'filter'=>CHtml::activeDropDownList($model,'id_radiostation',Radistations::all(),array(
+				'empty'=>'',
+			)),),
 		/*
 		'login',
 		'password',

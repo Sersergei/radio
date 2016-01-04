@@ -71,7 +71,7 @@ class Users extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('password_repeat, radiostation,location,link,password,login','safe'),
-			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID', 'safe', 'on' => 'search'),
+			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation', 'safe', 'on' => 'search'),
 		);
 	}
 	public function notP1($attribute){
@@ -155,19 +155,19 @@ class Users extends CActiveRecord
 
 		$criteria = new CDbCriteria;
 
-		$criteria->with=array('radio');
+		$criteria->with=array('radio','education');
 		$criteria->compare('id_user', $this->id_user);
 		$criteria->compare('name_listener', $this->name_listener, true);
 		$criteria->compare('email', $this->email, true);
 		$criteria->compare('date_birth', $this->date_birth, true);
 		$criteria->compare('sex', $this->sex);
-		$criteria->compare('id_education', $this->id_education);
+		$criteria->compare('t.id_education', $this->id_education);
 		$criteria->compare('login', $this->login, true);
 		$criteria->compare('password', $this->password, true);
-		$criteria->compare('date_add', $this->date_add, true);
+		$criteria->compare('t.date_add', $this->date_add, true);
 		$criteria->compare('status', $this->status);
 		$criteria->compare('id_category', $this->id_category);
-		$criteria->compare('radio.id_radiostation', $this->id_radiostation);
+		$criteria->compare('t.id_radiostation', $this->id_radiostation);
 		$criteria->compare('mix_marker', $this->mix_marker, true);
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);

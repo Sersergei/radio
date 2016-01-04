@@ -59,6 +59,16 @@
 		<?php echo $form->textField($model,'test_count'); ?>
 		<?php echo $form->error($model,'test_count'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'login'); ?>
+		<?php echo $form->textField($model,'login'); ?>
+		<?php echo $form->error($model,'login'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo $form->textField($model,'password'); ?>
+		<?php echo $form->error($model,'password'); ?>
+	</div>
 
 
 

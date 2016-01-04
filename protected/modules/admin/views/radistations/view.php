@@ -53,6 +53,7 @@ $this->widget('zii.widgets.CDetailView', array(
 			'type' => 'raw',
 			'value' => $model->license->test_count,
 		),
+
 		//'mix',
 	),
 )); ?>
