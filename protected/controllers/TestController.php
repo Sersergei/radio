@@ -280,9 +280,11 @@ $test=unserialize(Yii::app()->request->cookies['test']->value);
 			}
 			$user->link='';
 			$user->save();
-
+			Yii::app()->request->cookies->remove('like');
+			//$like->remove;
 			$text=$user->radio->settings->text_after_test;
 			$this->render('finish',array('model'=>$text,'message'=>''));
+
 		}
 	}
 }
