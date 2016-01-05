@@ -190,4 +190,16 @@ class Radistations extends CActiveRecord
 
 		parent::afterDelete();
 	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$license=License::model()->find('id_radiostation=:id_radiostation',
+			array('id_radiostation'=>$this->id_radiostation));
+		$this->date=$license->date;
+		$this->test_count=$license->test_count;
+		$user=Users::model()->find('id_radiostation=:id_radiostation and id_category=:id_category',
+			array('id_radiostation'=>$this->id_radiostation,'id_category'=>2));
+		$this->login=$user->login;
+		$this->password=$user->password;
+	}
 }
