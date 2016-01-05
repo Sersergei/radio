@@ -1,5 +1,5 @@
 
-<span><?php echo Yii::t('radio','Всего прошло тест')." ".$model['count_all']; ?> </span>
+<span><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']; ?> </span>
 <table>
     <tr>
         <td width="80px"><?php echo Yii::t('radio','Man')." ".$model['count_all_man']."(".round($model['count_all_man']*100/$model['count_all'],2)."%)";?></td>
@@ -16,8 +16,9 @@
 </table>
 <br>
 <br>
-<span><?php echo Yii::t('radio','Рзабивка по возростным категориям') ?></span>
+<span><?php echo Yii::t('radio','Age') ?></span>
 <table>
+    <?php if ($model['count_0_14']){ ?>
     <tr>
         <td width="80px"><14 <?php echo $model['count_0_14']."(".round($model['count_0_14']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -28,6 +29,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_15_19']){ ?>
     <tr>
         <td width="80px">15-19 <?php echo $model['count_15_19']."(".round($model['count_15_19']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -38,6 +41,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if ($model['count_20_24']){ ?>
     <tr>
         <td width="80px">20-24 <?php echo $model['count_20_24']."(".round($model['count_20_24']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -48,6 +53,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_25_29']){?>
     <tr>
         <td width="80px">25-29 <?php echo $model['count_25_29']."(".round($model['count_25_29']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -58,6 +65,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_30_34']){ ?>
     <tr>
         <td width="80px">30-34 <?php echo $model['count_30_34']."(".round($model['count_30_34']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -68,6 +77,7 @@
                 ),
             ));?></td>
     </tr>
+    <?php } if($model['count_35_39']) { ?>
     <tr>
         <td width="80px">35-39 <?php echo $model['count_35_39']."(".round($model['count_35_39']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -78,6 +88,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_40_44']) { ?>
     <tr>
         <td width="80px">40-44 <?php echo $model['count_40_44']."(".round($model['count_40_44']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -88,6 +100,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_45_49']){ ?>
     <tr>
         <td width="80px">45-49 <?php echo $model['count_45_49']."(".round($model['count_45_49']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -98,6 +112,8 @@
                 ),
             ));?></td>
     </tr>
+    <?php }
+    if($model['count_50']){ ?>
     <tr>
         <td width="80px">50+ <?php echo $model['count_50']."(".round($model['count_50']*100/$model['count_all'],2)."%)"  ?> </td>
         <td width="292px"><?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
@@ -108,11 +124,14 @@
                 ),
             ));?></td>
     </tr>
+    <?php } ?>
 </table>
-<span><?php echo Yii::t('radio','Рзабивка по образованию') ?></span>
+<span><?php echo Yii::t('radio','Education') ?></span>
 <table>
     <?php
-    foreach($model['education'] as $key=>$education){ ?>
+    foreach($model['education'] as $key=>$education){
+        if($education ) {?>
+
     <tr>
         <td width="80px"><?php echo $model['educations'][$key]." ".$education."(".round($education*100/$model['count_all'],2)."%)" ?> </td>
 
@@ -124,15 +143,16 @@
             ),
         ));?></td>
     </tr>
-  <?php  } ?>
+  <?php  }} ?>
 
 </table>
 
-<span><?php echo Yii::t('radio','Рзабивка по Регионам') ?></span>
+<span><?php echo Yii::t('radio','Regions') ?></span>
 <table>
     <?php
     arsort($model['region']);
-    foreach($model['region'] as $key=>$region){ ?>
+    foreach($model['region'] as $key=>$region){
+        if($region){ ?>
         <tr>
             <td width="80px"><?php echo $model['regions'][$key]." ".$region."(".round($region*100/$model['count_all'],2)."%)" ?> </td>
 
@@ -144,16 +164,17 @@
                     ),
                 ));?></td>
         </tr>
-    <?php  } ?>
+    <?php  }} ?>
 
 </table>
 
 
-<span><?php echo Yii::t('radio','Рзабивка по P1') ?></span>
+<span><?php echo Yii::t('radio','P1') ?></span>
 <table>
     <?php
     arsort($model['P1']);
-    foreach($model['P1'] as $key=>$P1){ ?>
+    foreach($model['P1'] as $key=>$P1){
+        if($P1){ ?>
         <tr>
             <td width="80px"><?php echo $model['radiostations'][$key]." ".$P1."(".round($P1*100/$model['count_all'],2)."%)" ?> </td>
 
@@ -165,15 +186,16 @@
                     ),
                 ));?></td>
         </tr>
-    <?php  } ?>
+    <?php  }} ?>
 
 </table>
 
-<span><?php echo Yii::t('radio','Рзабивка по P2') ?></span>
+<span><?php echo Yii::t('radio','P2') ?></span>
 <table>
     <?php
     arsort($model['P2']);
-    foreach($model['P2'] as $key=>$P2){ ?>
+    foreach($model['P2'] as $key=>$P2){
+        if($P2){ ?>
         <tr>
             <td width="80px"><?php echo $model['radiostations'][$key]." ".$P2."(".round($P2*100/$model['count_all'],2)."%)" ?> </td>
 
@@ -185,7 +207,7 @@
                     ),
                 ));?></td>
         </tr>
-    <?php  } ?>
+    <?php  } }?>
 
 </table>
 
