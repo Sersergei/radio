@@ -255,4 +255,9 @@ class RadiostationSettings extends CActiveRecord
 		return $arr;
 
 	}
+	public function getradio($id){
+		$arr=explode(",",$this->other_radiostations);
+		$arr[$this->id_radiostation]=$this->Radiostation->name;
+		return $arr[$id];
+	}
 }

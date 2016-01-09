@@ -46,7 +46,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'id_user',
 		'name_listener',
 		'email',
-		'date_birth',
+        'age',
+		//'date_birth',
 		array(
 			'name' => 'sex',
 			'type' => 'raw',
@@ -62,6 +63,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'empty'=>'',
 			)),),
 		'status',
+
 		'mix_marker',
 		'id_card',
 		'date_add',
@@ -72,6 +74,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'filter'=>CHtml::activeDropDownList($model,'id_radiostation',Radistations::all(),array(
 				'empty'=>'',
 			)),),
+        array(
+            'name' => 'P1',
+            'type' => 'raw',
+            'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
+            ),
+        array(
+            'name' => 'region',
+            'type' => 'raw',
+            'value' => '$data->setregion()',
+        ),
+
 		/*
 		'login',
 		'password',

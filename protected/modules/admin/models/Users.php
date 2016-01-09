@@ -28,6 +28,7 @@ class Users extends CActiveRecord
 	public $location;
 	public $lang;
 	public $_status;
+	public $age;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -134,6 +135,7 @@ class Users extends CActiveRecord
 			'id_card' => Yii::t('radio', 'Id Card'),
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
 			'region'=>Yii::t('radio','Where are you from?'),
+			'age'=>Yii::t('radio','Age'),
 		);
 	}
 
@@ -256,5 +258,15 @@ return true;
 	{
 		parent::afterFind();
 		$this->_status=$this->status;
+		$this->getage();
+	}
+	protected function getage(){
+		$diff = abs(time()-strtotime($this->date_birth));
+		$years = floor($diff / (365*60*60*24));
+		$this->age=$years;
+	}
+	public function setregion(){
+		
+	return	$this->radio->testsettings->getregions($this->region);
 	}
 }
