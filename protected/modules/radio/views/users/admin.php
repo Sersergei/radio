@@ -63,7 +63,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 		'date_add',
 		array(
-			'name' => 'radiostation',
+			'name' => 'P1',
 			'type' => 'raw',
 			'value' => '$data->P1',
 

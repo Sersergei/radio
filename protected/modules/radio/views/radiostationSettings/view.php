@@ -41,7 +41,11 @@ $this->widget('zii.widgets.CDetailView', array(
                     'type' => 'raw',
                     'value' => $model->idLang->name,
                 ),
-
+                array(
+                    'name' => 'email',
+                    'type' => 'raw',
+                    'value' => $model->email,
+                ),
 
                 array(
                     'name' => 'not_use_music_marker',

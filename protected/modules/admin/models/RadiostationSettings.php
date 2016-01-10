@@ -44,9 +44,10 @@ class RadiostationSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_lang', 'required'),
+			array('id_lang,other_radiostations,email', 'required'),
 			array('id_lang, id_user, not_use_music_marker, not_register_users, not_invite_users, id_radiostation, id_card_registration', 'numerical', 'integerOnly'=>true),
 			array('other_radiostations', 'length', 'max'=>1000),
+			array('email','email'),
 			array('test_song, mix_marker', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -92,6 +93,7 @@ class RadiostationSettings extends CActiveRecord
 			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
 			'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
 			'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
+			'email'=>Yii::t('radio','Your mail for subscribe'),
 		);
 	}
 

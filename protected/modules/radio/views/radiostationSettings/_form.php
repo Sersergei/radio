@@ -28,6 +28,11 @@
 
 
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>1000)); ?>
+		<?php echo $form->error($model,'email'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'not_use_music_marker'); ?>
