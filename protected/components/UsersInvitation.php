@@ -114,6 +114,36 @@ class UsersInvitation
                 return false;
         } // проверка на образование
 
+        if($testsettings->week){ //проверка на дату последнего теста
+            $date=60*60*24*7*$testsettings->week;
+            $date=abs(time()-strtotime($date));
+            $criteria = new CDbCriteria;
+            $criteria->compare('id_user',$this->user->id_user);
+            $criteria->limit='1';
+            $criteria->order='date DESC';
+            $usertest=Usertest::model()->find($criteria);
+
+            if($usertest){
+                if(strtotime($usertest->date)>$date)
+                    return false;
+            }
+
+        }
+        if($testsettings->count_from){ //прошел от  тестов
+            $criteria = new CDbCriteria;
+            $criteria->compare('id_user',$this->user->id_user);
+            $usertest=Usertest::model()->count($criteria);
+            if($usertest<$testsettings->count_from)
+                return false;
+        }
+        if($testsettings->count_after){ //прошел до тестов
+            $criteria = new CDbCriteria;
+            $criteria->compare('id_user',$this->user->id_user);
+            $usertest=Usertest::model()->count($criteria);
+            if($usertest>$testsettings->count_after)
+                return false;
+        }
+
         if($testsettings->Invitations==0)
             return true;
         if($testsettings->Invitations==1){

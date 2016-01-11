@@ -35,7 +35,7 @@ class TestSettings extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Invitations,region', 'required'),
-			array('id_radiostation, age_from, after_age, Invitations', 'numerical', 'integerOnly'=>true),
+			array('id_radiostation, age_from, after_age, Invitations,count_from,count_after,week', 'numerical', 'integerOnly'=>true),
 			array('sex,id_education','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -70,6 +70,9 @@ class TestSettings extends CActiveRecord
 			'id_education' =>Yii::t('radio', 'Education') ,
 			'Invitations' =>Yii::t('radio', 'Invitations') ,
 			'region'=>Yii::t('radio','Enter all regions of your respondents (separate them with commas)'),
+			'count_after'=>Yii::t('radio','Count test max'),
+			'count_from'=>Yii::t('radio','Count test min'),
+			'week'=>Yii::t('radio','Week'),
 		);
 	}
 
