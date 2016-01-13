@@ -29,6 +29,11 @@ class Users extends CActiveRecord
 	public $lang;
 	public $_status;
 	public $age;
+	public $admin_name;
+	public $admin_P1;
+	public $admin_P2;
+	public $admin_region;
+	public $test_done;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -105,7 +110,8 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
-			'education'=>array(self::BELONGS_TO,'EducationMult','id_education')
+			'education'=>array(self::BELONGS_TO,'EducationMult','id_education'),
+			'usertest'=>array(self::BELONGS_TO,'Usertest','id_user')
 
 		);
 	}
@@ -136,6 +142,11 @@ class Users extends CActiveRecord
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
 			'region'=>Yii::t('radio','Where are you from?'),
 			'age'=>Yii::t('radio','Age'),
+			'admin_name'=>Yii::t('radio','Name'),
+			'admin_P1'=>Yii::t('radio','P1'),
+			'admin_P2'=>Yii::t('radio','P2'),
+			'admin_region'=>Yii::t('radio','Region'),
+			'test_done'=>Yii::t('radio','tests done'),
 		);
 	}
 
@@ -265,8 +276,12 @@ return true;
 		$years = floor($diff / (365*60*60*24));
 		$this->age=$years;
 	}
-	public function setregion(){
+	public function getregion(){
 
 	return	$this->radio->testsettings->getregions($this->region);
+	}
+	public function getcounttest(){
+	$i=count($this->usertest);
+		return $i;
 	}
 }

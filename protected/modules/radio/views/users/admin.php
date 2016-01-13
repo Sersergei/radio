@@ -44,32 +44,65 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id_user',
-		'name_listener',
-		'email',
-		'date_birth',
+
 		array(
-			'name' => 'sex',
+			'name' => 'admin_name',
+			'type' => 'raw',
+			'value' => 'name_listener',
+
+		),
+		'email',
+		'age',
+
+		array(
+			'name' => 'Sex',
 			'type' => 'raw',
 			'value' => '$data->getsex()',
+			'filter'=>CHtml::activeDropDownList($model,'sex',array(1=>yii::t('radio','Man'),2=>yii::t('radio','Woman')),array(
+				'empty'=>'',
+			)),
 
 		),
 		array(
 			'name' => 'education',
 			'type' => 'raw',
 			'value' => '$data->education->education_level',
+			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
+				'empty'=>'',
+			)),
 
 		),
 
 		'date_add',
 		array(
-			'name' => 'P1',
+			'name' => 'admin_P1',
 			'type' => 'raw',
-			'value' => '$data->P1',
+			'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
+			'filter'=>CHtml::activeDropDownList($model,'id_education',RadiostationSettings::getradiostation(2),array(
+				'empty'=>'',
+			)),
+
+		),
+		array(
+			'name' => 'admin_P2',
+			'type' => 'raw',
+			'value' => '$data->radio->radiostationSettings->getradio($data->P2)',
+
+		),
+		array(
+			'name' => 'admin_region',
+			'type' => 'raw',
+			'value' => '$data->getregion()',
+
+		),
+		array(
+			'name' => 'test_done',
+			'type' => 'raw',
+			'value' => '$data->getcounttest()',
 
 		),
 
-		'status',
+		//'status',
 		/*
 		'login',
 		'password',
