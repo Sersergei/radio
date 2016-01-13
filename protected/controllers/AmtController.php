@@ -1,6 +1,6 @@
 <?php
 
-class RegisterController extends Controller
+class AmtController extends Controller
 {
     /**
      * Declares class-based actions.
@@ -27,13 +27,11 @@ class RegisterController extends Controller
      * when an action is not explicitly requested by users.
      */
     public function actionIndex($id)
-
     {
 
         $model = new Users();
         $model->id_radiostation = $id;
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
+
         $settings = Radistations::model()->findbyPk($id);
 
 
@@ -49,17 +47,11 @@ class RegisterController extends Controller
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
             // var_dump($radiostationSettings->not_use_music_marker);
             if ($radiostationSettings) {
-
-
-            if ($radiostationSettings->not_use_music_marker){
                 if($radiostationSettings->id_card_registration){
 
                     $this->redirect('Idcard');
                 }
-                $this->redirect('Viewregister');
-            }
-
-            else $this->redirect('ChoosingMix');
+                $this->redirect('/Amt/Viewregister');
         } else {
                 $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
         }
@@ -67,53 +59,7 @@ class RegisterController extends Controller
         else
         $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
     }
-    public function actionChoosingMix(){
 
-        $session=new CHttpSession;
-        $session->open();
-        $radio=unserialize($session['radiostation']);
-        $bed_mixmarker=unserialize($radio->radiostationSettings->bed_mixmarker);
-        $god_mixmarker=unserialize($radio->radiostationSettings->god_mixmarker);
-        $mixmarker=$radio->radiostationSettings->mix_marker;
-        if($mixmarker){
-            $god_mixmarker[]=$mixmarker;
-        }
-
-        $arr=array_merge($bed_mixmarker,$god_mixmarker);
-        shuffle($arr); //РІС‹РІРµР»Рё РїРµСЂРµРјРµС€Р°РЅС‹Р№ РјР°СЃРёРІ РёР· РјРёРєСЃРјР°СЂРєРµСЂРѕРІ;
-        $criteria=new CDbCriteria;
-        $criteria->addInCondition('id',$arr);
-        $model=Mixmarker::model()->findAll($criteria);
-        $mix=$this->mixmsrker($model);
-        $models=new Mix;
-
-        if (isset($_POST['yt0'])) {
-            if (isset($_POST['mixmarker']))
-            $models->mixmarker = $_POST['mixmarker'];
-            if ($models->validate()){
-                if(in_array($models->mixmarker,$bed_mixmarker)){
-                    $session['marker']='-';
-                }
-                elseif($models->mixmarker==$mixmarker){
-                    $session['marker']='+';
-                }
-                else $session['marker']=0;
-
-                $radiostation=unserialize($session['radiostation']);
-
-                    if($radiostation->radiostationSettings->id_card_registration){
-
-                        $this->redirect('Idcard');
-                    }
-                $this->redirect('Viewregister');
-            }
-
-        }
-        $this->render('view',array('model'=>$models,'arr'=>$arr,'mix'=>$mix));
-
-
-
-    }
     public function actionViewregister(){
 
         $session=new CHttpSession;
@@ -124,8 +70,8 @@ class RegisterController extends Controller
 
             $model = new Users;
             $radio=unserialize($session['radiostation']);
-            $model->id_radiostation=$radio->id_radiostation;
-            $model->id_category=3;
+
+            $model->id_category=4;
 
             if(isset($session['sex'])){
                 $model->sex=$session['sex'];
@@ -140,15 +86,25 @@ class RegisterController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
+                $criteria = new CDbCriteria;
+                $criteria->compare('email', $_POST['users']['email']);
+                $user=Users::model()->find($criteria);
+                if($user){
+                    $model=$user;
 
+                }
+
+                $model->P1='+';
+                $model->id_radiostation=$radio->id_radiostation;
                 $model->scenario = 'user';
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
+                $model->link=md5(microtime().$this->user->name_listener.'rfvbgt');
                 $model->status=1;//забанен
                 if ($model->save()){
-                    new EmailActive($model);
-                    $this->redirect(array('Message'));
+
+                    $this->redirect(array('test','id'=>$model->id_user,'$linc'=>$model->link));
                 }
 
             }
@@ -158,25 +114,7 @@ class RegisterController extends Controller
             ));
         }
     }
-    protected function mixmsrker($model){
-        foreach($model as $mix){
-            $name=explode(".",$mix->name);
-            $name=$name[0];
-            $i=preg_replace("/[0-9]/","", $name);
-            $array[$mix->id] ="<div class='lm-inner clearfix'>
 
-         <div class='mini_controls'>
-                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$mix->id."'); play(x);\"></a>
-                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$mix->id."').pause()\"></a>
-            </div>
-        <div class='lm-track lmtr-top'>
-            <audio id='player_".$mix->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $mix->name." ></audio>
-</div>
-</div>";
-        }
-
-        return $array;
-    }
 
     /**
      * This is the action to handle external exceptions.
@@ -226,7 +164,7 @@ $result=$face->getToken($_GET['code']);
         else {
             exit ('Ошибка параметров');
         }
-$this->redirect(array('register/Viewregister'));
+$this->redirect(array('AMT/Viewregister'));
     }
     public function actionIdcard(){
         $model=new Idcard;
@@ -260,51 +198,12 @@ $this->redirect(array('register/Viewregister'));
                 $er=19;
             }
             $session['bersday']=$er.$model->card{1}.$model->card{2}."-".$model->card{3}.$model->card{4}."-".$model->card{5}.$model->card{6};
-                $this->redirect(array('register/Viewregister'));
+                $this->redirect(array('AMT/Viewregister'));
             }
             }
         $this->render('idcard',array('model'=>$model));
     }
 
-    public function actionMessage(){
-        $message=Yii::t('radio','To complete the registration click on the link in the email');
-        $this->render('message',array('message'=>$message));
-    }
-    public function actionActive($id=NULL,$linc=NULL){
-    $criteria=new CDbCriteria();
-    $criteria->condition = 'id_user = :id AND activate = :activate';
-    $criteria->params = array(':id'=>$_GET['id'], ':activate'=>$_GET['linc']);
-    $model=Users::model()->find($criteria);
-    if($model){
-        $model->status=Null;
-        $model->save();
-        $message=Yii::t('radio','Thank you! The invitation to test you come to the email');
-        $this->render('message',array('message'=>$message));
-    }
-    else{
-        $message=Yii::t('radio','Sorry link is not valid registration go again');
-        $this->render('message',array('message'=>$message));
-    }
 
-
-}
-    public function actionDisActive($id=NULL,$linc=NULL){
-        $criteria=new CDbCriteria();
-        $criteria->condition = 'id_user = :id AND activate = :activate';
-        $criteria->params = array(':id'=>$_GET['id'], ':activate'=>$_GET['linc']);
-        $model=Users::model()->find($criteria);
-        if($model){
-            $model->status=1;
-            $model->save();
-            $message=Yii::t('radio','We canceled subscribe');
-            $this->render('message',array('message'=>$message));
-        }
-        else{
-            $message=Yii::t('radio','Sorry link is not valid registration go again');
-            $this->render('message',array('message'=>$message));
-        }
-
-
-    }
 
 }

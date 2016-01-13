@@ -63,7 +63,7 @@ class Users extends CActiveRecord
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
 			array('login','unique','on'=>'noadmin,admin '),
-			array('email','unique','on'=>'noadmin,admin,user'),
+			//array('email','unique','on'=>'admin,user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
@@ -254,6 +254,7 @@ return true;
 				$criteria = new CDbCriteria;
 				$criteria->compare('id_radiostation', $this->id_radiostation);
 				$criteria->compare('id_status',2);
+				$criteria->compare('id_type',1);
 				$musictest=MusicTest::model()->find($criteria);
 				if($musictest){
 					new UsersInvitation($this,$musictest->id_test);
