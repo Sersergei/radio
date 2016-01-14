@@ -82,7 +82,7 @@ class Users extends CActiveRecord
 	}
 	public function notP1($attribute){
 		if($this->P1==$this->P2)
-			$this->addError($attribute,Yii::t('radio','Вы уже выбрали такую станцыю'));
+			$this->addError($attribute,Yii::t('radio','You already chose this radiostation'));
 	}
 	public function datestarted($attribute){
 		$date=date("Y-m-d");
@@ -90,7 +90,7 @@ class Users extends CActiveRecord
 		if($this->date_birth)
 			if ($this->date_birth!=='0000-00-00')
 				if(strtotime($this->date_birth)< (strtotime($date)-$date_last))
-					$this->addError($attribute,Yii::t('radio',"Ви ввели некоректну дату"));
+					$this->addError($attribute,Yii::t('radio',"You entered the incorrect date"));
 	}
 	public function datefinished($attribute){
 		$date=date("Y-m-d");
@@ -98,7 +98,7 @@ class Users extends CActiveRecord
 		if($this->date_birth)
 			if ($this->date_birth!=='0000-00-00')
 				if(strtotime($this->date_birth)> (strtotime($date)-$date_last))
-					$this->addError($attribute,Yii::t('radio',"Ви ввели некоректну дату"));
+					$this->addError($attribute,Yii::t('radio',"You entered the incorrect date"));
 	}
 
 	/**

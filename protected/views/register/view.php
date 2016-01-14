@@ -17,33 +17,30 @@
 	<br>
 	<table class="mix">
 		<tr>
-		<td><p align="right" position="relative" width="30px"><input  name="mixmarker" type="radio"  value="<?php echo $arr[0] ?>"></p><hr></td>
-			<td ><p margin-buttom="10px"  ><?php echo $mix[$arr[0]];?></p></td>
+		<td><?php echo $mix[$arr[0]];?><input  name="mixmarker" type="radio"  value="<?php echo $arr[0] ?>">
+			</td>
 
 		</tr>
 				<tr>
-			<td><p align="center"><input name="mixmarker" type="radio" value="<?php echo $arr[1] ?>"></p><hr></td>
-			<td><?php echo $mix[$arr[1]];?></td>
+			<td><?php echo $mix[$arr[1]];?><input name="mixmarker" type="radio" value="<?php echo $arr[1] ?>"></td>
 		</tr>
 		<tr>
-			<td  ><p align="center"><input name="mixmarker" type="radio" value="<?php echo $arr[2] ?>"></p><hr></td>
-			<td ><?php echo $mix[$arr[2]];?></td>
+			<td ><?php echo $mix[$arr[2]];?><input name="mixmarker" type="radio" value="<?php echo $arr[2] ?>"></td>
 		</tr>
 		<tr>
-			<td  ><p align="center"><input name="mixmarker" type="radio" value="<?php echo $arr[3] ?>"></p><hr></td>
-			<td ><?php echo $mix[$arr[3]];?></td>
+			<td><?php echo $mix[$arr[3]];?><input name="mixmarker" type="radio" value="<?php echo $arr[3] ?>"></td>
 		</tr>
 		<tr>
-			<td ><p align="center"><input name="mixmarker" type="radio" value="<?php echo $arr[4] ?>"></p><hr></td>
-			<td ><?php echo $mix[$arr[4]];?></td>
+			<td><?php echo $mix[$arr[4]];?><input name="mixmarker" type="radio" value="<?php echo $arr[4] ?>"></td>
 		</tr>
 
 	</table>
 
 	<?php echo $form->error($model,'mixmarker'); ?>
+	<div class="mixs" float="left" border-reight="30px">
+		<?php echo CHtml::submitButton(Yii::t('radio','Next')); ?>
+	</div>
 </div>
-<div class="mix" float="left" border-reight="30px">
-	<?php echo CHtml::submitButton('Next'); ?>
-</div>
+
 </div>
 <?php $this->endWidget(); ?>

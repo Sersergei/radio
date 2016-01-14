@@ -172,7 +172,9 @@ dl.img-box dt,.img-box-set dl dt {float:left}
    margin-bottom: 10px;
 }
 .row {
+    text-align: center;
     margin-bottom: 10px;
+    margin-right:-100px;
 }
 
 .play {
@@ -215,36 +217,49 @@ dl.img-box dt,.img-box-set dl dt {float:left}
     display: inline-block;
     float: left;
     height: 28px;
-    margin-right: 12px;
+
     width: 28px;
+    margin-top:3px;
     margin-bottom: 10px;
-    margin-left: -35px;
+    margin-left: 35px;
 }
 .mini-pause {
     background: url("../images/sprite.png") no-repeat scroll 0 -689px rgba(0, 0, 0, 0);
     display: inline-block;
     float: left;
     height: 28px;
-    margin-right: 12px;
+
     width: 28px;
+    margin-top:3px;
     margin-bottom: 10px;
-    margin-left: -35px;
+    margin-left: 15px;
 }
+.mix table{
+    margin:auto;
+}
+
 .mix table, table td {
+    margin:auto;
+    width: 167px;
       border: medium none;
       border-collapse: collapse;
       padding: 5px;
   }
+.mix table,  tr {
+    width: 167px;
+    background:url("../images/under_mix.png") no-repeat;
+}
 table, table td {
+    margin:auto;
     font-size: small;
 }
 a.mini-pause {
     margin-bottom: 10px;
-    margin-left: -35px;
+    margin-left: 35px;
 }
 a .mini-play {
     margin-bottom: 10px;
-    margin-left: -35px;
+    margin-left: 15px;
 }
 .chosemix{
     margin-left: 60%;
@@ -274,8 +289,17 @@ a .mini-play {
     width: 32px;
 }
 .mix input{
-    width: 70px;
+    margin-reight:30%;
+    float:left;
+    margin-top:8px;
+    width: 40px;
+    height: 20px;
+
 }
 .mix button{
     width: 150px;
+}
+.mixs input{
+
+    width: 137px;
 }
