@@ -172,14 +172,9 @@ dl.img-box dt,.img-box-set dl dt {float:left}
    margin-bottom: 10px;
 }
 .row {
+    margin-bottom: 10px;
+}
 
-    margin-bottom: 10px;
-    margin-right:-100px;
-}
-.row1 label{
-    width: 50px;
-    margin-bottom: 10px;
-}
 
 
 .play {
