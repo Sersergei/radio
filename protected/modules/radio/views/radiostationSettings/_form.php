@@ -23,8 +23,15 @@
 		<?php echo $form->labelEx($model,'id_lang'); ?>
 		<?php echo $form->DropDownList($model,'id_lang',Lang::all()); ?>
 		<?php echo $form->error($model,'id_lang'); ?>
-		язык, на котором будет осуществляться общение со слушателями во время тестирования песен
+		<br>
+		<?php echo Yii::t('radio','Language for music-test') ?>
 
+
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>1000)); ?>
+		<?php echo $form->error($model,'email'); ?>
 	</div>
 
 	<div class="row">
@@ -54,11 +61,13 @@
 		<?php echo $form->labelEx($model,'other_radiostations'); ?>
 		<?php echo $form->textField($model,'other_radiostations',array('size'=>60,'maxlength'=>1000)); ?>
 		<?php echo $form->error($model,'other_radiostations'); ?>
-
+		<br>
+		<?php echo Yii::t('radio','Add all radiostations of your regions (separate them with commas)') ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Next'); ?>
+	<div class="row button">
+		<?php echo CHtml::Button('sdfsd',array('submit'=>array('/radio'),'class'=>'back')); ?>
+		<?php echo CHtml::submitButton('Next',array('class'=>'next')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

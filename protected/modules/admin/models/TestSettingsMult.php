@@ -35,7 +35,7 @@ class TestSettingsMult extends CActiveRecord
 		return array(
 			array('test_song,text_before_test, text_after_test, invitation_topic, invitation_text', 'required'),
 			array('id_radiostations, test_song', 'numerical', 'integerOnly'=>true),
-			array('text_before_test, text_after_test, invitation_topic, invitation_text', 'length', 'max'=>255),
+			array('invitation_topic', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_mult, id_radiostations, text_before_test, text_after_test, invitation_topic, invitation_text, test_song', 'safe', 'on'=>'search'),

@@ -15,6 +15,11 @@ class Usertest extends CActiveRecord
 	public $email;
 	public $sex;
 	public $P1;
+	public $P2;
+	public $education;
+	public $region;
+	public $age_from;
+	public $after_age;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -48,6 +53,7 @@ class Usertest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'test' => array(self::BELONGS_TO, 'MusicTest', 'id_music'),
 		);
 	}
 
@@ -82,16 +88,61 @@ class Usertest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->with=array('user');
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('id_music',$this->id_music);
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('time',$this->time,true);
+		$criteria->compare('user.sex',$this->sex);
+		$criteria->compare('user.id_education',$this->education);
+		$criteria->compare('user.P1',$this->P1);
+		$criteria->compare('user.P2',$this->P2);
+		$criteria->compare('user.region',$this->region);
+		//$criteria->addBetweenCondition('user.date_birth',$this->after_age(),$this->age_from());
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	public function user()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+		$criteria->with=array('user');
+		$criteria->compare('id',$this->id);
+		$criteria->compare('id_user',$this->id_user);
+		$criteria->compare('id_music',$this->id_music);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('time',$this->time,true);
+		$criteria->compare('user.sex',$this->sex);
+		$criteria->compare('user.id_education',$this->education);
+		$criteria->compare('user.P1',$this->P1);
+		$criteria->compare('user.P2',$this->P2);
+		$criteria->compare('user.region',$this->region);
+		$criteria->addBetweenCondition('user.date_birth',$this->after_age(),$this->age_from());
+
+		return Usertest::model()->findAll($criteria);
+
+	}
+	public function age_from(){
+		if(!$this->age_from){
+			$this->age_from=14;
+		}
+		$age=$this->age_from*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date(" Y-m-d",$age);
+	}
+	public function after_age(){
+		if(!$this->after_age){
+			$this->after_age=100;
+		}
+		$age=$this->after_age*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date(" Y-m-d",$age);
 	}
 
 	/**
@@ -104,4 +155,17 @@ class Usertest extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	protected function afterSave(){
+		$cou=count(Usertest::model()->findAll("id_music={$this->id_music}"));
+
+		$max_lisners=MusicTest::model()->findByPk($this->id_music);
+		if($max_lisners->getMaxLisners()!='unlim'){
+			if($max_lisners->getMaxLisners()<=$cou){
+				$max_lisners->id_status=3;
+				$max_lisners->save();
+			}
+		}
+
+	}
+
 }

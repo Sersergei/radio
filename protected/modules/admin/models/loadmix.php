@@ -15,7 +15,7 @@ public $file;
     }
     public function rules(){
         return array(
-        array('file', 'file', 'types'=>'mp3','maxFiles'=>(1* $this->limit)),
+        array('file', 'file', 'types'=>'mp3','maxFiles'=>(1* $this->limit),'maxSize' => 100 * 1024 * 1024),
         );
     }
 }

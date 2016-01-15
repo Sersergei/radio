@@ -24,6 +24,7 @@ return array(
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
+		'ext.eauth.*',
 		'ext.eauth.services.*',
 
 	),
@@ -46,9 +47,10 @@ return array(
 
 	// application components
 	'components'=>array(
-		'bootstrap' => array(
-			'class' => 'booster.components.Booster'
+		'loid' => array(
+			'class' => 'ext.lightopenid.loid',
 		),
+
 		'eauth' => array(
 			'class' => 'ext.eauth.EAuth',
 			'popup' => true, // Use the popup window instead of redirecting.
@@ -74,7 +76,8 @@ return array(
             'showScriptName'=>false,
 			'rules'=>array(
 				//'<language:>' => 'site/index',
-				'<action:(contact|login|logout|Run)>' => 'site/<action>',
+				'<action:(mesage|login|logout|Run)>' => 'site/<action>',
+
 				'<controller:\w+>/<id:\d+>' => 'register',
 				//'test/index/<id:\d+>/<category:\w+>' => 'test/<id>/<category>',
 				//'<controller:\w+>/<id:\d+>' => '<controller>/view',

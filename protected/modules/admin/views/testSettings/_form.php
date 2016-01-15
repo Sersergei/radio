@@ -36,6 +36,16 @@
 		<?php echo $form->textField($model,'after_age'); ?>
 		<?php echo $form->error($model,'after_age'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'count_from'); ?>
+		<?php echo $form->textField($model,'count_from'); ?>
+		<?php echo $form->error($model,'count_from'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'count_after'); ?>
+		<?php echo $form->textField($model,'count_after'); ?>
+		<?php echo $form->error($model,'count_after'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_education'); ?>

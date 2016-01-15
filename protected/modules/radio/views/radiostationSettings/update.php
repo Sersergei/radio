@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
 <?php
 /* @var $this RadiostationSettingsController */
 /* @var $model RadiostationSettings */
@@ -10,9 +11,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List RadiostationSettings', 'url'=>array('index')),
-	array('label'=>'Create RadiostationSettings', 'url'=>array('create')),
-	array('label'=>'View RadiostationSettings', 'url'=>array('view', 'id'=>$model->id_radio_settings)),
-	array('label'=>'Manage RadiostationSettings', 'url'=>array('admin')),
+
 );
 ?>
 

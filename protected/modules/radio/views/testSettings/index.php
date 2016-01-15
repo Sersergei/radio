@@ -1,16 +1,4 @@
-<?php
-/* @var $this TestSettingsController */
-/* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Test Settings',
-);
-
-$this->menu=array(
-	array('label'=>'Create TestSettings', 'url'=>array('create')),
-	array('label'=>'Manage TestSettings', 'url'=>array('admin')),
-);
-?>
 
 <h1>Test Settings</h1>
 

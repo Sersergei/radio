@@ -9,6 +9,7 @@
  */
 class Mixmarker extends CActiveRecord
 {
+	public $id_radiostation;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -26,7 +27,8 @@ class Mixmarker extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name', 'length', 'max'=>50),
+			array('name', 'length', 'max'=>200),
+			array('id_radiostation','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -94,11 +96,45 @@ class Mixmarker extends CActiveRecord
 		return parent::model($className);
 	}
 	public static function all(){
-		$models=self::model()->findAll();
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('id_radiostation IS NULL');
+		$models=self::model()->findAll($criteria);
 		$array=array();
+
 		foreach($models as $miksmarker){
-			$array[$miksmarker->id] ='<audio src=../../mixmarker/'. $miksmarker->name . ' controls></audio>';
+			$name=explode(".",$miksmarker->name);
+			$name=$name[0];
+			$i=preg_replace("/[0-9]/","", $name);
+			$array[$miksmarker->id] ="<div class='lm-inner clearfix'>
+			<spain>".$i."</spain>
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$miksmarker->id."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$miksmarker->id."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$miksmarker->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $miksmarker->name." ></audio>
+</div>
+</div>";
 		}
 		return $array;
 	}
 }
+/*
+$arr="<div class='lm-inner clearfix'>
+        <div class='mini_controls'>
+
+        </div>
+
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display: block;' onclick='document.getElementById('player_".$miksmarker->id."').play()'></a>
+                <a href='javascript:void(0)' class='mini-pause ' style='display: none;' onclick='document.getElementById('player_".$miksmarker->id."').pause()'></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$miksmarker->id."' class='track_player' src=".Yii::app()->getBaseUrl(true)."/mixmarker/". $miksmarker->name." ></audio>
+</div>
+</div>";
+
+
+$array[$miksmarker->id] ='<audio src='.Yii::app()->getBaseUrl(true).'/mixmarker/'. $miksmarker->name . ' controls></audio></br>
+			<spain>'.$i.'</spain>';
+*/

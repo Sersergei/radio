@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
 	array('label'=>'Create Users', 'url'=>array('create')),
 	array('label'=>'Update Users', 'url'=>array('update', 'id'=>$model->id_user)),
 	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_user),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	array('label'=>'Manage Users', 'url'=>array('index')),
 );
 ?>
 
@@ -22,20 +21,14 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_user',
-		'name_listener',
+
 		'email',
 		'date_birth',
-		'sex',
-		'id_education',
 		'login',
 		'password',
 		'date_add',
 		'status',
 		'id_category',
 		'id_radiostation',
-		'mix_marker',
-		'P1',
-		'id_card',
-		'mobile_ID',
 	),
 )); ?>

@@ -36,6 +36,8 @@
 			'options'=>array(
 				'dateFormat'=>'yy-mm-dd',
 				'showAnim'=>'fold',
+				'minDate'=>0,
+				'readonly'=>'true',
 			),
 			'language'=>Yii::app()->language,
 			'htmlOptions'=>array(
@@ -55,6 +57,8 @@
 		'options'=>array(
 			'dateFormat'=>'yy-mm-dd',
 			'showAnim'=>'fold',
+			'minDate'=>0,
+
 		),
 			'language'=>Yii::app()->language,
 			'htmlOptions'=>array(

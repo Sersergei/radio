@@ -68,7 +68,10 @@ class MusicTestController extends Controller
         //var_dump($_POST);
 		if(isset($_POST['MusicTest']))
 		{
+			$user=Users::model()->findByPk(Yii::app()->user->id);
+
 			$model->attributes=$_POST['MusicTest'];
+			$model->id_radiostation=$user->id_radiostation;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_test));
 		}

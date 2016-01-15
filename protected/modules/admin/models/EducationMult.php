@@ -51,7 +51,7 @@ class EducationMult extends CActiveRecord
 			'idLang' => array(self::BELONGS_TO, 'Lang', 'id_lang'),
 			'testSettings' => array(self::HAS_MANY, 'TestSettings', 'id_education'),
 			'users' => array(self::HAS_MANY, 'Users', 'id_education'),
-			'usersHsts' => array(self::HAS_MANY, 'UsersHst', 'education'),
+
 		);
 	}
 

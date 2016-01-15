@@ -22,6 +22,10 @@ class Radistations extends CActiveRecord
 {
 	public $active_test;
 	public $finished_test;
+	public $date;
+	public $test_count;
+	public $login;
+	public $password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -41,7 +45,7 @@ class Radistations extends CActiveRecord
 			array('all_tests, status, id_languege', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>20),
 			array('location', 'length', 'max'=>255),
-			array('date_add', 'safe'),
+			array('date_add, date, test_count,login, password', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_radiostation, name, location, all_tests, date_add, status, id_languege', 'safe', 'on'=>'search'),
@@ -59,10 +63,11 @@ class Radistations extends CActiveRecord
 			'radiostationSettings' => array(self::HAS_ONE, 'RadiostationSettings', 'id_radiostation'),
 			'settings' => array(self::HAS_ONE, 'TestSettingsMult', 'id_radiostations'),
 			'testsettings' => array(self::HAS_ONE, 'TestSettings', 'id_radiostation'),
-			'users' => array(self::BELONGS_TO, 'Users', 'id_radiostation'),
+			'users' => array(self::HAS_MANY, 'Users', 'id_radiostation'),
 			'users1' => array(self::BELONGS_TO, 'Users', 'P1'),
-			'lang' => array(self::HAS_MANY, 'Lang', 'id_lang'),
+			'lang' => array(self::BELONGS_TO, 'Lang', 'id_languege'),
 			'MusicTest' => array(self::HAS_MANY, 'MusicTest', 'id_radiostation'),
+			'license'=>array(self::HAS_ONE,'License','id_radiostation'),
 		);
 	}
 
@@ -73,12 +78,14 @@ class Radistations extends CActiveRecord
 	{
 		return array(
 			'id_radiostation' => 'Id Radiostation',
-			'name' => 'Name',
-			'location' => 'Location',
-			'all_tests' => 'All Tests',
-			'date_add' => 'Date Add',
-			'status' => 'Status',
-			'id_languege'=>'Lang',
+			'name' => Yii::t('radio','Name'),
+			'location' => Yii::t('radio','Location'),
+			'all_tests' => Yii::t('radio','All Tests'),
+			'date_add' => Yii::t('radio','Date Add'),
+			'status' => Yii::t('radio','Status'),
+			'id_languege'=>Yii::t('radio','Lang'),
+			'date'=>Yii::t('radio','license date'),
+			'test_count'=>Yii::t('radio','test_count'),
 		);
 	}
 
@@ -99,7 +106,7 @@ class Radistations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('radiostationSettings','settings','MusicTest','testsettings'); // ������ ��������
+		//$criteria->with=array('radiostationSettings','settings','MusicTest','testsettings'); // ������ ��������
 		$criteria->compare('id_radiostation',$this->id_radiostation);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('location',$this->location,true);
@@ -133,12 +140,66 @@ class Radistations extends CActiveRecord
 		return $array;
 	}
 	public  function finduser(){
-		//var_dump('efgevefv');
+
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'id_radiostation = :id_radiostation AND id_category =:id_category';
 		$criteria->params = array(':id_radiostation'=>$this->id_radiostation, ':id_category'=>2);
 		$user=Users::model()->find($criteria);
 
 		return $user;
+	}
+	protected function beforeSave(){
+
+		if(strtotime($this->date)>strtotime(date("Y-m-d")) or $this->test_count>count($this->MusicTest)){
+
+			$this->status=0;
+		}
+		else{
+			$this->status=1;
+		}
+		parent::beforeSave();
+		return true;
+	}
+	protected function afterSave(){
+		if ($this->isNewRecord){
+			$license=new License();
+			$license->id_radiostation=$this->id_radiostation;
+			$license->save();
+		}
+		else{
+
+			License::model()->updateall(array('date'=>$this->date,
+												'test_count'=>$this->test_count),
+										'id_radiostation=:id_radiostation',
+										array('id_radiostation'=>$this->id_radiostation));
+			Users::model()->updateall(array('login'=>$this->login,
+											'password'=>$this->password),
+											'id_radiostation=:id_radiostation and id_category=:id_category',
+											array('id_radiostation'=>$this->id_radiostation,'id_category'=>2));
+		}
+
+	}
+	protected function afterDelete()
+	{
+		Users::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		RadiostationSettings::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		TestSettings::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		TestSettingsMult::model()->deleteAll("`id_radiostations`={$this->id_radiostation}");
+		MusicTest::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+		License::model()->deleteAll("`id_radiostation`={$this->id_radiostation}");
+
+		parent::afterDelete();
+	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$license=License::model()->find('id_radiostation=:id_radiostation',
+			array('id_radiostation'=>$this->id_radiostation));
+		$this->date=$license->date;
+		$this->test_count=$license->test_count;
+		$user=Users::model()->find('id_radiostation=:id_radiostation and id_category=:id_category',
+			array('id_radiostation'=>$this->id_radiostation,'id_category'=>2));
+		$this->login=$user->login;
+		$this->password=$user->password;
 	}
 }

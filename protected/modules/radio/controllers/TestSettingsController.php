@@ -6,7 +6,7 @@ class TestSettingsController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+
 
 	/**
 	 * @return array action filters
@@ -87,15 +87,20 @@ class TestSettingsController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['TestSettings']))
 		{
 			$model->attributes=$_POST['TestSettings'];
+
 			if($model->save())
 				$this->redirect(array('/radio/radiostationSettings'));
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> test12
 		}
 
 		$this->render('update',array(

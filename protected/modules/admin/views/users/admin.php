@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-);
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -40,7 +37,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'users-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -48,19 +46,52 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id_user',
 		'name_listener',
 		'email',
-		'date_birth',
-		'sex',
-		'id_education',
+        'age',
+		//'date_birth',
+		array(
+			'name' => 'sex',
+			'type' => 'raw',
+			'value' => '$data->getsex()',
+			'filter'=>CHtml::activeDropDownList($model,'sex',array(1=>yii::t('radio','Man'),2=>yii::t('radio','Woman')),array(
+				'empty'=>'',
+			)),),
+		array(
+			'name' => 'id_education',
+			'type' => 'raw',
+			'value' => '$data->education->education_level',
+			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
+				'empty'=>'',
+			)),),
+		'status',
+
+		'mix_marker',
+		'id_card',
+		'date_add',
+		array(
+			'name' => 'id_radiostation',
+			'type' => 'raw',
+			'value' => '$data->radio->name',
+			'filter'=>CHtml::activeDropDownList($model,'id_radiostation',Radistations::all(),array(
+				'empty'=>'',
+			)),),
+        array(
+            'name' => 'P1',
+            'type' => 'raw',
+            'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
+            ),
+        array(
+            'name' => 'region',
+            'type' => 'raw',
+            'value' => '$data->setregion()',
+        ),
+
 		/*
 		'login',
 		'password',
-		'date_add',
-		'status',
+
 		'id_category',
 		'id_radiostation',
-		'mix_marker',
 		'P1',
-		'id_card',
 		'mobile_ID',
 		*/
 		array(

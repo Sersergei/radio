@@ -16,8 +16,9 @@
  */
 class MusicTest extends CActiveRecord
 {
-	
-	
+	private $licens;
+	private $_status;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,13 +38,44 @@ class MusicTest extends CActiveRecord
 			array('id_type','required'),
 			array('id_status','active'),
 			array('date_finished','datefinished'),
-			array('date_started','datestarted'),
+		//	array('date_started','datestarted'),
+			array('license','license'),
 
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
 		);
+	}
+	public function license($attribute){
+		if($this->radio->status){
+
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+		}
+else{
+		if($this->radio->license->test_count<count($this->radio->MusicTest) and $this->radio->license->test_count){
+
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+			$this->radio->status=1;
+			$this->radio->save();
+
+		}
+	if($this->radio->license->date!='0000-00-00'){
+		$date=date("Y-m-d");
+		if(strtotime($this->radio->license->date)<strtotime($date)){
+			$this->addError($attribute,Yii::t('radio','У вас закончилась лицензия на использование сервиса') );
+			$this->radio->status=1;
+			$this->radio->save();
+		}
+		else{
+
+			$this->radio->status=0;
+			$this->radio->save();
+		}
+	}
+
+}
+
 	}
 	public function active($attribute){
 		$criteria=new CDbCriteria();
@@ -56,16 +88,17 @@ class MusicTest extends CActiveRecord
 		}
 	}
 	public function datestarted($attribute){
-$date=date("Y-m-d");
-
-if ($this->date_started )
-		if(strtotime($this->date_started)< strtotime($date))
-			$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
+		$date=date("Y-m-d");
+		if($this->date_started)
+		if ($this->date_started!=='0000-00-00')
+			if(strtotime($this->date_started)< strtotime($date))
+				$this->addError($attribute,Yii::t('radio',"Дата старта не может быть прошлая"));
 	}
 	public function datefinished($attribute){
-		if ($this->date_finished )
-		if(strtotime($this->date_started)> strtotime($this->date_finished))
-			$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
+		if($this->date_finished)
+		if ($this->date_finished !=='0000-00-00')
+			if(strtotime($this->date_started)> strtotime($this->date_finished))
+				$this->addError($attribute,Yii::t('radio',"Дата окончания теста не может быть раньше начала"));
 	}
 
 
@@ -81,6 +114,7 @@ if ($this->date_started )
 			'type' => array(self::BELONGS_TO, 'Type', 'id_type'),
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
 			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
+			'detail'=>array(self::HAS_MANY, 'MusicTestDetail','id_test'),
 		);
 	}
 
@@ -147,60 +181,68 @@ if ($this->date_started )
 	{
 		return parent::model($className);
 	}
+	protected function afterFind()
+	{
+		$this->_status=$this->id_status;
+
+	}
 	protected function beforeSave()
 	{
 		if ($this->isNewRecord) {
-			$user = Users::model()->find('id_user=:user', array(':user' => Yii::app()->user->id));
-			$this->id_radiostation = $user->id_radiostation;
 			$this->id_status = 1;
 			$this->date_add = date(" Y-m-d");
 		}
+
+		parent::beforeSave();
+		return true;
+
+	}
+
+	protected function afterSave(){
+		if ($this->isNewRecord){
+			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
+			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test;
+			if(file_exists ($old) ){
+				rename($old,$new);
+				$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);
+				foreach($files as $file) {
+					$songs = new Songs();
+					$songs->id_test = $this->id_test;
+					//$info = $this->mp3info($file);
+
+						$name=stristr($file,$this->id_test);
+						$name=stristr($name,'.mp3',true);
+					$name=str_replace("{$this->id_test}/","",$name);
+
+					$songs->name = $name;
+					$songs->song_file = $file;
+					$songs->validate();
+					$songs->save();
+				}
+			}
+		}
 		if ($this->id_status == 2 and $this->id_type == 1) {
-			$old = $this->getModified('id_status');
-			if ($old) {
+			if ($this->_status!=$this->id_status) {
 				$criteria = new CDbCriteria();
 				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
 				$criteria->params = array(':id_radiostation' => $this->id_radiostation, ':id_category' => 3);
 				$model = Users::model()->findAll($criteria);
+
 				if ($model) {
-					if ($model->id_test !== $this->id_test)
-						foreach ($model as $user) {
-							new UsersInvitation($user);
-						}
+					foreach ($model as $user) {
+						new UsersInvitation($user,$this->id_test);
+					}
 				}
 			}
-}
-			parent::beforeSave();
-			return true;
-		
-	}
-private function getModified($param){
-		$old=MusicTest::model()->findbypk($this->id_test);
-		if($old->id_status==$this->id_status){
-			return false;
 		}
-		else return true;
+		if($this->id_status==3){
+			$model=Users::model()->findAll("id_radiostation=".$this->id_radiostation);
+			foreach($model as $user){
+				$user->link="";
+				$user->save();
+			}
+		}
 
-	}
-	protected function afterSave(){
-		if ($this->isNewRecord){
-			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
-			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test.'/';
-			if(file_exists ($old) ){
-			rename($old,$new);
-			$files=CFileHelper::findFiles($new, ['fileTypes' => ['mp3',''], 'level' => 1]);
-			foreach($files as $file) {
-				$songs = new Songs();
-				$songs->id_test = $this->id_test;
-				$info = $this->mp3info($file);
-				$songs->name = $info['NAME'];
-				$songs->singer = $info['ARTISTS'];
-				$songs->song_file = $file;
-				$songs->save();
-			}
-			}
-		}
-		
 	}
 	protected function mp3info($file){
 		$f = fopen($file, 'rb');
@@ -226,5 +268,11 @@ private function getModified($param){
 	public function getStatus(){
 		$arr= array(1=>Yii::t('radio','Ready'),2=>Yii::t('radio','Started'),3=>Yii::t('radio','Finished'));
 		return $arr[$this->id_status];
+	}
+	protected function afterDelete(){
+		Songs::model()->deleteAll("`id_test`={$this->id_test}");
+		Usertest::model()->deleteAll("`id_music`={$this->id_test}");
+		MusicTestDetail::model()->deleteAll("`id_test`={$this->id_test}");
+		parent::afterDelete();
 	}
 }

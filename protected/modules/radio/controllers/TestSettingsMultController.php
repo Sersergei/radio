@@ -6,7 +6,7 @@ class TestSettingsMultController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+
 
 	/**
 	 * @return array action filters
@@ -68,7 +68,7 @@ class TestSettingsMultController extends Controller
 		{
 			$model->attributes=$_POST['TestSettingsMult'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_test_mult));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('create',array(

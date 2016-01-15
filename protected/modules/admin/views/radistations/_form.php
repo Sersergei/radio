@@ -38,11 +38,36 @@
 		<?php echo $form->textField($model,'date_add'); ?>
 		<?php echo $form->error($model,'date_add'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'id_languege'); ?>
+		<?php echo $form->DropDownList($model,'id_languege',Lang::all()); ?>
+		<?php echo $form->error($model,'id_languege'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<?php echo $form->textField($model,'status'); ?>
 		<?php echo $form->error($model,'status'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'date'); ?>
+		<?php echo $form->textField($model,'date'); ?>
+		<?php echo $form->error($model,'date'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'test_count'); ?>
+		<?php echo $form->textField($model,'test_count'); ?>
+		<?php echo $form->error($model,'test_count'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'login'); ?>
+		<?php echo $form->textField($model,'login'); ?>
+		<?php echo $form->error($model,'login'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo $form->textField($model,'password'); ?>
+		<?php echo $form->error($model,'password'); ?>
 	</div>
 
 

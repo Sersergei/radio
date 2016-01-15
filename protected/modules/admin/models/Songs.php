@@ -31,12 +31,12 @@ class Songs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('singer, name, song_file, id_test', 'required'),
+			array('name, song_file, id_test', 'required'),
 			array('id_test', 'numerical', 'integerOnly'=>true),
-			array('singer, name', 'length', 'max'=>100),
+			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_song, singer, name, song_file, id_test', 'safe', 'on'=>'search'),
+			array('id_song, name, song_file, id_test', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +60,7 @@ class Songs extends CActiveRecord
 	{
 		return array(
 			'id_song' => 'Id Song',
-			'singer' => 'Singer',
+
 			'name' => 'Name',
 			'song_file' => 'Song File',
 			'id_test' => 'Id Test',
@@ -86,7 +86,7 @@ class Songs extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id_song',$this->id_song);
-		$criteria->compare('singer',$this->singer,true);
+
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('song_file',$this->song_file,true);
 		$criteria->compare('id_test',$this->id_test);
@@ -105,5 +105,9 @@ class Songs extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	protected function afterDelete(){
+		unlink($this->song_file);
+		parent::afterDelete();
 	}
 }

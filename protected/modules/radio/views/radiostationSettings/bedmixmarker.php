@@ -1,21 +1,9 @@
-<?php
-/* @var $this RadiostationSettingsController */
-/* @var $model RadiostationSettings */
+<?php  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
+<div id="header-bedmix"></div>
 
-$this->breadcrumbs=array(
-    'Radiostation Settings'=>array('index'),
-    'Create',
-);
+    <h1><?php echo Yii::t('radio','Add or choose unsuitable mix marker') ?></h1>
 
-$this->menu=array(
-    array('label'=>'List RadiostationSettings', 'url'=>array('index')),
-    array('label'=>'Manage RadiostationSettings', 'url'=>array('admin')),
-);
-?>
-
-    <h1><?php echo Yii::t('radio','Неподходящие миксмаркеры') ?></h1>
-
-<p><?php echo Yii::t('radio','Выберите 4-е миксмаркера') ?></p>
+<p><?php echo Yii::t('radio','We can choose no more.').$i; ?></p>
 <?php
 
 $this->renderPartial('_form1', array('model' => $model));

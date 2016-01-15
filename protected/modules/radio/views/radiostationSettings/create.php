@@ -6,14 +6,9 @@ $this->breadcrumbs=array(
 	'Radiostation Settings'=>array('index'),
 	'Create',
 );
-
-$this->menu=array(
-	array('label'=>'List RadiostationSettings', 'url'=>array('index')),
-	array('label'=>'Manage RadiostationSettings', 'url'=>array('admin')),
-);
 ?>
-
-<h1>Create RadiostationSettings</h1>
+<div id="header-setting"></div>
+<h1><?php echo Yii::t('radio','Create Radiostation Settings') ?>  </h1>
 
 
 <?php

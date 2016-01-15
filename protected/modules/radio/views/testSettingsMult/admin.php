@@ -2,15 +2,7 @@
 /* @var $this TestSettingsMultController */
 /* @var $model TestSettingsMult */
 
-$this->breadcrumbs=array(
-	'Test Settings Mults'=>array('index'),
-	'Manage',
-);
 
-$this->menu=array(
-	array('label'=>'List TestSettingsMult', 'url'=>array('index')),
-	array('label'=>'Create TestSettingsMult', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

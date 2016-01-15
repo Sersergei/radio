@@ -6,6 +6,10 @@ $this->breadcrumbs=array(
 	'Radistations'=>array('index'),
 	'Manage',
 );
+$this->menu=array(
+	//array('label'=>'List Users', 'url'=>array('index')),
+	array('label'=>'Create Radiostation', 'url'=>array('users/create')),
+);
 
 
 
@@ -60,12 +64,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'type' => 'html',
 			'value' => 'count($data->MusicTest(array("condition"=>"id_status=3")))',
 		),
+		/*
 		array(
 			'name' => 'users',
 			'type' => 'raw',
 			'value' => '$data->finduser()->login',
 		),
-
+*/
 
 		'date_add',
 		'status',

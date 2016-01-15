@@ -153,6 +153,14 @@ class RadistationsController extends Controller
 	public function loadModel($id)
 	{
 		$model=Radistations::model()->findByPk($id);
+		$license=License::model()->find('id_radiostation=:id_radiostation',
+			array('id_radiostation'=>$id));
+		$model->date=$license->date;
+		$model->test_count=$license->test_count;
+		$user=Users::model()->find('id_radiostation=:id_radiostation and id_category=:id_category',
+			array('id_radiostation'=>$id,'id_category'=>2));
+		$model->login=$user->login;
+		$model->password=$user->password;
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

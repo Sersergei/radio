@@ -54,15 +54,41 @@ class RadiostationSettingsController extends Controller
 	public function actionIndex()
 	{
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-		$radiostation=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
-		$test=TestSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
-		$testsetingsmult=TestSettingsMult::model()->find('id_radiostations=:id', array(':id'=>$user->id_radiostation));
-		if($radiostation) {
+		$model=RadiostationSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+		if($model) {
+			$testsettings=TestSettings::model()->find('id_radiostation=:id', array(':id'=>$user->id_radiostation));
+			$testsettingsmult=TestSettingsMult::model()->find('id_radiostations=:id', array(':id'=>$user->id_radiostation));
 			$this->render('view', array(
-				'radiostation' => $radiostation,'test'=>$test,'testsetingsmult'=>$testsetingsmult
+				'model' => $model,'testsetings'=>$testsettings,'testsetingsmult'=>$testsettingsmult
 			));
 		}
 		else $this->redirect(array('create'));
+	}
+	public function actionCheck(){
+
+		$session=new CHttpSession;
+		$session->open();
+		$settings=new RadiostationSettings();
+		$register=unserialize($session['register']);
+		$settings->id_card_registration=$register->id_card_registration;
+		$settings->id_lang=$register->id_lang;
+		$settings->mix_marker=$session['my_mixmarker'];;
+		$settings->other_radiostations=$register->other_radiostations;
+		$settings->not_use_music_marker=$register->not_use_music_marker;
+		$settings->not_invite_users=$register->not_invite_users;
+		$settings->not_register_users=$register->not_register_users;
+		$settings->bed_mixmarker=$session['bed_mixmarker'];
+		$settings->god_mixmarker=$session['god_mixmarker'];
+		if(isset($_POST['yt2'])){
+			if($settings->save()){
+				unset($session['my_mixmarker']);
+				unset($session['bed_mixmarker']);
+				unset($session['god_mixmarker']);
+				$this->redirect(array('TestSettings/create'));
+			}
+		}
+
+		$this->render('check',array('model'=>$settings));
 	}
 
 	/**
@@ -85,7 +111,7 @@ class RadiostationSettingsController extends Controller
 					$session->open();
 					$session['register']=serialize($model);
 					$this->register=$model;
-					$this->redirect(array('bedmixmarker'));
+					$this->redirect(array('mymixmarker'));
 				}
 		}
 
@@ -95,126 +121,152 @@ class RadiostationSettingsController extends Controller
 	}
 	public function actionBedmixmarker()
 {
+	$session=new CHttpSession;
+	$session->open();
 
-	$model=new RadiostationSetingsBedmixmarker(4);
+		$i=(5-count(unserialize($session['god_mixmarker'])));
+
+	$model=new RadiostationSetingsBedmixmarker($i);
+	$model->mixmarker=unserialize($session['bed_mixmarker']);
+	unset ($session['bed_mixmarker']);
 
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
 
 	if(isset($_POST['RadiostationSetingsBedmixmarker']))
 	{
-		//var_dump($_POST['RadiostationSettings']);
-		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 
+		$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+		//$files=CUploadedFile::getInstances($model,'file');
+		//$model->file=$files;
+		$model->setScenario ('beforegod');
 		if ($model->validate()){
-			$session=new CHttpSession;
-			$session->open();
-			$session['bed_mixmarker']=serialize($model->mixmarker);
-			if(count($model->mixmarker)<4){
-				$i=4-count($model->mixmarker);
-				$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'bed'));
+			/*$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+			if($files)
+			foreach($files as $file){
+				$mix=new Mixmarker();
+				$name=time().str_replace(" ","",$file->getName());
+				$mix->name=$name;
+				$mix->save();
+				$model->mixmarker[]=$mix->id;
+				$file->saveAs($dir.'/'.$name);
 			}
-			$this->redirect(array('godmixmarker'));
+			*/
+			$model->setScenario ('after');
+			if($model->validate()){
+
+				//$bedmixmarker=array_merge($mix,$model->mixmarker);
+				$session['bed_mixmarker']=serialize($model->mixmarker);
+				$this->redirect(array('check'));
+			}
+
 		}
 	}
 
 	$this->render('bedmixmarker',array(
-		'model'=>$model,
+		'model'=>$model,'i'=>$i,
 	));
 }
-	public function actionLoadmixmarker()
+
+
+
+
+
+	public function actionMymixmarker()
 	{
-
-		$model=new loadmix($_GET['id']);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-		$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
-		if(isset($_POST['loadmix']))
-		{
-			$model->attributes=$_POST['loadmix'];
-			$files=CUploadedFile::getInstances($model,'file');
-			$model->file=$files;
-			if($model->validate()){
-				foreach($files as $file){
-					$mix=new Mixmarker();
-					$name=time().str_replace(" ","",$file->getName());
-					$mix->name=$name;
-					$mix->save();
-					$marker[]=$mix->id;
-					$file->saveAs($dir.'/'.$name);
-				}
-				if($_GET['status']=='bed'){
-					$session=new CHttpSession;
-					$session->open();
-					$mix=unserialize($session['bed_mixmarker']);
-
-					if(!$mix)
-						$mix=array();
-					$session['bed_mixmarker']=serialize(array_merge($mix,$marker));
-					$this->redirect(array('godmixmarker')
-					);
-				}
-				if($_GET['status']=='god'){
-					$session=new CHttpSession;
-					$session->open();
-					$mix=unserialize($session['god_mixmarker']);
-					if(!$mix)
-						$mix=array();
-					$session['god_mixmarker']=serialize(array_merge($mix,$marker));
-					$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
-
-				}
-				if($_GET['status']=='my'){
-					$session=new CHttpSession;
-					$session->open();
-					$settings=new RadiostationSettings();
-					$register=unserialize($session['register']);
-					$settings->id_card_registration=$register->id_card_registration;
-					$settings->id_lang=$register->id_lang;
-					$settings->mix_marker=$marker[0];
-					$settings->other_radiostations=$register->other_radiostations;
-					$settings->not_use_music_marker=$register->not_use_music_marker;
-					$settings->not_invite_users=$register->not_invite_users;
-					$settings->not_register_users=$register->not_register_users;
-					$settings->bed_mixmarker=$session['bed_mixmarker'];
-					$settings->god_mixmarker=$session['god_mixmarker'];
-					if($settings->save())
-
-					$this->redirect(array('TestSettings/create')
-					);
-				}
-
-			}
-		}
-
-
-		$this->render('loadmixmarker',array(
-			'model'=>$model,
-		));
-	}
-	public function actionGodmixmarker()
-	{
-
-		$model=new RadiostationSetingsBedmixmarker(2);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$session=new CHttpSession;
+		$session->open();
+		$model=new RadiostationSetingsBedmixmarker(1);
+		unset($session['my_mixmarker']);
 
 		if(isset($_POST['RadiostationSetingsBedmixmarker']))
 		{
-			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
 
+			$settings=unserialize($session['register']);
+
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('before');
 			if ($model->validate()){
-				$session=new CHttpSession;
-				$session->open();
-				$session['god_mixmarker']=serialize($model->mixmarker);
-				if(count($model->mixmarker)<2){
-					$i=2-count($model->mixmarker);
-					$this->redirect(array('loadmixmarker','id'=>$i,'status'=>'god'));
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files){
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+						$mix->id_radiostation=$user->id_radiostation;
+						$mix->save();
+						$model->mixmarker=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+					$session['my_mixmarker']=$mix->id;
+					//$session['my_mixmarker']=$model->mixmarker[0];
+
 				}
-				$this->redirect(array('loadmixmarker','id'=>1,'status'=>'my'));
+				$this->redirect(array('godmixmarker'));
+				}
 			}
+
+
+		$this->render('mymixmarker',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionGodmixmarker()
+	{
+
+
+
+		$session=new CHttpSession;
+		$session->open();
+		if($session['my_mixmarker']){
+			$i=3;
+
+		}
+		else{
+
+			$i=4;
+		}
+		$model=new RadiostationSetingsBedmixmarker($i);
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+$model->mixmarker=unserialize($session['god_mixmarker']);
+		if(isset($_POST['RadiostationSetingsBedmixmarker']))
+		{
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			//$files=CUploadedFile::getInstances($model,'file');
+			//$model->file=$files;
+			if($session['my_mixmarker']){
+				$model->setScenario ('beforegod');
+			}
+			else{
+
+				$model->setScenario ('aftergood');
+			}
+
+			/*
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+			*/
+			if ($model->validate()){
+				$session['god_mixmarker']=serialize($model->mixmarker);
+				$this->redirect(array('bedmixmarker'));
+			}
+
+
 		}
 
 		$this->render('godmixmarker',array(
@@ -237,13 +289,134 @@ class RadiostationSettingsController extends Controller
 		{
 			$model->attributes=$_POST['RadiostationSettings'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_radio_settings));
+				$this->redirect(array('/radio/radiostationSettings'));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
+	public function actionUpdatebedmixmarker($id){
+		$radiosettings=$this->loadModel($id);
+		$mix=unserialize($radiosettings->bed_mixmarker);
+		$model=new RadiostationSetingsBedmixmarker(4);
+		$model->mixmarker=$mix;
+		if(isset($_POST['RadiostationSetingsBedmixmarker'])){
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('before');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+
+					$radiosettings->bed_mixmarker=serialize($model->mixmarker);
+					$radiosettings->save();
+					$this->redirect(array('/radio/radiostationSettings'));
+				}
+
+			}
+
+		}
+		$this->render('updatebedmix',array(
+			'model'=>$model,
+		));
+	}
+	public function actionUpdategodmixmarker($id){
+		$radiosettings=$this->loadModel($id);
+		$mix=unserialize($radiosettings->god_mixmarker);
+		$model=new RadiostationSetingsBedmixmarker(2);
+		$model->mixmarker=$mix;
+		$model->id=$id;
+		if(isset($_POST['RadiostationSetingsBedmixmarker'])){
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('beforegod');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files)
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$mix->save();
+						$model->mixmarker[]=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+				$model->setScenario ('after');
+				if($model->validate()){
+
+					$radiosettings->god_mixmarker=serialize($model->mixmarker);
+					$radiosettings->save();
+					$this->redirect(array('/radio/radiostationSettings'));
+				}
+
+			}
+
+		}
+		$this->render('updatebedmix',array(
+			'model'=>$model,
+		));
+	}
+	public function actionUpdatemixmarker($id){
+		$radiosettings=$this->loadModel($id);
+		$session=new CHttpSession;
+		$session->open();
+		$model=new RadiostationSetingsBedmixmarker(1);
+		unset($session['my_mixmarker']);
+
+		if(isset($_POST['RadiostationSetingsBedmixmarker']))
+		{
+
+			$settings=unserialize($session['register']);
+
+
+			$model->attributes=$_POST['RadiostationSetingsBedmixmarker'];
+			$files=CUploadedFile::getInstances($model,'file');
+			$model->file=$files;
+			$model->setScenario ('before');
+			if ($model->validate()){
+				$dir=$dir=Yii::getPathOfAlias('webroot.mixmarker');
+				if($files){
+					foreach($files as $file){
+						$mix=new Mixmarker();
+						$name=time().str_replace(" ","",$file->getName());
+						$mix->name=$name;
+						$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
+						$mix->id_radiostation=$user->id_radiostation;
+						$mix->save();
+						$model->mixmarker=$mix->id;
+						$file->saveAs($dir.'/'.$name);
+					}
+					$session['my_mixmarker']=$mix->id;
+					//$session['my_mixmarker']=$model->mixmarker[0];
+
+				}
+				$radiosettings->mix_marker=$mix->id;
+				$radiosettings->save();
+				$this->redirect(array('/radio/radiostationSettings'));
+			}
+		}
+
+
+		$this->render('mymixmarker',array(
+			'model'=>$model,
+		));
+	}
+
 
 
 	/**
