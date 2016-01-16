@@ -100,11 +100,11 @@ class AmtController extends Controller
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
-                $model->link=md5(microtime().$this->user->name_listener.'rfvbgt');
+                $model->link=md5(microtime().$model->name_listener.'rfvbgt');
                 $model->status=1;//забанен
                 if ($model->save()){
 
-                    $this->redirect(array('test','id'=>$model->id_user,'$linc'=>$model->link));
+                    $this->redirect(Yii::app()->createUrl('/test/index/id/'.$model->id_user.'/linc/'.$model->link));
                 }
 
             }
