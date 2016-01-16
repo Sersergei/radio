@@ -72,6 +72,7 @@ class AmtController extends Controller
             $radio=unserialize($session['radiostation']);
 
             $model->id_category=4;
+            $model->id_radiostation=$radio->id_radiostation;
 
             if(isset($session['sex'])){
                 $model->sex=$session['sex'];
