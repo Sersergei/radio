@@ -12,6 +12,7 @@ echo $license;
 ?>
 
 <p><?php echo $href; ?></p>
+<p><?php echo $AMT; ?></p>
 
 
 <p>
