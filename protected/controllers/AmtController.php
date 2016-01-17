@@ -33,9 +33,14 @@ class AmtController extends Controller
         $model->id_radiostation = $id;
 
         $settings = Radistations::model()->findbyPk($id);
+        $criteria = new CDbCriteria();
+        $criteria->compare ('id_radiostation',$id);
+        $criteria->compare('id_type',2);
+       $criteria->compare('id_status',2);
+       // $criteria->params = array(':id_radiostation' => $id,);
+        $test =MusicTest::model()->find($criteria);
 
-
-
+        if($test){
         if ($settings) {
             $session = new CHttpSession;
             $session->open();
@@ -59,6 +64,11 @@ class AmtController extends Controller
         else
         $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
     }
+    else
+        $this->render('message',array('message'=>Yii::t('radio','На данный момент нет активного AMT теста')));
+
+
+}
 
     public function actionViewregister(){
 
@@ -87,9 +97,12 @@ class AmtController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
+                //var_dump($_POST['Users']['email']);
+
                 $criteria = new CDbCriteria;
-                $criteria->compare('email', $_POST['users']['email']);
+                $criteria->compare('email', $_POST['Users']['email']);
                 $user=Users::model()->find($criteria);
+
                 if($user){
                     $model=$user;
 
@@ -101,11 +114,11 @@ class AmtController extends Controller
                 $model->marker=$session['marker'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
-                $model->link=md5(microtime().$this->user->name_listener.'rfvbgt');
+                $model->link=md5(microtime().$model->name_listener.'rfvbgt');
                 $model->status=1;//забанен
                 if ($model->save()){
 
-                    $this->redirect(array('test','id'=>$model->id_user,'$linc'=>$model->link));
+                    $this->redirect(array('/test/index/id/'.$model->id_user.'/linc/'.$model->link));
                 }
 
             }
