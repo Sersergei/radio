@@ -20,10 +20,10 @@ class RadiostationSetingsRegister extends CFormModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('id_lang', 'required'),
+            array('id_lang,email', 'required'),
             array('id_lang, not_use_music_marker, not_register_users, not_invite_users, id_card_registration', 'numerical', 'integerOnly'=>true),
             array('other_radiostations', 'length', 'max'=>1000),
-            array('test_song, mix_marker', 'safe'),
+            array('test_song, mix_marker,email', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
