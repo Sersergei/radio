@@ -14,6 +14,7 @@ class RadiostationSetingsRegister extends CFormModel
     public $not_invite_users;
     public $id_card_registration;
     public $other_radiostations;
+    public $email;
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
@@ -39,6 +40,7 @@ class RadiostationSetingsRegister extends CFormModel
             'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
             'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
             'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
+            'email'=>Yii::t('radio','Your mail for subscribe'),
         );
     }
 

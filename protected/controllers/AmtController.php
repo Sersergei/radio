@@ -58,14 +58,14 @@ class AmtController extends Controller
                 }
                 $this->redirect('/Amt/Viewregister');
         } else {
-                $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
+                $this->render('message',array('message'=>Yii::t('radio','Sorry, registration temporary is closed')));
         }
     }
         else
-        $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
+        $this->render('message',array('message'=>Yii::t('radio','Sorry, registration temporary is closed')));
     }
     else
-        $this->render('message',array('message'=>Yii::t('radio','На данный момент нет активного AMT теста')));
+        $this->render('message',array('message'=>Yii::t('radio','Active the music test is absent in the moment')));
 
 
 }

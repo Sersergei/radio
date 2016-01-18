@@ -40,7 +40,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'email'); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 	<div class="row">
@@ -50,13 +50,23 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'location'); ?>
 		<?php echo $form->error($model,'location'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'lang'); ?>
 		<?php echo $form->DropDownList($model,'lang',Lang::all()); ?>
 		<?php echo $form->error($model,'lang'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'date'); ?>
+		<?php echo $form->textField($model,'date'); ?>
+		<?php echo $form->error($model,'date'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'test_count'); ?>
+		<?php echo $form->textField($model,'test_count'); ?>
+		<?php echo $form->error($model,'test_count'); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

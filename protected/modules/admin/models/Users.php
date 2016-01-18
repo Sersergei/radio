@@ -34,6 +34,8 @@ class Users extends CActiveRecord
 	public $admin_P2;
 	public $admin_region;
 	public $test_done;
+	public $date;
+	public $test_count;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -76,7 +78,7 @@ class Users extends CActiveRecord
 			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('password_repeat, radiostation,location,link,password,login','safe'),
+			array('password_repeat, radiostation,location,link,password,login, date, test_count','safe'),
 			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation', 'safe', 'on' => 'search'),
 		);
 	}
@@ -147,6 +149,8 @@ class Users extends CActiveRecord
 			'admin_P2'=>Yii::t('radio','P2'),
 			'admin_region'=>Yii::t('radio','Region'),
 			'test_done'=>Yii::t('radio','tests done'),
+			'date'=>Yii::t('radio','license date'),
+			'test_count'=>Yii::t('radio','test_count'),
 		);
 	}
 
@@ -232,6 +236,8 @@ class Users extends CActiveRecord
 				$radio->date_add = date(" Y-m-d");
 				$radio->location = $this->location;
 				$radio->id_languege = $this->lang;
+				$radio->date=$this->date;
+				$radio->test_count = $this->test_count;
 				$radio->save();
 				$this->date_add= date(" Y-m-d");
 
