@@ -56,8 +56,8 @@ class TestController extends Controller
 
 		$soundtest=array_rand($test, 1); //выбираем случайную песню
 		if(!Yii::app()->request->cookies['soundtest']) {
-			$session['soundtest']= $soundtest);//устанавливаем куки тестируемой песни на 30 мин
-			$session['test']=serialize($testsong));//устанавливаем куки масива песен на 30 мин
+			$session['soundtest']= $soundtest;//устанавливаем куки тестируемой песни на 30 мин
+			$session['test']=serialize($testsong);//устанавливаем куки масива песен на 30 мин
 			$dur = 0;
 
 			$session['dur'] = $dur;
@@ -65,16 +65,8 @@ class TestController extends Controller
 			$session['con']=$con;
 			$last = 0;
 			$session['last'] = $last;
-
-
 			$like = array();
-
-			$session['like']= serialize($like);//устанавливаем куки масива ответов на 30 мин
-
-			$session['never']=serialize($never=array());//устанавливаем куки масива ответов на 30 мин
-
-
-			$session['date_last']=serialize($date_last=array());//устанавливаем куки масива ответов на 30 мин
+			$session['testresult']=array();
 
 		}
 		if($mix=Mixmarker::model()->findbyPk($r))
@@ -153,7 +145,7 @@ class TestController extends Controller
 					$session['soundtest']=$soundtest;//устанавливаем куки тестируемой песни на 30 мин
 
 
-						$session['test']= serialize($test));//устанавливаем куки масива песен на 30 мин
+						$session['test']= serialize($test);//устанавливаем куки масива песен на 30 мин
 					if($session['last']==$model->id_like ){
 						$session['dur']++;
 						if($session['dur']>=5){
@@ -161,19 +153,7 @@ class TestController extends Controller
 						}
 					}
 
-					$like=unserialize($session['like']);
-					$like[$model->id_song]=$model->id_like;
-					$session['like']=serialize($like);//устанавливаем куки масива ответов песни на 30 мин
-
-					$never=unserialize($session['never']);
-					$never[$model->id_song]=$model->never;
-					$never['never']=serialize($never));//устанавливаем куки масива ответов песни на 30 мин
-
-
-					$date_last=unserialize($session['date_last']);
-					$date_last[$model->id_song]=$model->date_last;
-					$session['date_last']=serialize($date_last);//устанавливаем куки масива ответов песни на 30 мин
-
+				$session['testresult'][]=serialize($model);
 					$this->redirect(array('/test/Songs'));
 				}
 
@@ -193,28 +173,27 @@ class TestController extends Controller
 		$session = new CHttpSession;
 		$session->open();
 
-$test=unserialize(Yii::app()->request->cookies['test']->value);
+$test=unserialize($session['test']);
 		if($session['con']!=count($test)){
-			$cookie = new CHttpCookie('test', $session['old_test']);//устанавливаем куки масива песен на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['test'] = $cookie;
-		$cookie = new CHttpCookie('soundtest', $session['old_sound']);//устанавливаем куки масива песен на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['soundtest'] = $cookie;
-		$like = unserialize(Yii::app()->request->cookies['like']->value);
-		array_pop($like);
-		$cookie = new CHttpCookie('like', serialize($like));//устанавливаем куки масива песен на 30 мин
-		$cookie->expire = time() + 1800;
-		Yii::app()->request->cookies['like'] = $cookie;
+			$session['test']= $session['old_test'];//устанавливаем куки масива песен на 30 мин
+
+		$session['soundtest']= $session['old_sound'];//устанавливаем куки масива песен на 30 мин
+
+
+		array_pop($session['testresult']);
+
 	}
 		$this->redirect('Songs');
 
 	}
 	public function actionFinish(){
-		if($like=Yii::app()->request->cookies['like']){
-			$like=unserialize($like->value);
-			$never=unserialize(Yii::app()->request->cookies['never']->value);
-			$date_last=unserialize(Yii::app()->request->cookies['date_last']->value);
+
+		$session = new CHttpSession;
+		$session->open();
+		if($session['testresult']){
+
+
+			$date_last=$session['date_last'];
 
 			$user=Yii::app()->request->cookies['user'];
 			$user=$user->value;
@@ -232,20 +211,15 @@ $test=unserialize(Yii::app()->request->cookies['test']->value);
 			$session->open();
 			$usertest->time=time()-$session['time'];
 			$usertest->save();
-			foreach($like as $key=>$an){
-				$model=new MusicTestDetail();
-				$model->id_like=$an;
-				$model->never=$never[$key];
-				$model->id_song=$key;
-				$model->date_last=$date_last[$key];
-				$model->id_user=$user->id_user;
-				$model->id_test=$test->id_test;
+			foreach($session['testresult'] as $model){
+				$model=unserialize($model);
 				$model->finaly=date(" Y-m-d");
 				$model->save();
 			}
 			$user->link='';
 			$user->save();
-			Yii::app()->request->cookies->remove('like');
+			unset($session);
+			//Yii::app()->request->cookies->remove('like');
 			//$like->remove;
 			$text=$user->radio->settings->text_after_test;
 			$this->render('finish',array('model'=>$text,'message'=>''));
