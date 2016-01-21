@@ -72,7 +72,7 @@ class UsersInvitation
 
     }
     private function Filter(){
-        if($this->user->status)
+        if(!$this->user->status)
             return false;
 
         $criteria = new CDbCriteria();

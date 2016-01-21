@@ -82,7 +82,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'region',
             'type' => 'raw',
-            'value' => '$data->setregion()',
+            'value' => '$data->getregion()',
         ),
 
 		/*

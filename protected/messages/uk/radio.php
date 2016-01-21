@@ -46,8 +46,8 @@ return array(
     'higher education'=>'вищу освіту',
     'YYYY-MM-DD'=>'РРРР-ММ-ДД',
     'click here.'=>'натисніть тут.',
-    'Thank you for your request to be added to the web radiomusictest.com We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
-    'Дякуємо за ваш запит до мережі radiomusictest.com Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
+    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
+    'Дякуємо за ваш запит до мережі Radio Music Test Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
     'To complete the registration click on the link in the email'=>'Для завершення реєстрації перейдіть за посиланням, зазначенм в листі',
     'We canceled subscribe'=>'Ми скасували підписку на наші музичні тести',
 );
