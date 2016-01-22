@@ -28,6 +28,8 @@ class TestController extends Controller
 
 	}
 	public function actionSongstest(){
+		$session = new CHttpSession;
+		$session->open();
 //выбор песни для настройки аудио
 	if($user=Yii::app()->request->cookies['user']){
 		$model=$user->value;
@@ -49,26 +51,28 @@ class TestController extends Controller
 		$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
 		$criteria->params = array(':id_radiostation'=>$model->id_radiostation, ':id_status'=>2);
 		$test=MusicTest::model()->find($criteria);
-		$testsongs=$test->songs;//список тестируемых песен
+		$test=$test->songs;//список тестируемых песен
 
 
-		$con=count($testsongs); //количество тестируемых песен
+		$con=count($test); //количество тестируемых песен
 
 		$soundtest=array_rand($test, 1); //выбираем случайную песню
-		if(!Yii::app()->request->cookies['soundtest']) {
+		//if(!Yii::app()->request->cookies['soundtest']) {
 			$session['soundtest']= $soundtest;//устанавливаем куки тестируемой песни на 30 мин
-			$session['test']=serialize($testsong);//устанавливаем куки масива песен на 30 мин
-			$dur = 0;
+
+			$session['test']=serialize($test);//устанавливаем куки масива песен на 30 мин
+
+		$dur = 0;
 
 			$session['dur'] = $dur;
 			$session['time'] = time();
 			$session['con']=$con;
 			$last = 0;
 			$session['last'] = $last;
-			$like = array();
+
 			$session['testresult']=array();
 
-		}
+		//}
 		if($mix=Mixmarker::model()->findbyPk($r))
 			$sound="<div class='songstext'>
         <div class='lm-track lmtr-top'>
@@ -83,6 +87,7 @@ class TestController extends Controller
 		$session = new CHttpSession;
 		$session->open();
 		//перебор песен теста
+
 		if($session['test']){
 			$sound=$session['soundtest'];
 			$test=unserialize($session['test']);
@@ -152,8 +157,11 @@ class TestController extends Controller
 							$session['baned']=true;
 						}
 					}
+					if($session['testresult'])
+					$testresult=unserialize($session['testresult']);
+					$testresult[]=$model;
 
-				$session['testresult'][]=serialize($model);
+				$session['testresult']=serialize($testresult);
 					$this->redirect(array('/test/Songs'));
 				}
 
@@ -211,14 +219,16 @@ $test=unserialize($session['test']);
 			$session->open();
 			$usertest->time=time()-$session['time'];
 			$usertest->save();
-			foreach($session['testresult'] as $model){
-				$model=unserialize($model);
+			$testresult=unserialize($session['testresult']);
+			//print_r($testresult);
+			foreach($testresult as $model){
+
 				$model->finaly=date(" Y-m-d");
 				$model->save();
 			}
 			$user->link='';
 			$user->save();
-			unset($session);
+			unset($session['testresult']);
 			//Yii::app()->request->cookies->remove('like');
 			//$like->remove;
 			$text=$user->radio->settings->text_after_test;
