@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 return array(
     'What do you think about this song?' => 'Что Вы думаете об этой песне?',
     'If you wanna listen this song again, click the button please!' => 'Если хотите прослушать эту песню еще раз, нажмите пожалуйста на кнопку',
