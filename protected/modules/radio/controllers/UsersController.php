@@ -172,10 +172,39 @@ class UsersController extends Controller
 		}
 	}
 	public function actionLoadUser(){
-		if(isset($_POST[files])){
+		$model=new Load;
+
+		if(isset($_POST['load'])){
+			//$files=CUploadedFile::getInstances($model,'file');
+			$model->attributes=$_POST['load'];
+			$model->document=CUploadedFile::getInstance($model,'document');
+			if($model->validate()){
+				$phpExcelPath = Yii::getPathOfAlias('ext.phpexcel.Classes');
+
+				include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+
+
+				$objPHPExcel = PHPExcel_IOFactory::load($_FILES['load']['tmp_name']['document']);
+				$ar=$objPHPExcel->getActiveSheet()->toArray();
+				$i=0;
+				$errorusers=Null;
+				foreach($ar as $user){
+					$usermodel=new Users();
+					$usermodel->name_listener=$user[0];
+					$usermodel->email=$user[1];
+					if($usermodel->save()){
+						var_dump('yes');
+						$i++;
+					}
+					else{
+						var_dump('no');
+						$errorusers[]=$usermodel;
+					}
+				}
+			}
 
 		}
-		$this->render('load',array('model'=>$model));
+		$this->render('load',array('model'=>$model,'coun'=>$i,'error'=>$errorusers));
 	}
 
 }

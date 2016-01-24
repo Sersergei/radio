@@ -30,8 +30,14 @@ public $breadcrumbs=array();
             $app->setLanguage($app->session['lang']);
         } else {
             $user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-            $lang=$user->radio->lang->lang;
-            $app->setLanguage('en');
+            if($user){
+                $lang=$user->radio->lang->lang;
+                $app->setLanguage($lang);
+            }
+            else{
+                $app->setLanguage('en');
+            }
+
             $app->session['lang'] = $app->getLanguage();
         }
 
