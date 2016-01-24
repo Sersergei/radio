@@ -171,4 +171,11 @@ class UsersController extends Controller
 			Yii::app()->end();
 		}
 	}
+	public function actionLoadUser(){
+		if(isset($_POST[files])){
+
+		}
+		$this->render('load',array('model'=>$model));
+	}
+
 }

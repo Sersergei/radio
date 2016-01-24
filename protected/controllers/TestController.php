@@ -187,8 +187,9 @@ $test=unserialize($session['test']);
 
 		$session['soundtest']= $session['old_sound'];//устанавливаем куки масива песен на 30 мин
 
-
-		array_pop($session['testresult']);
+		$testresult=unserialize($session['testresult']);
+		array_pop($testresult);
+			$session['testresult']=serialize($testresult);
 
 	}
 		$this->redirect('Songs');
