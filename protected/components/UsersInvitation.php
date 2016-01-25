@@ -66,7 +66,7 @@ class UsersInvitation
 
                 mail($this->user->email,$subject,$text,$headers);
             }
-            else var_dump($this->user->getErrors());
+
 
         }
 

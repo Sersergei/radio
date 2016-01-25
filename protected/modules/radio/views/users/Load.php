@@ -1,4 +1,4 @@
-<?php echo Yii::t('radio','????????? exel ???? ??? ???????? ????? ?????????????') ?></p>
+<?php echo Yii::t('radio','Загрузите exel файл с пользователями которых хотите добавить в систему') ?></p>
 <?php
 echo CHtml::form('','POST',array('enctype'=>'multipart/form-data'));
 echo CHtml::activeFileField($model, 'document');
@@ -7,7 +7,7 @@ echo CHtml::submitButton( 'Import');
 echo CHtml::endForm();
 ?>
 <br>
-<?php echo Yii::t('radio','��������� ').$coun.Yii::t('radio','�������');
+<?php if($coun) echo Yii::t('radio','Загружено ').$coun.Yii::t('radio','человек');
 ?>
 <br>
 <?php
