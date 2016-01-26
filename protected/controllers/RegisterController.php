@@ -313,7 +313,7 @@ $this->redirect(array('register/Viewregister'));
         if($model->link==$linc){
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
+        $model->region='';
         if(isset($_POST['Users']))
         {
             $model->attributes=$_POST['Users'];

@@ -32,6 +32,8 @@ class EmailInvintation
 
 
                 $lang=Lang::model()->findByPk($radiosettings->id_lang);
+                $app = Yii::app();
+                $app->setLanguage($lang->lang);
 
                 $hrefUnscribe=Yii::app()->getBaseUrl(true).'/register/DisActive/id/'.$user->id_user.'/linc/'.$user->activate.'?lang='.$lang->lang;
                 $text_before='<br><br><br>'.'<a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';

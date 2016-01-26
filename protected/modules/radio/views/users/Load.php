@@ -1,4 +1,4 @@
-<?php echo Yii::t('radio','Загрузите exel файл с пользователями которых хотите добавить в систему') ?></p>
+<?php echo Yii::t('radio','For add users in base we must upload excel file (A column - user name, B column - email)') ?></p>
 <?php
 echo CHtml::form('','POST',array('enctype'=>'multipart/form-data'));
 echo CHtml::activeFileField($model, 'document');
@@ -7,7 +7,7 @@ echo CHtml::submitButton( 'Import');
 echo CHtml::endForm();
 ?>
 <br>
-<?php if($coun) echo Yii::t('radio','Загружено ').$coun.Yii::t('radio','человек');
+<?php if($coun) echo Yii::t('radio','add users ').$coun;
 ?>
 <br>
 <?php
