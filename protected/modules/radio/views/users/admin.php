@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+	array('label'=>'Load Users', 'url'=>array('LoadUser')),
 
 );
 
@@ -66,7 +67,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'name' => 'education',
 			'type' => 'raw',
-			'value' => '$data->education->education_level',
+			'value' => '$data->education()',
 			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
 				'empty'=>'',
 			)),

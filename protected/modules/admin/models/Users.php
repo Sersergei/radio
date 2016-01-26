@@ -54,7 +54,7 @@ class Users extends CActiveRecord
 		return array(
 			array('name_listener,date_birth,sex,id_education,P1,email,region', 'required','on'=>'update'),
 			array('P1', 'required','on'=>'user'),
-			array('email','required','message'=>Yii::t('radio','enter your email'),'on'=>'user'),
+			array('email','required','message'=>Yii::t('radio','enter your email'),'on'=>'user,load'),
 			array('sex','required','message'=>Yii::t('radio','enter your sex'),'on'=>'user'),
 			array('name_listener','required','message'=>Yii::t('radio','enter your name'),'on'=>'user'),
 			array('date_birth','required','message'=>Yii::t('radio','enter your Date Birth'),'on'=>'user'),
@@ -64,6 +64,7 @@ class Users extends CActiveRecord
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
+			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
 			//array('email','unique','on'=>'admin,user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
@@ -279,9 +280,13 @@ return true;
 		$this->getage();
 	}
 	protected function getage(){
+		if($this->date_birth){
 		$diff = abs(time()-strtotime($this->date_birth));
 		$years = floor($diff / (365*60*60*24));
-		$this->age=$years;
+		$this->age=$years;}
+		else{
+			$this->age=Null;
+		}
 	}
 	public function getregion(){
 
@@ -290,5 +295,11 @@ return true;
 	public function getcounttest(){
 	$i=count($this->usertest);
 		return $i;
+	}
+	public function education(){
+		if($this->education)
+			return $this->education->education_level;
+		else
+			return Null;
 	}
 }

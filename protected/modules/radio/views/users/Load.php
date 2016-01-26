@@ -20,9 +20,11 @@ if($error){
         <td><?php echo Yii::t('radio','Error'); ?></td>
     </tr>
     <?php foreach($error as $user){
-        echo '<td>'.$user->name_listner.'</td>';
+
+        echo '<tr>';
+        echo '<td>'.$user->name_listener.'</td>';
         echo '<td>'.$user->email.'</td>';
-        echo '<td>'.$user->error.'</td>';
+        echo '<td>'.$user->getErrors()["email"][0].'</td></tr>';
     }
     ?>
 </table>

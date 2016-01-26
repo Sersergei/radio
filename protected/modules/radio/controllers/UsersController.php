@@ -90,7 +90,7 @@ class UsersController extends Controller
 		{
 			$model->attributes=$_POST['Users'];
 			if($model->save())
-				$this->redirect(array('/test/','id'=>$model->id_user));
+				$this->redirect(array('/test/index/id/'.$id.'/linc/'.$link));
 		}
 
 		$this->render('update',array(
@@ -173,8 +173,10 @@ class UsersController extends Controller
 	}
 	public function actionLoadUser(){
 		$model=new Load;
-
+		$i=0;
+		$errorusers=Null;
 		if(isset($_POST['load'])){
+			$radio=Users::model()->findByPk(Yii::app()->user->id);
 			//$files=CUploadedFile::getInstances($model,'file');
 			$model->attributes=$_POST['load'];
 			$model->document=CUploadedFile::getInstance($model,'document');
@@ -186,18 +188,22 @@ class UsersController extends Controller
 
 				$objPHPExcel = PHPExcel_IOFactory::load($_FILES['load']['tmp_name']['document']);
 				$ar=$objPHPExcel->getActiveSheet()->toArray();
-				$i=0;
+
 				$errorusers=Null;
 				foreach($ar as $user){
 					$usermodel=new Users();
 					$usermodel->name_listener=$user[0];
 					$usermodel->email=$user[1];
+
+					$usermodel->id_radiostation=$radio->id_radiostation;
+					$usermodel->scenario = 'load';
 					if($usermodel->save()){
-						var_dump('yes');
+						$email=new EmailInvintation();
+						$email->email($usermodel);
 						$i++;
 					}
 					else{
-						var_dump('no');
+
 						$errorusers[]=$usermodel;
 					}
 				}

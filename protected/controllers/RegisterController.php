@@ -307,4 +307,33 @@ $this->redirect(array('register/Viewregister'));
 
     }
 
+    public function actionUpdate($id=Null,$linc=Null)
+    {
+        $model=$this->loadModel($id);
+        if($model->link==$linc){
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Users']))
+        {
+            $model->attributes=$_POST['Users'];
+            $model->date_birth=$_POST['date_birth'];
+            $model->scenario = 'user';
+            if($model->save())
+                $this->redirect(array('/test/index/id/'.$id.'/linc/'.$model->link));
+        }
+
+        $this->render('update',array(
+            'model'=>$model,
+        ));}
+    }
+    public function loadModel($id)
+    {
+        $model=Users::model()->findByPk($id);
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
+    }
+
+
 }
