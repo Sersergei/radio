@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+	array('label'=>'Load Users', 'url'=>array('LoadUser')),
 
 );
 
@@ -48,7 +49,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'name' => 'admin_name',
 			'type' => 'raw',
-			'value' => 'name_listener',
+			'value' => '$data->name_listener',
 
 		),
 		'email',
@@ -66,53 +67,55 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'name' => 'education',
 			'type' => 'raw',
-			'value' => '$data->education->education_level',
+			'value' => '$data->education()',
 			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
 				'empty'=>'',
 			)),
 
 		),
 
-		'date_add',
-		array(
-			'name' => 'admin_P1',
-			'type' => 'raw',
-			'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
-			'filter'=>CHtml::activeDropDownList($model,'id_education',RadiostationSettings::getradiostation(2),array(
-				'empty'=>'',
-			)),
+                'date_add',
+                array(
+                    'name' => 'admin_P1',
+                    'type' => 'raw',
+                    'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
+                    'filter'=>CHtml::activeDropDownList($model,'id_education',RadiostationSettings::getradiostation($model->id_radiostation),array(
+                        'empty'=>'',
+                    )),
 
-		),
-		array(
-			'name' => 'admin_P2',
-			'type' => 'raw',
-			'value' => '$data->radio->radiostationSettings->getradio($data->P2)',
+                ),
 
-		),
-		array(
-			'name' => 'admin_region',
-			'type' => 'raw',
-			'value' => '$data->getregion()',
+            array(
+                'name' => 'admin_P2',
+                'type' => 'raw',
+                'value' => '$data->radio->radiostationSettings->getradio($data->P2)',
 
-		),
-		array(
-			'name' => 'test_done',
-			'type' => 'raw',
-			'value' => '$data->getcounttest()',
-
-		),
-
-		//'status',
+            ),
 		/*
-		'login',
-		'password',
-		'date_add',
-		'id_category',
-		'id_radiostation',
-		'mix_marker',
-		'id_card',
-		'mobile_ID',
-		*/
+        array(
+            'name' => 'admin_region',
+            'type' => 'raw',
+            'value' => '$data->getregion()',
+
+        ),
+        array(
+            'name' => 'test_done',
+            'type' => 'raw',
+            'value' => '$data->getcounttest()',
+
+        ),
+
+        //'status',
+
+        'login',
+        'password',
+        'date_add',
+        'id_category',
+        'id_radiostation',
+        'mix_marker',
+        'id_card',
+        'mobile_ID',
+        */
 		array(
 			'class'=>'CButtonColumn',
 		),

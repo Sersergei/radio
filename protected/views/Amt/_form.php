@@ -69,7 +69,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 <div class="row">
 	<?php echo $form->labelEx($model,'region'); ?>
-	<?php echo $form->DropDownList($model,'region', TestSettings::getregion($model->id_radiostation),array('empty' => '')); ?>
+	<?php  echo $form->DropDownList($model,'region', TestSettings::getregion($model->id_radiostation),array('empty' => '')); ?>
 	<?php echo $form->error($model,'region'); ?>
 </div>
 	<div class="row">

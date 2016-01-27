@@ -33,9 +33,14 @@ class AmtController extends Controller
         $model->id_radiostation = $id;
 
         $settings = Radistations::model()->findbyPk($id);
+        $criteria = new CDbCriteria();
+        $criteria->compare ('id_radiostation',$id);
+        $criteria->compare('id_type',2);
+       $criteria->compare('id_status',2);
+       // $criteria->params = array(':id_radiostation' => $id,);
+        $test =MusicTest::model()->find($criteria);
 
-
-
+        if($test){
         if ($settings) {
             $session = new CHttpSession;
             $session->open();
@@ -53,12 +58,17 @@ class AmtController extends Controller
                 }
                 $this->redirect('/Amt/Viewregister');
         } else {
-                $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
+                $this->render('message',array('message'=>Yii::t('radio','Sorry, registration temporary is closed')));
         }
     }
         else
-        $this->render('message',array('message'=>Yii::t('radio','Извините на данный момент регистрация закрыта ведеться настройка тестирования')));
+        $this->render('message',array('message'=>Yii::t('radio','Sorry, registration temporary is closed')));
     }
+    else
+        $this->render('message',array('message'=>Yii::t('radio','Active the music test is absent in the moment')));
+
+
+}
 
     public function actionViewregister(){
 
@@ -72,6 +82,7 @@ class AmtController extends Controller
             $radio=unserialize($session['radiostation']);
 
             $model->id_category=4;
+            $model->id_radiostation=$radio->id_radiostation;
 
             if(isset($session['sex'])){
                 $model->sex=$session['sex'];
@@ -86,9 +97,12 @@ class AmtController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
+                //var_dump($_POST['Users']['email']);
+
                 $criteria = new CDbCriteria;
-                $criteria->compare('email', $_POST['users']['email']);
+                $criteria->compare('email', $_POST['Users']['email']);
                 $user=Users::model()->find($criteria);
+
                 if($user){
                     $model=$user;
 
@@ -104,7 +118,7 @@ class AmtController extends Controller
                 $model->status=1;//забанен
                 if ($model->save()){
 
-                    $this->redirect(Yii::app()->createUrl('/test/index/id/'.$model->id_user.'/linc/'.$model->link));
+                    $this->redirect(array('/test/index/id/'.$model->id_user.'/linc/'.$model->link));
                 }
 
             }

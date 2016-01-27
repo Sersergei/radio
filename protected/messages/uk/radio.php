@@ -16,11 +16,11 @@ return array(
     'Registration'=>'Реєстрація',
     'Fields with* are required.'=>'Поля з * є обов`язковими',
     'ID-card'=>'карта',
-    'Your Name*'=>'Ваше ім`я*',
-    'Date Birth*'=>'Дата народження',
-    'Sex*'=>'Стать*',
+    'Your Name'=>'Ваше ім`я',
+    'Date Birth'=>'Дата народження',
+    'Sex'=>'Стать',
     'Where are you from?'=>'Звідки Ви?',
-    'What education do you have?*'=>'Яку Ви маєте освіту?*',
+    'What education do you have?'=>'Яку Ви маєте освіту?',
     'What radiostation are you listen more than other on last week?*'=>'Оберіть радіостанцію, яку ви слухали частіше за інші протягом останнього тижня',
     'What other radiostations are you listen yet on last week?'=>'Оберіть ще одну радіостанцію, яку ви слухали трохи рідше, ніж улюблену станцію протягом останнього тижня',
     'Create'=>'Завершити',
@@ -46,8 +46,8 @@ return array(
     'higher education'=>'вищу освіту',
     'YYYY-MM-DD'=>'РРРР-ММ-ДД',
     'click here.'=>'натисніть тут.',
-    'Thank you for your request to be added to the web radiomusictest.com We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
-    'Дякуємо за ваш запит до мережі radiomusictest.com Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
+    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
+    'Дякуємо за ваш запит до мережі Radio Music Test Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
     'To complete the registration click on the link in the email'=>'Для завершення реєстрації перейдіть за посиланням, зазначенм в листі',
     'We canceled subscribe'=>'Ми скасували підписку на наші музичні тести',
 );

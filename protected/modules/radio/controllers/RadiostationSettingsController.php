@@ -77,6 +77,7 @@ class RadiostationSettingsController extends Controller
 		$settings->not_use_music_marker=$register->not_use_music_marker;
 		$settings->not_invite_users=$register->not_invite_users;
 		$settings->not_register_users=$register->not_register_users;
+		$settings->email=$register->email;
 		$settings->bed_mixmarker=$session['bed_mixmarker'];
 		$settings->god_mixmarker=$session['god_mixmarker'];
 		if(isset($_POST['yt2'])){
