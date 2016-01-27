@@ -166,16 +166,25 @@ $arr=array(0=>Yii::t('radio','приглашение всем, кто зарег
 		return $arr[$this->Invitations];
 	}
 	public static function getregion($id=Null){
-		$criteria=new CDbCriteria;
-		$criteria->compare('id_radiostation',$id);
-		$settings=TestSettings::model()->find($criteria);
-		if($settings->region){
-			$arr=explode(",",$settings->region);
-		}
+
+			$criteria = new CDbCriteria;
+			$criteria->compare('id_radiostation', $id);
+			$settings = TestSettings::model()->find($criteria);
+			if ($settings->region) {
+				$arr = explode(",", $settings->region);
+			}
+
+		else $arr=Null;
 		return $arr;
 
 	}
 	public function getregions($id=Null){
+		if($id===Null){
+			var_dump($id);
+			return $arr[''];
+		}
+
+		else
 		$arr=explode(",",$this->region);
 		return $arr[$id];
 	}

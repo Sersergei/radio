@@ -79,7 +79,7 @@ class UsersController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id=Null,$link=Null)
 	{
 		$model=$this->loadModel($id);
 
@@ -90,7 +90,7 @@ class UsersController extends Controller
 		{
 			$model->attributes=$_POST['Users'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_user));
+				$this->redirect(array('/test/index/id/'.$id.'/linc/'.$link));
 		}
 
 		$this->render('update',array(
@@ -171,4 +171,46 @@ class UsersController extends Controller
 			Yii::app()->end();
 		}
 	}
+	public function actionLoadUser(){
+		$model=new Load;
+		$i=0;
+		$errorusers=Null;
+		if(isset($_POST['load'])){
+			$radio=Users::model()->findByPk(Yii::app()->user->id);
+			//$files=CUploadedFile::getInstances($model,'file');
+			$model->attributes=$_POST['load'];
+			$model->document=CUploadedFile::getInstance($model,'document');
+			if($model->validate()){
+				$phpExcelPath = Yii::getPathOfAlias('ext.phpexcel.Classes');
+
+				include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+
+
+				$objPHPExcel = PHPExcel_IOFactory::load($_FILES['load']['tmp_name']['document']);
+				$ar=$objPHPExcel->getActiveSheet()->toArray();
+
+				$errorusers=Null;
+				foreach($ar as $user){
+					$usermodel=new Users();
+					$usermodel->name_listener=$user[0];
+					$usermodel->email=$user[1];
+
+					$usermodel->id_radiostation=$radio->id_radiostation;
+					$usermodel->scenario = 'load';
+					if($usermodel->save()){
+						$email=new EmailInvintation();
+						$email->email($usermodel);
+						$i++;
+					}
+					else{
+
+						$errorusers[]=$usermodel;
+					}
+				}
+			}
+
+		}
+		$this->render('load',array('model'=>$model,'coun'=>$i,'error'=>$errorusers));
+	}
+
 }

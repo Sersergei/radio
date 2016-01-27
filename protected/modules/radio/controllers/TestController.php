@@ -276,7 +276,7 @@ class TestController extends Controller
         $model->sex=2;
         $statistic['count_all_woman']=count($model->user());
 
-            $model->sex=Null;
+        $model->sex=Null;
         $model->unsetAttributes();
         $model->id_music=$id;
         $model->after_age=14;
@@ -363,7 +363,7 @@ class TestController extends Controller
         $statistic['regions']=TestSettings::getregion($model->test->id_radiostation);
         $regions=array_keys($statistic['regions']);
 
-       foreach($regions as $region){
+        foreach($regions as $region){
             $model->region=$region;
             $statistic['region'][$region]=count($model->user());
         }

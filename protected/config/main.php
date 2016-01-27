@@ -51,16 +51,9 @@ return array(
 			'class' => 'ext.lightopenid.loid',
 		),
 
-		'eauth' => array(
-			'class' => 'ext.eauth.EAuth',
-			'popup' => true, // Use the popup window instead of redirecting.
-			'services' => array( // You can change the prov
-				'facebook' => array(
-					'class' => 'FacebookOAuthService',
-					'client_id' => '433471736844421',
-					'client_secret' => 'fc529565e8593e0f6c059cff10b355a9',
-				),)),
-
+		'PHPExcel'=>array(
+			'class'=>'ext.phpexcel.Classes.PHPExcel'
+		),
 		/*'user'=>array(
 			// enable cookie-based authentication
 			//'allowAutoLogin'=>true,

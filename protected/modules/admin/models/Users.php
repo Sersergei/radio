@@ -54,7 +54,7 @@ class Users extends CActiveRecord
 		return array(
 			array('name_listener,date_birth,sex,id_education,P1,email,region', 'required','on'=>'update'),
 			array('P1', 'required','on'=>'user'),
-			array('email','required','message'=>Yii::t('radio','enter your email'),'on'=>'user'),
+			array('email','required','message'=>Yii::t('radio','enter your email'),'on'=>'user,load'),
 			array('sex','required','message'=>Yii::t('radio','enter your sex'),'on'=>'user'),
 			array('name_listener','required','message'=>Yii::t('radio','enter your name'),'on'=>'user'),
 			array('date_birth','required','message'=>Yii::t('radio','enter your Date Birth'),'on'=>'user'),
@@ -64,6 +64,7 @@ class Users extends CActiveRecord
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
+			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
 			//array('email','unique','on'=>'admin,user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
@@ -125,11 +126,11 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id_user' => Yii::t('radio', 'Id User'),
-			'name_listener' => Yii::t('radio', 'Your Name*'),
-			'email' => Yii::t('radio', 'Email*'),
-			'date_birth' => Yii::t('radio', 'Date Birth*'),
-			'sex' => Yii::t('radio', 'Sex*'),
-			'id_education' => Yii::t('radio', 'What education do you have?*'),
+			'name_listener' => Yii::t('radio', 'Your Name'),
+			'email' => Yii::t('radio', 'Email'),
+			'date_birth' => Yii::t('radio', 'Date Birth'),
+			'sex' => Yii::t('radio', 'Sex'),
+			'id_education' => Yii::t('radio', 'What education do you have?'),
 			'login' => Yii::t('radio', 'Login'),
 			'password' => Yii::t('radio', 'Password'),
 			'password_repeat' => Yii::t('radio', 'rePassword'),
@@ -138,7 +139,7 @@ class Users extends CActiveRecord
 			'id_category' => Yii::t('radio', 'Id Category'),
 			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker'),
-			'P1' => Yii::t('radio', 'What radiostation are you listen more than other on last week?*'),
+			'P1' => Yii::t('radio', 'What radiostation are you listen more than other on last week?'),
 			'P2' => Yii::t('radio', 'What other radiostations are you listen yet on last week?'),
 			'id_card' => Yii::t('radio', 'Id Card'),
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
@@ -279,9 +280,13 @@ return true;
 		$this->getage();
 	}
 	protected function getage(){
+		if($this->date_birth){
 		$diff = abs(time()-strtotime($this->date_birth));
 		$years = floor($diff / (365*60*60*24));
-		$this->age=$years;
+		$this->age=$years;}
+		else{
+			$this->age=Null;
+		}
 	}
 	public function getregion(){
 
@@ -290,5 +295,11 @@ return true;
 	public function getcounttest(){
 	$i=count($this->usertest);
 		return $i;
+	}
+	public function education(){
+		if($this->education)
+			return $this->education->education_level;
+		else
+			return Null;
 	}
 }
