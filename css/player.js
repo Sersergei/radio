@@ -34,4 +34,3 @@ $(document).ready(function() {
       $(".row2").css("display","block");
   })
 });
-

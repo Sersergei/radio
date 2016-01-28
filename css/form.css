@@ -54,13 +54,13 @@ div.form fieldset
     -moz-border-radius:7px;
 }
 
-/*div.form label
+div.form label
 {
 	font-weight: bold;
 	font-size: 0.9em;
 	display: block;
 }
-*/
+
 div.form .row
 {
 	margin: 5px 0;
@@ -144,7 +144,7 @@ div.form .errorSummary ul
 	padding: 0 0 0 20px;
 }
 
-/*div.wide.form label
+div.wide.form label
 {
 	float: left;
 	margin-right: 10px;
@@ -152,7 +152,7 @@ div.form .errorSummary ul
 	text-align: right;
 	width: 100px;
 }
-*/
+
 div.wide.form .row
 {
 	clear: left;

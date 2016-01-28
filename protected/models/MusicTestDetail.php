@@ -72,6 +72,8 @@ class MusicTestDetail extends CActiveRecord
 	public $neverP1;
 	public $neverP2;
 	public $region;
+	public $P1P2;
+	public $mix;
 
 
 	/**
@@ -94,7 +96,7 @@ class MusicTestDetail extends CActiveRecord
 			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2', 'safe', 'on'=>'search'),
+			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2,P1P1,mix', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -110,6 +112,8 @@ class MusicTestDetail extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'idSong' => array(self::BELONGS_TO, 'Songs', 'id_song'),
 			'idLike' => array(self::BELONGS_TO, 'SongLikesMult', 'id_like'),
+
+
 		);
 	}
 
@@ -126,6 +130,8 @@ class MusicTestDetail extends CActiveRecord
 			'finaly' => 'Finaly',
 			'id_song' => 'Id Song',
 			'id_like' => 'Id Like',
+			'P1P2'=>Yii::t('radio','View respondents which choose your radiostation P1 or P2'),
+			'mix'=>Yii::t('radio','Right mix-maker'),
 		);
 	}
 
@@ -158,6 +164,12 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->addInCondition('idUser.P2',$this->P2);
 		$criteria->addInCondition('idUser.sex',$this->sex);
 		$criteria->addInCondition('idUser.region',$this->region);
+		if($this->P1P2){
+			$criteria->condition("idUser.P1= {$this->idTest->id_radiostation} or idUser.P2= {$this->idTest->id_radiostation}");
+		}
+		if($this->mix){
+			$criteria->compare('idUser.marker','+');
+		}
 		$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,
