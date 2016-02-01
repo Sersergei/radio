@@ -130,28 +130,31 @@ class TestController extends Controller
 			$song="/".stristr($song,'musictest');
 			$song=str_replace('\\','/',$song);
 			if(isset($_POST['yt1'])){
-				$ansver=5;
+				$model->id_like=5;
 			}
 			if(isset($_POST['yt2'])){
-				$ansver=4;
+				$model->id_like=4;
 			}
 			if(isset($_POST['yt3'])){
-				$ansver=3;
+				$model->id_like=3;
 			}
 			if(isset($_POST['yt4'])){
-				$ansver=2;
+				$model->id_like=2;
 			}
 			if(isset($_POST['yt5'])){
-				$ansver=1;
+				$model->id_like=1;
 			}
 			if(isset($_POST['never'])){
 				$model->never=5;
 			}
-			if(isset($ansver) or $model_never==5)
+
+			if((isset($model->id_like)) or ($model->never==5))
 			{
+
 				$session['old_sound']=$sound;// последний музікальній тест
 				$session['old_test']=$session['test'];// список последних осташихся
-				$model->id_like=$ansver;
+
+
 				$model->date_last=date(" Y-m-d");
 
 				if($model->validate()){
@@ -164,18 +167,21 @@ class TestController extends Controller
 
 
 						$session['test']= serialize($test);//устанавливаем куки масива песен на 30 мин
-					if($session['last']==$model->id_like ){
-						$session['dur']++;
-						if($session['dur']>=5){
-							$session['baned']=true;
-						}
-					}
+
 					if($session['testresult'])
 					$testresult=unserialize($session['testresult']);
 					$testresult[]=$model;
 
 				$session['testresult']=serialize($testresult);
 					$this->redirect(array('/test/Songs'));
+					if(!isset($model->id_like))
+						$model->id_like=10;
+					if($session['last']==$model->id_like ){
+						$session['dur']++;
+						if($session['dur']>=5){
+							$session['baned']=true;
+						}
+					}
 				}
 
 

@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<div id="filter">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
@@ -13,50 +13,49 @@
 )); ?>
 <div class="chek">
 	<div class="sex">
-		<?php echo $form->labelEx($model,'sex'); ?>
-		</br>
+		<p>
+		<?php echo $form->labelEx($model,'sex'); ?></p>
 		<?php echo $form->checkBoxList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman')));?>
 		<?php echo $form->error($model,'sex'); ?>
 	</div>
 </div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'age_from'); ?>
-		<br>
+		<p><?php echo $form->labelEx($model,'age_from'); ?></p>
+		from
 		<?php echo $form->textField($model,'age_from'); ?>
 		<?php echo $form->error($model,'age_from'); ?>
-
+		to
 		<?php echo $form->textField($model,'after_age'); ?>
 		<?php echo $form->error($model,'after_age'); ?>
 	</div>
 	<table>
 		<tr>
-			<td>
-				<?php echo $form->labelEx($model,'region'); ?>
-				<br>
-				<?php echo $form->checkBoxList($model,'region',TestSettings::getregion($model->idTest->id_radiostation),array( 'separator'=>'</br></br>')); ?>
+			<td style=" vertical-align: top; ">
+				<p><?php echo $form->labelEx($model,'region'); ?></p>
+
+				<?php echo $form->checkBoxList($model,'region',TestSettings::getregion($model->idTest->id_radiostation)); ?>
 				<?php echo $form->error($model,'region'); ?>
 			</td>
-			<td>
-				<?php echo $form->labelEx($model,'id_education'); ?>
-				</br>
-				<?php echo $form->checkBoxList($model,'id_education',EducationMult::all(),array( 'separator'=>'</br></br>')); ?>
+			<td style=" vertical-align: top; ">
+				<p><?php echo $form->labelEx($model,'id_education'); ?></p>
+
+				<?php echo $form->checkBoxList($model,'id_education',EducationMult::all()); ?>
 				<?php echo $form->error($model,'id_education'); ?>
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style=" vertical-align: top; ">
 
-				<?php echo $form->labelEx($model,'P1'); ?>
-				</br>
+				<p><?php echo $form->labelEx($model,'P1'); ?></p>
 
-				<?php echo $form->checkBoxList($model,'P1',RadiostationSettings::getradiostation($model->idTest->id_radiostation),array( 'separator'=>'</br></br>')); ?>
+
+				<?php echo $form->checkBoxList($model,'P1',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 				<?php echo $form->error($model,'P1'); ?>
 
 			</td>
-			<td>
-				<?php echo $form->labelEx($model,'P2'); ?>
-				</br>
-				<?php echo $form->checkBoxList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation),array( 'separator'=>'</br></br>')); ?>
+			<td style=" vertical-align: top; ">
+				<p><?php echo $form->labelEx($model,'P2'); ?></p>
+				<?php echo $form->checkBoxList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 				<?php echo $form->error($model,'P2'); ?>
 			</td>
 		</tr>
