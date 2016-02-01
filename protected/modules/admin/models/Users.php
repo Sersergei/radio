@@ -60,7 +60,7 @@ class Users extends CActiveRecord
 			array('date_birth','required','message'=>Yii::t('radio','enter your Date Birth'),'on'=>'user'),
 			array('id_education','required','message'=>Yii::t('radio','enter your education'),'on'=>'user'),
 			array('region','required','message'=>Yii::t('radio','enter your region'),'on'=>'user'),
-			array('P2','notP1','on'=>'user'),
+			array('P2','notP1','on'=>'user,load'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
 			array('email','email'),
