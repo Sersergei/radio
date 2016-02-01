@@ -43,7 +43,7 @@ $form=$this->beginWidget('CActiveForm', array(
                         <div class="divnever" style="background: 0px;width: 337px; text-align: center;">
                             <?php echo Yii::t('radio','Even if you don`t know the song, do you like it?'); ?>
                         </div>
-                        <?php echo CHtml::Button(Yii::t('radio','I never heard of it'),array('class'=>'em2')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I never heard of it'),array('class'=>'em2')); ?>
                     </td>
                 </tr>
                 <tr>
