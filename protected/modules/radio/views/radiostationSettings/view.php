@@ -52,6 +52,11 @@ $this->widget('zii.widgets.CDetailView', array(
                     'type' => 'raw',
                     'value' => $model->getnot_use_music_marker(),
                 ),
+                array(
+                    'name'=>'never_test',
+                    'type'=>'raw',
+                    'value'=>$model->getnever_test(),
+                ),
 
                 array(
                     'name' => 'not_register_users',

@@ -38,6 +38,18 @@ class TestController extends Controller
 		$criteria->condition = 'id_radiostation = :id_radiostation';
 		$criteria->params = array(':id_radiostation'=>$model->id_radiostation);
 		$radiosetings=RadiostationSettings::model()->find($criteria);
+
+		if($radiosetings->never_test)//если не стоит галочка всеравно голосовать
+		{
+			$session['never_test']=1;
+		}
+
+		else
+		{
+			$session['never_test']=0;
+		}
+
+
 		if($radiosetings->mix_marker)
 		$r=$radiosetings->mix_marker;//песня для тестирования музыки
 		else{
@@ -89,6 +101,7 @@ class TestController extends Controller
 		//перебор песен теста
 
 		if($session['test']){
+
 			$sound=$session['soundtest'];
 			$test=unserialize($session['test']);
 			if(!isset($test[$sound])){
@@ -134,7 +147,7 @@ class TestController extends Controller
 			if(isset($_POST['never'])){
 				$model->never=5;
 			}
-			if(isset($ansver))
+			if(isset($ansver) or $model_never==5)
 			{
 				$session['old_sound']=$sound;// последний музікальній тест
 				$session['old_test']=$session['test'];// список последних осташихся
@@ -165,13 +178,26 @@ class TestController extends Controller
 					$this->redirect(array('/test/Songs'));
 				}
 
+
+		}
+
+			if($session['never_test']){
+
+				$this->render('create1',array(
+					'model'=>$model,'song'=>$song,'progress'=>$progress,
+				));
+			}
+			else{
+
+				$this->render('create',array(
+					'model'=>$model,'song'=>$song,'progress'=>$progress,
+				));
 			}
 
-			$this->render('create',array(
-				'model'=>$model,'song'=>$song,'progress'=>$progress,
-			));
-		}
+			}
+
 		else{
+
 			$this->redirect('finish');
 		}
 
