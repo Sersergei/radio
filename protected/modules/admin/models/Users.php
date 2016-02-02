@@ -36,6 +36,9 @@ class Users extends CActiveRecord
 	public $test_done;
 	public $date;
 	public $test_count;
+	public $AMT;
+	public $coll_aut;
+	public $date_lasttest;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -66,7 +69,7 @@ class Users extends CActiveRecord
 			array('email','email'),
 			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
-			//array('email','unique','on'=>'admin,user'),
+			array('email','unique','on'=>'user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
@@ -114,7 +117,7 @@ class Users extends CActiveRecord
 		return array(
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
 			'education'=>array(self::BELONGS_TO,'EducationMult','id_education'),
-			'usertest'=>array(self::BELONGS_TO,'Usertest','id_user')
+			'usertest'=>array(self::HAS_MANY,'Usertest','id_user')
 
 		);
 	}
@@ -137,7 +140,7 @@ class Users extends CActiveRecord
 			'date_add' => Yii::t('radio', 'Date Add'),
 			'status' => Yii::t('radio', 'Status'),
 			'id_category' => Yii::t('radio', 'Id Category'),
-			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
+			'id_radiostation' => Yii::t('radio', 'Radiostation'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker'),
 			'P1' => Yii::t('radio', 'What radiostation are you listen more than other on last week?'),
 			'P2' => Yii::t('radio', 'What other radiostations are you listen yet on last week?'),
@@ -145,13 +148,14 @@ class Users extends CActiveRecord
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
 			'region'=>Yii::t('radio','Where are you from?'),
 			'age'=>Yii::t('radio','Age'),
-			'admin_name'=>Yii::t('radio','Name'),
+			'admin_name'=>Yii::t('radio','User name'),
 			'admin_P1'=>Yii::t('radio','P1'),
 			'admin_P2'=>Yii::t('radio','P2'),
 			'admin_region'=>Yii::t('radio','Region'),
 			'test_done'=>Yii::t('radio','tests done'),
 			'date'=>Yii::t('radio','license date'),
 			'test_count'=>Yii::t('radio','test_count'),
+			'admin_region'=>'Region',
 		);
 	}
 
@@ -220,7 +224,7 @@ class Users extends CActiveRecord
 		return CPasswordHelper::hashPassword($password);
 	}
 	public function getsex(){
-		$arr=array(0=>'',1=>Yii::t('radio','Man'),2=>Yii::t('radio','Woman'));
+		$arr=array(0=>'',1=>Yii::t('radio','M'),2=>Yii::t('radio','W'));
 		if(!isset($this->sex))
 			return $arr[0];
 		return $arr[$this->sex];
@@ -302,4 +306,27 @@ return true;
 		else
 			return Null;
 	}
+	public function getstatus(){
+		if($this->status)
+			return 'ban';
+		else
+			return 'act';
+	}
+	public function getAmt(){
+		//var_dump($this->usertest(array('condition'=>'test.id_type=1')));
+		return count($this->usertest);
+	}
+	public function getDateLastTest(){
+		$criteria=new CDbCriteria();
+		$criteria->compare('id_user',$this->id_user);
+		$criteria->order='date DESC';
+		$model=Usertest::model()->find($criteria);
+		if($model){
+			return $model->date;
+		}
+		else return Null;
+
+
+	}
+
 }

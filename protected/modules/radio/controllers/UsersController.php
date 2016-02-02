@@ -45,8 +45,12 @@ class UsersController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=new Usertest('search');
+		$model->unsetAttributes();
+		$model->id_user=$id;
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'test'=>$model,
 		));
 	}
 
@@ -197,7 +201,7 @@ class UsersController extends Controller
 
 					$usermodel->id_radiostation=$radio->id_radiostation;
 					$usermodel->scenario = 'load';
-					var_dump($usermodel);
+
 					if($usermodel->save()){
 
 						$email=new EmailInvintation();

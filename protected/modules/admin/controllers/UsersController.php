@@ -45,8 +45,12 @@ class UsersController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=new Usertest('search');
+		$model->unsetAttributes();
+		$model->id_user=$id;
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'test'=>$model,
 		));
 	}
 

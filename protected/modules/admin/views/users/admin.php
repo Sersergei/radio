@@ -44,7 +44,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'filter'=>$model,
 	'columns'=>array(
 		'id_user',
-		'name_listener',
+		array(
+			'name' => 'admin_name',
+			'type' => 'raw',
+			'value' => '$data->name_listener',
+
+		),
 		'email',
         'age',
 		//'date_birth',
@@ -52,20 +57,27 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'sex',
 			'type' => 'raw',
 			'value' => '$data->getsex()',
-			'filter'=>CHtml::activeDropDownList($model,'sex',array(1=>yii::t('radio','Man'),2=>yii::t('radio','Woman')),array(
+			'filter'=>CHtml::activeDropDownList($model,'sex',array(1=>yii::t('radio','M'),2=>yii::t('radio','W')),array(
 				'empty'=>'',
 			)),),
 		array(
-			'name' => 'id_education',
+			'name' => 'education',
 			'type' => 'raw',
-			'value' => '$data->education->education_level',
+			'value' => '$data->education()',
 			'filter'=>CHtml::activeDropDownList($model,'id_education',EducationMult::all(),array(
 				'empty'=>'',
-			)),),
-		'status',
+			)),
 
-		'mix_marker',
-		'id_card',
+		),
+		array(
+			'name' => 'status',
+			'type' => 'raw',
+			'value' => '$data->getstatus()',
+			),
+
+
+		'marker',
+		//'id_card',
 		'date_add',
 		array(
 			'name' => 'id_radiostation',
@@ -74,16 +86,33 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'filter'=>CHtml::activeDropDownList($model,'id_radiostation',Radistations::all(),array(
 				'empty'=>'',
 			)),),
+		array(
+			'name' => 'admin_P1',
+			'type' => 'raw',
+			'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
+
+		),
+		array(
+			'name' => 'admin_P2',
+			'type' => 'raw',
+			'value' => '$data->radio->radiostationSettings->getradio($data->P2)',
+
+		),
         array(
-            'name' => 'P1',
-            'type' => 'raw',
-            'value' => '$data->radio->radiostationSettings->getradio($data->P1)',
-            ),
-        array(
-            'name' => 'region',
+            'name' => 'admin_region',
             'type' => 'raw',
             'value' => '$data->getregion()',
         ),
+		array(
+			'name'=>'test_count',
+			'type'=>'raw',
+			'value'=>'$data->getAmt()',
+		),
+		array(
+			'name'=>'date_lasttest',
+			'type'=>'raw',
+			'value'=>'$data->getDateLastTest()',
+		),
 
 		/*
 		'login',

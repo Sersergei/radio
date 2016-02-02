@@ -275,4 +275,8 @@ else{
 		MusicTestDetail::model()->deleteAll("`id_test`={$this->id_test}");
 		parent::afterDelete();
 	}
+	public function gettype(){
+		$arr=array(1=>'call-out',2=>'AMT');
+		return $arr[$this->id_type];
+	}
 }

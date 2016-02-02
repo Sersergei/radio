@@ -90,7 +90,7 @@ class Usertest extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('user');
 		$criteria->compare('id',$this->id);
-		$criteria->compare('id_user',$this->id_user);
+		$criteria->compare('t.id_user',$this->id_user);
 		$criteria->compare('id_music',$this->id_music);
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('time',$this->time,true);
