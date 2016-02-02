@@ -44,17 +44,6 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo $form->checkBox($model,'P1P2'); ?>
-				<?php  echo $form->labelEx($model,'P1P2'); ?>
-
-			</td>
-			<td>
-				<?php echo $form->checkBox($model,'mix'); ?>
-				<?php  echo $form->labelEx($model,'mix'); ?>
-			</td>
-		</tr>
-		<tr>
 			<td style=" vertical-align: top; ">
 
 				<p><?php echo $form->labelEx($model,'P1'); ?></p>

@@ -15,15 +15,16 @@ class RadiostationSetingsRegister extends CFormModel
     public $id_card_registration;
     public $other_radiostations;
     public $email;
+    public $never_test;
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('id_lang,email', 'required'),
+            array('id_lang,email,other_radiostations', 'required'),
             array('id_lang, not_use_music_marker, not_register_users, not_invite_users, id_card_registration', 'numerical', 'integerOnly'=>true),
             array('other_radiostations', 'length', 'max'=>1000),
-            array('test_song, mix_marker,email', 'safe'),
+            array('test_song, mix_marker,email,never_test', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
@@ -41,6 +42,7 @@ class RadiostationSetingsRegister extends CFormModel
             'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
             'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
             'email'=>Yii::t('radio','Your mail for subscribe'),
+            'never_test'=>Yii::t('radio','unknown (without of next question)'),
         );
     }
 

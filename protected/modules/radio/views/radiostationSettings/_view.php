@@ -32,6 +32,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('not_invite_users')); ?>:</b>
 	<?php echo CHtml::encode($data->not_invite_users); ?>
 	<br />
+	<b><?php echo CHtml::encode($data->getAttributeLabel('never_test')); ?>:</b>
+	<?php echo CHtml::encode($data->never_test); ?>
+	<br />
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mix_marker_1')); ?>:</b>

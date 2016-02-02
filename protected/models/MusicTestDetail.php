@@ -92,11 +92,11 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, date_last, id_song, id_like', 'required'),
+			array('id_user, date_last, id_song', 'required'),
 			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2,P1P1,mix', 'safe', 'on'=>'search'),
+			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -130,8 +130,7 @@ class MusicTestDetail extends CActiveRecord
 			'finaly' => 'Finaly',
 			'id_song' => 'Id Song',
 			'id_like' => 'Id Like',
-			'P1P2'=>Yii::t('radio','View respondents which choose your radiostation P1 or P2'),
-			'mix'=>Yii::t('radio','Right mix-maker'),
+			'age_from'=>'Age',
 		);
 	}
 
