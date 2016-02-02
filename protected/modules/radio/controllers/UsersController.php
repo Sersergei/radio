@@ -197,7 +197,9 @@ class UsersController extends Controller
 
 					$usermodel->id_radiostation=$radio->id_radiostation;
 					$usermodel->scenario = 'load';
+					var_dump($usermodel);
 					if($usermodel->save()){
+
 						$email=new EmailInvintation();
 						$email->email($usermodel);
 						$i++;
