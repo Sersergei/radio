@@ -30,7 +30,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'User', 'url'=>array('/admin/users')),
-				array('label'=>'Radiostations', 'url'=>array('/admin/radistations', 'view'=>'about')),
+				array('label'=>'Radiostations', 'url'=>array('/admin/radistations/admin')),
 				array('label'=>'Music Test', 'url'=>array('/admin/musicTest')),
 				//array('label'=>'License', 'url'=>array('/admin/license')),
 				array('label'=>Yii::t('radio','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

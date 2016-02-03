@@ -154,8 +154,10 @@ class Users extends CActiveRecord
 			'admin_region'=>Yii::t('radio','Region'),
 			'test_done'=>Yii::t('radio','tests done'),
 			'date'=>Yii::t('radio','license date'),
-			'test_count'=>Yii::t('radio','test_count'),
+			'test_count'=>Yii::t('radio','test'),
 			'admin_region'=>'Region',
+			'date_lasttest'=>'Last test',
+
 		);
 	}
 

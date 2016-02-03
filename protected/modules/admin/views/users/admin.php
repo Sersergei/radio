@@ -36,7 +36,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
+<div class="admintable">
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'users-grid',
@@ -52,7 +52,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		'email',
         'age',
-		//'date_birth',
+		'date_birth',
 		array(
 			'name' => 'sex',
 			'type' => 'raw',
@@ -128,3 +128,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 )); ?>
+</div>
