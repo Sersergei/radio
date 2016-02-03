@@ -24,7 +24,7 @@ class Idcard extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'card' => 'ID-card',
+            'card' => Yii::t('radio','ID-card '),
 
         );
     }
