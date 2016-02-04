@@ -32,6 +32,10 @@ $this->menu=array(
 			'name'=>'education',
 			'value'=>$model->education(),
 		),
+		array(
+			'name'=>'admin_region',
+			'value'=>$model->getregion(),
+		),
 		'date_add',
 		array(
 			'name'=>'status',

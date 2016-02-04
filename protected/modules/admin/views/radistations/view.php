@@ -25,9 +25,11 @@ $this->widget('zii.widgets.CDetailView', array(
 		'id_radiostation',
 		'name',
 		'location',
-		'all_tests',
 		'date_add',
-		'status',
+		array(
+			'name' => 'status',
+			'value' => $model->getstatus(),
+		),
 		array(
 			'name' => 'all_tests',
 			'type' => 'raw',

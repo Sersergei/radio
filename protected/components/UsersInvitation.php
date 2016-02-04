@@ -51,6 +51,8 @@ class UsersInvitation
 
 
                 $lang=Lang::model()->findByPk($radiosettings->id_lang);
+                $app = Yii::app();
+                $app->setLanguage($lang->lang);
 
                 $hrefUnscribe=Yii::app()->getBaseUrl(true).'/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
                 $text_before='<br><br><br>'.'<a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';

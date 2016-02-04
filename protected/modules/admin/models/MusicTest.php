@@ -18,6 +18,7 @@ class MusicTest extends CActiveRecord
 {
 	private $licens;
 	private $_status;
+	public $RTD;
 
 	/**
 	 * @return string the associated database table name
@@ -115,6 +116,7 @@ else{
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
 			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
 			'detail'=>array(self::HAS_MANY, 'MusicTestDetail','id_test'),
+			'usertest'=>array(self::HAS_MANY, 'Usertest','id_music'),
 		);
 	}
 
@@ -125,11 +127,11 @@ else{
 	{
 		return array(
 			'id_test' => Yii::t('radio', 'Id Test'),
-			'id_radiostation' =>Yii::t('radio', 'Id Radiostation'),
-			'id_type' =>Yii::t('radio', 'Id Type'),
+			'id_radiostation' =>Yii::t('radio', 'Radiostation'),
+			'id_type' =>Yii::t('radio', 'Type'),
 			'date_add' =>Yii::t('radio', 'Date Add'),
 			'date_started' =>Yii::t('radio', 'Date Started'),
-			'id_status' =>Yii::t('radio', 'Id Status'),
+			'id_status' =>Yii::t('radio', 'Status'),
 			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
 			'test_number' =>Yii::t('radio', 'Test Number'),
 			'date_finished' =>Yii::t('radio', 'Date Finished'),
@@ -168,6 +170,8 @@ else{
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pagesize' => 50,),
 		));
 	}
 
@@ -278,5 +282,8 @@ else{
 	public function gettype(){
 		$arr=array(1=>'call-out',2=>'AMT');
 		return $arr[$this->id_type];
+	}
+	public function getRTD(){
+		return count($this->usertest);
 	}
 }

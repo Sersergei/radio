@@ -21,6 +21,7 @@ public $breadcrumbs=array();
         parent::init();
 
         $app = Yii::app();
+        /*
         if ( isset($_GET['lang']) ) {
 
             $app->setLanguage($_GET['lang']);
@@ -33,11 +34,12 @@ public $breadcrumbs=array();
                 $app->setLanguage($lang);
             }
             else{
+        */
                 $app->setLanguage('en');
-            }
+          //  }
 
 
-        }
+       // }
 
     }
 }

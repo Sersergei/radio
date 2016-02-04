@@ -26,6 +26,7 @@ class Radistations extends CActiveRecord
 	public $test_count;
 	public $login;
 	public $password;
+	public $license_date;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -86,6 +87,8 @@ class Radistations extends CActiveRecord
 			'id_languege'=>Yii::t('radio','Lang'),
 			'date'=>Yii::t('radio','license date'),
 			'test_count'=>Yii::t('radio','test_count'),
+			'finished_test'=>'Finished',
+			'active_test'=>'Active',
 		);
 	}
 
@@ -204,5 +207,23 @@ class Radistations extends CActiveRecord
 			array('id_radiostation'=>$this->id_radiostation,'id_category'=>2));
 		$this->login=$user->login;
 		$this->password=$user->password;
+	}
+	public function getstatus(){
+		if($this->status)
+			return 'ban';
+		else
+			return 'act';
+	}
+	public function getLicenseCount(){
+		if($this->license->test_count)
+		return $this->license->test_count-count($this->MusicTest);
+		else
+			return Null;
+	}
+	public function getLicenseDate(){
+		if($this->license->date and $this->license->date!=='0000-00-00')
+		return $this->license->date;
+		else
+			return Null;
 	}
 }

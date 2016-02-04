@@ -49,9 +49,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name',
 		'location',
 		array(
-			'name' => 'all_tests',
+			'name' => 'license',
 			'type' => 'raw',
-			'value' => 'count($data->MusicTest)',
+			'value' => '$data->getLicenseCount()',
+		),
+		array(
+			'name' => 'license_date',
+			'type' => 'raw',
+			'value' => '$data->getLicenseDate()',
 		),
 		array(
 			'name' => 'active_test',
@@ -72,7 +77,10 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 */
 
 		'date_add',
-		'status',
+		array(
+			'name' => 'status',
+			'value' => '$data->getstatus()',
+		),
 		/*
 		'songs',
 		*/

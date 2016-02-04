@@ -131,7 +131,7 @@ class Users extends CActiveRecord
 			'id_user' => Yii::t('radio', 'Id User'),
 			'name_listener' => Yii::t('radio', 'Your Name'),
 			'email' => Yii::t('radio', 'Email'),
-			'date_birth' => Yii::t('radio', 'Date Birth'),
+			'date_birth' => Yii::t('radio', 'Birth Date'),
 			'sex' => Yii::t('radio', 'Sex'),
 			'id_education' => Yii::t('radio', 'What education do you have?'),
 			'login' => Yii::t('radio', 'Login'),
