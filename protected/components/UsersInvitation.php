@@ -25,9 +25,9 @@ class UsersInvitation
 
     }
     private function Email(){
-        var_dump($this->filter());
+
         if($this->filter()){
-            var_dump($this->user->id_user);
+
             $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
 
            $this->user->link=$linc;
@@ -82,7 +82,7 @@ class UsersInvitation
             return false;
         }
 
-        var_dump('ihoihohu');
+
         $criteria = new CDbCriteria();
         $criteria->condition = 'id_radiostation = :id_radiostation AND id_type=:id_type AND id_status=:id_status';
         $criteria->params = array(':id_radiostation' => $this->user->id_radiostation,':id_status'=>2,':id_type'=>1);

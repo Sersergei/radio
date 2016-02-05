@@ -32,7 +32,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
-		//var_dump($user->id_category);
+	
 		if(!$user){
 			$this->redirect('/login');
 		}

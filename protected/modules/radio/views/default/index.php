@@ -22,7 +22,7 @@ echo $license;
 
 
 	<span><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']; ?> </span>
-		<?php var_dump($model['count_all']) ?>
+
 	<table id="stat">
 		<tr>
 			<td width="80px"><?php echo Yii::t('radio','Man')." ".$model['count_all_man']."(".round($model['count_all_man']*100/$model['count_all'],2)."%)";?></td>

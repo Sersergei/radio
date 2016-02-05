@@ -39,6 +39,7 @@ class Users extends CActiveRecord
 	public $AMT;
 	public $coll_aut;
 	public $date_lasttest;
+	public $status_statistic;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -196,6 +197,12 @@ class Users extends CActiveRecord
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
+		if($this->status_statistic){
+			$criteria->condition="status IS NULL";
+			$criteria->condition="P1 IS NOT NULL";
+
+		}
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

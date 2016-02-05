@@ -47,7 +47,7 @@ class RegisterController extends Controller
             $criteria->condition = 'id_radiostation = :id_radiostation';
             $criteria->params = array(':id_radiostation' => $id);
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
-            // var_dump($radiostationSettings->not_use_music_marker);
+
             if ($radiostationSettings) {
 
 
