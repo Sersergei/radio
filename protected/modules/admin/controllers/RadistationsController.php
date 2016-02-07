@@ -52,6 +52,7 @@ class RadistationsController extends Controller
 	public function actionView($id)
 	{
 
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),'statistic'=>$this->statistic($id),
 		));
@@ -182,9 +183,13 @@ class RadistationsController extends Controller
 	protected function statistic($id){
 
 			$model = new Users('search');
+
 			$model->id_radiostation = $id;
-			$midel->id_category=3;
-			$model->status_statistic-=1;
+
+			//$midel->id_category=3;
+
+			$model->status_statistic=1;
+		
 			$statistic['count_all'] = count($model);
 
 			$model->sex = 1;
@@ -246,7 +251,9 @@ class RadistationsController extends Controller
 			$model->after_age = Null;
 			$model->age_from = Null;
 			$statistic['educations'] = EducationMult::all();
+
 			$educations = array_keys($statistic['educations']);
+
 			foreach ($educations as $education) {
 				$model->education = $education;
 				$statistic['education'][$education] = count($model);
@@ -254,8 +261,10 @@ class RadistationsController extends Controller
 
 
 			$model->education = Null;
-			$statistic['radiostations'] = RadiostationSettings::getradiostation($model->id_radiostation);
+			$statistic['radiostations'] = RadiostationSettings::getradiostation($id);
+
 			$radiostations = array_keys($statistic['radiostations']);
+
 			foreach ($radiostations as $radiostation) {
 				$model->P1 = $radiostation;
 				$statistic['P1'][$radiostation] = count($model);
@@ -268,7 +277,8 @@ class RadistationsController extends Controller
 			}
 
 			$model->P2 = Null;
-			$statistic['regions'] = TestSettings::getregion($model->id_radiostation);
+			$statistic['regions'] = TestSettings::getregion($id);
+
 			$regions = array_keys($statistic['regions']);
 
 			foreach ($regions as $region) {

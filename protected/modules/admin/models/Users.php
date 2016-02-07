@@ -40,6 +40,8 @@ class Users extends CActiveRecord
 	public $coll_aut;
 	public $date_lasttest;
 	public $status_statistic;
+	public $age_from;
+	public $after_age;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -197,6 +199,7 @@ class Users extends CActiveRecord
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
+		$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from());
 		if($this->status_statistic){
 			$criteria->condition="status IS NULL";
 			$criteria->condition="P1 IS NOT NULL";
@@ -337,5 +340,24 @@ return true;
 
 
 	}
+	public function age_from(){
+		if(!$this->age_from){
+			$this->age_from=14;
+		}
+		$age=$this->age_from*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date(" Y-m-d",$age);
+	}
+	public function after_age(){
+		if(!$this->after_age){
+			$this->after_age=100;
+		}
+		$age=$this->after_age*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date(" Y-m-d",$age);
+	}
+
 
 }
