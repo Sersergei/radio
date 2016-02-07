@@ -182,72 +182,74 @@ class RadistationsController extends Controller
 	}
 	protected function statistic($id){
 
+
 			$model = new Users('search');
+			$model->id_education=Null;
 
-			$model->id_radiostation = $id;
+			$model->id_radiostation =$id;
 
-			//$midel->id_category=3;
 
+			$model->id_category=3;
 			$model->status_statistic=1;
-		
-			$statistic['count_all'] = count($model);
+
+			$statistic['count_all'] = count($model->sereachuser());
 
 			$model->sex = 1;
-			$statistic['count_all_man'] = count($model);
+			$statistic['count_all_man'] = count($model->sereachuser());
 			$model->sex = 2;
-			$statistic['count_all_woman'] = count($model);
+			$statistic['count_all_woman'] = count($model->sereachuser());
+			unset($model->sex);
+			//$model->sex = Null;
 
-			$model->sex = Null;
-			$model->unsetAttributes();
 			$model->after_age = 14;
 			$model->age_from = 1;
-			$statistic['count_0_14'] = count($model);
+			$statistic['count_0_14'] = count($model->sereachuser());
 
 
-			$model->unsetAttributes();
+
 			$model->after_age = 19;
 			$model->age_from = 15;
-			$statistic['count_15_19'] = count($model);
+			$statistic['count_15_19'] = count($model->sereachuser());
 
-			$model->unsetAttributes();
+
 			$model->after_age = 24;
 			$model->age_from = 20;
-			$statistic['count_20_24'] = count($model);
+			$statistic['count_20_24'] = count($model->sereachuser());
 
-			$model->unsetAttributes();
+
 			$model->after_age = 29;
 			$model->age_from = 25;
-			$statistic['count_25_29'] = count($model);
+			$statistic['count_25_29'] = count($model->sereachuser());
 
 			$model->sex = Null;
-			$model->unsetAttributes();
+
 			$model->after_age = 34;
 			$model->age_from = 30;
-			$statistic['count_30_34'] = count($model);
+			$statistic['count_30_34'] = count($model->sereachuser());
 
 
-			$model->unsetAttributes();
+
 
 			$model->after_age = 39;
 			$model->age_from = 35;
-			$statistic['count_35_39'] = count($model);
+			$statistic['count_35_39'] = count($model->sereachuser());
 
-			$model->unsetAttributes();
+
 
 			$model->after_age = 44;
 			$model->age_from = 40;
-			$statistic['count_40_44'] = count($model);
+			$statistic['count_40_44'] = count($model->sereachuser());
 
 
-			$model->unsetAttributes();
+
 			$model->after_age = 49;
 			$model->age_from = 45;
-			$statistic['count_45_49'] = count($model);
+			$statistic['count_45_49'] = count($model->sereachuser());
 
-			$model->unsetAttributes();
+
 			$model->after_age = 100;
 			$model->age_from = 50;
-			$statistic['count_50'] = count($model);
+			$statistic['count_50'] = count($model->sereachuser());
 			$model->after_age = Null;
 			$model->age_from = Null;
 			$statistic['educations'] = EducationMult::all();
@@ -255,8 +257,8 @@ class RadistationsController extends Controller
 			$educations = array_keys($statistic['educations']);
 
 			foreach ($educations as $education) {
-				$model->education = $education;
-				$statistic['education'][$education] = count($model);
+				$model->id_education = $education;
+				$statistic['education'][$education] = count($model->sereachuser());
 			}
 
 
@@ -267,13 +269,13 @@ class RadistationsController extends Controller
 
 			foreach ($radiostations as $radiostation) {
 				$model->P1 = $radiostation;
-				$statistic['P1'][$radiostation] = count($model);
+				$statistic['P1'][$radiostation] = count($model->sereachuser());
 			}
 
 			$model->P1 = Null;
 			foreach ($radiostations as $radiostation) {
 				$model->P2 = $radiostation;
-				$statistic['P2'][$radiostation] = count($model);
+				$statistic['P2'][$radiostation] = count($model->sereachuser());
 			}
 
 			$model->P2 = Null;
@@ -283,7 +285,7 @@ class RadistationsController extends Controller
 
 			foreach ($regions as $region) {
 				$model->region = $region;
-				$statistic['region'][$region] = count($model);
+				$statistic['region'][$region] = count($model->sereachuser());
 			}
 		return $statistic;
 		}

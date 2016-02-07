@@ -86,7 +86,7 @@ class Users extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2','safe'),
-			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation', 'safe', 'on' => 'search'),
+			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region', 'safe', 'on' => 'search'),
 		);
 	}
 	public function notP1($attribute){
@@ -213,6 +213,40 @@ class Users extends CActiveRecord
 				'pagesize' => 50,
 			),
 		));
+	}
+	public function sereachuser(){
+
+		$criteria = new CDbCriteria;
+
+
+		$criteria->compare('id_user', $this->id_user);
+		$criteria->compare('name_listener', $this->name_listener, true);
+		$criteria->compare('email', $this->email, true);
+		//$criteria->compare('date_birth', $this->date_birth, true);
+		$criteria->compare('sex', $this->sex);
+		$criteria->compare('id_education', $this->id_education);
+		$criteria->compare('login', $this->login, true);
+		$criteria->compare('password', $this->password, true);
+		$criteria->compare('date_add', $this->date_add, true);
+		$criteria->compare('status', $this->status);
+		$criteria->compare('id_category', $this->id_category);
+		$criteria->compare('id_radiostation', $this->id_radiostation);
+		$criteria->compare('mix_marker', $this->mix_marker, true);
+		$criteria->compare('P1', $this->P1);
+		$criteria->compare('P2', $this->P2);
+		$criteria->compare('region',$this->region);
+		//$criteria->compare('id_card', $this->id_card);
+		//$criteria->compare('mobile_ID', $this->mobile_ID);
+
+
+			$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from(),'AND');
+		if($this->status_statistic){
+			$criteria->addCondition('status IS NULL');
+			//$criteria->condition="status IS NULL";
+			$criteria->addCondition('P1 IS NOT NULL');
+
+		}
+		return Users::model()->findAll($criteria);
 	}
 
 	/**
@@ -347,7 +381,7 @@ return true;
 		$age=$this->age_from*(365*60*60*24);
 		$age=abs(time())-$age;
 
-		return date(" Y-m-d",$age);
+		return date("Y-m-d",$age);
 	}
 	public function after_age(){
 		if(!$this->after_age){
@@ -356,8 +390,9 @@ return true;
 		$age=$this->after_age*(365*60*60*24);
 		$age=abs(time())-$age;
 
-		return date(" Y-m-d",$age);
+		return date("Y-m-d",$age);
 	}
+
 
 
 }
