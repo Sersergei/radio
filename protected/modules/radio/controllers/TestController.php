@@ -97,8 +97,15 @@ class TestController extends Controller
             $model->region=array_keys(TestSettings::getregion($model->idTest->id_radiostation));
         if(!$model->P1)
             $model->P1=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
-        if(!$model->P2)
+        if($model->P2All){
             $model->P2=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
+        }
+        if(!$model->P2){
+            $model->P2=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
+            $model->P2All=1;
+        }
+
+
 
         if (isset($_GET['file'])) {
             $this->widget('EExcelView', array(

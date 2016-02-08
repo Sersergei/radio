@@ -72,6 +72,8 @@ class MusicTestDetail extends CActiveRecord
 	public $neverP1;
 	public $neverP2;
 	public $region;
+	public $P2All;
+
 
 
 	/**
@@ -94,7 +96,7 @@ class MusicTestDetail extends CActiveRecord
 			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2', 'safe', 'on'=>'search'),
+			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2,P2All', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -127,6 +129,7 @@ class MusicTestDetail extends CActiveRecord
 			'id_song' => 'Id Song',
 			'id_like' => 'Id Like',
 			'age_from'=>'Age',
+			'P2All'=>'All',
 		);
 	}
 
@@ -156,9 +159,13 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
 		$criteria->addInCondition('idUser.P1',$this->P1);
-		$criteria->addInCondition('idUser.P2',$this->P2);
+
 		$criteria->addInCondition('idUser.sex',$this->sex);
 		$criteria->addInCondition('idUser.region',$this->region);
+		if(!$this->P2All){
+			//$criteria->addCondition('P2 IS NULL');
+			$criteria->addInCondition('idUser.P2',$this->P2);
+		}
 		$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,

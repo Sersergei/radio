@@ -55,6 +55,7 @@
 			</td>
 			<td style=" vertical-align: top; ">
 				<p><?php echo $form->labelEx($model,'P2'); ?></p>
+				<?php echo $form->checkBoxList($model,'P2All',array('1'=>'All')); ?><br>
 				<?php echo $form->checkBoxList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 				<?php echo $form->error($model,'P2'); ?>
 			</td>
