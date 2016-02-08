@@ -288,3 +288,4 @@ if($statistic and $statistic['count_all']){ //Если нету открытого теста то невыв
 		</tr>
 	</table>
 
+<?php } ?>

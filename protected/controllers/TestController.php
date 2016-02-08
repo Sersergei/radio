@@ -77,7 +77,8 @@ class TestController extends Controller
 		$dur = 0;
 
 			$session['dur'] = $dur;
-		$cookie = new CHttpCookie('time',time());//устанавливаем куки юзера на 30 мин
+		$time=new DateTime();
+		$cookie = new CHttpCookie('time',serialize($time));//устанавливаем куки юзера на 30 мин
 		$cookie->expire = time() + 5800*60;
 		Yii::app()->request->cookies['time']=$cookie;
 			//$session['time'] = time();
@@ -254,8 +255,13 @@ $test=unserialize($session['test']);
 			$session = new CHttpSession;
 			$session->open();
 			$time=Yii::app()->request->cookies['time'];
+
 			$time=$time->value;
-			$usertest->time=time()-$time;
+			$time1=unserialize($time);
+			$time2=new DateTime();
+			$interval = $time1->diff($time2);
+			$usertest->time=$interval->format('%H:%I:%S');
+			var_dump($usertest->time);
 			$usertest->save();
 			$testresult=unserialize($session['testresult']);
 			//print_r($testresult);
