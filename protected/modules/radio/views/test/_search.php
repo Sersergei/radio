@@ -30,6 +30,25 @@
 	</div>
 	<table>
 		<tr>
+			<td>
+				<div class="row">
+				<p><?php echo $form->labelEx($model,'time'); ?></p>
+				<?php echo $form->textField($model,'time',array('size'=>2,'maxlength'=>1000)); ?>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?php echo $form->checkBoxList($model,'marker',array('+'=>'Mix-marker')); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+
+				<?php echo $form->checkBoxList($model,'P1P2',array('1'=>'You station P1 or P2')); ?>
+			</td>
+		</tr>
+		<tr>
 			<td style=" vertical-align: top; ">
 				<p><?php echo $form->labelEx($model,'region'); ?></p>
 

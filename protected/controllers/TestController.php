@@ -261,7 +261,7 @@ $test=unserialize($session['test']);
 			$time2=new DateTime();
 			$interval = $time1->diff($time2);
 			$usertest->time=$interval->format('%H:%I:%S');
-			var_dump($usertest->time);
+
 			$usertest->save();
 			$testresult=unserialize($session['testresult']);
 			//print_r($testresult);
