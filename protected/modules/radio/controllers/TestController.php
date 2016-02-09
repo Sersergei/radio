@@ -104,6 +104,7 @@ class TestController extends Controller
             $model->P2=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
             $model->P2All=1;
         }
+        //$model->time=time($model->time);
 
 
 

@@ -116,6 +116,7 @@ class MusicTestDetail extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'idSong' => array(self::BELONGS_TO, 'Songs', 'id_song'),
 			'idLike' => array(self::BELONGS_TO, 'SongLikesMult', 'id_like'),
+			'usertest'=>array(self::BELONGS_TO,'Usertest',array('id_user'=>'id_user','id_test'=>'id_music')),
 		);
 	}
 
@@ -154,7 +155,7 @@ class MusicTestDetail extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('idUser','idTest');
+		$criteria->with=array('idUser','idTest','usertest');
 		$criteria->compare('id_test_det',$this->id_test_det);
 		$criteria->compare('idTest.id_test',$this->id_test);
 		$criteria->compare('id_user',$this->id_user);
@@ -167,7 +168,11 @@ class MusicTestDetail extends CActiveRecord
 			$criteria->addColumnCondition(array('P1'=>$this->idTest->id_radiostation, 'P2'=>$this->idTest->id_radiostation), 'OR');
 		}
 		if($this->time){
-			$criteria->addCondition("");
+			//$criteria->addBetweenCondition('usertest.date',time(),time($this->time));
+			//$criteria->addCondition(" 'usertest.date'= '2016-02-08'" );
+			$criteria->addCondition("usertest.time>$this->time");
+
+			//$criteria->condition="usertest.id=243";
 		}
 
 		$criteria->addInCondition('idUser.sex',$this->sex);
@@ -297,5 +302,8 @@ class MusicTestDetail extends CActiveRecord
 		else{
 			return 1;
 		}
+	}
+	public function gettime(){
+		return time($this->time);
 	}
 }
