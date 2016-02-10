@@ -297,7 +297,23 @@ $this->widget('zii.widgets.CDetailView', array(
 				</td>
 			</tr>
 		</table>
-
+		<table>
+			<tr>
+				<td>
+					<span><?php echo Yii::t('radio','Registered users')." ".$statistic['all']; ?> </span>
+				</td>
+			<tr>
+				<td width="80px"><?php echo Yii::t('radio','Active')." ".$statistic['count_all']."(".round($statistic['count_all']*100/$statistic['all'],2)."%)";?></td>
+				<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+						'id'=>'progress',
+						'value'=>$statistic['count_all']*100/$statistic['all'],
+						'htmlOptions'=>array(
+							'style'=>'width:292px; height:30px; float:left;'
+						),
+					));?></td>
+				<td> <?php echo Yii::t('radio','Baned')." ".$statistic['ban']."(".round($statistic['ban']*100/$statistic['all'],2)."%)" ?></td>
+			</tr>
+		</table>
 	</div>
 
 

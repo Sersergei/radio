@@ -191,6 +191,42 @@ class RadistationsController extends Controller
 
 			$model->id_category=3;
 			$model->status_statistic=1;
+		//всего
+			$statistic['all']=count($model->sereachuser());
+			$model->status=1;
+			$statistic['ban']=count($model->sereachuser());
+
+//последн€€ недел€
+
+		$model->status=Null;
+
+		$model->create=strtotime("-1 week");
+		$statistic['all_week']=count($model->sereachuser());
+		$model->status=1;
+		$statistic['ban_week']=count($model->sereachuser());
+
+//последний мес€ц
+
+		$model->status=Null;
+
+		$model->create=strtotime("-1 month");
+		$statistic['all_month']=count($model->sereachuser());
+		$model->status=1;
+		$statistic['ban_month']=count($model->sereachuser());
+//последний год
+		$model->status=Null;
+		$model->status_statistic=1;
+		$model->create=strtotime("-1 year");
+		$statistic['all_year']=count($model->sereachuser());
+		$model->status=1;
+		$statistic['ban_year']=count($model->sereachuser());
+
+
+
+
+			$model->status=Null;
+			$model->create=Null;
+			$model->active=1;
 
 			$statistic['count_all'] = count($model->sereachuser());
 
@@ -287,7 +323,9 @@ class RadistationsController extends Controller
 				$model->region = $region;
 				$statistic['region'][$region] = count($model->sereachuser());
 			}
+
 		return $statistic;
 		}
+
 
 }

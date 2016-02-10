@@ -42,6 +42,8 @@ class Users extends CActiveRecord
 	public $status_statistic;
 	public $age_from;
 	public $after_age;
+	public $active;
+	public $create;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -86,7 +88,8 @@ class Users extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2','safe'),
-			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region', 'safe', 'on' => 'search'),
+			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status,
+			 id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region,active', 'safe', 'on' => 'search'),
 		);
 	}
 	public function notP1($attribute){
@@ -205,6 +208,9 @@ class Users extends CActiveRecord
 			$criteria->condition="P1 IS NOT NULL";
 
 		}
+		if($tris->create){
+			$criteria->addBetweenCondition('date_add',date(),$this->create);
+		}
 
 
 		return new CActiveDataProvider($this, array(
@@ -237,11 +243,12 @@ class Users extends CActiveRecord
 		$criteria->compare('region',$this->region);
 		//$criteria->compare('id_card', $this->id_card);
 		//$criteria->compare('mobile_ID', $this->mobile_ID);
+		if($this->active)
+			$criteria->addCondition('status IS NULL');
 
 
 			$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from(),'AND');
 		if($this->status_statistic){
-			$criteria->addCondition('status IS NULL');
 			//$criteria->condition="status IS NULL";
 			$criteria->addCondition('P1 IS NOT NULL');
 
