@@ -65,7 +65,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	<div id="statistic">
 
 
-		<span><?php echo Yii::t('radio','Respondents done test')." ".$statistic['count_all']; ?> </span>
+		<span><?php echo Yii::t('radio','Registered users')." ".$statistic['count_all']; ?> </span>
 
 		<table id="stat">
 			<tr>
