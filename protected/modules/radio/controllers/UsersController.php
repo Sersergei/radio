@@ -218,8 +218,11 @@ class UsersController extends Controller
 		}
 		$this->render('load',array('model'=>$model,'coun'=>$i,'error'=>$errorusers));
 	}
+	public function actionStatistic()
 	public function statistic(){
-
+		$radio=Users::model()->findByPk(Yii::app()->user->id);
+		$this->render('statistic',array('statistic'=>Radistation::statistic($radio->id_radiostation),))
+			
 	}
 
 }

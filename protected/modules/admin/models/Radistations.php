@@ -226,4 +226,149 @@ class Radistations extends CActiveRecord
 		else
 			return Null;
 	}
+	static function statistic($id){
+
+
+		$model = new Users('search');
+		$model->id_education=Null;
+
+		$model->id_radiostation =$id;
+
+
+		$model->id_category=3;
+		$model->status_statistic=1;
+		//пїЅпїЅпїЅпїЅпїЅ
+		$statistic['all']=count($model->sereachuser());
+
+		$model->status = 1;
+		$statistic['ban'] = count($model->sereachuser());
+
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+
+		$model->status = Null;
+
+		$model->create = date(" Y-m-d", strtotime("-1 week"));
+		$statistic['all_week'] = count($model->sereachuser());
+		if (!$statistic['all_week'])
+
+			$model->status = 1;
+		$statistic['ban_week'] = count($model->sereachuser());
+
+
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+
+		$model->status = Null;
+
+		$model->create = date(" Y-m-d", strtotime("-1 month"));
+		$statistic['all_month'] = count($model->sereachuser());
+		$model->status = 1;
+		$statistic['ban_month'] = count($model->sereachuser());
+
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+		$model->status = Null;
+		$model->status_statistic = 1;
+		$model->create = date(" Y-m-d", strtotime("-1 year"));
+		$statistic['all_year'] = count($model->sereachuser());
+		$model->status = 1;
+		$statistic['ban_year'] = count($model->sereachuser());
+
+
+		$model->status = Null;
+		$model->create = Null;
+		$model->active = 1;
+
+		$statistic['count_all'] = count($model->sereachuser());
+		if($statistic['count_all']) {
+			$model->sex = 1;
+			$statistic['count_all_man'] = count($model->sereachuser());
+			$model->sex = 2;
+			$statistic['count_all_woman'] = count($model->sereachuser());
+			unset($model->sex);
+			//$model->sex = Null;
+
+			$model->after_age = 14;
+			$model->age_from = 1;
+			$statistic['count_0_14'] = count($model->sereachuser());
+
+
+			$model->after_age = 19;
+			$model->age_from = 15;
+			$statistic['count_15_19'] = count($model->sereachuser());
+
+
+			$model->after_age = 24;
+			$model->age_from = 20;
+			$statistic['count_20_24'] = count($model->sereachuser());
+
+
+			$model->after_age = 29;
+			$model->age_from = 25;
+			$statistic['count_25_29'] = count($model->sereachuser());
+
+			$model->sex = Null;
+
+			$model->after_age = 34;
+			$model->age_from = 30;
+			$statistic['count_30_34'] = count($model->sereachuser());
+
+
+			$model->after_age = 39;
+			$model->age_from = 35;
+			$statistic['count_35_39'] = count($model->sereachuser());
+
+
+			$model->after_age = 44;
+			$model->age_from = 40;
+			$statistic['count_40_44'] = count($model->sereachuser());
+
+
+			$model->after_age = 49;
+			$model->age_from = 45;
+			$statistic['count_45_49'] = count($model->sereachuser());
+
+
+			$model->after_age = 100;
+			$model->age_from = 50;
+			$statistic['count_50'] = count($model->sereachuser());
+			$model->after_age = Null;
+			$model->age_from = Null;
+			$statistic['educations'] = EducationMult::all();
+
+			$educations = array_keys($statistic['educations']);
+
+			foreach ($educations as $education) {
+				$model->id_education = $education;
+				$statistic['education'][$education] = count($model->sereachuser());
+			}
+
+
+			$model->education = Null;
+			$statistic['radiostations'] = RadiostationSettings::getradiostation($id);
+
+			$radiostations = array_keys($statistic['radiostations']);
+
+			foreach ($radiostations as $radiostation) {
+				$model->P1 = $radiostation;
+				$statistic['P1'][$radiostation] = count($model->sereachuser());
+			}
+
+			$model->P1 = Null;
+			foreach ($radiostations as $radiostation) {
+				$model->P2 = $radiostation;
+				$statistic['P2'][$radiostation] = count($model->sereachuser());
+			}
+
+			$model->P2 = Null;
+			$statistic['regions'] = TestSettings::getregion($id);
+
+			$regions = array_keys($statistic['regions']);
+
+			foreach ($regions as $region) {
+				$model->region = $region;
+				$statistic['region'][$region] = count($model->sereachuser());
+			}
+		}
+
+		return $statistic;
+	}
 }

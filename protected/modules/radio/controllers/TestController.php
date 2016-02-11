@@ -379,4 +379,5 @@ class TestController extends Controller
 
         $this->render('statistic', array('model' => $statistic));
     }
+
 }

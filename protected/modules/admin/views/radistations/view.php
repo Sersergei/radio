@@ -65,7 +65,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	<div id="statistic">
 
 
-		<span><?php echo Yii::t('radio','Registered users')." ".$statistic['count_all']; ?> </span>
+		<span><?php if($statistic['count_all']) {echo Yii::t('radio','Registered users')." ".$statistic['count_all']; ?> </span>
 
 		<table id="stat">
 			<tr>
@@ -351,7 +351,9 @@ $this->widget('zii.widgets.CDetailView', array(
 				<td> <?php echo Yii::t('radio','unsubscribing')." ".$statistic['ban_year']."(".round($statistic['ban_year']*100/$statistic['all_year'],2)."%)";} ?></td>
 			</tr>
 		</table>
+		<?php } ?>
 	</div>
+
 
 
 
