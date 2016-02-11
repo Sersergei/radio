@@ -218,5 +218,8 @@ class UsersController extends Controller
 		}
 		$this->render('load',array('model'=>$model,'coun'=>$i,'error'=>$errorusers));
 	}
+	public function statistic(){
+
+	}
 
 }

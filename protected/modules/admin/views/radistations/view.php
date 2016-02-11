@@ -297,21 +297,58 @@ $this->widget('zii.widgets.CDetailView', array(
 				</td>
 			</tr>
 		</table>
-		<table>
+		<table id="stat">
 			<tr>
 				<td>
-					<span><?php echo Yii::t('radio','Registered users')." ".$statistic['all']; ?> </span>
+					<span><?php echo Yii::t('radio','Statistic users')." ".$statistic['all']; ?> </span>
 				</td>
 			<tr>
+				<td>All the time</td>
 				<td width="80px"><?php echo Yii::t('radio','Active')." ".$statistic['count_all']."(".round($statistic['count_all']*100/$statistic['all'],2)."%)";?></td>
 				<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
-						'id'=>'progress',
+						'id'=>'baned_all',
 						'value'=>$statistic['count_all']*100/$statistic['all'],
 						'htmlOptions'=>array(
 							'style'=>'width:292px; height:30px; float:left;'
 						),
 					));?></td>
-				<td> <?php echo Yii::t('radio','Baned')." ".$statistic['ban']."(".round($statistic['ban']*100/$statistic['all'],2)."%)" ?></td>
+				<td> <?php echo Yii::t('radio','unsubscribing')." ".$statistic['ban']."(".round($statistic['ban']*100/$statistic['all'],2)."%)" ?></td>
+			</tr>
+			<tr>
+				<td>Last week</td>
+				<td width="80px"><?php if($statistic['all_week']){echo Yii::t('radio','Active')." ".($statistic['all_week']-$statistic['ban_week'])."(".round(($statistic['all_week']-$statistic['ban_week'])*100/$statistic['all_week'],2)."%)";?></td>
+				<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+						'id'=>'baned_week',
+						'value'=>($statistic['all_week']-$statistic['ban_week'])*100/$statistic['all_week'],
+						'htmlOptions'=>array(
+							'style'=>'width:292px; height:30px; float:left;'
+						),
+					));?></td>
+				<td> <?php echo Yii::t('radio','unsubscribing')." ".$statistic['ban_week']."(".round($statistic['ban_week']*100/$statistic['all_week'],2)."%)";} ?></td>
+			</tr>
+			<tr>
+				<td>Last month</td>
+				<td width="80px"><?php if($statistic['all_month']){ echo Yii::t('radio','Active')." ".($statistic['all_month']-$statistic['ban_month'])."(".round(($statistic['all_month']-$statistic['ban_month'])*100/$statistic['all_month'],2)."%)";?></td>
+				<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+						'id'=>'baned_month',
+						'value'=>($statistic['all_month']-$statistic['ban_month'])*100/$statistic['all_month'],
+						'htmlOptions'=>array(
+							'style'=>'width:292px; height:30px; float:left;'
+						),
+					));?></td>
+				<td> <?php echo Yii::t('radio','unsubscribing')." ".$statistic['ban_month']."(".round($statistic['ban_month']*100/$statistic['all_month'],2)."%)";} ?></td>
+			</tr>
+			<tr>
+				<td>Last year</td>
+				<td width="80px"><?php if($statistic['all_year']){ echo Yii::t('radio','Active')." ".($statistic['all_year']-$statistic['ban_year'])."(".round(($statistic['all_year']-$statistic['ban_year'])*100/$statistic['all_year'],2)."%)";?></td>
+				<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+						'id'=>'baned_year',
+						'value'=>($statistic['all_year']-$statistic['ban_year'])*100/$statistic['all_year'],
+						'htmlOptions'=>array(
+							'style'=>'width:292px; height:30px; float:left;'
+						),
+					));?></td>
+				<td> <?php echo Yii::t('radio','unsubscribing')." ".$statistic['ban_year']."(".round($statistic['ban_year']*100/$statistic['all_year'],2)."%)";} ?></td>
 			</tr>
 		</table>
 	</div>

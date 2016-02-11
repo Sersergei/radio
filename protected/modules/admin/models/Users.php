@@ -203,14 +203,8 @@ class Users extends CActiveRecord
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
 		$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from());
-		if($this->status_statistic){
-			$criteria->condition="status IS NULL";
-			$criteria->condition="P1 IS NOT NULL";
 
-		}
-		if($tris->create){
-			$criteria->addBetweenCondition('date_add',date(),$this->create);
-		}
+
 
 
 		return new CActiveDataProvider($this, array(
@@ -245,6 +239,10 @@ class Users extends CActiveRecord
 		//$criteria->compare('mobile_ID', $this->mobile_ID);
 		if($this->active)
 			$criteria->addCondition('status IS NULL');
+		if($this->create){
+
+			$criteria->addBetweenCondition('date_add',$this->create,date(" Y-m-d"));
+		}
 
 
 			$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from(),'AND');

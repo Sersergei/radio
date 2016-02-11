@@ -191,32 +191,36 @@ class RadistationsController extends Controller
 
 			$model->id_category=3;
 			$model->status_statistic=1;
-		//всего
+		//пїЅпїЅпїЅпїЅпїЅ
 			$statistic['all']=count($model->sereachuser());
 			$model->status=1;
 			$statistic['ban']=count($model->sereachuser());
 
-//последняя неделя
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
 		$model->status=Null;
 
-		$model->create=strtotime("-1 week");
+		$model->create=date(" Y-m-d",strtotime("-1 week"));
 		$statistic['all_week']=count($model->sereachuser());
+		if(!$statistic['all_week'])
+
 		$model->status=1;
 		$statistic['ban_week']=count($model->sereachuser());
 
-//последний месяц
+
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
 		$model->status=Null;
 
-		$model->create=strtotime("-1 month");
+		$model->create=date(" Y-m-d",strtotime("-1 month"));
 		$statistic['all_month']=count($model->sereachuser());
 		$model->status=1;
 		$statistic['ban_month']=count($model->sereachuser());
-//последний год
+
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 		$model->status=Null;
 		$model->status_statistic=1;
-		$model->create=strtotime("-1 year");
+		$model->create=date(" Y-m-d",strtotime("-1 year"));
 		$statistic['all_year']=count($model->sereachuser());
 		$model->status=1;
 		$statistic['ban_year']=count($model->sereachuser());
