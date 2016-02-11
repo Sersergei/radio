@@ -17,7 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-       // 'application.modules.user.models.*',
+       //'application.modules.admin.models.*',
       //  'application.modules.user.components.*',
         'application.modules.admin.models.*',
 		'application.extensions.EAjaxUpload.*',
