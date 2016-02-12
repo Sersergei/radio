@@ -25,6 +25,17 @@ echo $license;
 
 	<table id="stat">
 		<tr>
+			<td width="80px"><?php echo Yii::t('radio','users of standby')." ".$model['count_all']."(".round($model['count_all']*100/($model['count_all']+$model['count_invention']),2)."%)";?></td>
+			<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+					'id'=>'progresstest',
+					'value'=>$model['count_all']*100/($model['count_all']+$model['count_invention']),
+					'htmlOptions'=>array(
+						'style'=>'width:292px; height:30px; float:left;'
+					),
+				));?></td>
+			<td> <?php echo Yii::t('radio','users of test done')." ".$model['count_invention']."(".round($model['count_invention']*100/($model['count_all']+$model['count_invention']),2)."%)" ?></td>
+		</tr>
+		<tr>
 			<td width="80px"><?php echo Yii::t('radio','Man')." ".$model['count_all_man']."(".round($model['count_all_man']*100/$model['count_all'],2)."%)";?></td>
 			<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					'id'=>'progress',

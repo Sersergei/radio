@@ -220,7 +220,7 @@ class UsersController extends Controller
 	}
 	public function actionStatistic(){
 		$radio=Users::model()->findByPk(Yii::app()->user->id);
-		$this->render('statistic',array('statistic'=>Radistation::statistic($radio->id_radiostation),));
+		$this->render('statistic',array('statistic'=>Radistations::statistic($radio->id_radiostation),));
 			
 	}
 

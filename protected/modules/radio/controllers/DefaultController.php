@@ -125,6 +125,13 @@ class DefaultController extends Controller
 				$model->region = $region;
 				$statistic['region'][$region] = count($model->user());
 			}
+			$criteria = new CDbCriteria;
+			$criteria->compare('id_radiostation', $user->id_radiostation);
+			$criteria->compare('id_category',3);
+			$criteria->addCondition('P1 IS NOT NULL');
+			$criteria->addCondition('status IS NULL');
+			$criteria->addCondition('link IS NOT NULL');
+			$statistic['count_invention']=count(Users::model()->findall($criteria));
 
 		}
 		else{

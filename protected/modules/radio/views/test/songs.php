@@ -95,3 +95,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	))); ?>
 <a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>
 <a href="?file=1&type=CSV">Скачать отчет csv</a>
+<?php
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'user-grid',
+	'dataProvider'=>$model->search()->idUser,
+	'filter'=>$model,
+	'template'=>"". Yii::t('radio','Users:')."{$model->search()->data[0]->Coun} {pager}{items}{pager}",
+	'columns'=>array(
+		array(
+			'name' => 'like',
+			'type' => 'raw',
+			'value' => 'round($data->Coun4*100/$data->getCoun(),2)',
+		),
+	)));
+?>

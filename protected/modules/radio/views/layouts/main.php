@@ -31,6 +31,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>Yii::t('radio','User'), 'url'=>array('/radio/users')),
+				array('label'=>Yii::t('radio','Users reached'),'url'=>('/radio/users/statistic')),
 				array('label'=>Yii::t('radio','Test'), 'url'=>array('/radio/MusicTest')),
 				array('label'=>Yii::t('radio','Test Settings'), 'url'=>array('/radio/radiostationSettings')),
 				array('label'=>Yii::t('radio','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
