@@ -27,7 +27,7 @@ class MusicTestController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','cron'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -304,5 +304,30 @@ if(!file_exists ($dir) )
 			$statistic=Null;
 		}
 		return $statistic;
+	}
+	public function actionCron(){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_status',1);
+		$criteria->addCondition('date_started <=NOW()');
+		$started=MusicTest::model()->findall($criteria);
+		foreach($started as $model){
+			//var_dump($model);
+			$model->id_status=2;
+			var_dump($model->save());
+			var_dump($model->getErrors());
+		}
+		//MusicTest::model()->updateAll(array('id_status' => 2),$criteria);
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_status',2);
+		$criteria->addBetweenCondition('date_finished','0000-00-00 00:00:01',date(" Y-m-d H:i:s") );
+		//$criteria->addCondition("date_finished<=NOW() AND data_finished IS NOT NULL");
+		$finish=MusicTest::model()->findall($criteria);
+		foreach($finish as $model){
+			$model->id_status=3;
+			$model->save();
+		}
+		//MusicTest::model()->updateAll(array('id_status' => 3),$criteria);
+
 	}
 }

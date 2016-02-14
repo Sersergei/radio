@@ -100,7 +100,7 @@ class MusicTestDetail extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age,
-					id_education,P1,P2,P2All,marker,P1P2,time', 'safe', 'on'=>'search'),
+					id_education,P1,P2,P2All,marker,P1P2,time, region', 'safe', 'on'=>'search'),
 		);
 	}
 

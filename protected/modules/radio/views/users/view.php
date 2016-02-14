@@ -9,9 +9,9 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_user),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	//array('label'=>'Create Users', 'url'=>array('create')),
+	//array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_user),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Manage Users', 'url'=>array('admin')),
 );
 ?>
 
@@ -21,7 +21,11 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 
-		'name_listener',
+
+		array(
+			'name'=>'Name',
+			'value'=>$model->name_listener,
+		),
 		'email',
 		'date_birth',
 		array(
@@ -56,9 +60,10 @@ $this->menu=array(
 )); ?>
 <br>
 <?php
+
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'users-grid',
-	'dataProvider'=>$test->search(),
+	'dataProvider'=>$test->testuserserch(),
 	'filter'=>$test,
 	'columns'=>array(
 		'id_music',

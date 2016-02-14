@@ -72,8 +72,11 @@ class TestController extends Controller
     public function actionSongs($id)
     {
         $model = new MusicTestDetail('search');
+        $user=new Usertest('search');
+        $user->unsetAttributes();
         $model->unsetAttributes();
         $model->id_test = $id;
+        $user->id_music=$id;
 
        // $model->sex=array(0,1);
 
@@ -87,7 +90,7 @@ class TestController extends Controller
         if(!$model->sex){
             $model->sex=array(1,2);
         }
-
+        $user->sex=$model->sex;
 
         if(!$model->id_education){
 
@@ -106,7 +109,14 @@ class TestController extends Controller
         }
         //$model->time=time($model->time);
 
-
+        $user->age_from=$model->age_from;
+        $user->after_age=$model->after_age;
+        $user->time=$model->time;
+        $user->region=$model->region;
+        $user->education=$model->id_education;
+        $user->P1=$model->P1;
+        $user->P2=$model->P2;
+        $user->P2All=$model->P2All;
 
         if (isset($_GET['file'])) {
             $this->widget('EExcelView', array(
@@ -272,7 +282,7 @@ class TestController extends Controller
             }
         }
         else
-        $this->render('songs', array('model' => $model));
+        $this->render('songs', array('model' => $model,'user'=>$user,));
     }
     public function actionStatistic($id){
         $model = new Usertest('search');

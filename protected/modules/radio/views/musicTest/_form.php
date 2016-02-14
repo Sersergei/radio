@@ -26,15 +26,30 @@
 	</div>
 	<div class="row">
 		<label for="MusicTest_date_started"><?php echo Yii::t('radio', 'Date Started'); ?></label>
-		<?php
-
+		<?php $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
+			array(
+				'model'=>$model, //Model object
+				'attribute'=>'date_started', //attribute name
+				'mode'=>'datetime', //use "time","date" or "datetime" (default)
+				'language'=>Yii::app()->language,
+				'options'=>array(
+					'regional'=>'',
+					'dateFormat'=>'yy-mm-dd',
+					'showAnim'=>'fold',
+					'minDate'=>0,
+					'readonly'=>'true',
+				) // jquery plugin options
+			));
+		?>
+<?php /*
 		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
 			'name'=>'MusicTest[date_started]',
 			'model'=>$model,
 			'attribute'=>'date_started',
 			// additional javascript options for the date picker plugin
 			'options'=>array(
-				'dateFormat'=>'yy-mm-dd',
+				'dateFormat'=>'Y-m-d h:m',
+
 				'showAnim'=>'fold',
 				'minDate'=>0,
 				'readonly'=>'true',
@@ -43,7 +58,7 @@
 			'htmlOptions'=>array(
 				'style'=>'height:20px;'
 			),
-		)); ?>
+		)); */?>
 	</div>
 	<div class="row">
 		<label for="MusicTest_date_finished"><?php echo Yii::t('radio', 'Date Finished'); ?></label>

@@ -25,7 +25,7 @@ echo $license;
 
 	<table width="950px">
 		<tr>
-			<td style='width:292px; height:30px; float:left;' nowrap><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']."(".round($model['count_all']*100/($model['count_all']+$model['count_invention']),2)."%)";?></td>
+			<td style='width:292px; height:30px; float:left; text-align:right;' nowrap><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']."(".round($model['count_all']*100/($model['count_all']+$model['count_invention']),2)."%)";?></td>
 			<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					'id'=>'progresstest',
 					'value'=>$model['count_all']*100/($model['count_all']+$model['count_invention']),

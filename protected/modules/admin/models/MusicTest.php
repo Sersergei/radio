@@ -38,14 +38,14 @@ class MusicTest extends CActiveRecord
 		return array(
 			array('id_type','required'),
 			array('id_status','active'),
-			array('date_finished','datefinished'),
+			//array('date_finished','datefinished'),
 		//	array('date_started','datestarted'),
 			array('license','license'),
 
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
+			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe'),
 		);
 	}
 	public function license($attribute){
@@ -196,6 +196,13 @@ else{
 			$this->id_status = 1;
 			$this->date_add = date(" Y-m-d");
 		}
+		if($this->id_status==2){
+			$this->date_started=date(" Y-m-d H:i:s");
+
+		}
+
+		if($this->id_status==3)
+			$this->date_finished=date(" Y-m-d H:i:s");
 
 		parent::beforeSave();
 		return true;

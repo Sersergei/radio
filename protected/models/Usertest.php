@@ -20,6 +20,7 @@ class Usertest extends CActiveRecord
 	public $region;
 	public $age_from;
 	public $after_age;
+	public $P2All;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -40,7 +41,7 @@ class Usertest extends CActiveRecord
 			array('id_user, id_music', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_user, id_music, date, time', 'safe', 'on'=>'search'),
+			array('id, id_user, id_music, date, time, sex', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,6 +88,33 @@ class Usertest extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
+		$criteria=new CDbCriteria;
+		$criteria->with=array('user');
+		$criteria->compare('id',$this->id);
+		$criteria->compare('t.id_user',$this->id_user);
+		$criteria->compare('id_music',$this->id_music);
+		$criteria->compare('date',$this->date,true);
+		//$criteria->compare('time',$this->time,true);
+		$criteria->compare('user.sex',$this->sex);
+		$criteria->compare('user.id_education',$this->education);
+		$criteria->compare('user.P1',$this->P1);
+		//$criteria->compare('user.P2',$this->P2);
+		//$criteria->compare('user.region',$this->region);
+		$criteria->addBetweenCondition('user.date_birth',$this->after_age(),$this->age_from());
+		if($this->time){
+			$criteria->addCondition("time>$this->time");
+		}
+		if($this->region)
+			$criteria->addInCondition('user.region',$this->region);
+		if(!$this->P2All){
+			$criteria->addInCondition('user.P2',$this->P2);
+		}
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+	public function testuserserch(){
 		$criteria=new CDbCriteria;
 		$criteria->with=array('user');
 		$criteria->compare('id',$this->id);

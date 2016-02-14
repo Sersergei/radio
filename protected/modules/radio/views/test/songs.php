@@ -1,4 +1,5 @@
 <?php
+//Yii::app()->clientScript->registerScript();
 /* @var $this UsertestController */
 /* @var $model Usertest */
 
@@ -17,6 +18,9 @@ $('.search-form form').submit(function(){
 	$('#usertest-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
+	$('#user-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
 	return false;
 });
 ");
@@ -32,6 +36,7 @@ $('.search-form form').submit(function(){
 </br>
 <a href="?status=P1">P1</a></br>
 <a href="?status=P2">P2</a></br>
+<div >
 <?php
 
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -99,14 +104,59 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
-	'dataProvider'=>$model->search()->idUser,
-	'filter'=>$model,
-	'template'=>"". Yii::t('radio','Users:')."{$model->search()->data[0]->Coun} {pager}{items}{pager}",
+	'dataProvider'=>$user->search(),
+
+
 	'columns'=>array(
 		array(
-			'name' => 'like',
+			'name' => 'Name',
 			'type' => 'raw',
-			'value' => 'round($data->Coun4*100/$data->getCoun(),2)',
+			'value' => '$data->user->name_listener',
 		),
+		array(
+			'name' => 'Email',
+			'type' => 'raw',
+			'value' => '$data->user->email',
+		),
+		array(
+			'name' => 'Sex',
+			'type' => 'raw',
+			'value' => '$data->user->getsex()',
+		),
+		array(
+			'name' => 'education',
+			'type' => 'raw',
+			'value' => '$data->user->education()',
+			),
+		array(
+			'name' => 'P1',
+			'type' => 'raw',
+			'value' => '$data->user->radio->radiostationSettings->getradio($data->user->P1)',
+			),
+		array(
+			'name' => 'P2',
+			'type' => 'raw',
+			'value' => '$data->user->radio->radiostationSettings->getradio($data->user->P2)',
+
+		),
+		array(
+			'name' => 'region',
+			'type' => 'raw',
+			'value' => '$data->user->getregion()',
+		),
+		'time',
+
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{View}',
+			'buttons'=>array(
+				'View'=>array(
+					'Label'=>Yii::t('radio','View'),
+
+					'url'=>'Yii::app()->getUrlManager()->createURL("radio/users/view",array("id"=>$data->user->id_user))',
+					'imageUrl'=>'/images/folder.png',
+				),)),
+
 	)));
 ?>
+</div>
