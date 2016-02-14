@@ -28,46 +28,39 @@
         <label for="MusicTest_date_started"><?php echo Yii::t('radio', 'Date Started'); ?></label>
         <?php
 
-        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-            'name'=>'MusicTest[date_started]',
-            'model'=>$model,
-            'attribute'=>'date_started',
-            // additional javascript options for the date picker plugin
-            'options'=>array(
-                'dateFormat'=>'yy-mm-dd',
-                'showAnim'=>'fold',
-                'minDate'=>0,
-
-            ),
-
-            'language'=>Yii::app()->language,
-            'htmlOptions'=>array(
-                'readonly'=>'true',
-                'style'=>'height:20px;'
-            ),
-        )); ?>
+        $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
+            array(
+                'model'=>$model, //Model object
+                'attribute'=>'date_started', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                'language'=>Yii::app()->language,
+                'options'=>array(
+                    'regional'=>'',
+                    'dateFormat'=>'yy-mm-dd',
+                    'showAnim'=>'fold',
+                    'minDate'=>0,
+                    'readonly'=>'true',
+                ) // jquery plugin options
+            )); ?>
     </div>
     <div class="row">
         <label for="MusicTest_date_finished"><?php echo Yii::t('radio', 'Date Finished'); ?></label>
         <?php
 
-        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-            'name'=>'MusicTest[date_finished]',
-            'model'=>$model,
-            'attribute'=>'date_finished',
-            // additional javascript options for the date picker plugin
-            'options'=>array(
-                'dateFormat'=>'yy-mm-dd',
-                'showAnim'=>'fold',
-                'minDate'=>0,
-
-            ),
-            'language'=>Yii::app()->language,
-            'htmlOptions'=>array(
-                'readonly'=>'true',
-                'style'=>'height:20px;'
-            ),
-        )); ?>
+        $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
+            array(
+                'model'=>$model, //Model object
+                'attribute'=>'date_finished', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                'language'=>Yii::app()->language,
+                'options'=>array(
+                    'regional'=>'',
+                    'dateFormat'=>'yy-mm-dd',
+                    'showAnim'=>'fold',
+                    'minDate'=>0,
+                    'readonly'=>'true',
+                ) // jquery plugin options
+            )); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($model,'max_listeners'); ?>
