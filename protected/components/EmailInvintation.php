@@ -12,6 +12,7 @@ class EmailInvintation
             $linc=md5(microtime().$user->name_listener.'rfvbgt');
 
             $user->link=$linc;
+            $user->active=$linc;
 
             $user->scenario ='update';
             $user->isNewRecord=false;

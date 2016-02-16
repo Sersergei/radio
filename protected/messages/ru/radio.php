@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 return array(
     'What do you think about this song?' => 'Что Вы думаете об этой песне?',
     'If you wanna listen this song again, click the button please!' => 'Если хотите прослушать эту песню еще раз, нажмите пожалуйста на кнопку',
@@ -14,14 +14,14 @@ return array(
     'Next'=>'Дальше',
     'Create Users'=>'Регистрация',
     'Registration'=>'Регистрация',
-    'Fields with* are required.'=>'Поля с * обязательны',
+    'Fields with* are required.'=>'Заполните все поля',
     'ID-card'=>'карта',
-    'Your Name*'=>'Ваше имя*',
-    'Date Birth*'=>'Дата рождения',
-    'Sex*'=>'Пол*',
+    'Your Name'=>'Ваше имя',
+    'Birth Date'=>'Дата рождения',
+    'Sex'=>'Пол',
     'Where are you from?'=>'Откуда Вы?',
-    'What education do you have?*'=>'Какое у Вас образование?*',
-    'What radiostation are you listen more than other on last week?*'=>'Выберите радиостанцию, которую вы слушали чаще других в течение последней недели',
+    'What education do you have?'=>'Какое у Вас образование?',
+    'What radiostation are you listen more than other on last week?'=>'Выберите радиостанцию, которую вы слушали чаще других в течение последней недели',
     'What other radiostations are you listen yet on last week?'=>'Выберите еще одну радиостанцию, которую вы слушали немного реже, чем любимую станцию в течение последней недели',
     'Create'=>'Завершить',
     'We must choose one mix'=>'Вы должны выбрать один микс',
@@ -32,6 +32,8 @@ return array(
     'enter your region'=>'укажите регион своего проживания',
     'enter your education'=>'укажите свое образование',
     'enter your email'=>'укажите Ваш email',
+    'You already chose this radiostation'=>'Вы уже выбрали эту радиостанцию',
+    'You entered the incorrect date'=>'введите дату своего рождения в формате: год, месяц, число',
     'You chosen this radio station. You must choose other radio, which listened less, than your favorite station'=>'Вы уже выбрали эту радиостанцию, теперь выберите другую станцию, которую вы слушали немного реже, чем любимую станцию',
     'Thank you! The invitation to test you come to the email'=>'Спасибо за регистрацию! Приглашение на тестирование музыки придет Вам на email',
     'For beginning testing music you must click this'=>'Для того, чтобы начать тестирование музыки, вам необходимо нажать на эту ',
@@ -45,11 +47,14 @@ return array(
     'student'=>'студент(ка)',
     'secondary education'=>'среднее образование',
     'higher education'=>'высшее образование',
-    'YYYY-MM-DD'=>'Год-месяц-дата ГГГГ-ММ-ДД',
+    'YYYY-MM-DD'=>'(год-месяц-дата)',
     'click here.'=>'нажмите тут.',
-    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>'Спасибо за ваш запрос в Radio Music Test Мы добавляем имена в наш список только после проверки разрешения получателя, поэтому мы посылаем Вам этот запрос подтверждения емейла. После подтверждения, Вы будете получать приглашения на тестирование музыки, пожалуйста ',
+    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>'Спасибо за ваш запрос в Radio Music Test. Мы добавляем имена в наш список только после проверки разрешения получателя, поэтому мы посылаем вам этот запрос подтверждения емейла. После подтверждения, вы будете получать приглашения на тестирование музыки, пожалуйста ',
     'To complete the registration click on the link in the email'=>'Для завершения регистрации перейдите по ссылке, отправленной вам мейлом',
     'For beginning testing music you must click this link'=>'Для того, чтобы начать тестирование музыки, перейдите по этой ссылке ',
     'Unscribe'=>'Отписаться',
+    'If you wanna change settings your profile '=>'Если хотите изменить настройки своего профиля, ',
+    'Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test.'=>
+    'Спасибо вам за изменения в вашем профиле. К сожалению, этот музыкальный тест был завершён. В ближайшее время мы пришлём вам по электронной почте приглашение на следующий музыкальный тест.',
 );
 

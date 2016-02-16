@@ -36,6 +36,10 @@ class UsersInvitation
             $this->user->isNewRecord=false;
 
             if($this->user->saveAttributes(array ('link'))){
+                if(!$this->user->activate){
+                    $this->user->activate=$linc;
+                    $this->user->saveAttributes(array ('activate'));
+                }
 
                 $criteria = new CDbCriteria();
                 $criteria->condition = 'id_radiostations = :id_radiostations';
@@ -56,7 +60,7 @@ class UsersInvitation
 
                 $hrefUnscribe=Yii::app()->getBaseUrl(true).'/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
                 $hrefUpdate=Yii::app()->getBaseUrl(true).'/register/Update/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
-                $text_before='<br><br><br>'.Yii::t('radio','If you wanna change settings your profile').'<a href ='.$hrefUpdate.'>'.Yii::t('radio','click here').'</a>.'<br><br><br><a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';
+                $text_before='<br><br><br>'.Yii::t('radio','If you wanna change settings your profile').'<a href ='.$hrefUpdate.'>'.Yii::t('radio','click here').'</a><br><br><br><a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';
 
 
                 $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;

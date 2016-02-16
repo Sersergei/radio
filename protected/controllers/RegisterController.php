@@ -310,7 +310,8 @@ $this->redirect(array('register/Viewregister'));
     public function actionUpdate($id=Null,$linc=Null)
     {
         $model=$this->loadModel($id);
-        if($model->link==$linc){
+        if($model->activate==$linc){
+
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $model->region='';
@@ -323,14 +324,20 @@ $this->redirect(array('register/Viewregister'));
                 if($model->link)
                 $this->redirect(array('/test/index/id/'.$id.'/linc/'.$model->link));
                 else
-                    $this->render('message',array('message'=>"Ваши данные успешно изменены"));
+                    $i=1;
+
             }
 
         }
-
-        $this->render('update',array(
-            'model'=>$model,
-        ));}
+        if($i){
+            $this->render('message',array('message'=>"Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test."));
+        }
+            else{
+                $this->render('update',array(
+                    'model'=>$model,
+                ));
+            }
+        }
     }
     public function loadModel($id)
     {
