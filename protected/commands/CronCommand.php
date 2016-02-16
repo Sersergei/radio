@@ -29,3 +29,4 @@ class CronCommand extends CConsoleCommand
     }
 
 }
+?>

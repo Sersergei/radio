@@ -319,8 +319,13 @@ $this->redirect(array('register/Viewregister'));
             $model->attributes=$_POST['Users'];
             $model->date_birth=$_POST['date_birth'];
             $model->scenario = 'user';
-            if($model->save())
+            if($model->save()){
+                if($model->link)
                 $this->redirect(array('/test/index/id/'.$id.'/linc/'.$model->link));
+                else
+                    $this->render('message',array('message'=>"Ваши данные успешно изменены"));
+            }
+
         }
 
         $this->render('update',array(
