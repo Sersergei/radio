@@ -232,7 +232,9 @@ else{
 				}
 			}
 		}
+
 		if ($this->id_status == 2 and $this->id_type == 1) {
+
 			if ($this->_status!=$this->id_status) {
 				$criteria = new CDbCriteria();
 				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
