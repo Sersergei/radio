@@ -87,7 +87,7 @@ class Users extends CActiveRecord
 			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2','safe'),
+			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2,period','safe'),
 			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status,
 			 id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region,active', 'safe', 'on' => 'search'),
 		);
@@ -163,6 +163,7 @@ class Users extends CActiveRecord
 			'test_count'=>Yii::t('radio','test'),
 			'admin_region'=>'Region',
 			'date_lasttest'=>'Last test',
+			'period'=>Yii::t('radio','periodicity'),
 
 		);
 	}
@@ -396,6 +397,23 @@ return true;
 		$age=abs(time())-$age;
 
 		return date("Y-m-d",$age);
+	}
+	public static function getperiodAll(){
+	return array(0=>'',1=>Yii::t('radio','once a week'),2=>Yii::t('radio','two times a week'),3=>Yii::t('radio','once a month'));
+	}
+	public function getperiod(){
+		if($this->period){
+			if($this->period==1){
+				return  date('d-m-Y', strtotime("-1 week"));
+			}
+			elseif($this->period==2){
+				return  date('d-m-Y', strtotime("-2 week"));
+			}
+			else{
+				return date('d-m-Y', strtotime("-1 month"));
+			}
+		}
+		else return Null;
 	}
 
 

@@ -105,6 +105,15 @@ class UsersInvitation
             if(!in_array($this->user->sex,$testsettings->sex))
                 return false;
         }
+        if($this->usser->period){
+            $criteria= new CDbCriteria();
+            $criteria->compare('id_user');
+            $criteria->addBetweenCondition('date',$this->user->getperiod(),date(" Y-m-d"));
+            $result=Usertest::model()->find($criteria);
+            if(!$result){
+                return false;
+            }
+        }
 
 
         if(!$testsettings->age_from)
