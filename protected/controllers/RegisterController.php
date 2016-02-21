@@ -310,11 +310,12 @@ $this->redirect(array('register/Viewregister'));
     public function actionUpdate($id=Null,$linc=Null)
     {
         $model=$this->loadModel($id);
+        $i=0;
         if($model->activate==$linc){
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        $model->region='';
+
         if(isset($_POST['Users']))
         {
             $model->attributes=$_POST['Users'];

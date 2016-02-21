@@ -20,7 +20,9 @@ class UsersInvitation
         }
         if(!$this->test){
             $this->user=$user;
+            //var_dump($this->Filter());
             $this->Email();
+
         }
 
     }
@@ -105,12 +107,13 @@ class UsersInvitation
             if(!in_array($this->user->sex,$testsettings->sex))
                 return false;
         }
-        if($this->usser->period){
+        if($this->user->period){
             $criteria= new CDbCriteria();
             $criteria->compare('id_user');
-            $criteria->addBetweenCondition('date',$this->user->getperiod(),date(" Y-m-d"));
+            $criteria->addBetweenCondition('date',$this->user->getperiod(),date("Y-m-d"));
             $result=Usertest::model()->find($criteria);
-            if(!$result){
+            //var_dump($result);
+            if($result){
                 return false;
             }
         }

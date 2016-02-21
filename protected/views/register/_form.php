@@ -79,7 +79,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 <div class="row">
 	<?php echo $form->labelEx($model,'period'); ?>
-	<?php echo $form->DropDownList($model,'period',Users::getperiodAll); ?>
+	<?php echo $form->DropDownList($model,'period',Users::getperiodAll()); ?>
 	<?php echo $form->error($model,'period'); ?>
 </div>
 	<div class="row1">

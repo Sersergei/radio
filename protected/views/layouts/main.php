@@ -25,9 +25,7 @@
 	</header>
 
 	<article id="content">
-		<div class="col-1">
-		</div>
-		<div class="col-2">
+		<div class="col">
 <?php echo $content ?>
 			</div>
 		</article>

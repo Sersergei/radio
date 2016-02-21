@@ -121,6 +121,8 @@ ul.audio .play {width:40px;height:26px;float:left;background:url(../images/audio
 .fleft,.fl {float:left}
 .fright,.fr {float:right}
 .fnone,.fn {float:none}
+.col{width: 55%;
+margin-left: 20%}
 .col-1,.col-2,.col-3 {float:left}
 .alignleft,.all {text-align:left}
 .alignright,.alr {text-align:right}
