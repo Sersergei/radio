@@ -276,8 +276,37 @@ $test=unserialize($session['test']);
 			//Yii::app()->request->cookies->remove('like');
 			//$like->remove;
 			$text=$user->radio->settings->text_after_test;
-			$this->render('finish',array('model'=>$text,'message'=>''));
+			$message=new Messages();
+			$this->render('finish',array('model'=>$text,'message'=>'','messages'=>$message,));
 
 		}
+	}
+	public function actionMessages(){
+		$user=Yii::app()->request->cookies['user'];
+		if($user){
+
+			$message=new Messages();
+			if($_POST['Messages']){
+
+				$user=$user->value;
+				$user=Users::model()->findByPk($user);
+				$message->email_fromm=$user->email;
+				$message->email_to=$user->radio->radiostationSettings->email;
+				$message->attributes=$_POST['Messages'];
+				$message->id_user=$user->id_user;
+
+				if($message->save()){
+					$messages=Yii::t('radio','Thank you Your message has been sent');
+				}
+
+
+			}
+
+		}
+		else{
+			$messages=Yii::t('radio','Sorry you can not send a message');
+		}
+
+		$this->render('messages',array('messages'=>$message,'message'=>$messages));
 	}
 }
