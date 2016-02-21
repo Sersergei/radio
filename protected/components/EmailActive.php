@@ -14,7 +14,9 @@ class EmailActive
         $app = Yii::app();
         $lang=$user->radio->radiostationSettings->idLang->lang;
         $app->setLanguage($lang);
+
         $this->email();
+
     }
     public function email(){
         $linc=md5(microtime().$this->user->name_listener.'rfvbgt');
@@ -26,7 +28,7 @@ class EmailActive
             $text =  '<br>' . Yii::t('radio', 'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please ') . '<a href =' . $href .'>'.Yii::t('radio','click here.') . '</a>';
             $subject = Yii::t('radio','Registration');
             //$email = Yii::app()->params['adminEmail'];
-            $email=$user->radio->radiostationSettings->email;
+            $email=$this->user->radio->radiostationSettings->email;
             $headers = "From: radio <{$email}>\r\n" .
                 "Reply-To: {$email}\r\n" .
                 "MIME-Version: 1.0\r\n" .

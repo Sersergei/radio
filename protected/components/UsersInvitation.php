@@ -109,7 +109,7 @@ class UsersInvitation
         }
         if($this->user->period){
             $criteria= new CDbCriteria();
-            $criteria->compare('id_user');
+            $criteria->compare('id_user',$this->user->id_user);
             $criteria->addBetweenCondition('date',$this->user->getperiod(),date("Y-m-d"));
             $result=Usertest::model()->find($criteria);
             //var_dump($result);
