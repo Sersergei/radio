@@ -27,8 +27,8 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, message', 'required'),
-			array('id_user', 'numerical', 'integerOnly'=>true),
+			array('id_user, message,id_test', 'required'),
+			array('id_user,id_test', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_user, message', 'safe', 'on'=>'search'),
@@ -93,6 +93,11 @@ class Messages extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	protected function beforeSave(){
+		$this->date=date(" Y-m-d H:i:s");
+		parent::beforeSave();
+		return true;
 	}
 	protected function afterSave(){
 		$email=$this->email_fromm;

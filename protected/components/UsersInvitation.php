@@ -124,7 +124,6 @@ class UsersInvitation
         else
             $age_from=$testsettings->age_from;
 
-
         if(! $testsettings->after_age)
             $after_age=65;
         else

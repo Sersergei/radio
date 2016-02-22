@@ -290,6 +290,12 @@ $test=unserialize($session['test']);
 
 				$user=$user->value;
 				$user=Users::model()->findByPk($user);
+
+				$criteria=new CDbCriteria();
+				$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
+				$criteria->params = array(':id_radiostation'=>$user->id_radiostation, ':id_status'=>2);
+				$test=MusicTest::model()->find($criteria);
+				$message->id_test=$test->id_test;
 				$message->email_fromm=$user->email;
 				$message->email_to=$user->radio->radiostationSettings->email;
 				$message->attributes=$_POST['Messages'];

@@ -126,16 +126,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{TestUser}{TestSongs}',
+			'template'=>'{Messages}{TestSongs}',
 			'buttons'=>array(
-				'TestUser'=>array(
-					'Label'=>Yii::t('radio','Результаты по пользователям'),
-					'visible'=>'$data->id_status==3',
-					'url'=>'Yii::app()->getUrlManager()->createURL("radio/test/index",array("id"=>$data->id_test))',
+				'Messages'=>array(
+					'Label'=>Yii::t('radio','Messages'),
+					'url'=>'Yii::app()->getUrlManager()->createURL("radio/message/index",array("id"=>$data->id_test))',
 					'imageUrl'=>'/images/folder.png',
 				),
 				'TestSongs'=>array(
-					'label'=>Yii::t('radio','Результаты по песням'),
+					'label'=>Yii::t('radio','пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ'),
 					'visible'=>'$data->id_status==3',
 					'url'=>'Yii::app()->getUrlManager()->createURL("radio/test/songs",array("id"=>$data->id_test))',
 					'imageUrl'=>'/images/itunes.png',
