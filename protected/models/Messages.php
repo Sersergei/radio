@@ -78,6 +78,7 @@ class Messages extends CActiveRecord
 
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('message',$this->message,true);
+		$criteria->compare('id_test',$this->id_test);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

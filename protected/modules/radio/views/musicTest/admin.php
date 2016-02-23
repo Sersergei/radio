@@ -131,7 +131,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 				'Messages'=>array(
 					'Label'=>Yii::t('radio','Messages'),
 					'url'=>'Yii::app()->getUrlManager()->createURL("radio/message/index",array("id"=>$data->id_test))',
-					'imageUrl'=>'/images/folder.png',
+					'imageUrl'=>'/images/mail_3249.png',
 				),
 				'TestSongs'=>array(
 					'label'=>Yii::t('radio','���������� �� ������'),
