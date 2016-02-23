@@ -220,6 +220,22 @@ class MusicTestDetail extends CActiveRecord
 			),
 		));
 	}
+	public function users(){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_test_det',$this->id_test_det);
+		$criteria->compare('id_test',$this->id_test);
+		$criteria->compare('id_user',$this->id_user);
+		$criteria->compare('date_last',$this->date_last,true);
+		$criteria->compare('finaly',$this->finaly);
+		$criteria->compare('id_song',$this->id_song);
+		$criteria->compare('id_like',$this->id_like);
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination' => array(
+				'pagesize' => 50,
+			),
+		));
+	}
 	public function age_from(){
 		if(!$this->age_from){
 			$this->age_from=14;
@@ -305,5 +321,11 @@ class MusicTestDetail extends CActiveRecord
 	}
 	public function gettime(){
 		return time($this->time);
+	}
+	public function getnevers(){
+		if ($this->never)
+			return "Yes";
+		else
+			return "No";
 	}
 }

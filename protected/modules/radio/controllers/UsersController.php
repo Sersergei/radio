@@ -223,5 +223,17 @@ class UsersController extends Controller
 		$this->render('statistic',array('statistic'=>Radistations::statistic($radio->id_radiostation),));
 			
 	}
+	public function actionTest($id,$test){
+		$model=new MusicTestDetail('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['MusicTestDetail']))
+			$model->attributes=$_GET['Users'];
+		$model->id_user=$id;
+		$model->id_test=$test;
+		$this->render('testuser',array(
+			'model'=>$model,
+		));
+
+	}
 
 }

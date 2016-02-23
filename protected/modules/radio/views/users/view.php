@@ -73,4 +73,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=>'test.id_type',
 			'value'=>'$data->test->gettype()',
 		),
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{View}',
+			'buttons'=>array(
+				'View'=>array(
+					'Label'=>Yii::t('radio','View'),
+
+					'url'=>'Yii::app()->getUrlManager()->createURL("radio/users/test",array("id"=>$data->user->id_user,
+																	"test"=>$data->id_music))',
+					'imageUrl'=>'/images/folder.png',
+				),)),
 	),));
