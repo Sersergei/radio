@@ -12,12 +12,13 @@ $form=$this->beginWidget('CActiveForm', array(
     ),
 )); ?>
 <div class="row">
-    <?php echo $form->labelEx($messages,'message'); ?><br>
-    <?php $this->widget('application.extensions.ckeditor.CKEditor', array( 'model'=>$messages,
-        'attribute'=> 'message',
-        'editorTemplate'=>'full', )); ?>
+    <?php echo $form->labelEx($mes,'message'); ?><br>
+    <?php echo $form->textArea($mes,'message',array('rows'=>6,
+                                                    'cols'=>50
+                                                    )); ?>
 
-    <?php echo $form->error($messages,'message'); ?>
+
+    <?php echo $form->error($mes,'message'); ?>
 </div>
 
 <div class="row buttons">

@@ -27,7 +27,7 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, message,id_test', 'required'),
+			array('id_user,id_test', 'required'),
 			array('id_user,id_test', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -54,7 +54,7 @@ class Messages extends CActiveRecord
 	{
 		return array(
 			'id_user' => 'Id User',
-			'message' => 'Message',
+			'message' => Yii::t('radio','Message'),
 		);
 	}
 
