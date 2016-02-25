@@ -60,12 +60,12 @@ class UsersInvitation
                 $app = Yii::app();
                 $app->setLanguage($lang->lang);
 
-                $hrefUnscribe=Yii::app()->getBaseUrl(true).'/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
-                $hrefUpdate=Yii::app()->getBaseUrl(true).'/register/Update/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
+                $hrefUnscribe='http://radiomusictest.com/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
+                $hrefUpdate='http://radiomusictest.com/register/Update/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
                 $text_before='<br><br><br>'.Yii::t('radio','If you wanna change settings your profile').'<a href ='.$hrefUpdate.'>'.Yii::t('radio','click here').'</a><br><br><br><a href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a>';
 
 
-                $href=Yii::app()->getBaseUrl(true).'/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
+                $href='http://radiomusictest.com/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
                 $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this ').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>'.$text_before;
                 $subject=$settings->invitation_topic;
                 $email=$radiosettings->email;

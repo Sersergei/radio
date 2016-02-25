@@ -45,7 +45,7 @@ class MusicTest extends CActiveRecord
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe'),
+			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished, name', 'safe'),
 		);
 	}
 	public function license($attribute){
