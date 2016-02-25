@@ -1,7 +1,7 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'users-grid',
     'dataProvider'=>$model->users(),
-    
+
     'columns'=>array(
 
         array(

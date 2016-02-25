@@ -21,6 +21,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_test',
+		'name',
 		array(
 			'label' => 'id_radiostation',
 			'type' => 'raw',

@@ -61,6 +61,23 @@ class MusicTestController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
+
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$user->id_radiostation);
+		$criteria->compare('id_type',1);
+		$criteria->order = 'date_add DESC';
+		$last_colaut=MusicTest::model()->find($criteria);
+
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$user->id_radiostation);
+		$criteria->compare('id_type',2);
+		$criteria->order = 'date_add DESC';
+		$last_amt=MusicTest::model()->find($criteria);
+
+
 		$model=new MusicTest;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -68,7 +85,7 @@ class MusicTestController extends Controller
         //var_dump($_POST);
 		if(isset($_POST['MusicTest']))
 		{
-			$user=Users::model()->findByPk(Yii::app()->user->id);
+
 
 			$model->attributes=$_POST['MusicTest'];
 			$model->id_radiostation=$user->id_radiostation;
@@ -77,7 +94,7 @@ class MusicTestController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model,'colaut'=>$last_colaut,'amt'=>$last_amt,
 		));
 	}
 

@@ -25,6 +25,11 @@
 		<?php echo $form->error($model,'id_type'); ?>
 	</div>
 	<div class="row">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model,'name'); ?>
+		<?php echo $form->error($model,'name'); ?>
+	</div>
+	<div class="row">
 		<label for="MusicTest_date_started"><?php echo Yii::t('radio', 'Date Started'); ?></label>
 		<?php $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
 			array(

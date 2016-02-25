@@ -136,6 +136,7 @@ else{
 			'test_number' =>Yii::t('radio', 'Test Number'),
 			'date_finished' =>Yii::t('radio', 'Date Finished'),
 			'date'=>Yii::t('radio', 'Date'),
+			'name'=>Yii::t('radio','Name'),
 		);
 	}
 
@@ -166,6 +167,7 @@ else{
 		$criteria->compare('max_listeners',$this->max_listeners);
 		$criteria->compare('test_number',$this->test_number);
 		$criteria->compare('date_finished',$this->date_finished,true);
+		$criteria->compare('name',$this->name);
 		$criteria->together = true;
 
 		return new CActiveDataProvider($this, array(
