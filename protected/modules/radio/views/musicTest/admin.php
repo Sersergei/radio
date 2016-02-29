@@ -40,14 +40,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id_test',
+
 		'name',
-		array(
-			'name' => 'id_radiostation',
-			'type' => 'raw',
-			'value' => '$data->radio->name',
-			'filter'=>false,
-		),
 		array(
 			'name' => 'id_type',
 			'type' => 'raw',
