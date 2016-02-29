@@ -31,7 +31,7 @@ class MusicTestController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','upload','delete'),
+				'actions'=>array('index','view','create','update','upload','delete','deletesongs'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,8 +50,10 @@ class MusicTestController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$songs=new Songs();
+		$songs->id_test=$id;
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'songs'=>$songs,
 		));
 	}
 
@@ -134,6 +136,15 @@ class MusicTestController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+	public function actiondeletesongs($id){
+		$model=Songs::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		$model->delete();
+		if(!isset($_GET['ajax']))
+
+			$this->redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	/**
