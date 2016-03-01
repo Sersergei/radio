@@ -115,7 +115,7 @@ class Songs extends CActiveRecord
                 <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$this->id_song."').pause()\"></a>
             </div>
         <div class='lm-track lmtr-top'>
-            <audio id='player_".$this->id_song."' class='track_player' src=".Yii::app()->getBaseUrl(true).$song." ></audio>
+            <audio id='player_".$this->id_song."' class='track_player' src='".Yii::app()->getBaseUrl(true).$song."' ></audio>
 </div>
 </div>";
 		return $arr;
