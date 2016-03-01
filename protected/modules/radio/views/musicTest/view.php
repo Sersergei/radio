@@ -55,21 +55,21 @@ $this->menu=array(
 	'filter'=>$songs,
 	'columns'=>array(
 		array(
-			'name' => 'name',
 			'type' => 'raw',
 			'value' => '$data->getsongs()',
+			'htmlOptions'=>array('style'=>'width: 16px; text-align: center;'),
+
 		),
 		'name',
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{delete}',
-			'buttons'=>array(
-				'delete'=>array(
-
-					'url'=>'Yii::app()->getUrlManager()->createURL("radio/musicTest/deletesongs",array("id"=>$data->id_song))',
-				),)
-
-		),
+		//array(
+		//	'class'=>'CButtonColumn',
+		//	'template'=>'{delete}',
+		//	'buttons'=>array(
+		//		'delete'=>array(
+		//			'visible'=>'$data->musicTest->id_status==1',
+		//			'url'=>'Yii::app()->getUrlManager()->createURL("radio/musicTest/deletesongs",array("id"=>$data->id_song))',
+		//		),
+		//)),
 	),
 
 ));

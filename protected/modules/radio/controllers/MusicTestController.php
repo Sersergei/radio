@@ -108,19 +108,22 @@ class MusicTestController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$songs=new Songs();
+		$songs->id_test=$id;
+		if(isset($_GET['Songs']))
+		$songs->attributes=$_GET['Songs'];
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['MusicTest']))
 		{
+			$songs->attributes=$_POST['MusicTest'];
 			$model->attributes=$_POST['MusicTest'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_test));
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$model,'songs'=>$songs,
 		));
 	}
 
