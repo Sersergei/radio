@@ -38,7 +38,26 @@ $('.search-form form').submit(function(){
 <a href="?status=P2">P2</a></br>
 <div >
 <?php
+//var_dump($model);
+$iterator = new CDataProviderIterator($model->search());
+//var_dump($iterator->coun5);
+$sumnever=0;
+$sumCoun1=0;
+$sumCoun2=0;
+$sumCoun3=0;
+$sumCoun4=0;
+$sumCoun5=0;
+$sumCoun=0;
 
+foreach ($iterator as $test){
+	$sumCoun+=$test->Coun;
+	$sumCoun1+=$test->Coun1;
+	$sumCoun2+=$test->Coun2;
+	$sumCoun3+=$test->Coun3;
+	$sumCoun4+=$test->Coun4;
+	$sumCoun5+=$test->Coun5;
+$sumnever+=$test->never;
+}
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'usertest-grid',
 	'dataProvider'=>$model->search(),
@@ -59,47 +78,80 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => 'round(($data->Coun5*100/$data->getCoun())+
                         ($data->Coun4*100/$data->getCoun())+
                         ($data->Coun3*100/$data->getCoun()),2)',
+			'footer'=> round( (($sumCoun5+$sumCoun4+$sumCoun3)*100)/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
+
 		),
 		array(
 			'name' => 'negative',
 			'type' => 'raw',
 			'value' => 'round(($data->Coun2*100/$data->getCoun())+
                         ($data->Coun1*100/$data->getCoun()),2)',
+			'footer'=> round((($sumCoun1+$sumCoun2)*100)/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
 			'value' => 'round($data->Coun5*100/$data->getCoun(),2)',
+			'footer'=> round((($sumCoun5*100)/$sumCoun),2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 		array(
 			'name' => 'like',
 			'type' => 'raw',
 			'value' => 'round($data->Coun4*100/$data->getCoun(),2)',
+			'footer'=> round($sumCoun4*100/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 		array(
 			'name' => 'normal',
 			'type' => 'raw',
 			'value' => 'round($data->Coun3*100/$data->getCoun(),2)',
+			'footer'=> round($sumCoun3*100/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 		array(
 			'name' => 'tired',
 			'type' => 'raw',
 			'value' => 'round($data->Coun2*100/$data->getCoun(),2)',
+			'footer'=>round( $sumCoun2*100/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 		array(
 			'name' => 'dislike',
 			'type' => 'raw',
 			'value' => 'round($data->Coun1*100/$data->getCoun(),2)',
+			'footer'=> round($sumCoun1*100/$sumCoun,2),
+			'htmlOptions' => array(
+				'style'=>'text-align:center'
+			),
 		),
 				array(
 			'name' => 'never',
 			'type' => 'raw',
 			'value' =>  'round($data->never*100/$data->getCoun(),2)',
+					'footer'=> round($sumnever*100/$sumCoun,2),
+					'htmlOptions' => array(
+						'style'=>'text-align:center'
+					),
 		),
 	))); ?>
-<a href="?file=1&type=Excel2007">Скачать отчет Excel</a></br>
-<a href="?file=1&type=CSV">Скачать отчет csv</a>
+<a href="?file=1&type=Excel2007">Download report Excel</a></br>
+<a href="?file=1&type=CSV">Download report csv</a>
 <?php
 
 $this->widget('zii.widgets.grid.CGridView', array(

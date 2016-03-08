@@ -119,6 +119,59 @@ class TestController extends Controller
         $user->P2All=$model->P2All;
 
         if (isset($_GET['file'])) {
+            $iterator = new CDataProviderIterator($model->search());
+//var_dump($iterator->coun5);
+            $sumnever=0;
+            $sumCoun1=0;
+            $sumCoun2=0;
+            $sumCoun3=0;
+            $sumCoun4=0;
+            $sumCoun5=0;
+            $sumneverP1=0;
+            $sumCounP11=0;
+            $sumCounP12=0;
+            $sumCounP13=0;
+            $sumCounP14=0;
+            $sumCounP15=0;
+            $sumCoun=0;
+            $sumCounP1=0;
+            $sumneverP2=0;
+            $sumCounP21=0;
+            $sumCounP22=0;
+            $sumCounP23=0;
+            $sumCounP24=0;
+            $sumCounP25=0;
+            $sumCounP2=0;
+
+            foreach ($iterator as $test){
+                $sumCoun+=$test->Coun;
+                $sumCoun1+=$test->Coun1;
+                $sumCoun2+=$test->Coun2;
+                $sumCoun3+=$test->Coun3;
+                $sumCoun4+=$test->Coun4;
+                $sumCoun5+=$test->Coun5;
+                $sumnever+=$test->never;
+                $sumCounP1+=$test->CounP1;
+                $sumCounP11+=$test->CounP11;
+                $sumCounP12+=$test->CounP12;
+                $sumCounP13+=$test->CounP13;
+                $sumCounP14+=$test->CounP14;
+                $sumCounP15+=$test->CounP15;
+                $sumneverP1+=$test->neverP1;
+                $sumCounP2+=$test->CounP2;
+                $sumCounP21+=$test->CounP21;
+                $sumCounP22+=$test->CounP22;
+                $sumCounP23+=$test->CounP23;
+                $sumCounP24+=$test->CounP24;
+                $sumCounP25+=$test->CounP25;
+                $sumneverP2+=$test->neverP2;
+            }
+            if(!$sumCoun)
+                $sumCoun=1;
+            if(!$sumCounP1)
+                $sumCounP1;
+            if(!$sumCounP2)
+                $sumCounP2;
             $this->widget('EExcelView', array(
                 'id' => 'provider-problem-grid',
                 'dataProvider' => $model->search(),
@@ -144,43 +197,52 @@ class TestController extends Controller
                         'value' => 'round(($data->Coun5*100/$data->Coun)+
                         ($data->Coun4*100/$data->Coun)+
                         ($data->Coun3*100/$data->Coun),2)',
+                        'footer'=> round( (($sumCoun5+$sumCoun4+$sumCoun3)*100)/$sumCoun,2),
                     ),
                     array(
                         'name' => 'negative',
                         'type' => 'raw',
                         'value' => 'round(($data->Coun2*100/$data->Coun)+
                         ($data->Coun1*100/$data->Coun),2)',
+                        'footer'=> round((($sumCoun1+$sumCoun2)*100)/$sumCoun,2),
                     ),
 
                     array(
                         'name' => 'favorite',
                         'type' => 'raw',
                         'value' => 'round($data->Coun5*100/$data->Coun,2)',
+                        'footer'=> round((($sumCoun5*100)/$sumCoun),2),
                     ),
                     array(
                         'name' => 'like',
                         'type' => 'raw',
                         'value' => 'round($data->Coun4*100/$data->Coun,2)',
+                        'footer'=> round($sumCoun4*100/$sumCoun,2),
+
                     ),
                     array(
                         'name' => 'normal',
                         'type' => 'raw',
                         'value' => 'round($data->Coun3*100/$data->Coun,2)',
+                        'footer'=> round($sumCoun3*100/$sumCoun,2),
                     ),
                     array(
                         'name' => 'tired',
                         'type' => 'raw',
                         'value' => 'round($data->Coun2*100/$data->Coun,2)',
+                        'footer'=>round( $sumCoun2*100/$sumCoun,2),
                     ),
                     array(
                         'name' => 'dislike',
                         'type' => 'raw',
                         'value' => 'round($data->Coun1*100/$data->Coun,2)',
+                        'footer'=> round($sumCoun1*100/$sumCoun,2),
                     ),
                     array(
                         'name' => 'never',
                         'type' => 'raw',
                         'value' =>  'round($data->never*100/$data->Coun,2)',
+                        'footer'=> round($sumnever*100/$sumCoun,2),
                     ),
                     array(
                         'name' => 'positive_P1',
@@ -188,86 +250,104 @@ class TestController extends Controller
                         'value' => 'round(($data->CounP15*100/$data->CounP1)+
                         ($data->CounP14*100/$data->CounP1)+
                         ($data->CounP13*100/$data->CounP1),2)',
+                        'footer'=>round((($sumCounP15+$sumCounP14+$sumCounP13)*100/$sumCounP1),2),
                     ),
                     array(
                         'name' => 'negative_P1',
                         'type' => 'raw',
                         'value' => 'round(($data->CounP12*100/$data->CounP1)+
                         ($data->CounP11*100/$data->CounP1),2)',
+                        'footer'=>round((($sumCounP12+$sumCounP11)*100/$sumCounP1),2),
                     ),
 
                     array(
                         'name' => 'favorite_P1',
                         'type' => 'raw',
                         'value' => 'round($data->CounP15*100/$data->CounP1,2)',
+                        'footer'=>round($sumCounP15*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'like_P1',
                         'type' => 'raw',
                         'value' => 'round($data->CounP14*100/$data->CounP1,2)',
+                        'footer'=>round($sumCounP14*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'normal_P1',
                         'type' => 'raw',
                         'value' => 'round($data->CounP13*100/$data->CounP1,2)',
+                        'footer'=>round($sumCounP13*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'tired_P1',
                         'type' => 'raw',
                         'value' => 'round($data->CounP12*100/$data->CounP1,2)',
+                        'footer'=>round($sumCounP12*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'dislike_P1',
                         'type' => 'raw',
                         'value' => 'round($data->CounP11*100/$data->CounP1,2)',
+                        'footer'=>round($sumCounP11*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'never_P1',
                         'type' => 'raw',
                         'value' =>  'round($data->neverP1*100/$data->CounP1,2)',
+                        'footer'=>round($sumneverP1*100/$sumCounP1,2),
                     ),
                     array(
                         'name' => 'positive_P2',
                         'type' => 'raw',
                         'value' => 'round(($data->CounP25*100/$data->getCounP2())+
                         ($data->CounP24*100/$data->getCounP2())+
-                        ($data->CounP23*100/$data->getCounP2()),2)',),
+                        ($data->CounP23*100/$data->getCounP2()),2)',
+                        'footer'=>round((($sumCounP25+$sumCounP24+$sumCounP23)*100)/$sumCounP2,2),
+                        ),
+
                     array(
                         'name' => 'negative_P2',
                         'type' => 'raw',
                         'value' => 'round(($data->CounP22*100/$data->getCounP2())+
                         ($data->CounP21*100/$data->getCounP2()),2)',
+                        'footer'=>round((($sumCounP21+$sumCounP22)*100)/$sumCounP2,2),
                     ),
 
                     array(
                         'name' => 'favorite_P2',
                         'type' => 'raw',
                         'value' => 'round($data->CounP25*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumCounP25*100/$sumCounP2),
                     ),
                     array(
                         'name' => 'like_P2',
                         'type' => 'raw',
                         'value' => 'round($data->CounP24*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumCounP24*100/$sumCounP2,2),
                     ),
                     array(
                         'name' => 'normal_P2',
                         'type' => 'raw',
                         'value' => 'round($data->CounP23*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumCounP23*100/$sumCounP2,2),
                     ),
                     array(
                         'name' => 'tired_P2',
                         'type' => 'raw',
                         'value' => 'round($data->CounP22*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumCounP22*100/$sumCounP2,2),
                     ),
                     array(
                         'name' => 'dislike_P2',
                         'type' => 'raw',
                         'value' => 'round($data->CounP21*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumCounP21*100/$sumCounP2,2),
                     ),
                     array(
                         'name' => 'never_P2',
                         'type' => 'raw',
                         'value' =>  'round($data->neverP2*100/$data->getCounP2(),2)',
+                        'footer'=>round($sumneverP2*100/$sumCounP2,2),
                     ),
 
                 )));
