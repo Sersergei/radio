@@ -203,6 +203,7 @@ class Users extends CActiveRecord
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
+		if($this->date_birth)
 		$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from());
 
 

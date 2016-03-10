@@ -12,12 +12,12 @@ class EmailInvintation
             $linc=md5(microtime().$user->name_listener.'rfvbgt');
 
             $user->link=$linc;
-            $user->active=$linc;
+            $user->activate=$linc;
 
             $user->scenario ='update';
             $user->isNewRecord=false;
 
-            if($user->saveAttributes(array ('link'))){
+            if($user->saveAttributes(array ('activate'))){
 
                 $criteria = new CDbCriteria();
                 $criteria->condition = 'id_radiostations = :id_radiostations';
