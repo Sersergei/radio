@@ -8,7 +8,7 @@ $this->menu=array(
 	array('label'=>'Manage Users', 'url'=>array('admin')),
 );
 ?>
-
+<div class="idcard">
 <h1><?php echo Yii::t('radio','Registration'); ?></h1>
 
 
@@ -31,10 +31,10 @@ $form=$this->beginWidget('CActiveForm', array(
 
 <p class="note"><?php echo Yii::t('radio','Fields with* are required.') ?> </p>
 
-<?php echo $form->errorSummary($model); ?>
+<?php //echo $form->errorSummary($model); ?>
 <div class="row">
 	<?php echo $form->labelEx($model,'card'); ?>
-	<?php echo $form->textField($model,'card',array('size'=>20,'maxlength'=>20)); ?>
+	<?php echo $form->textField($model,'card',array('size'=>11,'maxlength'=>11)); ?>
 	<?php echo $form->error($model,'card'); ?>
 </div>
 
@@ -46,7 +46,6 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-
 
 
 

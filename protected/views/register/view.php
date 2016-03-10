@@ -15,6 +15,7 @@
 <div class="row">
 	<?php echo Yii::t('radio','Choose one music-mix, which you like more than other') ?>
 	<br>
+	<br>
 	<table class="mix">
 		<tr>
 		<td><?php echo $mix[$arr[0]];?><input  name="mixmarker" type="radio"  value="<?php echo $arr[0] ?>">

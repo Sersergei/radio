@@ -399,7 +399,7 @@ return true;
 		return date("Y-m-d",$age);
 	}
 	public static function getperiodAll(){
-	return array(0=>'',1=>Yii::t('radio','once a week'),2=>Yii::t('radio','two times a week'),3=>Yii::t('radio','once a month'));
+	return array(0=>'',1=>Yii::t('radio','once a week'),2=>Yii::t('radio','two times a month'),3=>Yii::t('radio','once a month'));
 	}
 	public function getperiod(){
 		if($this->period){

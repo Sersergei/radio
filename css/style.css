@@ -264,7 +264,8 @@ a .mini-play {
     margin-left: 15px;
 }
 .chosemix{
-    margin-left: 60%;
+    font-size: medium;
+   text-align: center;
 }
 .uk {
     background: url("../images/Ukraine.png") no-repeat;
@@ -302,6 +303,15 @@ a .mini-play {
     width: 150px;
 }
 .mixs input{
-
+    margin-right: 40%;
     width: 137px;
+}
+
+.idcard{
+    margin-right: 80%;
+    width: 250px;
+}
+.idcard input{
+    width: 80px;
+
 }
