@@ -35,6 +35,7 @@ class ItemController extends  CController
         $baner=Null;
         if(!$model)
             throw new CHttpException(404);
+        $model->setScenario('image');
         if(isset($_POST['Radistations'])){
             $model->attributes=$_POST['Radistations'];
             $model->image=CUploadedFile::getInstance($model,'image');

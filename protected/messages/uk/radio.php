@@ -1,7 +1,7 @@
 <?php
 return array(
     'What do you think about this song?' => 'Що думаєте про цю пісню?',
-    'If you wanna listen this song again, click the button please!' => 'Якщо бажаєте прослухати цю пісню ще раз, натисніть будь-ласка на кнопку',
+    'If you wanna listen this song again, click the button please!' => 'Якщо бажаєте прослухати цю пісню ще раз, натисніть будь ласка на кнопку',
     'I never heard of it' => 'Я ніколи не чув цю пісню',
     'Even if you don`t know the song, do you like it?' => 'Навіть якщо раніше Ви не чули цю пісню, Вам вона подобається?',
     'I love it' => 'Цю пісню я обожнюю',
@@ -45,13 +45,23 @@ return array(
     'secondary education'=>'середню освіту',
     'higher education'=>'вищу освіту',
     'YYYY-MM-DD'=>'(рік-місяць-дата)',
+    'click here'=>'натисніть тут',
     'click here.'=>'натисніть тут.',
-    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>
-    'Дякуємо за ваш запит до мережі Radio Music Test Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка,',
+    'Unscribe'=>'Відписатися',
+    'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>'Дякуємо за ваш запит до мережі Radio Music Test Ми додаємо імена до нашого списку тільки після перевірки дозволу одержувача, тому ми посилаємо Вам цей запит підтвердження емейлу. Після підтвердження, Ви будете отримувати запрошення на тестування музики, будь ласка, ',
     'To complete the registration click on the link in the email'=>'Для завершення реєстрації перейдіть за посиланням, зазначенм в листі',
     'We canceled subscribe'=>'Ми скасували підписку на наші музичні тести',
-    'If you wanna change settings your profile '=>'Якшо хочете змінити налаштування свого профілю, ',
-    'Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test.'=>
-    'Дякуємо вам за зміни у вашому профілі.На жаль, цей музичний тест був завершений. Найближчим часом ми надішлемо вам електронною поштою чергове запрошення на тестування музики.',
+    'periodicity'=>'Як часто ви хотіли б отримувати запрошення для тестування музики?',
+    'once a week'=>'раз на тиждень',
+    'two times a month'=>'раз у два тижня',
+    'once a month'=>'раз на місяць',
+    'Message'=>'Тут ви можете залишити побажання щодо музики',
+    'Send'=>'Надіслати',
+    'Thank you Your message has been sent'=>'Дякую! Ваше повідомлення було відправлено.',
+    'Sorry you can not send a message'=>'На жаль ваше повідомлення не було відправлено.',
+    'If you wanna change settings your profile'=>'Якщо ви хочете внести зміни в анкеті, або не так часто отримувати запрошення на тестування музики ',
+    'VIGA: Isikukood on vigane!'=>'Персональний код ID-карти невірний!',
+
+
 );
 

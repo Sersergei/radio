@@ -100,6 +100,7 @@ class Messages extends CActiveRecord
 		parent::beforeSave();
 		return true;
 	}
+	/*
 	protected function afterSave(){
 		$email=$this->email_fromm;
 		$subject='Users messages';
@@ -111,4 +112,5 @@ class Messages extends CActiveRecord
 		mail($this->email_to, $subject, $this->message, $headers);
 
 	}
+	*/
 }

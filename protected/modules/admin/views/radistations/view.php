@@ -204,6 +204,7 @@ $this->widget('zii.widgets.CDetailView', array(
 					<table id="stat">
 						<?php
 						arsort($statistic['region']);
+						
 						foreach($statistic['region'] as $key=>$region){
 							if($region){ ?>
 								<tr>

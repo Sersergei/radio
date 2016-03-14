@@ -18,6 +18,7 @@ class EmailInvintation
             $user->isNewRecord=false;
 
             if($user->saveAttributes(array ('activate'))){
+                $user->saveAttributes(array ('link'));
 
                 $criteria = new CDbCriteria();
                 $criteria->condition = 'id_radiostations = :id_radiostations';

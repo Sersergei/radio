@@ -228,7 +228,7 @@ $result=$face->getToken($_GET['code']);
         }
 $this->redirect(array('register/Viewregister'));
     }
-    public function actionIdcard(){
+    public function actionIdcard($id=Null,$linc=Null){
         $model=new Idcard;
         if (isset($_POST['Idcard'])) {
             $model->attributes = $_POST['Idcard'];
@@ -260,7 +260,13 @@ $this->redirect(array('register/Viewregister'));
                 $er=19;
             }
             $session['bersday']=$er.$model->card{1}.$model->card{2}."-".$model->card{3}.$model->card{4}."-".$model->card{5}.$model->card{6};
-                $this->redirect(array('register/Viewregister'));
+                if($id){
+                    $this->redirect(array('register/update/id/'.$id.'/linc/'.$linc));
+                }
+                else{
+                    $this->redirect(array('register/Viewregister'));
+                }
+
             }
             }
         $this->render('idcard',array('model'=>$model));
@@ -310,7 +316,16 @@ $this->redirect(array('register/Viewregister'));
     public function actionUpdate($id=Null,$linc=Null)
     {
         $model=$this->loadModel($id);
+        $session=new CHttpSession;
+        $session->open();
+        //var_dump($model->id_card or !isset($session['bersday'] ));
+        if($model->radio->radiostationSettings->id_card_registration and ($model->id_card or !isset($session['bersday'])))
+            $this->redirect(array('register/Idcard/id/'.$id.'/linc/'.$linc));;
         $i=0;
+        if(isset($session['sex']))
+            $model->sex=$session['sex'];
+        if(isset($session['bersday']))
+            $model->date_birth=$session['bersday'];
         if($model->activate==$linc){
 
         // Uncomment the following line if AJAX validation is needed

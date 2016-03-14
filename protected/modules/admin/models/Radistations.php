@@ -47,7 +47,7 @@ class Radistations extends CActiveRecord
 			array('name', 'length', 'max'=>20),
 			array('location', 'length', 'max'=>255),
 			array('date_add, date, test_count,login, password', 'safe'),
-			array('image', 'file', 'types'=>'jpg, gif, png'),
+			array('image', 'file', 'types'=>'jpg, gif, png','on'=>'image'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_radiostation, name, location, all_tests, date_add, status, id_languege', 'safe', 'on'=>'search'),
@@ -343,7 +343,7 @@ class Radistations extends CActiveRecord
 			}
 
 
-			$model->education = Null;
+			$model->id_education = Null;
 			$statistic['radiostations'] = RadiostationSettings::getradiostation($id);
 
 			$radiostations = array_keys($statistic['radiostations']);
