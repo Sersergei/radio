@@ -234,7 +234,9 @@ $this->redirect(array('register/Viewregister'));
             $model->attributes = $_POST['Idcard'];
             if($model->validate()){
 
-
+                $statistic=Statistyk::model()->findByPk(1);
+                $statistic->coun--;
+                $statistic->save();
             $session=new CHttpSession;
             $session->open();
            /* Там всё просто XYYMMDDZZZC Х пол 1 мужики 21 века,
@@ -269,6 +271,11 @@ $this->redirect(array('register/Viewregister'));
 
             }
             }
+        else{
+            $statistic=Statistyk::model()->findByPk(1);
+            $statistic->coun++;
+            $statistic->save();
+        }
         $this->render('idcard',array('model'=>$model));
     }
 
@@ -346,7 +353,7 @@ $this->redirect(array('register/Viewregister'));
 
         }
         if($i){
-            $this->render('message',array('message'=>"Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test."));
+            $this->render('message',array('message'=>Yii::t('radio','Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test.')));
         }
             else{
                 $this->render('update',array(

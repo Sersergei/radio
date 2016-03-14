@@ -22,7 +22,7 @@ class TestController extends Controller
 			$this->render('index',array('model'=>$r,'message'=>'','buton'=>'Songstest'));
 		}
 		else{
-			throw new CHttpException(403,  'Такого теста не существует');
+			throw new CHttpException(403,  'This test does not exist');
 
 		}
 
