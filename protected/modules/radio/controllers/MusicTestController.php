@@ -118,8 +118,34 @@ class MusicTestController extends Controller
 		{
 			$songs->attributes=$_POST['MusicTest'];
 			$model->attributes=$_POST['MusicTest'];
-			if($model->save())
+			if($model->save()){
+				$old=Yii::getPathOfAlias('webroot.upload').DIRECTORY_SEPARATOR.Yii::app()->user->id;
+				$new=Yii::getPathOfAlias('webroot.musictest').DIRECTORY_SEPARATOR.$id;
+
+
+				$files=CFileHelper::findFiles($old, ['fileTypes' => ['mp3',''], 'level' => 1]);
+				$iduser=Yii::app()->user->id;
+				foreach($files as $file) {
+					$old=Yii::getPathOfAlias('webroot.upload').DIRECTORY_SEPARATOR.Yii::app()->user->id;
+					$new=Yii::getPathOfAlias('webroot.musictest').DIRECTORY_SEPARATOR.$id;
+					$songs = new Songs();
+					$songs->id_test = $id;
+					//$info = $this->mp3info($file);
+					$name=stristr($file,Yii::app()->user->id);
+					$name=stristr($name,'.mp3',true);
+					$usersep=$iduser.DIRECTORY_SEPARATOR;
+					$name=str_replace("{$usersep}","",$name);
+					$old=$old.DIRECTORY_SEPARATOR.$name.'.mp3';
+					$new=$new.DIRECTORY_SEPARATOR.$name.'.mp3';
+					rename($old,$new);
+					$songs->name = $name;
+					$songs->song_file = $new;
+					$songs->validate();
+					$songs->save();
+				}
 				$this->redirect(array('view','id'=>$model->id_test));
+			}
+
 		}
 
 		$this->render('update',array(

@@ -212,7 +212,7 @@ else{
 	}
 
 	protected function afterSave(){
-		//if ($this->isNewRecord){
+		if ($this->isNewRecord){
 			$old=Yii::getPathOfAlias('webroot.upload').'/'.Yii::app()->user->id.'/';
 			$new=Yii::getPathOfAlias('webroot.musictest').'/'.$this->id_test;
 			if(file_exists ($old) ){
@@ -221,8 +221,6 @@ else{
 				foreach($files as $file) {
 					$songs = new Songs();
 					$songs->id_test = $this->id_test;
-					//$info = $this->mp3info($file);
-
 						$name=stristr($file,$this->id_test);
 						$name=stristr($name,'.mp3',true);
 					$name=str_replace("{$this->id_test}/","",$name);
@@ -233,7 +231,7 @@ else{
 					$songs->save();
 				}
 			}
-		//}
+		}
 
 		if ($this->id_status == 2 and $this->id_type == 1) {
 

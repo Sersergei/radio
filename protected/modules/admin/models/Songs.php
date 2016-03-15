@@ -110,6 +110,7 @@ class Songs extends CActiveRecord
 	public function getsongs(){
 		$song="/".stristr($this->song_file,'musictest');
 		$song=str_replace('\\','/',$song);
+		$song=htmlspecialchars($song, ENT_QUOTES);
 		$arr="<div class='lm-inner clearfix'>
          <div class='mini_controls'>
                 <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$this->id_song."'); play(x);\"></a>
@@ -121,6 +122,7 @@ class Songs extends CActiveRecord
 </div>";
 		return $arr;
 	}
+
 	protected function beforeDelete(){
 		if(!parent::beforeDelete())
 			return false;
@@ -129,5 +131,15 @@ class Songs extends CActiveRecord
 		}
 
 		return true;
+	}
+	public function init(){
+		parent::init();
+		$this->name=addslashes($this->name);
+	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->name=htmlspecialchars($this->name, ENT_QUOTES);
+		$this->song_file=htmlspecialchars($this->song_file,ENT_QUOTES);
 	}
 }
