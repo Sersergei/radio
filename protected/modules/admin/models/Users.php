@@ -328,6 +328,7 @@ return true;
 	protected function afterDelete(){
 		Usertest::model()->deleteAll("`id_user`={$this->id_user}");
 		MusicTestDetail::model()->deleteAll("`id_user`={$this->id_user}");
+		Messages::model()->deleteAll("`id_user`={$this->id_user}");
 		parent::afterDelete();
 	}
 	protected function afterFind()
