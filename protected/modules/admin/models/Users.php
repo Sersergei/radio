@@ -355,7 +355,7 @@ return true;
 	}
 	public function education(){
 		if($this->education)
-			return $this->education->education_level;
+			return yii::t('radio',$this->education->education_level);
 		else
 			return Null;
 	}
@@ -415,6 +415,12 @@ return true;
 			}
 		}
 		else return Null;
+	}
+	public function getsexuser(){
+		$arr=array(0=>'',1=>Yii::t('radio','Man'),2=>Yii::t('radio','Woman'));
+		if(!isset($this->sex))
+			return $arr[0];
+		return $arr[$this->sex];
 	}
 
 

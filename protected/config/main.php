@@ -78,6 +78,16 @@ return array(
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
+		'Smtpmail'=>array(
+			'class'=>'application.extensions.smtpmail.PHPMailer',
+			'Host'=>"smtp.gmail.com",
+			'Username'=>'radiomusictestcom@gmail.com',
+			'Password'=>'ch057982',
+			'Mailer'=>'smtp',
+			'Port'=>587,
+			'SMTPAuth'=>true,
+			'SMTPSecure' => 'tls',
+		),
 		
 
 		// database settings are configured in database.php

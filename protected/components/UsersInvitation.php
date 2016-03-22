@@ -66,8 +66,8 @@ class UsersInvitation
 
 
                 $href='http://radiomusictest.com/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
-                $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this ').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>'.$text_before;
-                $subject=$settings->invitation_topic;
+                $text=$this->user->name_listener.',&nbsp;'.$text.'<br>'.Yii::t('radio','For beginning testing music you must click this ').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>'.$text_before;
+                $subject=$this->user->name_listener.',  '.$settings->invitation_topic;
                 $email=$radiosettings->email;
                 //$email=Yii::app()->params['adminEmail'];
                 $headers="From: radio <{$email}>\r\n".
@@ -75,7 +75,8 @@ class UsersInvitation
                     "MIME-Version: 1.0\r\n".
                     "Content-Type: text/html; charset=UTF-8 \r\n";
 
-                mail($this->user->email,$subject,$text,$headers);
+                //mail($this->user->email,$subject,$text,$headers);
+                EmailActive::mailsend($this->user->email,'radiomusictestcom@gmail.com',$subject,$text);
             }
 
 

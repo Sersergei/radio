@@ -43,7 +43,7 @@ class EmailInvintation
 
                 $href=Yii::app()->getBaseUrl(true).'/register/update/id/'.$user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
                 $text=$text.'<br>'.Yii::t('radio','For beginning testing music you must click this ').'<a href ='.$href.'>'.Yii::t('radio','link').'</a>'.$text_before;
-                $subject=$settings->invitation_topic;
+                $subject=$user->name_listener.',  '.$settings->invitation_topic;
                 $email=$radiosettings->email;
                 //$email=Yii::app()->params['adminEmail'];
                 $headers="From: radio <{$email}>\r\n".
@@ -51,7 +51,8 @@ class EmailInvintation
                     "MIME-Version: 1.0\r\n".
                     "Content-Type: text/html; charset=UTF-8 \r\n";
 
-                mail($user->email,$subject,$text,$headers);
+              //  mail($user->email,$subject,$text,$headers);
+                EmailActive::mailsend($user->email,'radiomusictestcom@gmail.com',$subject,$text);
             }
 
 
