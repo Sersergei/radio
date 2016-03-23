@@ -125,7 +125,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}{delete}{Activate}',
+			'buttons'=>array(
+			'Activate'=>array(
+				'label'=>Yii::t('radio','Активировать пользователя'),
+				'visible'=>'$data->status==1',
+				'url'=>'Yii::app()->getUrlManager()->createURL("/admin/users/Activate",array("id"=>$data->id_user))',
+				'imageUrl'=>'/images/itunes.png',
 		),
-	),
-)); ?>
+	)),
+)));
+?>
 </div>

@@ -118,6 +118,13 @@ class UsersController extends Controller
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
+	public function actionActivate($id){
+		$user=$this->loadModel($id);
+		$user->status=Null;
+		$user->save();
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/admin/users'));
+	}
 
 	/**
 	 * Lists all models.

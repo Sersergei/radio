@@ -31,7 +31,7 @@ class Messages extends CActiveRecord
 			array('id_user,id_test', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_user, message', 'safe', 'on'=>'search'),
+			array('id_user, message', 'safe'),
 		);
 	}
 
