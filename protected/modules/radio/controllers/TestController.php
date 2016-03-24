@@ -169,9 +169,9 @@ class TestController extends Controller
             if(!$sumCoun)
                 $sumCoun=1;
             if(!$sumCounP1)
-                $sumCounP1;
+                $sumCounP1=1;
             if(!$sumCounP2)
-                $sumCounP2;
+                $sumCounP2=1;
             $this->widget('EExcelView', array(
                 'id' => 'provider-problem-grid',
                 'dataProvider' => $model->search(),
@@ -352,6 +352,60 @@ class TestController extends Controller
 
                 )));
 
+        }
+        if(isset($_GET['users'])){
+            $this->widget('EExcelView', array(
+                'id' => 'provider-problem-grid',
+                'dataProvider' => $user->search(),
+                'grid_mode' => 'export',
+                'filename' => 'report',
+                'filter' => $model,
+                'title' => '',
+                'autoWidth' => false,
+                'stream' => true,
+                'exportType' => $_GET['type'],
+                'template' => "{items}\n{exportbuttons}\n{pager}",
+                'columns' => array(
+                    array(
+                        'name' => 'Name',
+                        'type' => 'raw',
+                        'value' => '$data->user->name_listener',
+                    ),
+                    array(
+                        'name' => 'Email',
+                        'type' => 'raw',
+                        'value' => '$data->user->email',
+                    ),
+                    array(
+                        'name' => 'Sex',
+                        'type' => 'raw',
+                        'value' => '$data->user->getsex()',
+                    ),
+                    array(
+                        'name' => 'education',
+                        'type' => 'raw',
+                        'value' => '$data->user->education()',
+                    ),
+                    array(
+                        'name' => 'P1',
+                        'type' => 'raw',
+                        'value' => '$data->user->radio->radiostationSettings->getradio($data->user->P1)',
+                    ),
+                    array(
+                        'name' => 'P2',
+                        'type' => 'raw',
+                        'value' => '$data->user->radio->radiostationSettings->getradio($data->user->P2)',
+
+                    ),
+                    array(
+                        'name' => 'region',
+                        'type' => 'raw',
+                        'value' => '$data->user->getregion()',
+                    ),
+                    'time',
+
+                ))
+                );
         }
         if(isset($_GET['status'])){
             if($_GET['status']=='P1'){
