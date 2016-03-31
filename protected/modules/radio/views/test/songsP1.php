@@ -69,9 +69,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'positive_P1',
 			'type' => 'raw',
 			'value' => 'round(($data->CounP15*100/$data->CounP1)+
-                        ($data->CounP14*100/$data->getCounP1())+
-                        ($data->CounP13*100/$data->getCounP1()),2)',
-			'footer'=>round((($sumCounP15+$sumCounP14+$sumCounP13)*100/$sumCounP1),2),
+                        ($data->CounP14*100/$data->getCounP1()),2)',
+			'footer'=>round((($sumCounP15+$sumCounP14)*100/$sumCounP1),2),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),

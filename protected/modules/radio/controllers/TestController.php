@@ -79,12 +79,15 @@ class TestController extends Controller
         $user->id_music=$id;
 
        // $model->sex=array(0,1);
+        $session = new CHttpSession;
+        $session->open();
 
         if (isset($_GET['MusicTestDetail'])){
+            $session['result']=$_GET['MusicTestDetail'];
 
-            $model->attributes = $_GET['MusicTestDetail'];
         }
-
+        if(isset($session['result']))
+            $model->attributes = $session['result'];
 
 
         if(!$model->sex){
@@ -107,6 +110,7 @@ class TestController extends Controller
             $model->P2=array_keys(RadiostationSettings::getradiostation($model->idTest->id_radiostation));
             $model->P2All=1;
         }
+
         //$model->time=time($model->time);
 
         $user->age_from=$model->age_from;
@@ -117,7 +121,8 @@ class TestController extends Controller
         $user->P1=$model->P1;
         $user->P2=$model->P2;
         $user->P2All=$model->P2All;
-
+        $user->marker=$model->marker;
+        $user->P1P2=$model->P1P2;
         if (isset($_GET['file'])) {
             $iterator = new CDataProviderIterator($model->search());
 //var_dump($iterator->coun5);
@@ -195,8 +200,7 @@ class TestController extends Controller
                         'name' => 'positive',
                         'type' => 'raw',
                         'value' => 'round(($data->Coun5*100/$data->Coun)+
-                        ($data->Coun4*100/$data->Coun)+
-                        ($data->Coun3*100/$data->Coun),2)',
+                        ($data->Coun4*100/$data->Coun),2)',
                         'footer'=> round( (($sumCoun5+$sumCoun4+$sumCoun3)*100)/$sumCoun,2),
                     ),
                     array(
@@ -248,9 +252,8 @@ class TestController extends Controller
                         'name' => 'positive_P1',
                         'type' => 'raw',
                         'value' => 'round(($data->CounP15*100/$data->CounP1)+
-                        ($data->CounP14*100/$data->CounP1)+
-                        ($data->CounP13*100/$data->CounP1),2)',
-                        'footer'=>round((($sumCounP15+$sumCounP14+$sumCounP13)*100/$sumCounP1),2),
+                        ($data->CounP14*100/$data->CounP1),2)',
+                        'footer'=>round((($sumCounP15+$sumCounP14)*100/$sumCounP1),2),
                     ),
                     array(
                         'name' => 'negative_P1',
@@ -300,9 +303,8 @@ class TestController extends Controller
                         'name' => 'positive_P2',
                         'type' => 'raw',
                         'value' => 'round(($data->CounP25*100/$data->getCounP2())+
-                        ($data->CounP24*100/$data->getCounP2())+
-                        ($data->CounP23*100/$data->getCounP2()),2)',
-                        'footer'=>round((($sumCounP25+$sumCounP24+$sumCounP23)*100)/$sumCounP2,2),
+                        ($data->CounP24*100/$data->getCounP2()),2)',
+                        'footer'=>round((($sumCounP25+$sumCounP24)*100)/$sumCounP2,2),
                         ),
 
                     array(

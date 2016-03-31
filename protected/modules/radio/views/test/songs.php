@@ -76,9 +76,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'positive',
 			'type' => 'raw',
 			'value' => 'round(($data->Coun5*100/$data->getCoun())+
-                        ($data->Coun4*100/$data->getCoun())+
-                        ($data->Coun3*100/$data->getCoun()),2)',
-			'footer'=> round( (($sumCoun5+$sumCoun4+$sumCoun3)*100)/$sumCoun,2),
+                        ($data->Coun4*100/$data->getCoun()),2)',
+			'footer'=> round( (($sumCoun5+$sumCoun4)*100)/$sumCoun,2),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -211,4 +210,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 	)));
 ?>
+	<br>
+	<a href="?users=1&type=Excel2007">Download report Excel</a></br>
+	<a href="?users=1&type=CSV">Download report csv</a>
 </div>

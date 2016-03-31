@@ -44,6 +44,7 @@ class Users extends CActiveRecord
 	public $after_age;
 	public $active;
 	public $create;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -199,10 +200,11 @@ class Users extends CActiveRecord
 		$criteria->compare('status', $this->status);
 		$criteria->compare('id_category', $this->id_category);
 		$criteria->compare('t.id_radiostation', $this->id_radiostation);
-		$criteria->compare('mix_marker', $this->mix_marker, true);
+		$criteria->compare('mix_marker', $this->mix_marker);
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
+
 		if($this->date_birth)
 		$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from());
 

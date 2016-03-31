@@ -21,6 +21,8 @@ class Usertest extends CActiveRecord
 	public $age_from;
 	public $after_age;
 	public $P2All;
+	public $marker;
+	public $P1P2;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -41,7 +43,7 @@ class Usertest extends CActiveRecord
 			array('id_user, id_music', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_user, id_music, date, time, sex', 'safe', 'on'=>'search'),
+			array('id, id_user, id_music, date, time, sex, marker', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,7 +91,7 @@ class Usertest extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('user');
+		$criteria->with=array('user','test');
 		$criteria->compare('id',$this->id);
 		$criteria->compare('t.id_user',$this->id_user);
 		$criteria->compare('id_music',$this->id_music);
@@ -108,6 +110,12 @@ class Usertest extends CActiveRecord
 			$criteria->addInCondition('user.region',$this->region);
 		if(!$this->P2All){
 			$criteria->addInCondition('user.P2',$this->P2);
+		}
+		if($this->marker){
+			$criteria->compare('user.marker','+');
+		}
+		if($this->P1P2){
+			$criteria->addColumnCondition(array('P1'=>$this->test->id_radiostation, 'P2'=>$this->test->id_radiostation), 'OR');
 		}
 
 		return new CActiveDataProvider($this, array(
