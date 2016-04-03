@@ -47,8 +47,8 @@ class EmailActive
                 "Reply-To: {$email}\r\n" .
                 "MIME-Version: 1.0\r\n" .
                 "Content-Type: text/html; charset=UTF-8 \r\n";
-            self::mailsend($this->user->email,'radiomusictestcom@gmail.com',$subject,$text);
-           // mail($this->user->email, $subject, $text, $headers);
+           // self::mailsend($this->user->email,'radiomusictestcom@gmail.com',$subject,$text);
+            mail($this->user->email, $subject, $text, $headers);
         }
     }
     public  static function mailsend($to,$from,$subject,$message){
@@ -59,6 +59,9 @@ class EmailActive
         $mail->AddAddress($to, "");
         if(!$mail->Send()) {
             echo "Mailer Error: " . $mail->ErrorInfo;
+        }
+        else{
+            echo $to.'good';
         }
     }
 

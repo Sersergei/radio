@@ -261,6 +261,7 @@ $test=unserialize($session['test']);
 			$time2=new DateTime();
 			$interval = $time1->diff($time2);
 			$usertest->time=$interval->format('%H:%I:%S');
+			$usertest->ip=sprintf('%u', ip2long(Yii::app()->request->userHostAddress));
 
 			$usertest->save();
 			$testresult=unserialize($session['testresult']);

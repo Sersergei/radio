@@ -42,7 +42,7 @@ return array(
     'You entered the incorrect date'=>'введите дату своего рождения в формате: год, месяц, число',
     'You chosen this radio station. You must choose other radio, which listened less, than your favorite station'=>'Вы уже выбрали эту радиостанцию, теперь выберите другую станцию, которую вы слушали немного реже, чем любимую станцию',
     'Thank you! The invitation to test you come to the email'=>'Спасибо за регистрацию! Приглашение на тестирование музыки придет Вам на email',
-    'For beginning testing music you must click this'=>'Для того, чтобы начать тестирование музыки, вам необходимо нажать на эту ',
+    'For beginning testing music you must click this '=>'Для того, чтобы начать тестирование музыки, вам необходимо нажать на эту ',
     'link'=>'ссылку',
     'Next'=>'Вперёд',
     'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!'=>'Через пару секунд я начину проигрывать Вам фрагменты песен. Проверьте играет ли сейчас музыка в колонках или наушниках, а также проверьте уровень громкости. Не слишком тихо или громко? После прослушивания каждой песни, я задам вам несколько вопросов. Спасибо за ваше время!',

@@ -39,11 +39,11 @@ class Usertest extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, id_music, date, time', 'required'),
+			array('id_user, id_music, date, time, ip', 'required'),
 			array('id_user, id_music', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_user, id_music, date, time, sex, marker', 'safe', 'on'=>'search'),
+			array('id, id_user, id_music, date, time, sex, marker, ip', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +71,7 @@ class Usertest extends CActiveRecord
 			'id_music' => 'Id Music',
 			'date' => 'Date',
 			'time' => 'Time',
+			'ip'=>'IP',
 		);
 	}
 
@@ -202,6 +203,11 @@ class Usertest extends CActiveRecord
 			}
 		}
 
+	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->ip=long2ip($this->ip);
 	}
 
 }

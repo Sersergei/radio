@@ -196,6 +196,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => '$data->user->getregion()',
 		),
 		'time',
+		'ip',
 
 		array(
 			'class'=>'CButtonColumn',
