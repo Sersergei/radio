@@ -287,43 +287,43 @@ class Radistations extends CActiveRecord
 			unset($model->sex);
 			//$model->sex = Null;
 
-			$model->after_age = 14;
+			$model->after_age = 15;
 			$model->age_from = 1;
 			$statistic['count_0_14'] = count($model->sereachuser());
 
 
-			$model->after_age = 19;
+			$model->after_age = 20;
 			$model->age_from = 15;
 			$statistic['count_15_19'] = count($model->sereachuser());
 
 
-			$model->after_age = 24;
+			$model->after_age = 25;
 			$model->age_from = 20;
 			$statistic['count_20_24'] = count($model->sereachuser());
 
 
-			$model->after_age = 29;
+			$model->after_age = 30;
 			$model->age_from = 25;
 			$statistic['count_25_29'] = count($model->sereachuser());
 
 			$model->sex = Null;
 
-			$model->after_age = 34;
+			$model->after_age = 35;
 			$model->age_from = 30;
 			$statistic['count_30_34'] = count($model->sereachuser());
 
 
-			$model->after_age = 39;
+			$model->after_age = 40;
 			$model->age_from = 35;
 			$statistic['count_35_39'] = count($model->sereachuser());
 
 
-			$model->after_age = 44;
+			$model->after_age = 45;
 			$model->age_from = 40;
 			$statistic['count_40_44'] = count($model->sereachuser());
 
 
-			$model->after_age = 49;
+			$model->after_age = 50;
 			$model->age_from = 45;
 			$statistic['count_45_49'] = count($model->sereachuser());
 

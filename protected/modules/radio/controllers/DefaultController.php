@@ -29,6 +29,11 @@ class DefaultController extends Controller
 			$model = new Usertest('search');
 			$model->id_music = $id;
 			$statistic['count_all'] = count($model->user());
+			$model->marker=1;
+			$model->P1P2=1;
+			$statistic['P1P2mix']=count($model->user());
+			$model->marker=Null;
+			$model->P1P2=Null;
 
 			$model->sex = 1;
 			$statistic['count_all_man'] = count($model->user());
@@ -132,6 +137,15 @@ class DefaultController extends Controller
 			$criteria->addCondition('status IS NULL');
 			$criteria->addCondition('link IS NOT NULL');
 			$statistic['count_invention']=count(Users::model()->findall($criteria));
+
+			$criteria = new CDbCriteria;
+			$criteria->compare('id_radiostation', $user->id_radiostation);
+			$criteria->compare('id_category',3);
+			$criteria->compare('marker','+');
+			$criteria->addColumnCondition(array('P1'=>$user->id_radiostation, 'P2'=>$user->id_radiostation), 'OR');
+			$criteria->addCondition('P1 IS NOT NULL');
+			$criteria->addCondition('status IS NULL');
+			$statistic['p1p2user']=count(Users::model()->findall($criteria));
 
 		}
 		else{

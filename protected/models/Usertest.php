@@ -159,6 +159,12 @@ class Usertest extends CActiveRecord
 		$criteria->compare('user.P2',$this->P2);
 		$criteria->compare('user.region',$this->region);
 		$criteria->addBetweenCondition('user.date_birth',$this->after_age(),$this->age_from());
+		if($this->marker){
+			$criteria->compare('user.marker','+');
+		}
+		if($this->P1P2){
+			$criteria->addColumnCondition(array('P1'=>$this->test->id_radiostation, 'P2'=>$this->test->id_radiostation), 'OR');
+		}
 
 		return Usertest::model()->findAll($criteria);
 

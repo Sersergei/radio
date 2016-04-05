@@ -76,6 +76,7 @@ class MusicTestDetail extends CActiveRecord
 	public $marker;
 	public $P1P2;
 	public $time;
+	public $ip;
 
 
 
@@ -96,11 +97,11 @@ class MusicTestDetail extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_user, date_last, id_song', 'required'),
-			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
+			array('id_test, id_user, id_song, id_like, never,ip', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age,
-					id_education,P1,P2,P2All,marker,P1P2,time, region', 'safe', 'on'=>'search'),
+					id_education,P1,P2,P2All,marker,P1P2,time,ip, region', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -182,6 +183,9 @@ class MusicTestDetail extends CActiveRecord
 		}
 		if($this->marker){
 			$criteria->compare('idUser.marker','+');
+		}
+		if($this->ip){
+			$criteria->addBetweenCondition('idUser.ip',INET_ATON('5.101.112.0') , INET_ATON('5.101.127.255 '));
 		}
 
 
