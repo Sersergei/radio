@@ -118,6 +118,7 @@ class MusicTestDetail extends CActiveRecord
 			'idSong' => array(self::BELONGS_TO, 'Songs', 'id_song'),
 			'idLike' => array(self::BELONGS_TO, 'SongLikesMult', 'id_like'),
 			'usertest'=>array(self::BELONGS_TO,'Usertest',array('id_user'=>'id_user','id_test'=>'id_music')),
+			//'usertest'=>array(self::BELONGS_TO,'Usertest','id_user'),
 		);
 	}
 
@@ -184,12 +185,82 @@ class MusicTestDetail extends CActiveRecord
 		if($this->marker){
 			$criteria->compare('idUser.marker','+');
 		}
+		//$criteria->addCondition(new CDbExpression(" usertest.ip=INET_ATON('82.131.100.233')"));
+
 		if($this->ip){
-			$criteria->addBetweenCondition('idUser.ip',INET_ATON('5.101.112.0') , INET_ATON('5.101.127.255 '));
+			$criteria->addCondition(new CDbExpression("usertest.ip Between INET_ATON('5.101.112.0') AND INET_ATON('5.101.127.255 ')
+														OR usertest.ip Between INET_ATON('5.101.176.0') AND INET_ATON('5.101.191.255')
+														OR usertest.ip Between INET_ATON('5.157.0.0') AND INET_ATON('5.157.63.255')
+														OR usertest.ip Between INET_ATON('37.157.64.0') AND INET_ATON('37.157.127.255')
+														OR usertest.ip Between INET_ATON('46.22.208.0') AND INET_ATON('46.22.223.255')
+														OR usertest.ip Between INET_ATON('46.39.128.0') AND INET_ATON('46.39.159.255')
+														OR usertest.ip Between INET_ATON('46.131.0.0') AND INET_ATON('46.131.255.255')
+														OR usertest.ip Between INET_ATON('62.65.32.0') AND INET_ATON('62.65.63.255')
+														OR usertest.ip Between INET_ATON('62.65.192.0') AND INET_ATON('62.65.255.255')
+														OR usertest.ip Between INET_ATON('77.233.64.0') AND INET_ATON('77.233.95.255')
+														OR usertest.ip Between INET_ATON('77.240.240.0') AND INET_ATON('77.240.255.255')
+														OR usertest.ip Between INET_ATON('78.28.64.0') AND INET_ATON('78.28.127.255')
+														OR usertest.ip Between INET_ATON('78.110.32.0') AND INET_ATON('78.110.47.255')
+														OR usertest.ip Between INET_ATON('79.134.192.0') AND INET_ATON('79.134.223.255')
+														OR usertest.ip Between INET_ATON('80.66.240.0') AND INET_ATON('80.66.255.255')
+														OR usertest.ip Between INET_ATON('80.79.112.0') AND INET_ATON('80.79.127.255')
+														OR usertest.ip Between INET_ATON('80.235.0.0') AND INET_ATON('80.235.127.255')
+														OR usertest.ip Between INET_ATON('80.250.112.0') AND INET_ATON('80.250.127.255')
+														OR usertest.ip Between INET_ATON('81.20.144.0') AND INET_ATON('81.20.159.255')
+														OR usertest.ip Between INET_ATON('81.21.240.0') AND INET_ATON('81.21.255.255')
+														OR usertest.ip Between INET_ATON('81.25.240.0') AND INET_ATON('81.25.255.255')
+														OR usertest.ip Between INET_ATON('81.90.112.0') AND INET_ATON('81.90.127.255')
+														OR usertest.ip Between INET_ATON('82.131.0.0') AND INET_ATON('82.131.127.255')
+														OR usertest.ip Between INET_ATON('82.147.160.0') AND INET_ATON('82.147.191.255')
+														OR usertest.ip Between INET_ATON('83.166.32.0') AND INET_ATON('83.166.63.255')
+														OR usertest.ip Between INET_ATON('84.50.0.0') AND INET_ATON('84.50.255.255')
+														OR usertest.ip Between INET_ATON('84.52.0.0') AND INET_ATON('84.52.63.255')
+														OR usertest.ip Between INET_ATON('85.29.192.0') AND INET_ATON('85.29.255.255')
+														OR usertest.ip Between INET_ATON('85.89.32.0') AND INET_ATON('85.89.63.255')
+														OR usertest.ip Between INET_ATON('85.117.96.0') AND INET_ATON('85.117.127.255')
+														OR usertest.ip Between INET_ATON('85.196.192.0') AND INET_ATON('85.196.255.255')
+														OR usertest.ip Between INET_ATON('85.253.0.0') AND INET_ATON('85.253.255.255')
+														OR usertest.ip Between INET_ATON('86.110.32.0') AND INET_ATON('86.110.63.255')
+														OR usertest.ip Between INET_ATON('87.98.0.0') AND INET_ATON('87.98.127.255')
+														OR usertest.ip Between INET_ATON('87.119.160.0') AND INET_ATON('87.119.191.255')
+														OR usertest.ip Between INET_ATON('88.196.0.0') AND INET_ATON('88.196.255.255')
+														OR usertest.ip Between INET_ATON('89.221.64.0') AND INET_ATON('89.221.79.255')
+														OR usertest.ip Between INET_ATON('89.235.192.0') AND INET_ATON('89.235.255.255')
+														OR usertest.ip Between INET_ATON('90.190.0.0') AND INET_ATON('90.191.255.255')
+														OR usertest.ip Between INET_ATON('91.146.64.0') AND INET_ATON('91.146.95.255')
+														OR usertest.ip Between INET_ATON('92.62.96.0') AND INET_ATON('92.62.111.255')
+														OR usertest.ip Between INET_ATON('93.185.240.0') AND INET_ATON('93.185.255.255')
+														OR usertest.ip Between INET_ATON('94.246.192.0') AND INET_ATON('94.246.255.255')
+														OR usertest.ip Between INET_ATON('95.153.0.0') AND INET_ATON('95.153.63.255')
+														OR usertest.ip Between INET_ATON('176.46.0.0') AND INET_ATON('176.46.127.255')
+														OR usertest.ip Between INET_ATON('178.236.192.0') AND INET_ATON('178.236.207.255')
+														OR usertest.ip Between INET_ATON('188.0.48.0') AND INET_ATON('188.0.63.255')
+														OR usertest.ip Between INET_ATON('193.40.0.0') AND INET_ATON('193.40.255.255')
+														OR usertest.ip Between INET_ATON('194.106.96.0') AND INET_ATON('194.106.127.255')
+														OR usertest.ip Between INET_ATON('194.126.96.0') AND INET_ATON('194.126.127.255')
+														OR usertest.ip Between INET_ATON('194.204.0.0') AND INET_ATON('194.204.31.255')
+														OR usertest.ip Between INET_ATON('195.50.192.0') AND INET_ATON('195.50.223.255')
+														OR usertest.ip Between INET_ATON('195.50.224.0') AND INET_ATON('195.50.255.255')
+														OR usertest.ip Between INET_ATON('195.80.96.0') AND INET_ATON('195.80.127.255')
+														OR usertest.ip Between INET_ATON('195.222.0.0') AND INET_ATON('195.222.31.255')
+														OR usertest.ip Between INET_ATON('195.250.160.0') AND INET_ATON('195.250.191.255')
+														OR usertest.ip Between INET_ATON('212.7.0.0') AND INET_ATON('212.7.31.255')
+														OR usertest.ip Between INET_ATON('212.27.224.0') AND INET_ATON('212.27.255.255')
+														OR usertest.ip Between INET_ATON('212.49.0.0') AND INET_ATON('212.49.31.255')
+														OR usertest.ip Between INET_ATON('212.107.32.0') AND INET_ATON('212.107.63.255')
+														OR usertest.ip Between INET_ATON('213.35.128.0') AND INET_ATON('213.35.255.255')
+														OR usertest.ip Between INET_ATON('213.168.0.0') AND INET_ATON('213.168.31.255')
+														OR usertest.ip Between INET_ATON('213.180.0.0') AND INET_ATON('213.180.31.255')
+														OR usertest.ip Between INET_ATON('213.184.32.0') AND INET_ATON('213.184.63.255')
+														OR usertest.ip Between INET_ATON('213.187.224.0') AND INET_ATON('213.187.239.255')
+														OR usertest.ip Between INET_ATON('213.219.64.0') AND INET_ATON('213.219.127.255')
+														OR usertest.ip Between INET_ATON('217.71.32.0') AND INET_ATON('217.71.47.255')
+														OR usertest.ip Between INET_ATON('217.146.64.0') AND INET_ATON('217.146.79.255')
+														OR usertest.ip Between INET_ATON('217.159.128.0') AND INET_ATON('217.159.255.255')
+														"));
 		}
 
-
-		$criteria->select = "`t`.*, COUNT(*) as Coun,
+$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,
 		COUNT(CASE WHEN id_like=4 THEN 1 ELSE NULL END) as Coun4,

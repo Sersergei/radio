@@ -82,7 +82,7 @@ return array(
 			'class'=>'application.extensions.smtpmail.PHPMailer',
 			'Host'=>"smtp.gmail.com",
 			'Username'=>'radiomusictestcom@gmail.com',
-			'Password'=>'ch057982859',
+			'Password'=>'ch0579828592',
 			'Mailer'=>'smtp',
 			'Port'=>587,
 			'SMTPAuth'=>true,

@@ -417,8 +417,10 @@ class TestController extends Controller
                 $this->render('songsP2', array('model' => $model));
             }
         }
-        else
-        $this->render('songs', array('model' => $model,'user'=>$user,));
+        else{
+            $this->render('songs', array('model' => $model,'user'=>$user,));
+        }
+       // $this->render('songs', array('model' => $model,'user'=>$user,));
     }
     public function actionStatistic($id){
         $model = new Usertest('search');

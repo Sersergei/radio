@@ -39,6 +39,11 @@
 		</tr>
 		<tr>
 			<td>
+				<?php echo $form->checkBoxList($model,'ip',array(1=>'ip')); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<?php echo $form->checkBoxList($model,'marker',array('+'=>'Mix-marker')); ?>
 			</td>
 		</tr>
