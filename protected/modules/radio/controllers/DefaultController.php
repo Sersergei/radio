@@ -135,7 +135,7 @@ class DefaultController extends Controller
 			$criteria->compare('id_category',3);
 			$criteria->addCondition('P1 IS NOT NULL');
 			$criteria->addCondition('status IS NULL');
-			$criteria->addCondition('link>1');
+			$criteria->addCondition(new CDbExpression("link!=''"));
 			$statistic['count_invention']=count(Users::model()->findall($criteria));
 
 			$criteria = new CDbCriteria;
