@@ -58,6 +58,7 @@ foreach ($iterator as $test){
 	$sumCoun5+=$test->Coun5;
 $sumnever+=$test->never;
 }
+var_dump($sumCoun);
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'usertest-grid',
 	'dataProvider'=>$model->search(),
@@ -76,8 +77,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'positive',
 			'type' => 'raw',
 			'value' => 'round(($data->Coun5*100/$data->getCoun())+
-                        ($data->Coun4*100/$data->getCoun()),2)',
-			'footer'=> round( (($sumCoun5+$sumCoun4)*100)/$sumCoun,2),
+                        ($data->Coun4*100/$data->getCoun()))',
+			'footer'=> round( (($sumCoun5+$sumCoun4)*100)/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -87,8 +88,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name' => 'negative',
 			'type' => 'raw',
 			'value' => 'round(($data->Coun2*100/$data->getCoun())+
-                        ($data->Coun1*100/$data->getCoun()),2)',
-			'footer'=> round((($sumCoun1+$sumCoun2)*100)/$sumCoun,2),
+                        ($data->Coun1*100/$data->getCoun()))',
+			'footer'=> round((($sumCoun1+$sumCoun2)*100)/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -97,8 +98,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'favorite',
 			'type' => 'raw',
-			'value' => 'round($data->Coun5*100/$data->getCoun(),2)',
-			'footer'=> round((($sumCoun5*100)/$sumCoun),2),
+			'value' => 'round($data->Coun5*100/$data->getCoun())',
+			'footer'=> round((($sumCoun5*100)/$sumCoun)),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -106,8 +107,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'like',
 			'type' => 'raw',
-			'value' => 'round($data->Coun4*100/$data->getCoun(),2)',
-			'footer'=> round($sumCoun4*100/$sumCoun,2),
+			'value' => 'round($data->Coun4*100/$data->getCoun())',
+			'footer'=> round($sumCoun4*100/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -115,8 +116,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'normal',
 			'type' => 'raw',
-			'value' => 'round($data->Coun3*100/$data->getCoun(),2)',
-			'footer'=> round($sumCoun3*100/$sumCoun,2),
+			'value' => 'round($data->Coun3*100/$data->getCoun())',
+			'footer'=> round($sumCoun3*100/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -124,8 +125,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'tired',
 			'type' => 'raw',
-			'value' => 'round($data->Coun2*100/$data->getCoun(),2)',
-			'footer'=>round( $sumCoun2*100/$sumCoun,2),
+			'value' => 'round($data->Coun2*100/$data->getCoun())',
+			'footer'=>round( $sumCoun2*100/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -133,8 +134,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name' => 'dislike',
 			'type' => 'raw',
-			'value' => 'round($data->Coun1*100/$data->getCoun(),2)',
-			'footer'=> round($sumCoun1*100/$sumCoun,2),
+			'value' => 'round($data->Coun1*100/$data->getCoun())',
+			'footer'=> round($sumCoun1*100/$sumCoun),
 			'htmlOptions' => array(
 				'style'=>'text-align:center'
 			),
@@ -142,8 +143,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				array(
 			'name' => 'never',
 			'type' => 'raw',
-			'value' =>  'round($data->never*100/$data->getCoun(),2)',
-					'footer'=> round($sumnever*100/$sumCoun,2),
+			'value' =>  'round($data->never*100/$data->getCoun())',
+					'footer'=> round($sumnever*100/$sumCoun),
 					'htmlOptions' => array(
 						'style'=>'text-align:center'
 					),

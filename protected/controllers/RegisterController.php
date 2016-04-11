@@ -91,6 +91,7 @@ class RegisterController extends Controller
             if (isset($_POST['mixmarker']))
             $models->mixmarker = $_POST['mixmarker'];
             if ($models->validate()){
+                $session['id_mix']=$models->mixmarker;
                 if(in_array($models->mixmarker,$bed_mixmarker)){
                     $session['marker']='-';
                 }
@@ -143,6 +144,7 @@ class RegisterController extends Controller
 
                 $model->scenario = 'user';
                 $model->marker=$session['marker'];
+                $model->mix_marker=$session['id_id_mix'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
                 $model->status=1;//забанен
