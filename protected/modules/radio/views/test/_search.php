@@ -37,16 +37,22 @@
 				</div>
 			</td>
 		</tr>
-		<tr>
+		<tr><tr>
+			<td>
+				<?php echo $form->checkBoxList($model,'marker',array('+'=>'Mix-marker')); ?>
+			</td>
+			<td style=" vertical-align: top; ">
+				<p><?php echo $form->labelEx($model,''); ?></p>
+
+				<?php echo $form->checkBoxList($model,'region',TestSettings::getregion($model->idTest->id_radiostation)); ?>
+				<?php echo $form->error($model,'region'); ?>
+			</td>
+		</tr>
 			<td>
 				<?php echo $form->checkBoxList($model,'ip',array(1=>'ip')); ?>
 			</td>
 		</tr>
-		<tr>
-			<td>
-				<?php echo $form->checkBoxList($model,'marker',array('+'=>'Mix-marker')); ?>
-			</td>
-		</tr>
+
 		<tr>
 			<td>
 

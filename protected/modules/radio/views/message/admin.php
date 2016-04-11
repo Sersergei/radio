@@ -44,3 +44,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
     ),
 )); ?>
+<br>
+<a href="?users=1&type=Excel2007">Download report Excel</a></br>
+
