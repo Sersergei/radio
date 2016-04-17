@@ -216,3 +216,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	<a href="?users=1&type=Excel2007">Download report Excel</a></br>
 	<a href="?users=1&type=CSV">Download report csv</a>
 </div>
+<a href="/radio/test/statistic">Statistic</a>
