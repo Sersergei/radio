@@ -144,7 +144,8 @@ class RegisterController extends Controller
 
                 $model->scenario = 'user';
                 $model->marker=$session['marker'];
-                $model->mix_marker=$session['id_id_mix'];
+                $model->mix_marker=$session['id_mix'];
+
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
                 $model->status=1;//забанен
@@ -152,6 +153,7 @@ class RegisterController extends Controller
                     new EmailActive($model);
                     $this->redirect(array('Message'));
                 }
+
 
             }
 

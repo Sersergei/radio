@@ -81,7 +81,7 @@ class Users extends CActiveRecord
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
 			array('login, password', 'length', 'max' => 20,'min'=>6,'on'=>'noadmin,admin '),
-			array('mix_marker', 'length', 'max' => 1),
+			//array('mix_marker', 'length', 'max' => 1),
 			array('date_birth','date','format'=>'yyyy-mm-dd','on'=>'user'),
 			array('date_birth','datestarted','on'=>'user'),
 			array('date_birth','datefinished','on'=>'user'),
