@@ -269,5 +269,14 @@ class RadiostationSettings extends CActiveRecord
 		$arr[$this->id_radiostation]=$this->Radiostation->name;
 		return $arr[$id];
 	}
+	public function gettestsongs(){
+		if($this->mix_marker)
+			$r=$this->mix_marker;//песня для тестирования музыки
+		else{
+			$r=unserialize($this->god_mixmarker);
+			$r=$r[0];
+		}
+		return $r;
+	}
 
 }

@@ -1,0 +1,91 @@
+.mini-play {
+    background: url("../images/sprite.png") no-repeat scroll 0 -1293px rgba(0, 0, 0, 0);
+    display: inline-block;
+    float: left;
+    height: 28px;
+
+    width: 28px;
+    margin-top:3px;
+    margin-bottom: 10px;
+    margin-left: 135px;
+}
+.mini-pause {
+    background: url("../images/sprite.png") no-repeat scroll 0 -689px rgba(0, 0, 0, 0);
+    display: inline-block;
+    float: left;
+    height: 28px;
+
+    width: 28px;
+    margin-top:3px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+.mix table{
+    margin:auto;
+}
+
+.mix table, table td {
+    margin:auto;
+    width: 167px;
+    border: medium none;
+    border-collapse: collapse;
+    padding: 5px;
+}
+.mix table,  tr {
+    width: 167px;
+    background:url("../images/under_mix.png") no-repeat;
+}
+table, table td {
+    margin:auto;
+    font-size: small;
+}
+a.mini-pause {
+    margin-bottom: 10px;
+    margin-left: 135px;
+}
+a .mini-play {
+    margin-bottom: 10px;
+    margin-left: 115px;
+}
+.chosemix{
+    font-size: medium;
+    text-align: center;}
+.chosemix{
+    font-size: medium;
+    text-align: center;
+}
+.mix input{
+    margin-reight:30%;
+    float:left;
+    margin-top:8px;
+    width: 40px;
+    height: 20px;
+
+}
+.mix button{
+    margin-left: 100px;
+    width: 150px;
+}
+.mixs input{
+    width: 137px;
+}
+#user-form{
+    width: 500px;
+}
+input,select{
+    width: 250px;
+    float: right;
+    border-radius: 6px;
+}
+.rows input{
+    width: 200px;
+    float: left;
+    border-radius: 6px;
+}
+.row label{
+    width: 200px;
+    margin-bottom: 10px;
+}
+.row {
+    margin-bottom: 10px;
+}

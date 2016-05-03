@@ -77,7 +77,7 @@
                 <tr>
                     <td width="127" height="69" colspan="2" rowspan="3" align="right" valign="bottom">
                         <div>
-                        <a class="previus" href="/test/Repeat"></a>
+                        <a class="previus" href="Repeat"></a>
                         </div>
                     </td>
                     <td width="161" height="32" align="right"></td>

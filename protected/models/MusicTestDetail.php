@@ -96,7 +96,7 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, date_last, id_song', 'required'),
+			array('date_last, id_song', 'required'),
 			array('id_test, id_user, id_song, id_like, never,ip', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

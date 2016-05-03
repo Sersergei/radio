@@ -71,7 +71,8 @@ return array(
 				//'<language:>' => 'site/index',
 				'<action:(mesage|login|logout|Run)>' => 'site/<action>',
 
-				'<controller:\w+>/<id:\d+>' => 'register',
+				//'<controller:\w+>/<id:\d+>' => 'register',
+				'<controller:\w+>/<id:\d+>' => '<controller>',
 				//'test/index/<id:\d+>/<category:\w+>' => 'test/<id>/<category>',
 				//'<controller:\w+>/<id:\d+>' => '<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

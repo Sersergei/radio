@@ -228,6 +228,9 @@ $result=$face->getToken($_GET['code']);
         else {
             exit ('Ошибка параметров');
         }
+        if($session['radio'])
+            $this->redirect(array('radiostations/ChoosingMix'));
+        else
 $this->redirect(array('register/Viewregister'));
     }
     public function actionIdcard($id=Null,$linc=Null){

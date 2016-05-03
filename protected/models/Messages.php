@@ -27,7 +27,7 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user,id_test', 'required'),
+			array('id_user,id_test,message', 'required'),
 			array('id_user,id_test', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

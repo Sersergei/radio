@@ -72,7 +72,7 @@ class Users extends CActiveRecord
 			array('P2','notP1','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
-			array('email','email'),
+
 			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
 			array('email','unique','on'=>'user'),
