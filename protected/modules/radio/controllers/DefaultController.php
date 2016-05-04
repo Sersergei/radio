@@ -16,6 +16,7 @@ class DefaultController extends Controller
 		}
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
 		$href=Yii::t('radio','Link for registration on call-out:').Yii::app()->getBaseUrl(true)."/register/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
+		$href2=Yii::t('radio','Link for registration on call-out (fast start):').Yii::app()->getBaseUrl(true)."/radiostations/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
 		$AMT_href=Yii::t('radio','Link for registration on AMT:').Yii::app()->getBaseUrl(true)."/amt/index/id/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
 
 		$criteria = new CDbCriteria;
@@ -154,7 +155,7 @@ class DefaultController extends Controller
 		}
 		//$this->render('statistic', array('model' => $statistic));
 
-		$this->render('index',array('license'=>$license,'href'=>$href,'AMT'=>$AMT_href,'model' => $statistic,'test'=>$musictest));
+		$this->render('index',array('license'=>$license,'href'=>$href,'AMT'=>$AMT_href,'href2'=>$href2,'model' => $statistic,'test'=>$musictest));
 	}
 }
 ?>

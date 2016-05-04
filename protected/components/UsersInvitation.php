@@ -62,7 +62,13 @@ class UsersInvitation
 
                 $hrefUnscribe='http://radiomusictest.com/register/DisActive/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
                 $hrefUpdate='http://radiomusictest.com/register/Update/id/'.$this->user->id_user.'/linc/'.$this->user->activate.'?lang='.$lang->lang;
-                $text_before='<br><br><br>'.Yii::t('radio','If you wanna change settings your profile').'<a href ='.$hrefUpdate.'>'.Yii::t('radio','click here').'</a><br><br><br><a style="font-family: Verdana" href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a></div>';
+
+                $text_before='<br><br>'.Yii::t('radio','your name').': <strong>'.$this->user->name_listener.'</strong>';
+                $text_before=$text_before.'<br>e-mail: <strong>'.$this->user->email.'</strong>';
+                $text_before=$text_before.'<br>'.Yii::t('radio','your birth date').': <strong>'.$this->user->date_birth.'</strong>';
+                $text_before=$text_before.'<br>'.Yii::t('radio','your sex').': <strong>'.$this->user->getsexuser().'</strong>';
+                $text_before=$text_before.'<br>'.Yii::t('radio','your adress').': <strong>'.$this->user->getregion().'</strong>';
+                $text_before=$text_before.'<br><br><br>'.Yii::t('radio','If you wanna change settings your profile').'<a href ='.$hrefUpdate.'>'.Yii::t('radio','click here').'</a><br><br><br><a style="font-family: Verdana" href ='.$hrefUnscribe.'>'.Yii::t('radio','Unscribe').'</a></div>';
 
 
                 $href='http://radiomusictest.com/test/index/id/'.$this->user->id_user.'/linc/'.$linc.'?lang='.$lang->lang;
@@ -85,10 +91,10 @@ class UsersInvitation
     }
     private function Filter(){
 
-        if($this->user->status){
+       // if($this->user->status){
 
-            return false;
-        }
+        //    return false;
+       // }
 
 
         $criteria = new CDbCriteria();
@@ -98,7 +104,19 @@ class UsersInvitation
 
         if(!$musictest)
             return false; //если нету то отправля ем falce
+        else {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'id_user = :id_user AND id_music=:id_music';
+            $criteria->params = array(':id_user' => $this->user->id_user, ':id_music' => $musictest->id_test);
+            $usertest = Usertest::model()->find($criteria);
+            if($usertest){
+                return false;
+            }
 
+        }
+        if($this->user->link){
+            return falce;
+        }
         $criteria = new CDbCriteria();
         $criteria->condition = 'id_radiostation = :id_radiostation';
         $criteria->params = array(':id_radiostation' => $this->user->id_radiostation);
@@ -139,7 +157,7 @@ class UsersInvitation
                 return false;
         } // проверка на образование
 
-        if($testsettings->week){ //проверка на дату последнего теста
+     /*   if($testsettings->week){ //проверка на дату последнего теста
             $date=60*60*24*7*$testsettings->week;
             $date=abs(time()-strtotime($date));
             $criteria = new CDbCriteria;
@@ -154,6 +172,7 @@ class UsersInvitation
             }
 
         }
+    */
         if($testsettings->count_from){ //прошел от  тестов
             $criteria = new CDbCriteria;
             $criteria->compare('id_user',$this->user->id_user);

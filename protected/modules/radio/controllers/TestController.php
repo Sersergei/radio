@@ -427,10 +427,12 @@ class TestController extends Controller
        // $this->render('songs', array('model' => $model,'user'=>$user,));
     }
     public function actionStatistic(){
+        error_reporting(E_ALL & ~E_NOTICE);
         $session = new CHttpSession;
         $session->open();
         $users=new CDataProviderIterator($session['users']->search());
         $statistic=array();
+
         $statistic['educations']=EducationMult::all();
         $educations=array_keys($statistic['educations']);
        // $statistic['educations']=array();

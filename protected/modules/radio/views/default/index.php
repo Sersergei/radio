@@ -11,8 +11,9 @@ echo $license;
 
 ?>
 
-<p><?php echo $href; ?></p>
-<p><?php echo $AMT; ?></p>
+	<p><?php echo $href; ?></p>
+	<p><?php echo $href2; ?></p>
+	<p><?php echo $AMT; ?></p>
 
 
 <p></p>
