@@ -72,8 +72,12 @@ class MusicTestDetail extends CActiveRecord
 	public $neverP1;
 	public $neverP2;
 	public $region;
+	public $P2All;
+	public $marker;
 	public $P1P2;
-	public $mix;
+	public $time;
+	public $ip;
+
 
 
 	/**
@@ -92,11 +96,12 @@ class MusicTestDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, date_last, id_song', 'required'),
-			array('id_test, id_user, id_song, id_like, never', 'numerical', 'integerOnly'=>true),
+			array('date_last, id_song', 'required'),
+			array('id_test, id_user, id_song, id_like, never,ip', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age, id_education,P1,P2', 'safe', 'on'=>'search'),
+			array('id_test_det, id_test, id_user, date_last, finaly, id_song, id_like, sex, age_from, after_age,
+					id_education,P1,P2,P2All,marker,P1P2,time,ip, region', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,8 +117,8 @@ class MusicTestDetail extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'idSong' => array(self::BELONGS_TO, 'Songs', 'id_song'),
 			'idLike' => array(self::BELONGS_TO, 'SongLikesMult', 'id_like'),
-
-
+			'usertest'=>array(self::BELONGS_TO,'Usertest',array('id_user'=>'id_user','id_test'=>'id_music')),
+			//'usertest'=>array(self::BELONGS_TO,'Usertest','id_user'),
 		);
 	}
 
@@ -131,6 +136,7 @@ class MusicTestDetail extends CActiveRecord
 			'id_song' => 'Id Song',
 			'id_like' => 'Id Like',
 			'age_from'=>'Age',
+			'P2All'=>'All',
 		);
 	}
 
@@ -151,7 +157,7 @@ class MusicTestDetail extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('idUser','idTest');
+		$criteria->with=array('idUser','idTest','usertest');
 		$criteria->compare('id_test_det',$this->id_test_det);
 		$criteria->compare('idTest.id_test',$this->id_test);
 		$criteria->compare('id_user',$this->id_user);
@@ -160,16 +166,101 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->compare('id_song',$this->id_song);
 		$criteria->compare('id_like',$this->id_like);
 		$criteria->addInCondition('idUser.P1',$this->P1);
-		$criteria->addInCondition('idUser.P2',$this->P2);
+		if($this->P1P2){
+			$criteria->addColumnCondition(array('P1'=>$this->idTest->id_radiostation, 'P2'=>$this->idTest->id_radiostation), 'OR');
+		}
+		if($this->time){
+			//$criteria->addBetweenCondition('usertest.date',time(),time($this->time));
+			//$criteria->addCondition(" 'usertest.date'= '2016-02-08'" );
+			$criteria->addCondition("usertest.time>$this->time");
+
+			//$criteria->condition="usertest.id=243";
+		}
+
 		$criteria->addInCondition('idUser.sex',$this->sex);
 		$criteria->addInCondition('idUser.region',$this->region);
-		if($this->P1P2){
-			$criteria->condition("idUser.P1= {$this->idTest->id_radiostation} or idUser.P2= {$this->idTest->id_radiostation}");
+		if(!$this->P2All){
+			$criteria->addInCondition('idUser.P2',$this->P2);
 		}
-		if($this->mix){
+		if($this->marker){
 			$criteria->compare('idUser.marker','+');
 		}
-		$criteria->select = "`t`.*, COUNT(*) as Coun,
+		//$criteria->addCondition(new CDbExpression(" usertest.ip=INET_ATON('82.131.100.233')"));
+
+		if($this->ip){
+			$criteria->addCondition(new CDbExpression("usertest.ip Between INET_ATON('5.101.112.0') AND INET_ATON('5.101.127.255 ')
+														OR usertest.ip Between INET_ATON('5.101.176.0') AND INET_ATON('5.101.191.255')
+														OR usertest.ip Between INET_ATON('5.157.0.0') AND INET_ATON('5.157.63.255')
+														OR usertest.ip Between INET_ATON('37.157.64.0') AND INET_ATON('37.157.127.255')
+														OR usertest.ip Between INET_ATON('46.22.208.0') AND INET_ATON('46.22.223.255')
+														OR usertest.ip Between INET_ATON('46.39.128.0') AND INET_ATON('46.39.159.255')
+														OR usertest.ip Between INET_ATON('46.131.0.0') AND INET_ATON('46.131.255.255')
+														OR usertest.ip Between INET_ATON('62.65.32.0') AND INET_ATON('62.65.63.255')
+														OR usertest.ip Between INET_ATON('62.65.192.0') AND INET_ATON('62.65.255.255')
+														OR usertest.ip Between INET_ATON('77.233.64.0') AND INET_ATON('77.233.95.255')
+														OR usertest.ip Between INET_ATON('77.240.240.0') AND INET_ATON('77.240.255.255')
+														OR usertest.ip Between INET_ATON('78.28.64.0') AND INET_ATON('78.28.127.255')
+														OR usertest.ip Between INET_ATON('78.110.32.0') AND INET_ATON('78.110.47.255')
+														OR usertest.ip Between INET_ATON('79.134.192.0') AND INET_ATON('79.134.223.255')
+														OR usertest.ip Between INET_ATON('80.66.240.0') AND INET_ATON('80.66.255.255')
+														OR usertest.ip Between INET_ATON('80.79.112.0') AND INET_ATON('80.79.127.255')
+														OR usertest.ip Between INET_ATON('80.235.0.0') AND INET_ATON('80.235.127.255')
+														OR usertest.ip Between INET_ATON('80.250.112.0') AND INET_ATON('80.250.127.255')
+														OR usertest.ip Between INET_ATON('81.20.144.0') AND INET_ATON('81.20.159.255')
+														OR usertest.ip Between INET_ATON('81.21.240.0') AND INET_ATON('81.21.255.255')
+														OR usertest.ip Between INET_ATON('81.25.240.0') AND INET_ATON('81.25.255.255')
+														OR usertest.ip Between INET_ATON('81.90.112.0') AND INET_ATON('81.90.127.255')
+														OR usertest.ip Between INET_ATON('82.131.0.0') AND INET_ATON('82.131.127.255')
+														OR usertest.ip Between INET_ATON('82.147.160.0') AND INET_ATON('82.147.191.255')
+														OR usertest.ip Between INET_ATON('83.166.32.0') AND INET_ATON('83.166.63.255')
+														OR usertest.ip Between INET_ATON('84.50.0.0') AND INET_ATON('84.50.255.255')
+														OR usertest.ip Between INET_ATON('84.52.0.0') AND INET_ATON('84.52.63.255')
+														OR usertest.ip Between INET_ATON('85.29.192.0') AND INET_ATON('85.29.255.255')
+														OR usertest.ip Between INET_ATON('85.89.32.0') AND INET_ATON('85.89.63.255')
+														OR usertest.ip Between INET_ATON('85.117.96.0') AND INET_ATON('85.117.127.255')
+														OR usertest.ip Between INET_ATON('85.196.192.0') AND INET_ATON('85.196.255.255')
+														OR usertest.ip Between INET_ATON('85.253.0.0') AND INET_ATON('85.253.255.255')
+														OR usertest.ip Between INET_ATON('86.110.32.0') AND INET_ATON('86.110.63.255')
+														OR usertest.ip Between INET_ATON('87.98.0.0') AND INET_ATON('87.98.127.255')
+														OR usertest.ip Between INET_ATON('87.119.160.0') AND INET_ATON('87.119.191.255')
+														OR usertest.ip Between INET_ATON('88.196.0.0') AND INET_ATON('88.196.255.255')
+														OR usertest.ip Between INET_ATON('89.221.64.0') AND INET_ATON('89.221.79.255')
+														OR usertest.ip Between INET_ATON('89.235.192.0') AND INET_ATON('89.235.255.255')
+														OR usertest.ip Between INET_ATON('90.190.0.0') AND INET_ATON('90.191.255.255')
+														OR usertest.ip Between INET_ATON('91.146.64.0') AND INET_ATON('91.146.95.255')
+														OR usertest.ip Between INET_ATON('92.62.96.0') AND INET_ATON('92.62.111.255')
+														OR usertest.ip Between INET_ATON('93.185.240.0') AND INET_ATON('93.185.255.255')
+														OR usertest.ip Between INET_ATON('94.246.192.0') AND INET_ATON('94.246.255.255')
+														OR usertest.ip Between INET_ATON('95.153.0.0') AND INET_ATON('95.153.63.255')
+														OR usertest.ip Between INET_ATON('176.46.0.0') AND INET_ATON('176.46.127.255')
+														OR usertest.ip Between INET_ATON('178.236.192.0') AND INET_ATON('178.236.207.255')
+														OR usertest.ip Between INET_ATON('188.0.48.0') AND INET_ATON('188.0.63.255')
+														OR usertest.ip Between INET_ATON('193.40.0.0') AND INET_ATON('193.40.255.255')
+														OR usertest.ip Between INET_ATON('194.106.96.0') AND INET_ATON('194.106.127.255')
+														OR usertest.ip Between INET_ATON('194.126.96.0') AND INET_ATON('194.126.127.255')
+														OR usertest.ip Between INET_ATON('194.204.0.0') AND INET_ATON('194.204.31.255')
+														OR usertest.ip Between INET_ATON('195.50.192.0') AND INET_ATON('195.50.223.255')
+														OR usertest.ip Between INET_ATON('195.50.224.0') AND INET_ATON('195.50.255.255')
+														OR usertest.ip Between INET_ATON('195.80.96.0') AND INET_ATON('195.80.127.255')
+														OR usertest.ip Between INET_ATON('195.222.0.0') AND INET_ATON('195.222.31.255')
+														OR usertest.ip Between INET_ATON('195.250.160.0') AND INET_ATON('195.250.191.255')
+														OR usertest.ip Between INET_ATON('212.7.0.0') AND INET_ATON('212.7.31.255')
+														OR usertest.ip Between INET_ATON('212.27.224.0') AND INET_ATON('212.27.255.255')
+														OR usertest.ip Between INET_ATON('212.49.0.0') AND INET_ATON('212.49.31.255')
+														OR usertest.ip Between INET_ATON('212.107.32.0') AND INET_ATON('212.107.63.255')
+														OR usertest.ip Between INET_ATON('213.35.128.0') AND INET_ATON('213.35.255.255')
+														OR usertest.ip Between INET_ATON('213.168.0.0') AND INET_ATON('213.168.31.255')
+														OR usertest.ip Between INET_ATON('213.180.0.0') AND INET_ATON('213.180.31.255')
+														OR usertest.ip Between INET_ATON('213.184.32.0') AND INET_ATON('213.184.63.255')
+														OR usertest.ip Between INET_ATON('213.187.224.0') AND INET_ATON('213.187.239.255')
+														OR usertest.ip Between INET_ATON('213.219.64.0') AND INET_ATON('213.219.127.255')
+														OR usertest.ip Between INET_ATON('217.71.32.0') AND INET_ATON('217.71.47.255')
+														OR usertest.ip Between INET_ATON('217.146.64.0') AND INET_ATON('217.146.79.255')
+														OR usertest.ip Between INET_ATON('217.159.128.0') AND INET_ATON('217.159.255.255')
+														"));
+		}
+
+$criteria->select = "`t`.*, COUNT(*) as Coun,
 		COUNT(CASE WHEN never=5 THEN 1 ELSE NULL END) as never,
 		COUNT(CASE WHEN id_like=5 THEN 1 ELSE NULL END) as Coun5,
 		COUNT(CASE WHEN id_like=4 THEN 1 ELSE NULL END) as Coun4,
@@ -197,6 +288,22 @@ class MusicTestDetail extends CActiveRecord
 		$criteria->addBetweenCondition('idUser.date_birth',$this->after_age(),$this->age_from());
 		$criteria->group='id_song';
 
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination' => array(
+				'pagesize' => 50,
+			),
+		));
+	}
+	public function users(){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_test_det',$this->id_test_det);
+		$criteria->compare('id_test',$this->id_test);
+		$criteria->compare('id_user',$this->id_user);
+		$criteria->compare('date_last',$this->date_last,true);
+		$criteria->compare('finaly',$this->finaly);
+		$criteria->compare('id_song',$this->id_song);
+		$criteria->compare('id_like',$this->id_like);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'pagination' => array(
@@ -286,5 +393,14 @@ class MusicTestDetail extends CActiveRecord
 		else{
 			return 1;
 		}
+	}
+	public function gettime(){
+		return time($this->time);
+	}
+	public function getnevers(){
+		if ($this->never)
+			return "Yes";
+		else
+			return "No";
 	}
 }

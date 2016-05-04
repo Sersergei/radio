@@ -180,7 +180,7 @@ $arr=array(0=>Yii::t('radio','приглашение всем, кто зарег
 	}
 	public function getregions($id=Null){
 		if($id===Null){
-			var_dump($id);
+			
 			return $arr[''];
 		}
 

@@ -244,5 +244,10 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
  margin-top: 15px;
  margin-bottom: 2px;
  font-weight:bold;
- font-size:18px
+ font-size:18px;
+}
+.admintable table{
+ margin-left: -5px;
+ font-size:12px;
+
 }

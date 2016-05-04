@@ -27,7 +27,7 @@ class MusicTestController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','cron'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -35,7 +35,7 @@ class MusicTestController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','index','create','update','upload'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -50,8 +50,10 @@ class MusicTestController extends Controller
 	 */
 	public function actionView($id)
 	{
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'statistic'=>$this->statistic($id),
 		));
 	}
 
@@ -65,7 +67,7 @@ class MusicTestController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-        //var_dump($_POST);
+        
 		if(isset($_POST['MusicTest']))
 		{
 			$model->attributes=$_POST['MusicTest'];
@@ -190,5 +192,142 @@ if(!file_exists ($dir) )
 		//$img = CUploadedFile::getInstance($model,'image');
 
 		echo $return;// it's array
+	}
+	protected function statistic($id){
+		$musictest=MusicTest::model()->findbyPk($id);
+		if($musictest) {
+			$id = $musictest->id_test;
+
+			$model = new Usertest('search');
+			$model->id_music = $id;
+			$statistic['count_all'] = count($model->user());
+
+			$model->sex = 1;
+			$statistic['count_all_man'] = count($model->user());
+			$model->sex = 2;
+			$statistic['count_all_woman'] = count($model->user());
+
+			$model->sex = Null;
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 14;
+			$model->age_from = 1;
+			$statistic['count_0_14'] = count($model->user());
+
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 19;
+			$model->age_from = 15;
+			$statistic['count_15_19'] = count($model->user());
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 24;
+			$model->age_from = 20;
+			$statistic['count_20_24'] = count($model->user());
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 29;
+			$model->age_from = 25;
+			$statistic['count_25_29'] = count($model->user());
+
+			$model->sex = Null;
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 34;
+			$model->age_from = 30;
+			$statistic['count_30_34'] = count($model->user());
+
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 39;
+			$model->age_from = 35;
+			$statistic['count_35_39'] = count($model->user());
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 44;
+			$model->age_from = 40;
+			$statistic['count_40_44'] = count($model->user());
+
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 49;
+			$model->age_from = 45;
+			$statistic['count_45_49'] = count($model->user());
+
+			$model->unsetAttributes();
+			$model->id_music = $id;
+			$model->after_age = 100;
+			$model->age_from = 50;
+			$statistic['count_50'] = count($model->user());
+			$model->after_age = Null;
+			$model->age_from = Null;
+			$statistic['educations'] = EducationMult::all();
+			$educations = array_keys($statistic['educations']);
+			foreach ($educations as $education) {
+				$model->education = $education;
+				$statistic['education'][$education] = count($model->user());
+			}
+
+
+			$model->education = Null;
+			$statistic['radiostations'] = RadiostationSettings::getradiostation($model->test->id_radiostation);
+			$radiostations = array_keys($statistic['radiostations']);
+			foreach ($radiostations as $radiostation) {
+				$model->P1 = $radiostation;
+				$statistic['P1'][$radiostation] = count($model->user());
+			}
+
+			$model->P1 = Null;
+			foreach ($radiostations as $radiostation) {
+				$model->P2 = $radiostation;
+				$statistic['P2'][$radiostation] = count($model->user());
+			}
+
+			$model->P2 = Null;
+			$statistic['regions'] = TestSettings::getregion($model->test->id_radiostation);
+			$regions = array_keys($statistic['regions']);
+
+			foreach ($regions as $region) {
+				$model->region = $region;
+				$statistic['region'][$region] = count($model->user());
+			}
+
+		}
+		else{
+
+			$statistic=Null;
+		}
+		return $statistic;
+	}
+	public function actionCron(){
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_status',1);
+		$criteria->addCondition('date_started <=NOW()');
+		$started=MusicTest::model()->findall($criteria);
+		foreach($started as $model){
+			//var_dump($model);
+			$model->id_status=2;
+			var_dump($model->save());
+			var_dump($model->getErrors());
+		}
+		//MusicTest::model()->updateAll(array('id_status' => 2),$criteria);
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_status',2);
+		$criteria->addBetweenCondition('date_finished','0000-00-00 00:00:01',date(" Y-m-d H:i:s") );
+		//$criteria->addCondition("date_finished<=NOW() AND data_finished IS NOT NULL");
+		$finish=MusicTest::model()->findall($criteria);
+		foreach($finish as $model){
+			$model->id_status=3;
+			$model->save();
+		}
+		//MusicTest::model()->updateAll(array('id_status' => 3),$criteria);
+
 	}
 }

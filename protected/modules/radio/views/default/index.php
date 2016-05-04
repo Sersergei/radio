@@ -11,14 +11,10 @@ echo $license;
 
 ?>
 
-<<<<<<< HEAD
-=======
-<p><?php echo $href; ?></p>
-<p><?php echo $AMT; ?></p>
->>>>>>> test12
 
-<p><?php echo $href; ?></p>
-<p><?php echo $AMT; ?></p>
+	<p><?php echo $href; ?></p>
+	<p><?php echo $href2; ?></p>
+	<p><?php echo $AMT; ?></p>
 
 <p></p>
 <?php if($model and $model['count_all']){ //Если нету открытого теста то невыводим статистику
@@ -26,11 +22,23 @@ echo $license;
 	<div id="statistic">
 
 
-	<span><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']; ?> </span>
-		<?php var_dump($model['count_all']) ?>
-	<table id="stat">
+	<span><?php echo Yii::t('radio','Users of test done')." ".$model['count_all']; ?> </span><br>
+		<span><?php echo Yii::t('radio','Suitable respondents to done test (P1 or P2 + mix-marker)')." ".$model['P1P2mix']; ?></span><br>
+		<span><?php echo Yii::t('radio','Suitable respondents to done registration (P1 or P2 + mix-marker) ')." ".$model['p1p2user']; ?></span>
+	<table width="950px">
 		<tr>
-			<td width="80px"><?php echo Yii::t('radio','Man')." ".$model['count_all_man']."(".round($model['count_all_man']*100/$model['count_all'],2)."%)";?></td>
+			<td style='width:292px; height:30px; float:left; text-align:right;' nowrap><?php echo Yii::t('radio','Respondents done test')." ".$model['count_all']."(".round($model['count_all']*100/($model['count_all']+$model['count_invention']),2)."%)";?></td>
+			<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+					'id'=>'progresstest',
+					'value'=>$model['count_all']*100/($model['count_all']+$model['count_invention']),
+					'htmlOptions'=>array(
+						'style'=>'width:292px; height:30px; float:left;'
+					),
+				));?></td>
+			<td  width="250px" nowrap > <?php echo Yii::t('radio','Users of standby')." ".$model['count_invention']."(".round($model['count_invention']*100/($model['count_all']+$model['count_invention']),2)."%)" ?></td>
+		</tr>
+		<tr>
+			<td style='width:250px; height:30px; text-align:right;'><?php echo Yii::t('radio','Man')." ".$model['count_all_man']."(".round($model['count_all_man']*100/$model['count_all'],2)."%)";?></td>
 			<td width="292px"> <?php  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					'id'=>'progress',
 					'value'=>$model['count_all_man']*100/$model['count_all'],
@@ -260,15 +268,5 @@ echo $license;
 	</table>
 
 	</div>
-
-
-
-
-
-
-
-
-
-
 
 <?php } ?>

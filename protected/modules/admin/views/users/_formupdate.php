@@ -23,32 +23,60 @@
 
     <?php echo $form->errorSummary($model); ?>
     <div class="row">
-        <?php echo $form->labelEx($model,'login'); ?>
-        <?php echo $form->textField($model,'login',array('size'=>20,'maxlength'=>20)); ?>
-        <?php echo $form->error($model,'login'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model,'password'); ?>
-        <?php echo $form->passwordField($model,'password',array('size'=>20,'maxlength'=>20)); ?>
-        <?php echo $form->error($model,'password'); ?>
+        <?php echo $form->labelEx($model,'admin_name'); ?>
+        <?php echo $form->textField($model,'name_listener',array('size'=>20,'maxlength'=>20)); ?>
+        <?php echo $form->error($model,'name_listener'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model,'email'); ?>
-        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>100)); ?>
+        <?php echo $form->textField($model,'email',array('size'=>20,'maxlength'=>100)); ?>
         <?php echo $form->error($model,'email'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($model,'radiostation'); ?>
-        <?php echo $form->DropDownList($model,'radiostation',Radistations::all()); ?>
-        <?php echo $form->error($model,'radiostation'); ?>
+        <?php echo $form->labelEx($model,'date_birth'); ?>
+        <br>
+        <?php echo Yii::t('radio','YYYY-MM-DD'); ?>
+        <?php
+        $this->widget('CMaskedTextField',array(
+            'mask'=>'9999-99-99',
+            'value'=>$model->date_birth,
+            'placeholder'=>'x',
+            'model'=>$model,
+            'name'=>'date_birth',
+
+        ));
+       ?>
+        <?php echo $form->error($model,'date_birth'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($model,'location'); ?>
-        <?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>100)); ?>
-        <?php echo $form->error($model,'location'); ?>
+        <?php echo $form->labelEx($model,'sex'); ?>
+        <?php echo $form->DropDownList($model,'sex',array(1=>Yii::t('radio', 'Man'),2=>Yii::t('radio', 'Woman')),array('empty' => '')); ?>
+        <?php echo $form->error($model,'sex'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'admin_region'); ?>
+        <?php echo $form->DropDownList($model,'region', TestSettings::getregion($model->id_radiostation),array('empty' => '')); ?>
+        <?php echo $form->error($model,'region'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'education'); ?>
+        <?php echo $form->DropDownList($model,'id_education', EducationMult::all(),array('empty' => '')); ?>
+        <?php echo $form->error($model,'id_education'); ?>
+    </div>
+    <div class="row1">
+        <?php echo $form->labelEx($model,'admin_P1'); ?>
+        <?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
+        <?php echo $form->error($model,'P1'); ?>
+    </div>
+    <br>
+    <div class="row2" >
+        <?php echo $form->labelEx($model,'admin_P2'); ?>
+        <?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
+        <?php echo $form->error($model,'P2'); ?>
+    </div>
+
+
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

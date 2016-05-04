@@ -77,6 +77,11 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php echo $form->DropDownList($model,'id_education', EducationMult::all(),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_education'); ?>
 	</div>
+<div class="row">
+	<?php echo $form->labelEx($model,'period'); ?>
+	<?php echo $form->DropDownList($model,'period',Users::getperiodAll()); ?>
+	<?php echo $form->error($model,'period'); ?>
+</div>
 	<div class="row1">
 		<?php echo $form->labelEx($model,'P1'); ?>
 		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>

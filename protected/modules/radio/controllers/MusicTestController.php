@@ -31,7 +31,7 @@ class MusicTestController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','upload','delete'),
+				'actions'=>array('index','view','create','update','upload','delete','deletesongs'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,8 +50,10 @@ class MusicTestController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$songs=new Songs();
+		$songs->id_test=$id;
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'songs'=>$songs,
 		));
 	}
 
@@ -61,6 +63,23 @@ class MusicTestController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
+
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$user->id_radiostation);
+		$criteria->compare('id_type',1);
+		$criteria->order = 'date_add DESC';
+		$last_colaut=MusicTest::model()->find($criteria);
+
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('id_radiostation',$user->id_radiostation);
+		$criteria->compare('id_type',2);
+		$criteria->order = 'date_add DESC';
+		$last_amt=MusicTest::model()->find($criteria);
+
+
 		$model=new MusicTest;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -68,7 +87,7 @@ class MusicTestController extends Controller
         //var_dump($_POST);
 		if(isset($_POST['MusicTest']))
 		{
-			$user=Users::model()->findByPk(Yii::app()->user->id);
+
 
 			$model->attributes=$_POST['MusicTest'];
 			$model->id_radiostation=$user->id_radiostation;
@@ -77,7 +96,7 @@ class MusicTestController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model,'colaut'=>$last_colaut,'amt'=>$last_amt,
 		));
 	}
 
@@ -89,19 +108,53 @@ class MusicTestController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$songs=new Songs();
+		$songs->id_test=$id;
+		if(isset($_GET['Songs']))
+		$songs->attributes=$_GET['Songs'];
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['MusicTest']))
 		{
+			$songs->attributes=$_POST['MusicTest'];
 			$model->attributes=$_POST['MusicTest'];
-			if($model->save())
+			if($model->save()){
+				$old=Yii::getPathOfAlias('webroot.upload').DIRECTORY_SEPARATOR.Yii::app()->user->id;
+				$new=Yii::getPathOfAlias('webroot.musictest').DIRECTORY_SEPARATOR.$id;
+
+
+				$files=CFileHelper::findFiles($old, ['fileTypes' => ['mp3',''], 'level' => 1]);
+
+				$iduser=Yii::app()->user->id;
+				if($files) {
+					if(!file_exists ($new) )
+						mkdir($new);
+					foreach ($files as $file) {
+						$old = Yii::getPathOfAlias('webroot.upload') . DIRECTORY_SEPARATOR . Yii::app()->user->id;
+						$new = Yii::getPathOfAlias('webroot.musictest') . DIRECTORY_SEPARATOR . $id;
+						$songs = new Songs();
+						$songs->id_test = $id;
+						//$info = $this->mp3info($file);
+						$name = stristr($file, Yii::app()->user->id);
+						$name = stristr($name, '.mp3', true);
+						$usersep = $iduser . DIRECTORY_SEPARATOR;
+						$name = str_replace("{$usersep}", "", $name);
+						$old = $old . DIRECTORY_SEPARATOR . $name . '.mp3';
+						$new = $new . DIRECTORY_SEPARATOR . $name . '.mp3';
+						rename($old, $new);
+						$songs->name = $name;
+						$songs->song_file = $new;
+						$songs->validate();
+						$songs->save();
+					}
+				}
 				$this->redirect(array('view','id'=>$model->id_test));
+			}
+
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$model,'songs'=>$songs,
 		));
 	}
 
@@ -117,6 +170,15 @@ class MusicTestController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+	public function actiondeletesongs($id){
+		$model=Songs::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		$model->delete();
+		if(!isset($_GET['ajax']))
+
+			$this->redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	/**

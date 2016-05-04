@@ -22,7 +22,7 @@ class TestController extends Controller
 			$this->render('index',array('model'=>$r,'message'=>'','buton'=>'Songstest'));
 		}
 		else{
-			throw new CHttpException(403,  'Такого теста не существует');
+			throw new CHttpException(403,  'This test does not exist');
 
 		}
 
@@ -77,7 +77,11 @@ class TestController extends Controller
 		$dur = 0;
 
 			$session['dur'] = $dur;
-			$session['time'] = time();
+		$time=new DateTime();
+		$cookie = new CHttpCookie('time',serialize($time));//устанавливаем куки юзера на 30 мин
+		$cookie->expire = time() + 5800*60;
+		Yii::app()->request->cookies['time']=$cookie;
+			//$session['time'] = time();
 			$session['con']=$con;
 			$last = 0;
 			$session['last'] = $last;
@@ -250,7 +254,15 @@ $test=unserialize($session['test']);
 			$usertest->date=date(" Y-m-d");
 			$session = new CHttpSession;
 			$session->open();
-			$usertest->time=time()-$session['time'];
+			$time=Yii::app()->request->cookies['time'];
+
+			$time=$time->value;
+			$time1=unserialize($time);
+			$time2=new DateTime();
+			$interval = $time1->diff($time2);
+			$usertest->time=$interval->format('%H:%I:%S');
+			$usertest->ip=sprintf('%u', ip2long(Yii::app()->request->userHostAddress));
+
 			$usertest->save();
 			$testresult=unserialize($session['testresult']);
 			//print_r($testresult);
@@ -265,8 +277,43 @@ $test=unserialize($session['test']);
 			//Yii::app()->request->cookies->remove('like');
 			//$like->remove;
 			$text=$user->radio->settings->text_after_test;
-			$this->render('finish',array('model'=>$text,'message'=>''));
+			$message=new Messages();
+			$this->render('finish',array('model'=>$text,'message'=>'','messages'=>$message,));
 
 		}
+	}
+	public function actionMessages(){
+		$user=Yii::app()->request->cookies['user'];
+		if($user){
+
+			$message=new Messages();
+			if($_POST['Messages']){
+
+				$user=$user->value;
+				$user=Users::model()->findByPk($user);
+
+				$criteria=new CDbCriteria();
+				$criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
+				$criteria->params = array(':id_radiostation'=>$user->id_radiostation, ':id_status'=>2);
+				$test=MusicTest::model()->find($criteria);
+				$message->id_test=$test->id_test;
+				$message->email_fromm=$user->email;
+				$message->email_to=$user->radio->radiostationSettings->email;
+				$message->attributes=$_POST['Messages'];
+				$message->id_user=$user->id_user;
+
+				if($message->save()){
+					$messages=Yii::t('radio','Thank you Your message has been sent');
+				}
+
+
+			}
+
+		}
+		else{
+			$messages=Yii::t('radio','Sorry you can not send a message');
+		}
+
+		$this->render('messages',array('messages'=>$message,'message'=>$messages));
 	}
 }

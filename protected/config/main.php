@@ -17,7 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-       // 'application.modules.user.models.*',
+       //'application.modules.admin.models.*',
       //  'application.modules.user.components.*',
         'application.modules.admin.models.*',
 		'application.extensions.EAjaxUpload.*',
@@ -71,12 +71,23 @@ return array(
 				//'<language:>' => 'site/index',
 				'<action:(mesage|login|logout|Run)>' => 'site/<action>',
 
-				'<controller:\w+>/<id:\d+>' => 'register',
+				//'<controller:\w+>/<id:\d+>' => 'register',
+				'<controller:\w+>/<id:\d+>' => '<controller>',
 				//'test/index/<id:\d+>/<category:\w+>' => 'test/<id>/<category>',
 				//'<controller:\w+>/<id:\d+>' => '<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
 				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
+		),
+		'Smtpmail'=>array(
+			'class'=>'application.extensions.smtpmail.PHPMailer',
+			'Host'=>"smtp.gmail.com",
+			'Username'=>'radiomusictestcom@gmail.com',
+			'Password'=>'ch0579828592',
+			'Mailer'=>'smtp',
+			'Port'=>587,
+			'SMTPAuth'=>true,
+			'SMTPSecure' => 'tls',
 		),
 		
 

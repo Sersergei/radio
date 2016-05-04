@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
 <?php
 /* @var $this MusicTestController */
 /* @var $model MusicTest */
@@ -21,6 +22,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id_test',
+		'name',
 		array(
 			'label' => 'id_radiostation',
 			'type' => 'raw',
@@ -47,3 +49,28 @@ $this->menu=array(
 
 	),
 )); ?>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'music-test-grid',
+	'dataProvider'=>$songs->search(),
+	'filter'=>$songs,
+	'columns'=>array(
+		array(
+			'type' => 'raw',
+			'value' => '$data->getsongs()',
+			'htmlOptions'=>array('style'=>'width: 16px; text-align: center;'),
+
+		),
+		'name',
+		//array(
+		//	'class'=>'CButtonColumn',
+		//	'template'=>'{delete}',
+		//	'buttons'=>array(
+		//		'delete'=>array(
+		//			'visible'=>'$data->musicTest->id_status==1',
+		//			'url'=>'Yii::app()->getUrlManager()->createURL("radio/musicTest/deletesongs",array("id"=>$data->id_song))',
+		//		),
+		//)),
+	),
+
+));
+?>

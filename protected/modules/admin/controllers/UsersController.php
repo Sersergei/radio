@@ -45,8 +45,12 @@ class UsersController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=new Usertest('search');
+		$model->unsetAttributes();
+		$model->id_user=$id;
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'test'=>$model,
 		));
 	}
 
@@ -113,6 +117,13 @@ class UsersController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+	public function actionActivate($id){
+		$user=$this->loadModel($id);
+		$user->status=Null;
+		$user->save();
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/admin/users'));
 	}
 
 	/**

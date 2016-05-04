@@ -16,6 +16,7 @@ class DefaultController extends Controller
 		}
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
 		$href=Yii::t('radio','Link for registration on call-out:').Yii::app()->getBaseUrl(true)."/register/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
+		$href2=Yii::t('radio','Link for registration on call-out (fast start):').Yii::app()->getBaseUrl(true)."/radiostations/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
 		$AMT_href=Yii::t('radio','Link for registration on AMT:').Yii::app()->getBaseUrl(true)."/amt/index/id/".$user->id_radiostation."?lang=".$user->radio->lang->lang;
 
 		$criteria = new CDbCriteria;
@@ -29,6 +30,11 @@ class DefaultController extends Controller
 			$model = new Usertest('search');
 			$model->id_music = $id;
 			$statistic['count_all'] = count($model->user());
+			$model->marker=1;
+			$model->P1P2=1;
+			$statistic['P1P2mix']=count($model->user());
+			$model->marker=Null;
+			$model->P1P2=Null;
 
 			$model->sex = 1;
 			$statistic['count_all_man'] = count($model->user());
@@ -38,53 +44,53 @@ class DefaultController extends Controller
 			$model->sex = Null;
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 14;
+			$model->after_age = 15;
 			$model->age_from = 1;
 			$statistic['count_0_14'] = count($model->user());
 
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 19;
+			$model->after_age = 20;
 			$model->age_from = 15;
 			$statistic['count_15_19'] = count($model->user());
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 24;
+			$model->after_age = 25;
 			$model->age_from = 20;
 			$statistic['count_20_24'] = count($model->user());
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 29;
+			$model->after_age = 30;
 			$model->age_from = 25;
 			$statistic['count_25_29'] = count($model->user());
 
 			$model->sex = Null;
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 34;
+			$model->after_age = 35;
 			$model->age_from = 30;
 			$statistic['count_30_34'] = count($model->user());
 
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 39;
+			$model->after_age = 40;
 			$model->age_from = 35;
 			$statistic['count_35_39'] = count($model->user());
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 44;
+			$model->after_age = 45;
 			$model->age_from = 40;
 			$statistic['count_40_44'] = count($model->user());
 
 
 			$model->unsetAttributes();
 			$model->id_music = $id;
-			$model->after_age = 49;
+			$model->after_age = 50;
 			$model->age_from = 45;
 			$statistic['count_45_49'] = count($model->user());
 
@@ -125,6 +131,22 @@ class DefaultController extends Controller
 				$model->region = $region;
 				$statistic['region'][$region] = count($model->user());
 			}
+			$criteria = new CDbCriteria;
+			$criteria->compare('id_radiostation', $user->id_radiostation);
+			$criteria->compare('id_category',3);
+			$criteria->addCondition('P1 IS NOT NULL');
+			$criteria->addCondition('status IS NULL');
+			$criteria->addCondition(new CDbExpression("link!=''"));
+			$statistic['count_invention']=count(Users::model()->findall($criteria));
+
+			$criteria = new CDbCriteria;
+			$criteria->compare('id_radiostation', $user->id_radiostation);
+			$criteria->compare('id_category',3);
+			$criteria->compare('marker','+');
+			$criteria->addColumnCondition(array('P1'=>$user->id_radiostation, 'P2'=>$user->id_radiostation), 'OR');
+			$criteria->addCondition('P1 IS NOT NULL');
+			$criteria->addCondition('status IS NULL');
+			$statistic['p1p2user']=count(Users::model()->findall($criteria));
 
 		}
 		else{
@@ -133,7 +155,7 @@ class DefaultController extends Controller
 		}
 		//$this->render('statistic', array('model' => $statistic));
 
-		$this->render('index',array('license'=>$license,'href'=>$href,'AMT'=>$AMT_href,'model' => $statistic,'test'=>$musictest));
+		$this->render('index',array('license'=>$license,'href'=>$href,'AMT'=>$AMT_href,'href2'=>$href2,'model' => $statistic,'test'=>$musictest));
 	}
 }
 ?>

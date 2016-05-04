@@ -121,6 +121,8 @@ ul.audio .play {width:40px;height:26px;float:left;background:url(../images/audio
 .fleft,.fl {float:left}
 .fright,.fr {float:right}
 .fnone,.fn {float:none}
+.col{width: 55%;
+margin-left: 20%}
 .col-1,.col-2,.col-3 {float:left}
 .alignleft,.all {text-align:left}
 .alignright,.alr {text-align:right}
@@ -262,7 +264,8 @@ a .mini-play {
     margin-left: 15px;
 }
 .chosemix{
-    margin-left: 60%;
+    font-size: medium;
+   text-align: center;
 }
 .uk {
     background: url("../images/Ukraine.png") no-repeat;
@@ -300,6 +303,15 @@ a .mini-play {
     width: 150px;
 }
 .mixs input{
-
+    margin-right: 40%;
     width: 137px;
+}
+
+.idcard{
+    margin-right: 80%;
+    width: 250px;
+}
+.idcard input{
+    width: 80px;
+
 }

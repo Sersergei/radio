@@ -25,49 +25,47 @@
         <?php echo $form->error($model,'id_type'); ?>
     </div>
     <div class="row">
+        <?php echo $form->labelEx($model,'name'); ?>
+        <?php echo $form->textField($model,'name'); ?>
+        <?php echo $form->error($model,'name'); ?>
+    </div>
+    <div class="row">
         <label for="MusicTest_date_started"><?php echo Yii::t('radio', 'Date Started'); ?></label>
         <?php
 
-        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-            'name'=>'MusicTest[date_started]',
-            'model'=>$model,
-            'attribute'=>'date_started',
-            // additional javascript options for the date picker plugin
-            'options'=>array(
-                'dateFormat'=>'yy-mm-dd',
-                'showAnim'=>'fold',
-                'minDate'=>0,
-
-            ),
-
-            'language'=>Yii::app()->language,
-            'htmlOptions'=>array(
-                'readonly'=>'true',
-                'style'=>'height:20px;'
-            ),
-        )); ?>
+        $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
+            array(
+                'model'=>$model, //Model object
+                'attribute'=>'date_started', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                'language'=>Yii::app()->language,
+                'options'=>array(
+                    'regional'=>'',
+                    'dateFormat'=>'yy-mm-dd',
+                    'showAnim'=>'fold',
+                    'minDate'=>0,
+                    'readonly'=>'true',
+                ) // jquery plugin options
+            )); ?>
     </div>
     <div class="row">
         <label for="MusicTest_date_finished"><?php echo Yii::t('radio', 'Date Finished'); ?></label>
         <?php
 
-        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-            'name'=>'MusicTest[date_finished]',
-            'model'=>$model,
-            'attribute'=>'date_finished',
-            // additional javascript options for the date picker plugin
-            'options'=>array(
-                'dateFormat'=>'yy-mm-dd',
-                'showAnim'=>'fold',
-                'minDate'=>0,
-
-            ),
-            'language'=>Yii::app()->language,
-            'htmlOptions'=>array(
-                'readonly'=>'true',
-                'style'=>'height:20px;'
-            ),
-        )); ?>
+        $this->widget ('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker',
+            array(
+                'model'=>$model, //Model object
+                'attribute'=>'date_finished', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+                'language'=>Yii::app()->language,
+                'options'=>array(
+                    'regional'=>'',
+                    'dateFormat'=>'yy-mm-dd',
+                    'showAnim'=>'fold',
+                    'minDate'=>0,
+                    'readonly'=>'true',
+                ) // jquery plugin options
+            )); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($model,'max_listeners'); ?>
@@ -79,7 +77,32 @@
         <?php echo $form->DropDownList($model,'id_status',array(1=>Yii::t('radio','Ready'),2=>Yii::t('radio','Started'),3=>Yii::t('radio','Finished'))); ?>
         <?php echo $form->error($model,'id_status'); ?>
     </div>
+    <?php
+    $this->widget('ext.EAjaxUpload.EAjaxUpload',
+        array(
+            'id'=>'uploadFile',
+            'config'=>array(
+                'action'=>Yii::app()->createUrl('/admin/musicTest/upload'),
+                'allowedExtensions'=>array("mp3"),//array("jpg","jpeg","gif","exe","mov" and etc...
+                'sizeLimit'=>1000*1024*1024,// maximum file size in bytes
+                'minSizeLimit'=>1*1024,
+                'auto'=>true,
+                'multiple' => true,
+                'onComplete'=>"js:function(id, fileName, responseJSON){
 
+				  }",
+                'messages'=>array(
+                    'typeError'=>"{file} has invalid extension. Only {extensions} are allowed.",
+                    'sizeError'=>"{file} is too large, maximum file size is {sizeLimit}.",
+                    'minSizeError'=>"{file} is too small, minimum file size is {minSizeLimit}.",
+                    'emptyError'=>"{file} is empty, please select files again without it.",
+                    'onLeave'=>"The files are being uploaded, if you leave now the upload will be cancelled."
+                ),
+                'showMessage'=>"js:function(message){ alert(message); }"
+            )
+
+        ));
+    ?>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

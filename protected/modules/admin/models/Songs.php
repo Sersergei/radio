@@ -86,13 +86,13 @@ class Songs extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id_song',$this->id_song);
-
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('song_file',$this->song_file,true);
 		$criteria->compare('id_test',$this->id_test);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>50),
 		));
 	}
 
@@ -106,8 +106,40 @@ class Songs extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	protected function afterDelete(){
-		unlink($this->song_file);
-		parent::afterDelete();
+
+	public function getsongs(){
+		$song="/".stristr($this->song_file,'musictest');
+		$song=str_replace('\\','/',$song);
+		$song=htmlspecialchars($song, ENT_QUOTES);
+		$arr="<div class='lm-inner clearfix'>
+         <div class='mini_controls'>
+                <a href='javascript:void(0)' class='mini-play' style='display:block ;' onclick=\"var x= document.getElementById('player_".$this->id_song."'); play(x);\"></a>
+                <a href='javascript:void(0)' class='mini-pause' style='display:none ;' onclick=\"document.getElementById('player_".$this->id_song."').pause()\"></a>
+            </div>
+        <div class='lm-track lmtr-top'>
+            <audio id='player_".$this->id_song."' class='track_player' src='".Yii::app()->getBaseUrl(true).$song."' ></audio>
+</div>
+</div>";
+		return $arr;
+	}
+
+	protected function beforeDelete(){
+		if(!parent::beforeDelete())
+			return false;
+		if(is_file($this->song_file)){
+			unlink($this->song_file);
+		}
+
+		return true;
+	}
+	public function init(){
+		parent::init();
+		$this->name=addslashes($this->name);
+	}
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->name=htmlspecialchars($this->name, ENT_QUOTES);
+		$this->song_file=htmlspecialchars($this->song_file,ENT_QUOTES);
 	}
 }
