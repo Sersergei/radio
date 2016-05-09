@@ -18,6 +18,7 @@ class MusicTest extends CActiveRecord
 {
 	private $licens;
 	private $_status;
+	public $RTD;
 
 	/**
 	 * @return string the associated database table name
@@ -37,14 +38,14 @@ class MusicTest extends CActiveRecord
 		return array(
 			array('id_type','required'),
 			array('id_status','active'),
-			array('date_finished','datefinished'),
+			//array('date_finished','datefinished'),
 		//	array('date_started','datestarted'),
 			array('license','license'),
 
 			array('id_test, id_radiostation, id_type,id_status, max_listeners, test_number', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished', 'safe', 'on'=>'search'),
+			array('id_test, id_radiostation, id_type, date_add, date_started,id_status, max_listeners, test_number, date_finished, name', 'safe'),
 		);
 	}
 	public function license($attribute){
@@ -115,6 +116,7 @@ else{
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation' ),
 			'songs'=>array(self::HAS_MANY, 'Songs','id_test'),
 			'detail'=>array(self::HAS_MANY, 'MusicTestDetail','id_test'),
+			'usertest'=>array(self::HAS_MANY, 'Usertest','id_music'),
 		);
 	}
 
@@ -125,15 +127,16 @@ else{
 	{
 		return array(
 			'id_test' => Yii::t('radio', 'Id Test'),
-			'id_radiostation' =>Yii::t('radio', 'Id Radiostation'),
-			'id_type' =>Yii::t('radio', 'Id Type'),
+			'id_radiostation' =>Yii::t('radio', 'Radiostation'),
+			'id_type' =>Yii::t('radio', 'Type'),
 			'date_add' =>Yii::t('radio', 'Date Add'),
 			'date_started' =>Yii::t('radio', 'Date Started'),
-			'id_status' =>Yii::t('radio', 'Id Status'),
+			'id_status' =>Yii::t('radio', 'Status'),
 			'max_listeners' =>Yii::t('radio', 'Max Listeners'),
 			'test_number' =>Yii::t('radio', 'Test Number'),
 			'date_finished' =>Yii::t('radio', 'Date Finished'),
 			'date'=>Yii::t('radio', 'Date'),
+			'name'=>Yii::t('radio','Name'),
 		);
 	}
 
@@ -164,10 +167,13 @@ else{
 		$criteria->compare('max_listeners',$this->max_listeners);
 		$criteria->compare('test_number',$this->test_number);
 		$criteria->compare('date_finished',$this->date_finished,true);
+		$criteria->compare('name',$this->name);
 		$criteria->together = true;
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pagesize' => 50,),
 		));
 	}
 
@@ -192,6 +198,13 @@ else{
 			$this->id_status = 1;
 			$this->date_add = date(" Y-m-d");
 		}
+		if($this->id_status==2){
+			$this->date_started=date(" Y-m-d H:i:s");
+
+		}
+
+		if($this->id_status==3)
+			$this->date_finished=date(" Y-m-d H:i:s");
 
 		parent::beforeSave();
 		return true;
@@ -208,8 +221,6 @@ else{
 				foreach($files as $file) {
 					$songs = new Songs();
 					$songs->id_test = $this->id_test;
-					//$info = $this->mp3info($file);
-
 						$name=stristr($file,$this->id_test);
 						$name=stristr($name,'.mp3',true);
 					$name=str_replace("{$this->id_test}/","",$name);
@@ -221,7 +232,9 @@ else{
 				}
 			}
 		}
+
 		if ($this->id_status == 2 and $this->id_type == 1) {
+
 			if ($this->_status!=$this->id_status) {
 				$criteria = new CDbCriteria();
 				$criteria->condition = 'id_radiostation = :id_radiostation AND id_category=:id_category ';
@@ -274,5 +287,12 @@ else{
 		Usertest::model()->deleteAll("`id_music`={$this->id_test}");
 		MusicTestDetail::model()->deleteAll("`id_test`={$this->id_test}");
 		parent::afterDelete();
+	}
+	public function gettype(){
+		$arr=array(1=>'call-out',2=>'AMT');
+		return $arr[$this->id_type];
+	}
+	public function getRTD(){
+		return count($this->usertest);
 	}
 }

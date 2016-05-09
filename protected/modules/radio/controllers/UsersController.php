@@ -45,8 +45,12 @@ class UsersController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=new Usertest('search');
+		$model->unsetAttributes();
+		$model->id_user=$id;
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'test'=>$model,
 		));
 	}
 
@@ -83,6 +87,7 @@ class UsersController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -105,11 +110,11 @@ class UsersController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		//$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		//if(!isset($_GET['ajax']))
+			//$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -197,7 +202,9 @@ class UsersController extends Controller
 
 					$usermodel->id_radiostation=$radio->id_radiostation;
 					$usermodel->scenario = 'load';
+
 					if($usermodel->save()){
+
 						$email=new EmailInvintation();
 						$email->email($usermodel);
 						$i++;
@@ -211,6 +218,23 @@ class UsersController extends Controller
 
 		}
 		$this->render('load',array('model'=>$model,'coun'=>$i,'error'=>$errorusers));
+	}
+	public function actionStatistic(){
+		$radio=Users::model()->findByPk(Yii::app()->user->id);
+		$this->render('statistic',array('statistic'=>Radistations::statistic($radio->id_radiostation),));
+			
+	}
+	public function actionTest($id,$test){
+		$model=new MusicTestDetail('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['MusicTestDetail']))
+			$model->attributes=$_GET['Users'];
+		$model->id_user=$id;
+		$model->id_test=$test;
+		$this->render('testuser',array(
+			'model'=>$model,
+		));
+
 	}
 
 }

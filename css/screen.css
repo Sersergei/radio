@@ -237,6 +237,22 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 #statistic span{
+<<<<<<< HEAD
+ font-weight:bold;
+ font-size:18px
+}
+#filter p{
+ margin-top: 15px;
+ margin-bottom: 2px;
+ font-weight:bold;
+ font-size:18px;
+}
+.admintable table{
+ margin-left: -5px;
+ font-size:12px;
+
+}
+=======
  font-weight:bold;
  font-size:18px
 }
@@ -246,3 +262,4 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
  font-weight:bold;
  font-size:18px
 }
+>>>>>>> master

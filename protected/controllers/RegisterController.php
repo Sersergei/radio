@@ -47,7 +47,7 @@ class RegisterController extends Controller
             $criteria->condition = 'id_radiostation = :id_radiostation';
             $criteria->params = array(':id_radiostation' => $id);
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
-            // var_dump($radiostationSettings->not_use_music_marker);
+
             if ($radiostationSettings) {
 
 
@@ -91,6 +91,7 @@ class RegisterController extends Controller
             if (isset($_POST['mixmarker']))
             $models->mixmarker = $_POST['mixmarker'];
             if ($models->validate()){
+                $session['id_mix']=$models->mixmarker;
                 if(in_array($models->mixmarker,$bed_mixmarker)){
                     $session['marker']='-';
                 }
@@ -143,6 +144,7 @@ class RegisterController extends Controller
 
                 $model->scenario = 'user';
                 $model->marker=$session['marker'];
+                $model->mix_marker=$session['id_id_mix'];
                 $model->attributes = $_POST['Users'];
                 $model->date_birth=$_POST['date_birth'];
                 $model->status=1;//забанен
@@ -226,15 +228,20 @@ $result=$face->getToken($_GET['code']);
         else {
             exit ('Ошибка параметров');
         }
+        if($session['radio'])
+            $this->redirect(array('radiostations/ChoosingMix'));
+        else
 $this->redirect(array('register/Viewregister'));
     }
-    public function actionIdcard(){
+    public function actionIdcard($id=Null,$linc=Null){
         $model=new Idcard;
         if (isset($_POST['Idcard'])) {
             $model->attributes = $_POST['Idcard'];
             if($model->validate()){
 
-
+                $statistic=Statistyk::model()->findByPk(1);
+                $statistic->coun--;
+                $statistic->save();
             $session=new CHttpSession;
             $session->open();
            /* Там всё просто XYYMMDDZZZC Х пол 1 мужики 21 века,
@@ -260,9 +267,20 @@ $this->redirect(array('register/Viewregister'));
                 $er=19;
             }
             $session['bersday']=$er.$model->card{1}.$model->card{2}."-".$model->card{3}.$model->card{4}."-".$model->card{5}.$model->card{6};
-                $this->redirect(array('register/Viewregister'));
+                if($id){
+                    $this->redirect(array('register/update/id/'.$id.'/linc/'.$linc));
+                }
+                else{
+                    $this->redirect(array('register/Viewregister'));
+                }
+
             }
             }
+        else{
+            $statistic=Statistyk::model()->findByPk(1);
+            $statistic->coun++;
+            $statistic->save();
+        }
         $this->render('idcard',array('model'=>$model));
     }
 
@@ -310,22 +328,44 @@ $this->redirect(array('register/Viewregister'));
     public function actionUpdate($id=Null,$linc=Null)
     {
         $model=$this->loadModel($id);
-        if($model->link==$linc){
+        $session=new CHttpSession;
+        $session->open();
+        //var_dump($model->id_card or !isset($session['bersday'] ));
+        if($model->radio->radiostationSettings->id_card_registration and ($model->id_card or !isset($session['bersday'])))
+            $this->redirect(array('register/Idcard/id/'.$id.'/linc/'.$linc));;
+        $i=0;
+        if(isset($session['sex']))
+            $model->sex=$session['sex'];
+        if(isset($session['bersday']))
+            $model->date_birth=$session['bersday'];
+        if($model->activate==$linc){
+
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        $model->region='';
+
         if(isset($_POST['Users']))
         {
             $model->attributes=$_POST['Users'];
             $model->date_birth=$_POST['date_birth'];
             $model->scenario = 'user';
-            if($model->save())
+            if($model->save()){
+                if($model->link)
                 $this->redirect(array('/test/index/id/'.$id.'/linc/'.$model->link));
-        }
+                else
+                    $i=1;
 
-        $this->render('update',array(
-            'model'=>$model,
-        ));}
+            }
+
+        }
+        if($i){
+            $this->render('message',array('message'=>Yii::t('radio','Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test.')));
+        }
+            else{
+                $this->render('update',array(
+                    'model'=>$model,
+                ));
+            }
+        }
     }
     public function loadModel($id)
     {

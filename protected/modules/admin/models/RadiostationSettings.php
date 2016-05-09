@@ -48,7 +48,7 @@ class RadiostationSettings extends CActiveRecord
 			array('id_lang, id_user, not_use_music_marker, not_register_users, not_invite_users, id_radiostation, id_card_registration', 'numerical', 'integerOnly'=>true),
 			array('other_radiostations', 'length', 'max'=>1000),
 			array('email','email'),
-			array('test_song, mix_marker', 'safe'),
+			array('test_song, mix_marker,never_test', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_radio_settings, id_lang, id_user, test_song, not_use_music_marker, not_register_users, not_invite_users, mix_marker, id_radiostation, other_radiostations, id_card_registration', 'safe', 'on'=>'search'),
@@ -94,6 +94,7 @@ class RadiostationSettings extends CActiveRecord
 			'other_radiostations' => Yii::t('radio', 'Other Radiostations') ,
 			'id_card_registration' => Yii::t('radio', 'Necessity ID card for registration') ,
 			'email'=>Yii::t('radio','Your mail for subscribe'),
+			'never_test'=>Yii::t('radio','unknown (without of next question)'),
 		);
 	}
 
@@ -159,6 +160,10 @@ class RadiostationSettings extends CActiveRecord
 	public function getnot_use_music_marker(){
 		$arr=array('No','Yes');
 		return $arr[$this->not_use_music_marker];
+	}
+	public function getnever_test(){
+		$arr=array('No','Yes');
+		return $arr[$this->never_test];
 	}
 	public function getnot_register_users(){
 	$arr=array('No','Yes');
@@ -263,6 +268,15 @@ class RadiostationSettings extends CActiveRecord
 		$arr=explode(",",$this->other_radiostations);
 		$arr[$this->id_radiostation]=$this->Radiostation->name;
 		return $arr[$id];
+	}
+	public function gettestsongs(){
+		if($this->mix_marker)
+			$r=$this->mix_marker;//песня для тестирования музыки
+		else{
+			$r=unserialize($this->god_mixmarker);
+			$r=$r[0];
+		}
+		return $r;
 	}
 
 }

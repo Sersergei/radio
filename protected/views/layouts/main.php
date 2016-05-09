@@ -21,13 +21,13 @@
 <body id="page6">
 <div id="main">
 	<header>
+		<!--
 		<div id="lang"><a class="by" href="?lang=ru"></a><a class="en" href="?lang=en"></a><a class="uk" href="?lang=uk"></a> <a class="et" href="?lang=et"></a></div>
+		-->
 	</header>
 
 	<article id="content">
-		<div class="col-1">
-		</div>
-		<div class="col-2">
+		<div class="col">
 <?php echo $content ?>
 			</div>
 		</article>

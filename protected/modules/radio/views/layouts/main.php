@@ -30,11 +30,15 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>Yii::t('radio','User'), 'url'=>array('/radio/users')),
-				array('label'=>Yii::t('radio','Test'), 'url'=>array('/radio/MusicTest')),
-				array('label'=>Yii::t('radio','Test Settings'), 'url'=>array('/radio/radiostationSettings')),
+				array('label'=>Yii::t('radio','Home'), 'url'=>array('/radio')),
+				array('label'=>Yii::t('radio','List of users'), 'url'=>array('/radio/users')),
+				array('label'=>Yii::t('radio','Users reached'),'url'=>('/radio/users/statistic')),
+				array('label'=>Yii::t('radio','Test management panel'), 'url'=>array('/radio/MusicTest')),
+				array('label'=>Yii::t('radio','Test settings'), 'url'=>array('/radio/radiostationSettings')),
+				array('label'=>Yii::t('radio','Banner Maker'),'url'=>array('/radio/item/create')),
 				array('label'=>Yii::t('radio','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest,
+					'itemOptions'=>array('class'=>'visited'),)
 			),
 		)); ?>
 	</div><!-- mainmenu -->

@@ -73,6 +73,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			)),
 
 		),
+		array(
+			'name' => 'status',
+			'type' => 'raw',
+			'value' => '$data->getstatus()',
+		),
+		'marker',
 
                 'date_add',
                 array(
@@ -91,6 +97,21 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                 'value' => '$data->radio->radiostationSettings->getradio($data->P2)',
 
             ),
+		array(
+			'name' => 'admin_region',
+			'type' => 'raw',
+			'value' => '$data->getregion()',
+		),
+		array(
+			'name'=>'test_count',
+			'type'=>'raw',
+			'value'=>'$data->getAmt()',
+		),
+		array(
+			'name'=>'date_lasttest',
+			'type'=>'raw',
+			'value'=>'$data->getDateLastTest()',
+		),
 		/*
         array(
             'name' => 'admin_region',
@@ -118,6 +139,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         */
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{delete}',
+
 		),
+
 	),
 )); ?>

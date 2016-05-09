@@ -33,6 +33,11 @@
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>1000)); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'never_test'); ?>
+		<?php echo $form->checkBox($model,'never_test'); ?>
+		<?php echo $form->error($model,'never_test'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'not_use_music_marker'); ?>
@@ -56,7 +61,6 @@
 		<?php echo $form->checkBox($model,'id_card_registration'); ?>
 		<?php echo $form->error($model,'id_card_registration'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'other_radiostations'); ?>
 		<?php echo $form->textField($model,'other_radiostations',array('size'=>60,'maxlength'=>1000)); ?>
@@ -64,6 +68,10 @@
 		<br>
 		<?php echo Yii::t('radio','Add all radiostations of your regions (separate them with commas)') ?>
 	</div>
+
+
+
+
 
 	<div class="row button">
 		<?php echo CHtml::Button('sdfsd',array('submit'=>array('/radio'),'class'=>'back')); ?>

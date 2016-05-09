@@ -20,10 +20,17 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
+					'logFile'=>'cron.log',
 					'levels'=>'error, warning',
 				),
+				array(
+					'class'=>'CFileLogRoute',
+					'logFile'=>'cron_trace.log',
+					'levels'=>'trace',
+				)
 			),
 		),
 
 	),
 );
+?>

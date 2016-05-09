@@ -30,6 +30,39 @@
 	</div>
 	<table>
 		<tr>
+			<td>
+				<div class="row">
+				<p><?php echo $form->labelEx($model,'time'); ?></p>
+				<?php echo $form->textField($model,'time',array('size'=>2,'maxlength'=>1000)); ?> (sec)
+				</div>
+			</td>
+		</tr>
+		<tr><tr>
+			<td>
+				<?php echo $form->checkBoxList($model,'marker',array('+'=>'Mix-marker')); ?>
+			</td>
+			<td style=" vertical-align: top; ">
+				<p><?php echo $form->labelEx($model,''); ?></p>
+
+				<?php echo $form->checkBoxList($model,'region',TestSettings::getregion($model->idTest->id_radiostation)); ?>
+				<?php echo $form->error($model,'region'); ?>
+			</td>
+		</tr>
+			<td>
+				<?php echo $form->checkBoxList($model,'ip',array(1=>'ip')); ?>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<?php echo $form->checkBox($model,'P1P2'); ?>
+				<?php  echo $form->labelEx($model,'P1P2'); ?>
+
+
+				<?php echo $form->checkBoxList($model,'P1P2',array('1'=>$model->idTest->radio->name.'show respondents P1 & P2')); ?>
+			</td>
+		</tr>
+		<tr>
 			<td style=" vertical-align: top; ">
 				<p><?php echo $form->labelEx($model,'region'); ?></p>
 
@@ -44,17 +77,6 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo $form->checkBox($model,'P1P2'); ?>
-				<?php  echo $form->labelEx($model,'P1P2'); ?>
-
-			</td>
-			<td>
-				<?php echo $form->checkBox($model,'mix'); ?>
-				<?php  echo $form->labelEx($model,'mix'); ?>
-			</td>
-		</tr>
-		<tr>
 			<td style=" vertical-align: top; ">
 
 				<p><?php echo $form->labelEx($model,'P1'); ?></p>
@@ -66,6 +88,7 @@
 			</td>
 			<td style=" vertical-align: top; ">
 				<p><?php echo $form->labelEx($model,'P2'); ?></p>
+				<?php echo $form->checkBoxList($model,'P2All',array('1'=>'All')); ?><br>
 				<?php echo $form->checkBoxList($model,'P2',RadiostationSettings::getradiostation($model->idTest->id_radiostation)); ?>
 				<?php echo $form->error($model,'P2'); ?>
 			</td>

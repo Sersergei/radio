@@ -46,11 +46,26 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id_test',
-		'id_radiostation',
-		'id_type',
+		array(
+			'name' => 'id_radiostation',
+			'value' => '$data->radio->name',
+		),
+		array(
+			'name' => 'id_type',
+			'value' => '$data->gettype()',
+		),
+
 		'date_add',
 		'date_started',
-		'id_status',
+		'date_finished',
+		array(
+			'name' => 'id_status',
+			'value' => '$data->getStatus()',
+		),
+		array(
+			'name' => 'RTD',
+			'value' => '$data->getRTD()',
+		),
 		/*
 		'max_listeners',
 		'test_number',

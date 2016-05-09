@@ -16,4 +16,12 @@ public $menu=array();
 * for more details on how to specify this property.
 */
 public $breadcrumbs=array();
+    function init ()
+    {
+
+        parent::init();
+
+        $app = Yii::app();
+        $app->setLanguage('en');
+    }
 }

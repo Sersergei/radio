@@ -36,6 +36,15 @@ class Users extends CActiveRecord
 	public $test_done;
 	public $date;
 	public $test_count;
+	public $AMT;
+	public $coll_aut;
+	public $date_lasttest;
+	public $status_statistic;
+	public $age_from;
+	public $after_age;
+	public $active;
+	public $create;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -63,10 +72,10 @@ class Users extends CActiveRecord
 			array('P2','notP1','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
-			array('email','email'),
+
 			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
-			//array('email','unique','on'=>'admin,user'),
+			array('email','unique','on'=>'user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
@@ -79,8 +88,9 @@ class Users extends CActiveRecord
 			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('password_repeat, radiostation,location,link,password,login, date, test_count','safe'),
-			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status, id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation', 'safe', 'on' => 'search'),
+			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2,period,mix_marker','safe'),
+			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status,
+			 id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region,active', 'safe', 'on' => 'search'),
 		);
 	}
 	public function notP1($attribute){
@@ -114,7 +124,7 @@ class Users extends CActiveRecord
 		return array(
 			'radio' => array(self::BELONGS_TO, 'Radistations', 'id_radiostation'),
 			'education'=>array(self::BELONGS_TO,'EducationMult','id_education'),
-			'usertest'=>array(self::BELONGS_TO,'Usertest','id_user')
+			'usertest'=>array(self::HAS_MANY,'Usertest','id_user')
 
 		);
 	}
@@ -128,7 +138,7 @@ class Users extends CActiveRecord
 			'id_user' => Yii::t('radio', 'Id User'),
 			'name_listener' => Yii::t('radio', 'Your Name'),
 			'email' => Yii::t('radio', 'Email'),
-			'date_birth' => Yii::t('radio', 'Date Birth'),
+			'date_birth' => Yii::t('radio', 'Birth Date'),
 			'sex' => Yii::t('radio', 'Sex'),
 			'id_education' => Yii::t('radio', 'What education do you have?'),
 			'login' => Yii::t('radio', 'Login'),
@@ -137,7 +147,7 @@ class Users extends CActiveRecord
 			'date_add' => Yii::t('radio', 'Date Add'),
 			'status' => Yii::t('radio', 'Status'),
 			'id_category' => Yii::t('radio', 'Id Category'),
-			'id_radiostation' => Yii::t('radio', 'Id Radiostation'),
+			'id_radiostation' => Yii::t('radio', 'Radiostation'),
 			'mix_marker' => Yii::t('radio', 'Mix Marker'),
 			'P1' => Yii::t('radio', 'What radiostation are you listen more than other on last week?'),
 			'P2' => Yii::t('radio', 'What other radiostations are you listen yet on last week?'),
@@ -145,13 +155,17 @@ class Users extends CActiveRecord
 			'mobile_ID' => Yii::t('radio', 'Mobile'),
 			'region'=>Yii::t('radio','Where are you from?'),
 			'age'=>Yii::t('radio','Age'),
-			'admin_name'=>Yii::t('radio','Name'),
+			'admin_name'=>Yii::t('radio','User name'),
 			'admin_P1'=>Yii::t('radio','P1'),
 			'admin_P2'=>Yii::t('radio','P2'),
 			'admin_region'=>Yii::t('radio','Region'),
 			'test_done'=>Yii::t('radio','tests done'),
 			'date'=>Yii::t('radio','license date'),
-			'test_count'=>Yii::t('radio','test_count'),
+			'test_count'=>Yii::t('radio','test'),
+			'admin_region'=>'Region',
+			'date_lasttest'=>'Last test',
+			'period'=>Yii::t('radio','periodicity'),
+
 		);
 	}
 
@@ -186,10 +200,16 @@ class Users extends CActiveRecord
 		$criteria->compare('status', $this->status);
 		$criteria->compare('id_category', $this->id_category);
 		$criteria->compare('t.id_radiostation', $this->id_radiostation);
-		$criteria->compare('mix_marker', $this->mix_marker, true);
+		$criteria->compare('mix_marker', $this->mix_marker);
 		$criteria->compare('P1', $this->P1);
 		$criteria->compare('id_card', $this->id_card);
 		$criteria->compare('mobile_ID', $this->mobile_ID);
+
+		if($this->date_birth)
+		$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from());
+
+
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -197,6 +217,45 @@ class Users extends CActiveRecord
 				'pagesize' => 50,
 			),
 		));
+	}
+	public function sereachuser(){
+
+		$criteria = new CDbCriteria;
+
+
+		$criteria->compare('id_user', $this->id_user);
+		$criteria->compare('name_listener', $this->name_listener, true);
+		$criteria->compare('email', $this->email, true);
+		//$criteria->compare('date_birth', $this->date_birth, true);
+		$criteria->compare('sex', $this->sex);
+		$criteria->compare('id_education', $this->id_education);
+		$criteria->compare('login', $this->login, true);
+		$criteria->compare('password', $this->password, true);
+		$criteria->compare('date_add', $this->date_add, true);
+		$criteria->compare('status', $this->status);
+		$criteria->compare('id_category', $this->id_category);
+		$criteria->compare('id_radiostation', $this->id_radiostation);
+		$criteria->compare('mix_marker', $this->mix_marker, true);
+		$criteria->compare('P1', $this->P1);
+		$criteria->compare('P2', $this->P2);
+		$criteria->compare('region',$this->region);
+		//$criteria->compare('id_card', $this->id_card);
+		//$criteria->compare('mobile_ID', $this->mobile_ID);
+		if($this->active)
+			$criteria->addCondition('status IS NULL');
+		if($this->create){
+
+			$criteria->addBetweenCondition('date_add',$this->create,date(" Y-m-d"));
+		}
+
+
+			$criteria->addBetweenCondition('date_birth',$this->after_age(),$this->age_from(),'AND');
+		if($this->status_statistic){
+			//$criteria->condition="status IS NULL";
+			$criteria->addCondition('P1 IS NOT NULL');
+
+		}
+		return Users::model()->findAll($criteria);
 	}
 
 	/**
@@ -220,7 +279,7 @@ class Users extends CActiveRecord
 		return CPasswordHelper::hashPassword($password);
 	}
 	public function getsex(){
-		$arr=array(0=>'',1=>Yii::t('radio','Man'),2=>Yii::t('radio','Woman'));
+		$arr=array(0=>'',1=>Yii::t('radio','M'),2=>Yii::t('radio','W'));
 		if(!isset($this->sex))
 			return $arr[0];
 		return $arr[$this->sex];
@@ -271,6 +330,7 @@ return true;
 	protected function afterDelete(){
 		Usertest::model()->deleteAll("`id_user`={$this->id_user}");
 		MusicTestDetail::model()->deleteAll("`id_user`={$this->id_user}");
+		Messages::model()->deleteAll("`id_user`={$this->id_user}");
 		parent::afterDelete();
 	}
 	protected function afterFind()
@@ -298,8 +358,74 @@ return true;
 	}
 	public function education(){
 		if($this->education)
-			return $this->education->education_level;
+			return yii::t('radio',$this->education->education_level);
 		else
 			return Null;
 	}
+	public function getstatus(){
+		if($this->status)
+			return 'ban';
+		else
+			return 'act';
+	}
+	public function getAmt(){
+		//var_dump($this->usertest(array('condition'=>'test.id_type=1')));
+		return count($this->usertest);
+	}
+	public function getDateLastTest(){
+		$criteria=new CDbCriteria();
+		$criteria->compare('id_user',$this->id_user);
+		$criteria->order='date DESC';
+		$model=Usertest::model()->find($criteria);
+		if($model){
+			return $model->date;
+		}
+		else return Null;
+
+
+	}
+	public function age_from(){
+		if(!$this->age_from){
+			$this->age_from=14;
+		}
+		$age=$this->age_from*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date("Y-m-d",$age);
+	}
+	public function after_age(){
+		if(!$this->after_age){
+			$this->after_age=100;
+		}
+		$age=$this->after_age*(365*60*60*24);
+		$age=abs(time())-$age;
+
+		return date("Y-m-d",$age);
+	}
+	public static function getperiodAll(){
+	return array(0=>'',1=>Yii::t('radio','once a week'),2=>Yii::t('radio','two times a month'),3=>Yii::t('radio','once a month'));
+	}
+	public function getperiod(){
+		if($this->period){
+			if($this->period==1){
+				return  date('d-m-Y', strtotime("-1 week"));
+			}
+			elseif($this->period==2){
+				return  date('d-m-Y', strtotime("-2 week"));
+			}
+			else{
+				return date('d-m-Y', strtotime("-1 month"));
+			}
+		}
+		else return Null;
+	}
+	public function getsexuser(){
+		$arr=array(0=>'',1=>Yii::t('radio','Man'),2=>Yii::t('radio','Woman'));
+		if(!isset($this->sex))
+			return $arr[0];
+		return $arr[$this->sex];
+	}
+
+
+
 }
