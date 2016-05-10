@@ -11,7 +11,6 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create MusicTest', 'url'=>array('create')),
 	array('label'=>'Update MusicTest', 'url'=>array('update', 'id'=>$model->id_test)),
-
 	array('label'=>'Manage MusicTest', 'url'=>array('index')),
 );
 ?>

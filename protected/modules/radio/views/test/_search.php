@@ -55,6 +55,9 @@
 
 		<tr>
 			<td>
+				<?php echo $form->checkBox($model,'P1P2'); ?>
+				<?php  echo $form->labelEx($model,'P1P2'); ?>
+
 
 				<?php echo $form->checkBoxList($model,'P1P2',array('1'=>$model->idTest->radio->name.'show respondents P1 & P2')); ?>
 			</td>
