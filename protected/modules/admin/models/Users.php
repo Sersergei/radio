@@ -408,13 +408,13 @@ return true;
 	public function getperiod(){
 		if($this->period){
 			if($this->period==1){
-				return  date('d-m-Y', strtotime("-1 week"));
+				return  date('Y-m-d', strtotime("-1 week"));
 			}
 			elseif($this->period==2){
-				return  date('d-m-Y', strtotime("-2 week"));
+				return  date('Y-m-d', strtotime("-2 week"));
 			}
 			else{
-				return date('d-m-Y', strtotime("-1 month"));
+				return date('Y-m-d', strtotime("-1 month"));
 			}
 		}
 		else return Null;
