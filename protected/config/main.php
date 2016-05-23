@@ -33,6 +33,7 @@ return array(
 		// uncomment the following to enable the Gii tool
 		'admin',
 		'radio',
+		'facebook',
       
         //'user',
 		'gii'=>array(
@@ -83,7 +84,7 @@ return array(
 			'class'=>'application.extensions.smtpmail.PHPMailer',
 			'Host'=>"smtp.gmail.com",
 			'Username'=>'radiomusictestcom@gmail.com',
-			'Password'=>'ch0579828592',
+			'Password'=>'ch0579828592dfsf',
 			'Mailer'=>'smtp',
 			'Port'=>587,
 			'SMTPAuth'=>true,

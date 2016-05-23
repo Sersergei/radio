@@ -1,7 +1,10 @@
+
 <h1></h1>
 
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/player.js', CClientScript::POS_HEAD); ?>
-<?php $form=$this->beginWidget('CActiveForm', array(
+
+<?php
+
+$form=$this->beginWidget('CActiveForm', array(
     'id'=>'test-settings-mult-form',
     // Please note: When you enable ajax validation, make sure the corresponding
     // controller action is handling ajax validation correctly.
@@ -40,7 +43,7 @@
                         <div class="divnever" style="background: 0px;width: 337px; text-align: center;">
                             <?php echo Yii::t('radio','Even if you don`t know the song, do you like it?'); ?>
                         </div>
-                        <?php echo CHtml::Button(Yii::t('radio','I never heard of it'),array('class'=>'em1')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I never heard of it'),array('class'=>'em2','name'=>'never')); ?>
                     </td>
                 </tr>
                 <tr>
@@ -57,38 +60,38 @@
                         <div align="left"> <?php echo Yii::t('radio','If you wanna listen this song again, click the button please!') ?></div> </td>
                     <td width="337" height="29" align="right">
                         <div class="em22"></div>
-                        <?php echo CHtml::submitButton(Yii::t('radio','I love it'),array('class'=>'em2')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I love it'),array('class'=>'em2','name'=>'yt1')); ?>
                         </td>
                 </tr>
                 <tr>
                     <td width="337" height="29" align="right">
                         <div class="em32"></div>
-                        <?php echo CHtml::submitButton(Yii::t('radio','I just like it'),array('class'=>'em3')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I just like it'),array('class'=>'em3','name'=>'yt2')); ?>
                     </td>
 
                 </tr>
                 <tr>
                     <td width="337" height="29" align="right">
                         <div class="em42"></div>
-                        <?php echo CHtml::submitButton(Yii::t('radio','I would listen to it'),array('class'=>'em4','id'=>'em4')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I would listen to it'),array('class'=>'em4','id'=>'em4','name'=>'yt3')); ?>
                     </td>
                 </tr>
                 <tr>
                     <td width="127" height="69" colspan="2" rowspan="3" align="right" valign="bottom">
                         <div>
-                        <a class="previus" href="Repeat"></a>
+                        <a class="previus" href="/test/Repeat"></a>
                         </div>
                     </td>
                     <td width="161" height="32" align="right"></td>
                     <td width="337" height="29" align="right">
-                        <div class="em52"><?php echo CHtml::submitButton(Yii::t('radio','I`m tired of it'),array('class'=>'em5','id'=>'em5'));  ?></div>
+                        <div class="em52"><?php echo CHtml::submitButton(Yii::t('radio','I`m tired of it'),array('class'=>'em5','id'=>'em5','name'=>'yt4'));  ?></div>
 
                     </td>
                 </tr>
                 <tr>
                     <td width="161" height="29" style="font-size: 12px"><?php echo Yii::t('radio','listen a previous song again')?></td>
                     <td width="337" height="29" align="right">
-                        <?php echo CHtml::submitButton(Yii::t('radio','I don`t like it'),array('class'=>'em6')); ?>
+                        <?php echo CHtml::submitButton(Yii::t('radio','I don`t like it'),array('class'=>'em6','name'=>'yt5')); ?>
                       </td>
                 </tr>
                 <tr>
