@@ -48,6 +48,8 @@ return array(
     'You already chose this radiostation' => 'vali mõni teine raadiojaam, sest seda jaama sa oled juba valinud',
     'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!'=>'Paari sekundi pärast hakkavad kõlama laulud. Kontrollige palun, kas hetkel kõlaritest või kõrvaklappidest muusikat kostub, kontrollige ka heli tugevust.',
     'Login with Facebook'=>'Logi sisse Facebookiga',
+    'Login with'=>'Logi sisse',
+    'Or'=>'või',
     'click here'=>'vajutage siia.',
     'click here.'=>'vajutage siia.',
     'Thank you for your request to be added to the web Radio Music Test We add names to our list only after verifying the recipient`s permission, which is why we are sending you this address confirmation request To confirm that you would like to receive our future invite on the music tests, please '=>'täname Teid muusikatesti registreerimise eest! Lisame nimed andmebaasi ainult peale kasutajalt loa saamist, sellepärast saadame päringu Teile e-kirjaga. Pärast kinnitamist hakkate aeg-ajalt saama kutseid muusikatestis osalemiseks, selleks palun ',

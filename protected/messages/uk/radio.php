@@ -44,6 +44,8 @@ return array(
     'I will now play songs to you. Check now, that your speakers are turned on and the volume is not too loud. After listening to each song, I will ask you a few questions.Thank you for your time!'=>'За пару секунд я почну програвати Вам фрагменти пісень. Перевірте чи грає зараз музика в колонках або навушниках, а також перевірте рівень гучності. Не надто тихо або голосно? Після прослуховування кожної пісні, я задам вам кілька запитань. Дякую за ваш час!',
     'Next'=>'Вперед',
     'Login with Facebook'=>'Увійти через Facebook',
+    'Login with'=>'Увійти через',
+    'Or'=>'або',
     'Man'=>'чоловіча',
     'Woman'=>'жіноча',
     'pupil of sсhool'=>'навчаюся у школі',
@@ -70,6 +72,9 @@ return array(
     'This test does not exist'=>'Цей тест було завершено. Найближчим часом на свою електронну адресу ви отримаєте запрошення на наступний музичний тест.',
     'Thank you for edit your profile. Unfortunately, music test was finished. Next time we will send on your mail invitation for the music test.'=>'Дякуємо за зміни в вашому профілі. На цей момент нема жодного активного музичного тесту, проте незабаром чекайте на запрошення, яке надійде на вашу електронну адресу',
     'This test doen`t exis'=>'Цей тест було завершено. Найближчим часом на свою електронну адресу ви отримаєте запрошення на наступний музичний тест.',
+'Thank you for the answers. Have a nice day!'=>'Дякуємо за Ваші відповіді. Гарного Вам дня!',
+'Hello, '=>'Привіт, ',
+'Information about you:'=>'Інформація про Вас:',
 
 
 

@@ -4,10 +4,13 @@
 <?php  $path=new ServiceUserIdentity();
 $path=$path->seturl(); ?>
 <div id="facebook">
+    <br>
+    <?php echo Yii::t('radio','Login with'); ?>
 <a href="<?php echo $path ?>"><img src="/images/facebook_big.jpg" width="150"
                                    height="50" alt="<?php echo Yii::t('radio','Login with Facebook'); ?>"></a>
     <br>
     <?php echo Yii::t('radio','Or'); ?>
+    Email
 </div>
 <div class="registration">
 
@@ -27,12 +30,12 @@ $path=$path->seturl(); ?>
 
 
     <div class="row">
-        <?php echo $form->labelEx($model,'email'); ?><br><br>
+        <?php //echo $form->labelEx($model,'email'); ?><br><br>
         <?php echo $form->textField($model,'email',array('size'=>40,'maxlength'=>40)); ?><br><br>
         <?php echo $form->error($model,'email'); ?>
     </div>
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Next'); ?>
+        <?php echo CHtml::submitButton(Yii::t('radio','Next')); ?>
     </div>
 
     <?php $this->endWidget(); ?>
