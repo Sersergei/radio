@@ -18,6 +18,9 @@ class RadiostationsController  extends Controller
         $model=Radistations::model()->findByPk($id);
         if(isset($session['url_repit'])){
             $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            if(isset($session['new']))
+            $messages=$messages.'<br>'.Yii::t('radio','To complete the registration click on the link in the email');
+            $messages=$messages.'<br>'.Yii::t('radio','If you want get present from radiostation, you must share link on your facebook page.');
             $this->render('mess',array('message'=>$messages));
         }
         else{
@@ -321,8 +324,11 @@ class RadiostationsController  extends Controller
             $criteria->condition = 'email = :email AND id_radiostation = :id_radiostation';
             $criteria->params = array(':id_radiostation'=>$session['radio'], ':email'=>$session['email']);
             $model = User_ferst_test::model()->find($criteria);
-            if(!$model)
+            if(!$model){
                 $model=new User_ferst_test();
+                $session['new']=1;
+            }
+
             $model->id_radiostation=$session['radio'];
             $model->id_category=3;
 
