@@ -96,11 +96,8 @@ class TestSettingsController extends Controller
 
 			if($model->save())
 				$this->redirect(array('/radio/radiostationSettings'));
-<<<<<<< HEAD
-=======
 
 
->>>>>>> test12
 		}
 
 		$this->render('update',array(

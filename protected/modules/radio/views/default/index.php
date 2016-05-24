@@ -11,10 +11,10 @@ echo $license;
 
 ?>
 
-
 	<p><?php echo $href; ?></p>
 	<p><?php echo $href2; ?></p>
 	<p><?php echo $AMT; ?></p>
+
 
 <p></p>
 <?php if($model and $model['count_all']){ //Если нету открытого теста то невыводим статистику
@@ -268,5 +268,15 @@ echo $license;
 	</table>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
 
 <?php } ?>

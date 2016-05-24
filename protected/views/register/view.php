@@ -1,8 +1,4 @@
-<header>
-
-</header>
 <?php  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/mini_player.js', CClientScript::POS_HEAD); ?>
-<?php  Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/ferst.css'); ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-form',
 	// Please note: When you enable ajax validation, make sure the corresponding

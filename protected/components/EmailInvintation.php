@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Сергей
+ * User: пїЅпїЅпїЅпїЅпїЅпїЅ
  * Date: 25.01.2016
  * Time: 16:47
  */
@@ -52,7 +52,7 @@ class EmailInvintation
                     "Content-Type: text/html; charset=UTF-8 \r\n";
 
                 mail($user->email,$subject,$text,$headers);
-                //EmailActive::mailsend($user->email,'radiomusictestcom@gmail.com',$subject,$text);
+               // EmailActive::mailsend($user->email,'radiomusictestcom@gmail.com',$subject,$text);
             }
 
 

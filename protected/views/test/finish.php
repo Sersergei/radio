@@ -2,4 +2,4 @@
 <?php echo $model; ?><br>
 <br>
 
-<?php $this->renderPartial('_messages', array('messages'=>$messages)); ?>
+<?php $this->renderPartial('_messages', array('mes'=>$messages)); ?>

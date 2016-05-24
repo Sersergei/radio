@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/test.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/layout.css" >
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/prettyPhoto.css" >
-	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/player.js', CClientScript::POS_HEAD); ?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/css/players.js', CClientScript::POS_HEAD); ?>
 	<!--[if lt IE 8]>
 
 	<![endif]-->
@@ -23,7 +23,7 @@
 		FB.init({
 			appId      : '433471736844421',
 			xfbml      : true,
-			version    : 'v2.2'
+			version    : 'v2.6'
 		});
 
 		// Place following code after FB.init call.
@@ -31,17 +31,16 @@
 		function onLogin(response) {
 			if (response.status == 'connected') {
 				FB.api('/me?fields=name,email,birthday,gender', function(data) {
-					var welcomeBlock = document.getElementById('fb-welcome');
-					
-					var a=data.birthday;
-					var b=a.split('/');
-					var c=b[2]+b[1]+b[0];
-					
-					
-					$("#User_ferst_test_name_listener").val(data.name);
-					$("#User_ferst_test_email").val(data.email);
-					$("#date_birth").val(c);
-					
+
+					$.ajax({
+						type: 'POST',
+						url: 'Authentication',
+						data: 'email='+data.email+'&name='+data.name,
+						success: function(resours){
+							
+						}
+					});
+
 				});
 			}
 		}
@@ -55,7 +54,7 @@
 				// Otherwise, show Login dialog first.
 				FB.login(function(response) {
 					onLogin(response);
-				}, {scope: 'user_friends, email'});
+				}, {scope: 'email'});
 			}
 		});
 		// end Place following code after FB.init call.
@@ -79,32 +78,11 @@
 		js.src = "//connect.facebook.net/en_US/sdk.js";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
-function print_r(taV)
-{
-  alert(getProps(taV));
-}
 
-/**
- * возвращает список атрибутов объекта и значения
- * @param {Element/Object} toObj - ссылка на объект
- * @param {String} tcSplit - строка разделитель строк
- * @return {String} - строку со списком атрибутов объекта
- * и значениями атрибутов
- */
-function getProps(toObj, tcSplit)
-{
-  if (!tcSplit) tcSplit = '\n';
-  var lcRet = '';
-  var lcTab = '    ';
 
-    for (var i in toObj) // обращение к свойствам объекта по индексу
-      lcRet += lcTab + i + " : " + toObj[i] + tcSplit;
 
-    lcRet = '{' + tcSplit + lcRet + '}';
 
-  return lcRet;
-}
-print_r(data);
+
 </script>
 <div id="main">
 

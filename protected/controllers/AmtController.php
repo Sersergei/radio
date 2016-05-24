@@ -50,7 +50,7 @@ class AmtController extends Controller
             $criteria->condition = 'id_radiostation = :id_radiostation';
             $criteria->params = array(':id_radiostation' => $id);
             $radiostationSettings = RadiostationSettings::model()->find($criteria);
-            
+            // var_dump($radiostationSettings->not_use_music_marker);
             if ($radiostationSettings) {
                 if($radiostationSettings->id_card_registration){
 
@@ -97,7 +97,7 @@ class AmtController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
             if (isset($_POST['Users'])) {
-                
+                //var_dump($_POST['Users']['email']);
 
                 $criteria = new CDbCriteria;
                 $criteria->compare('email', $_POST['Users']['email']);

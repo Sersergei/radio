@@ -221,6 +221,8 @@ else{
 				foreach($files as $file) {
 					$songs = new Songs();
 					$songs->id_test = $this->id_test;
+					//$info = $this->mp3info($file);
+						var_dump($file);
 						$name=stristr($file,$this->id_test);
 						$name=stristr($name,'.mp3',true);
 					$name=str_replace("{$this->id_test}/","",$name);

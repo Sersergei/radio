@@ -21,6 +21,7 @@ class RadiostationsController  extends Controller
     public function actionSongstest(){
         $session = new CHttpSession;
         $session->open();
+
 //????? ????? ??? ????????? ?????
             $criteria=new CDbCriteria();
             $criteria->condition = 'id_radiostation = :id_radiostation';
@@ -205,36 +206,15 @@ class RadiostationsController  extends Controller
         $session = new CHttpSession;
         $session->open();
 
-        $session['ferst_test']=1;
-        $model=new Email();
-        if (isset($_POST['Email'])) {
-            $model->attributes=$_POST['Email'];
-            if($model->validate()){
-                $session['email']=$model->email;
-                $criteria = new CDbCriteria();
-                $criteria->condition = 'id_radiostation = :id_radiostation';
-                $criteria->params = array(':id_radiostation' => $session['radio']);
-                $radiostationSettings = RadiostationSettings::model()->find($criteria);
-
-                if ($radiostationSettings) {
-
-
-                    if ($radiostationSettings->not_use_music_marker){
-
-                        $this->redirect('Viewregister');
-                    }
-
-                    else $this->redirect('ChoosingMix');
+                $session['email']=$_POST['email'];
+                $session['name']=$_POST['name'];
+                if(isset($_POST['bersday'])){
+                    $date=$pieces = explode("/", $_POST['bersday']);
+                    $date=$date[2]."-".$date[0]."-".$date[1];
+                    $session['bersday']=$date;
                 }
-                else {
-                    $this->render('message',array('message'=>Yii::t('radio','???????? ?? ?????? ?????? ??????????? ??????? ???????? ????????? ????????????')));
-                }
-            }
 
 
-        }
-
-        $this->render('authentication',array('model'=>$model));
     }
     public function actionChoosingMix(){
 
@@ -249,7 +229,7 @@ class RadiostationsController  extends Controller
         }
 
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
-        shuffle($arr); //???�???�?�?? ???�???�???�?�?�???�?? ???�?????? ???� ???????????�?????�??????;
+        shuffle($arr); //???????????? ?????????????????????? ?????????? ???? ????????????????????????;
         $criteria=new CDbCriteria;
         $criteria->addInCondition('id',$arr);
         $model=Mixmarker::model()->findAll($criteria);
@@ -342,10 +322,9 @@ class RadiostationsController  extends Controller
                         $model->status=1;//???????
                 }
                 if ($model->save()){
-                    if(isset($_POST['User_ferst_test']))
-                    new EmailActive($model);
 
-                    $this->redirect(Yii::app()->createUrl('radiostations/Finish',array('id_user'=>$model->id_user)));
+
+                    $this->redirect(Yii::app()->createUrl('facebook/radiostations/Finish',array('id_user'=>$model->id_user)));
                 }
 
             }
@@ -369,10 +348,11 @@ class RadiostationsController  extends Controller
             $criteria->condition = 'id_radiostation = :id_radiostation AND id_status = :id_status';
             $criteria->params = array(':id_radiostation' => $session['radio'], ':id_status' => 2);
             $test = MusicTest::model()->find($criteria);
-
+            $session['idtest']=$test->id_test;
             $criteria = new CDbCriteria();
             $criteria->condition = 'id_music = :id_music AND id_user = :id_user';
             $criteria->params = array(':id_music' => $test->id_test, ':id_user' => $id_user);
+            $session['user']=$id_user;
             $usertest = Usertest::model()->find($criteria);
             if (!$usertest) {
 
@@ -403,12 +383,34 @@ class RadiostationsController  extends Controller
                 unset($session['testresult']);
                 //Yii::app()->request->cookies->remove('like');
                 //$like->remove;
-                $radio = Radistations::model()->findByPk($session['radio']);
-                $text = $radio->settings->text_after_test;
-                $message = new Messages();
-                $this->render('finish', array('model' => $text, 'message' => '', 'messages' => $message,));
+
+
 
             }
+            $radio = Radistations::model()->findByPk($session['radio']);
+            $text = $radio->settings->text_after_test;
+            $message = new Messages();
+            $this->render('finish', array('model' => $text, 'message' => '', 'messages' => $message,));
         }
+    }
+    public function actionMessages(){
+        $model=new Messages();
+
+        if($_POST['Messages']){
+            $model->attributes = $_POST['Messages'];
+            $session=new CHttpSession;
+            $session->open();
+            $model->id_user=$session['user'];
+            $model->id_test=$session['idtest'];
+            
+            if($model->save()){
+                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            }
+            else{
+                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            }
+
+        }
+        $this->render('mess',array('message'=>$messages));
     }
 }

@@ -1,4 +1,4 @@
-<div style="font-size: small">
+
 <?php
 
 
@@ -10,14 +10,13 @@ $form=$this->beginWidget('CActiveForm', array(
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 	'clientOptions'=>array(
-		'validateOnChange'=>true,
-		'validateOnSubmit'=>true
+		'validateOnChange'=>false,
+		'validateOnSubmit'=>false
 	),
 )); ?>
 
 	<p class="note"> <?php echo Yii::t('radio','Fields with* are required.'); ?></p>
 
-	
 	<div class="row">
 		<?php echo $form->labelEx($model,'name_listener'); ?>
 		<?php echo $form->textField($model,'name_listener',array('size'=>20,'maxlength'=>20)); ?>
@@ -82,20 +81,20 @@ $form=$this->beginWidget('CActiveForm', array(
 	<?php echo $form->DropDownList($model,'period',Users::getperiodAll()); ?>
 	<?php echo $form->error($model,'period'); ?>
 </div>
-	<br>
+<br>
 	<div class="row1">
 		<?php echo $form->labelEx($model,'P1'); ?>
 		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
 <br>
+<br>
 	<div class="row2" style="display: none">
 		<?php echo $form->labelEx($model,'P2'); ?>
 		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P2'); ?>
 	</div>
-<br>
-	<br>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('radio','Create') : Yii::t('radio','Save')); ?>
 	</div>

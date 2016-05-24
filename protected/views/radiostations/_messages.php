@@ -22,7 +22,7 @@ $form=$this->beginWidget('CActiveForm', array(
 </div>
 
 <div class="row buttons">
-    <?php echo CHtml::button( Yii::t('radio','Send'),array('submit'=>array('test/messages'))); ?>
+    <?php echo CHtml::button( Yii::t('radio','Send'),array('submit'=>array('radiostations/messages'))); ?>
 </div>
 
 <?php $this->endWidget(); ?>

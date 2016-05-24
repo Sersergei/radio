@@ -411,4 +411,25 @@ class RadiostationsController  extends Controller
             }
         }
     }
+    public function actionMessages(){
+        $model=new Messages();
+
+        if($_POST['Messages']){
+            $model->attributes = $_POST['Messages'];
+            $session=new CHttpSession;
+            $session->open();
+            $model->id_user=$session['user'];
+            $model->id_test=$session['idtest'];
+
+            if($model->save()){
+                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            }
+            else{
+                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            }
+
+        }
+        $this->render('mess',array('message'=>$messages));
+    }
+
 }

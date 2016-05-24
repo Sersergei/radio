@@ -72,23 +72,23 @@ class Users extends CActiveRecord
 			array('P2','notP1','on'=>'user'),
 			array('login, password,radiostation,email,password_repeat', 'required','on'=>'admin'),
 			array('login,password,radiostation,email,location,password_repeat','required','on'=>'noadmin'),
-			array('email','email'),
-			//array('email','unique','on'=>'load'),
+
+			array('email','unique','on'=>'load'),
 			array('login','unique','on'=>'noadmin,admin '),
-			//array('email','unique','on'=>'user'),
+			array('email','unique','on'=>'user'),
 			array('password', 'compare','compareAttribute' => 'password_repeat','on'=>'noadmin,admin '),
 			array('id_user, sex, id_education, status, id_category, P1, id_card, mobile_ID', 'numerical', 'integerOnly' => true),
 			array('name_listener', 'length', 'max' => 255),
 			array('email', 'length', 'max' => 100),
 			array('login, password', 'length', 'max' => 20,'min'=>6,'on'=>'noadmin,admin '),
-			//array('mix_marker', 'length', 'max' => 1),
+			array('mix_marker', 'length', 'max' => 1),
 			array('date_birth','date','format'=>'yyyy-mm-dd','on'=>'user'),
 			array('date_birth','datestarted','on'=>'user'),
 			array('date_birth','datefinished','on'=>'user'),
 			array('date_add, lang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2,period','safe'),
+			array('password_repeat, radiostation,location,link,password,login, date, test_count,P2,period,mix_marker','safe'),
 			array('id_user,lang, name_listener, email, date_birth, sex, id_education, login, password, date_add, status,
 			 id_category, radiostation, mix_marker, P1, id_card, mobile_ID,id_radiostation,region,active', 'safe', 'on' => 'search'),
 		);
@@ -408,13 +408,13 @@ return true;
 	public function getperiod(){
 		if($this->period){
 			if($this->period==1){
-				return  date('Y-m-d', strtotime("-1 week"));
+				return  date('d-m-Y', strtotime("-1 week"));
 			}
 			elseif($this->period==2){
-				return  date('Y-m-d', strtotime("-2 week"));
+				return  date('d-m-Y', strtotime("-2 week"));
 			}
 			else{
-				return date('Y-m-d', strtotime("-1 month"));
+				return date('d-m-Y', strtotime("-1 month"));
 			}
 		}
 		else return Null;

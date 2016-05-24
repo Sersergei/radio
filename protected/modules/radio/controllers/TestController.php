@@ -122,8 +122,6 @@ class TestController extends Controller
         $user->P2=$model->P2;
         $user->P2All=$model->P2All;
         $user->marker=$model->marker;
-        $user->ip=$model->ip;
-
         $user->P1P2=$model->P1P2;
         if (isset($_GET['file'])) {
             $iterator = new CDataProviderIterator($model->search());
@@ -407,7 +405,6 @@ class TestController extends Controller
                         'value' => '$data->user->getregion()',
                     ),
                     'time',
-                    'ip',
 
                 ))
                 );

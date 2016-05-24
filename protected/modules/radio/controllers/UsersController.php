@@ -87,7 +87,6 @@ class UsersController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

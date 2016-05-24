@@ -10,7 +10,6 @@ class UsersInvitation
 {
     private $user;
     private $test;
-
     public function __construct(Users $user,$id_test=Null ){
 
         if($id_test){
@@ -104,24 +103,19 @@ $text_before='<br><br><ins>'.Yii::t('radio','Information about you:').'</ins><br
         $criteria->params = array(':id_radiostation' => $this->user->id_radiostation,':id_status'=>2,':id_type'=>1);
         $musictest=MusicTest::model()->find($criteria);
 
-        if(!$musictest){
-
-            return false; //если нету то отправля ем falce
-        }
-
+        if(!$musictest)
+            return false; //если нету то отправля ем false
         else {
             $criteria = new CDbCriteria();
             $criteria->condition = 'id_user = :id_user AND id_music=:id_music';
             $criteria->params = array(':id_user' => $this->user->id_user, ':id_music' => $musictest->id_test);
             $usertest = Usertest::model()->find($criteria);
             if($usertest){
-
                 return false;
             }
 
         }
         if($this->user->link){
-
             return false;
         }
         $criteria = new CDbCriteria();
@@ -131,17 +125,15 @@ $text_before='<br><br><ins>'.Yii::t('radio','Information about you:').'</ins><br
 
         if(($testsettings->sex )){//проверяем на пол
             if(!in_array($this->user->sex,$testsettings->sex))
-            {
-                return false;}
+                return false;
         }
         if($this->user->period){
             $criteria= new CDbCriteria();
             $criteria->compare('id_user',$this->user->id_user);
-            $criteria->compare('date','>'.$this->user->getperiod());
-            //$criteria->addBetweenCondition('date',date("Y-m-d"),$this->user->getperiod());
+            $criteria->addBetweenCondition('date',$this->user->getperiod(),date("Y-m-d"));
             $result=Usertest::model()->find($criteria);
+            //var_dump($result);
             if($result){
-
                 return false;
             }
         }
@@ -157,19 +149,13 @@ $text_before='<br><br><ins>'.Yii::t('radio','Information about you:').'</ins><br
         else
             $after_age=$testsettings->after_age;
 
-        if(!($age_from< $this->yer() and $this->yer() <$after_age) ) {
-
+        if(!($age_from< $this->yer() and $this->yer() <$after_age) ) //проверка на возраст
             return false;
-        }//проверка на возраст
-
 
 
         if($testsettings->id_education){
-            if(!in_array($this->user->id_education,$testsettings->id_education)){
-
+            if(!in_array($this->user->id_education,$testsettings->id_education))
                 return false;
-            }
-
         } // проверка на образование
 
      /*   if($testsettings->week){ //проверка на дату последнего теста
@@ -192,21 +178,15 @@ $text_before='<br><br><ins>'.Yii::t('radio','Information about you:').'</ins><br
             $criteria = new CDbCriteria;
             $criteria->compare('id_user',$this->user->id_user);
             $usertest=Usertest::model()->count($criteria);
-            if($usertest<$testsettings->count_from){
-
+            if($usertest<$testsettings->count_from)
                 return false;
-            }
-
         }
         if($testsettings->count_after){ //прошел до тестов
             $criteria = new CDbCriteria;
             $criteria->compare('id_user',$this->user->id_user);
             $usertest=Usertest::model()->count($criteria);
-            if($usertest>$testsettings->count_after){
-
+            if($usertest>$testsettings->count_after)
                 return false;
-            }
-
         }
 
         if($testsettings->Invitations==0)
@@ -214,26 +194,17 @@ $text_before='<br><br><ins>'.Yii::t('radio','Information about you:').'</ins><br
         if($testsettings->Invitations==1){
             if(($this->user->id_radiostation==$this->user->P1 or $this->user->id_radiostation==$this->user->P2)and $this->user->mix_marker='+')
                 return true;
-            else{
-
-                return false;
-            }
+            else return false;
         }
         if($testsettings->Invitations==2){
             if(($this->user->id_radiostation==$this->user->P1)and $this->user->mix_marker=='+')
                 return true;
-            else{
-
-                return false;
-            }
+            else return false;
         }
         if($testsettings->Invitations==3){
             if($this->user->mix_marker=='+')
                 return true;
-            else{
-
-                return false;
-            }
+            else return false;
         }
     }
     private function yer(){

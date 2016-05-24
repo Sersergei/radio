@@ -4,7 +4,8 @@
 <?php  $path=new ServiceUserIdentity();
 $path=$path->seturl(); ?>
 <div id="facebook">
-<a href="<?php echo $path ?>"><?php echo Yii::t('radio','Login with Facebook'); ?></a>
+<a href="<?php echo $path ?>"><img src="/images/facebook_big.jpg" width="150"
+                                   height="50" alt="<?php echo Yii::t('radio','Login with Facebook'); ?>"></a>
     <br>
     <?php echo Yii::t('radio','Or'); ?>
 </div>

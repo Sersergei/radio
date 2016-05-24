@@ -141,7 +141,7 @@
                     <?php
                     arsort($statistic['region']);
                     foreach($statistic['region'] as $key=>$region){
-                        if(isset($region)){ ?>
+                        if($region){ ?>
                             <tr>
                                 <td width="80px"><?php echo $statistic['regions'][$key]." ".$region."(".round($region*100/$statistic['count_all'],2)."%)" ?> </td>
 

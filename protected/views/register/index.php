@@ -1,13 +1,21 @@
+<?php
+/* @var $this UsersController */
+/* @var $dataProvider CActiveDataProvider */
 
-<header>
-    <div id="lang"><a class="by" href="?lang=ru"></a><a class="en" href="?lang=en"></a><a class="uk" href="?lang=uk"></a> <a class="et" href="?lang=et"></a></div>
-</header>
+$this->breadcrumbs=array(
+	'Users',
+);
 
-<div class="message">
+$this->menu=array(
+	array('label'=>'Create Users', 'url'=>array('create')),
+	array('label'=>'Manage Users', 'url'=>array('admin')),
+);
+?>
 
+<h1><?php echo Yii::t('radio','Users') ?></h1>
 
-
-
-    <?php echo $model; ?><br>
-    <?php echo CHtml::button(Yii::t('radio', 'Next'), array('class'=>'never','submit' => array($buton))); ?>
-</div>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>
+ss

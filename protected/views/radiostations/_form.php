@@ -1,4 +1,4 @@
-
+<div style="font-size: small">
 <?php
 
 
@@ -82,18 +82,22 @@ $form=$this->beginWidget('CActiveForm', array(
 	<?php echo $form->DropDownList($model,'period',Users::getperiodAll()); ?>
 	<?php echo $form->error($model,'period'); ?>
 </div>
+	<br>
 	<div class="row1">
 		<?php echo $form->labelEx($model,'P1'); ?>
 		<?php echo $form->DropDownList($model,'P1',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P1'); ?>
 	</div>
 <br>
+	<br>
+
 	<div class="row2" style="display: none">
 		<?php echo $form->labelEx($model,'P2'); ?>
 		<?php echo $form->DropDownList($model,'P2',RadiostationSettings::getradiostation($model->id_radiostation),array('empty' => '')); ?>
 		<?php echo $form->error($model,'P2'); ?>
 	</div>
-
+	<br>
+	<br>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('radio','Create') : Yii::t('radio','Save')); ?>
 	</div>
