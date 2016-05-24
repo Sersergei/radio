@@ -14,13 +14,22 @@ class RadiostationsController  extends Controller
         $session = new CHttpSession;
         $session->open();
         $session['radio']=$id;
+        $session['url']=Yii::app()->request->requestUri;
         $model=Radistations::model()->findByPk($id);
-        $r=$model->settings->text_before_test;
-        $this->render('/test/index',array('model'=>$r,'message'=>'','buton'=>'Songstest'));
+        if(isset($session['url_repit'])){
+            $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+            $this->render('mess',array('message'=>$messages));
+        }
+        else{
+            $r=$model->settings->text_before_test;
+            $this->render('/test/index',array('model'=>$r,'message'=>'','buton'=>'Songstest'));
+        }
+
     }
     public function actionSongstest(){
         $session = new CHttpSession;
         $session->open();
+        $session['url_repit']=$session['url'];
 //????? ????? ??? ????????? ?????
             $criteria=new CDbCriteria();
             $criteria->condition = 'id_radiostation = :id_radiostation';
@@ -421,15 +430,9 @@ class RadiostationsController  extends Controller
             $model->id_user=$session['user'];
             $model->id_test=$session['idtest'];
 
-            if($model->save()){
-                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
-            }
-            else{
-                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
-            }
 
         }
-        $this->render('mess',array('message'=>$messages));
+        $this->redirect($session['url']);
     }
 
 }
