@@ -29,7 +29,7 @@
 
 
 
-<div style="margin-left:40% ">
+<div style="margin-left:30% ">
 <div
   class="fb-like"
   data-share="true"

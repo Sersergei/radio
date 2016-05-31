@@ -70,7 +70,8 @@ return array(
             'showScriptName'=>false,
 			'rules'=>array(
 				//'<language:>' => 'site/index',
-				'<action:(mesage|login|logout|Run)>' => 'site/<action>',
+				'<action:(mesage|Run|about|how|price|contact)>' => 'site/<action>',
+				'<action:(login|logout)>' => 'user/<action>',
 
 				//'<controller:\w+>/<id:\d+>' => 'register',
 				'<controller:\w+>/<id:\d+>' => '<controller>',

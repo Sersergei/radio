@@ -411,7 +411,7 @@ return true;
 				return  date('Y-m-d', strtotime("-1 week"));
 			}
 			elseif($this->period==2){
-				return  date('Y-m-d', strtotime("-2 week"));
+				return  date('Y-m-d', strtotime("-1 week"));
 			}
 			else{
 				return date('Y-m-d', strtotime("-1 month"));

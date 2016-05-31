@@ -214,6 +214,7 @@ $result=$face->getToken($_GET['code']);
 
     $session=new CHttpSession;
     $session->open();
+    $session['facebook']=1;
     if(isset($result->name))
     $session['name']=$result->name;
     if(isset($result->email))

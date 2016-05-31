@@ -18,8 +18,11 @@ class RadiostationsController  extends Controller
         $model=Radistations::model()->findByPk($id);
         if(isset($session['url_repit'])){
             $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
-            if(isset($session['new']))
-            $messages=$messages.'<br>'.Yii::t('radio','To complete the registration click on the link in the email');
+            if(isset($session['new'])){
+                if(!isset($session['facebook']))
+                $messages=$messages.'<br>'.Yii::t('radio','To complete the registration click on the link in the email');
+
+            }
             $messages=$messages.'<br>'.Yii::t('radio','If you want get present from radiostation, you must share link on your facebook page.');
             $this->render('mess',array('message'=>$messages));
         }
@@ -261,7 +264,7 @@ class RadiostationsController  extends Controller
         }
 
         $arr=array_merge($bed_mixmarker,$god_mixmarker);
-        shuffle($arr); //???‹???µ?»?? ???µ???µ???µ?€?°???‹?? ???°?????? ???· ???????????°?????µ??????;
+        shuffle($arr); //???ï¿½???ï¿½?ï¿½?? ???ï¿½???ï¿½???ï¿½?ï¿½?ï¿½???ï¿½?? ???ï¿½?????? ???ï¿½ ???????????ï¿½?????ï¿½??????;
         $criteria=new CDbCriteria;
         $criteria->addInCondition('id',$arr);
         $model=Mixmarker::model()->findAll($criteria);
@@ -353,12 +356,15 @@ class RadiostationsController  extends Controller
                     $model->attributes = $_POST['User_ferst_test'];
                 $model->date_birth=$_POST['date_birth'];
                 if(isset($_POST['User_ferst_test'])){
-                    if(!isset($session['bersday']))
+                    if(!isset($session['name']))
                         $model->status=1;//???????
                 }
                 if ($model->save()){
-                    if(isset($_POST['User_ferst_test']))
-                    new EmailActive($model);
+                    if(isset($_POST['User_ferst_test'])){
+                        if(!isset($session['name']))
+                        new EmailActive($model);
+                    }
+
 
                     $this->redirect(Yii::app()->createUrl('radiostations/Finish',array('id_user'=>$model->id_user)));
                 }
@@ -407,7 +413,7 @@ class RadiostationsController  extends Controller
                 $usertest->save();
                 ($usertest->getErrors());
                 $testresult = unserialize($session['testresult']);
-                //print_r($testresult);
+
                 foreach ($testresult as $models) {
 
                     $models->finaly = date(" Y-m-d");
@@ -416,12 +422,11 @@ class RadiostationsController  extends Controller
                 }
 
                 unset($session['testresult']);
-                //Yii::app()->request->cookies->remove('like');
-                //$like->remove;
+
                 $radio = Radistations::model()->findByPk($session['radio']);
                 $text = $radio->settings->text_after_test;
                 $message = new Messages();
-                $this->render('finish', array('model' => $text, 'message' => '', 'messages' => $message,));
+                $this->render('finish', array('model' => $text, 'message' => '', 'messages' => $message,'url'=>$session['url']));
 
             }
         }

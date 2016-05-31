@@ -293,7 +293,11 @@ class RadiostationsController  extends Controller
             $criteria->params = array(':id_radiostation'=>$session['radio'], ':email'=>$session['email']);
             $model = User_ferst_test::model()->find($criteria);
             if(!$model)
+            {
                 $model=new User_ferst_test();
+                $session['new']=1;
+            }
+
             $model->id_radiostation=$session['radio'];
             $model->id_category=3;
 
@@ -318,7 +322,7 @@ class RadiostationsController  extends Controller
                     $model->attributes = $_POST['User_ferst_test'];
                 $model->date_birth=$_POST['date_birth'];
                 if(isset($_POST['User_ferst_test'])){
-                    if(!isset($session['bersday']))
+                    if(!isset($session['name']))
                         $model->status=1;//???????
                 }
                 if ($model->save()){
@@ -402,15 +406,12 @@ class RadiostationsController  extends Controller
             $session->open();
             $model->id_user=$session['user'];
             $model->id_test=$session['idtest'];
-            
-            if($model->save()){
-                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
-            }
-            else{
-                $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
-            }
-
+            $model->save();
         }
+        $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
+        if(isset($session['new']))
+            $messages=$messages.'<br>'.Yii::t('radio','To complete the registration click on the link in the email');
+        $messages=$messages.'<br>'.Yii::t('radio','If you want get present from radiostation, you must share link on your facebook page.');
         $this->render('mess',array('message'=>$messages));
     }
 }

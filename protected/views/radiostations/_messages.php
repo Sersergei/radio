@@ -1,3 +1,4 @@
+
 <?php
 $form=$this->beginWidget('CActiveForm', array(
     'id'=>'users-form',
@@ -11,7 +12,7 @@ $form=$this->beginWidget('CActiveForm', array(
         'validateOnSubmit'=>true
     ),
 )); ?>
-<div class="row">
+<div class="row" align="center">
     <?php echo $form->labelEx($messages,'message'); ?><br>
     <?php echo $form->textArea($messages,'message',array('rows'=>6,
                                                     'cols'=>50
@@ -21,7 +22,7 @@ $form=$this->beginWidget('CActiveForm', array(
     <?php echo $form->error($messages,'message'); ?>
 </div>
 
-<div class="row buttons">
+<div class="row buttons" align="right">
     <?php echo CHtml::button( Yii::t('radio','Send'),array('submit'=>array('radiostations/messages'))); ?>
 </div>
 
