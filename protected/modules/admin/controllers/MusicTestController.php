@@ -26,16 +26,9 @@ class MusicTestController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','cron'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','upload'),
-				'users'=>array('@'),
-			),
+
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','index','create','update','upload'),
+				'actions'=>array('admin','delete','index','create','update','upload','view','cron'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users

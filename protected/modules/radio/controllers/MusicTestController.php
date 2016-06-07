@@ -26,18 +26,12 @@ class MusicTestController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','view','create','update','upload','delete','deletesongs'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
+
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -50,6 +44,7 @@ class MusicTestController extends Controller
 	 */
 	public function actionView($id)
 	{
+
 		$songs=new Songs();
 		$songs->id_test=$id;
 		$this->render('view',array(
@@ -219,6 +214,10 @@ class MusicTestController extends Controller
 	 */
 	public function loadModel($id)
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
+		$test= MusicTest::model()->findByPk($id);
+		if($user->id_radiostation!==$test->id_radiostation)
+			throw new CHttpException(403,'Недостаточно прав');
 		$model=MusicTest::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

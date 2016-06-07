@@ -27,15 +27,15 @@ class UsersController extends Controller
 	public function accessRules()
 	{
 		return array(
-/*
+
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update'),
-				'roles'=>array('1'),
+				'actions'=>array('admin','delete','create','update','view'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
-*/
+
 		);
 	}
 

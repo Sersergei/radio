@@ -2,8 +2,29 @@
 
 class DefaultController extends Controller
 {
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}
+	public function accessRules()
+	{
+		return array(
+
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('index'),
+				'users'=>array('@'),
+			),
+
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
 	public function actionIndex()
 	{
+
 		$user=Users::model()->find('id_user=:user', array(':user'=>Yii::app()->user->id));
 		if ($user->radio->license->date)
 			$license= Yii::t('radio','license is valid until:').$user->radio->license->date;

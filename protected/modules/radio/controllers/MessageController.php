@@ -8,8 +8,32 @@
  */
 class MessageController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+    public function accessRules()
+    {
+        return array(
+
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('index'),
+                'users'=>array('@'),
+            ),
+
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
     public function actionIndex($id=Null){
         if($id){
+            $user=Users::model()->findByPk(Yii::app()->user->id);
+            $test= MusicTest::model()->findByPk($id);
+            if($user->id_radiostation!==$test->id_radiostation)
+                throw new CHttpException(403,'Недостаточно прав');
             $message=new Messages('search');
 
             if(isset($_GET['Messages']))

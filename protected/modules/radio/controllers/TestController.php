@@ -8,6 +8,26 @@
  */
 class TestController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+    public function accessRules()
+    {
+        return array(
+
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('songs','index','statistic'),
+                'users'=>array('@'),
+            ),
+
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
     public function actionIndex($id)
     {
         $model = new Usertest('search');
@@ -71,6 +91,11 @@ class TestController extends Controller
     }
     public function actionSongs($id)
     {
+
+        $user=Users::model()->findByPk(Yii::app()->user->id);
+        $test= MusicTest::model()->findByPk($id);
+        if($user->id_radiostation!==$test->id_radiostation)
+            throw new CHttpException(403,'Недостаточно прав');
         $model = new MusicTestDetail('search');
         $user=new Usertest('search');
         $user->unsetAttributes();

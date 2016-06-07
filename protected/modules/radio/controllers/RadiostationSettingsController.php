@@ -29,10 +29,7 @@ class RadiostationSettingsController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(),
-				'users'=>array('*'),
-			),
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','view','create','update','Bedmixmarker','Loadmixmarker','Godmixmarker','admin'),
 				'users'=>array('@'),
@@ -469,7 +466,11 @@ $model->mixmarker=unserialize($session['god_mixmarker']);
 	 */
 	public function loadModel($id)
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
+
 		$model=RadiostationSettings::model()->findByPk($id);
+		if($user->id_radiostation!==$model->id_radiostation)
+			throw new CHttpException(403,'Недостаточно прав');
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

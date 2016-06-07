@@ -27,12 +27,9 @@ class TestSettingsController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','index','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -154,7 +151,11 @@ class TestSettingsController extends Controller
 	 */
 	public function loadModel($id)
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
 		$model=TestSettings::model()->findByPk($id);
+		if($user->id_radiostation!==$model->id_radiostation)
+			throw new CHttpException(403,'Недостаточно прав');
+
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

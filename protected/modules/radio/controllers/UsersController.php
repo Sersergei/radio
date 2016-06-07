@@ -15,7 +15,7 @@ class UsersController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -26,16 +26,17 @@ class UsersController extends Controller
 	 */
 	public function accessRules()
 	{
+
 		return array(
-/*
+
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update'),
-				'roles'=>array('1'),
+				'actions'=>array('admin','delete','create','update','view','index','LoadUser','statistic','Test'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
-*/
+
 		);
 	}
 
@@ -154,7 +155,10 @@ class UsersController extends Controller
 	 */
 	public function loadModel($id)
 	{
+		$user=Users::model()->findByPk(Yii::app()->user->id);
 		$model=Users::model()->findByPk($id);
+		if($user->id_radiostation!==$model->id_radiostation)
+			throw new CHttpException(403,'Недостаточно прав');
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

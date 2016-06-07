@@ -55,13 +55,13 @@ return array(
 		'PHPExcel'=>array(
 			'class'=>'ext.phpexcel.Classes.PHPExcel'
 		),
-		/*'user'=>array(
+		'user'=>array(
 			// enable cookie-based authentication
 			//'allowAutoLogin'=>true,
-            'allowAutoLogin'=>true,
-            'loginUrl' => array('/user/login'),
+           //'allowAutoLogin'=>true,
+            'loginUrl' => array('/login'),
 		),
-*/
+
 
 		// uncomment the following to enable URLs in path-format
 		
