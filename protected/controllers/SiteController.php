@@ -99,6 +99,10 @@ class SiteController extends Controller
 
 			if($identity->authenticate()) {
 				Yii::app()->user->login($identity);
+
+				if(Yii::app()->user->returnUrl==DIRECTORY_SEPARATOR)
+					$this->redirect('radio');
+				else
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 

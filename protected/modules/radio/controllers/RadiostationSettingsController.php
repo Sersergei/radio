@@ -31,7 +31,8 @@ class RadiostationSettingsController extends Controller
 		return array(
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','Bedmixmarker','Loadmixmarker','Godmixmarker','admin'),
+				'actions'=>array('index','view','create','update','Bedmixmarker','Loadmixmarker','Godmixmarker','admin',
+					'Updatebedmixmarker','Updategodmixmarker','Updatemixmarker'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions

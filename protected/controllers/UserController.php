@@ -55,7 +55,12 @@ class UserController extends Controller
 
                 if($identity->authenticate()) {
                     Yii::app()->user->login($identity);
-                    $this->redirect(Yii::app()->user->returnUrl);
+                   
+                    if(Yii::app()->user->returnUrl=="/")
+                        $this->redirect('/radio');
+                    else
+                        $this->redirect(Yii::app()->user->returnUrl);
+
                 }
 
                 else

@@ -151,7 +151,7 @@ class TestSettingsMultController extends Controller
 	{
 		$user=Users::model()->findByPk(Yii::app()->user->id);
 		$model=TestSettingsMult::model()->findByPk($id);
-		if($user->id_radiostation!==$model->id_radiostation)
+		if($user->id_radiostation!==$model->id_radiostations)
 			throw new CHttpException(403,'Недостаточно прав');
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
