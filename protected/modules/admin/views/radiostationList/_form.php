@@ -19,11 +19,6 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_region'); ?>
-		<?php echo $form->textField($model,'id_region'); ?>
-		<?php echo $form->error($model,'id_region'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name_radio'); ?>

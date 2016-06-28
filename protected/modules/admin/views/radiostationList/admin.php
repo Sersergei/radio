@@ -7,10 +7,6 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List RadiostationList', 'url'=>array('index')),
-	array('label'=>'Create RadiostationList', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -53,3 +49,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 	),
 )); ?>
+<h1>Create RadiostationList</h1>
+<?php
+ $this->renderPartial('_form', array('model'=>$radiostation));
+?>

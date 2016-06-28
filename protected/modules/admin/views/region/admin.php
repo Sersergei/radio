@@ -2,10 +2,6 @@
 /* @var $this RegionController */
 /* @var $model Region */
 
-$this->breadcrumbs=array(
-	'Regions'=>array('index'),
-	'Manage',
-);
 
 $this->menu=array(
 
@@ -49,6 +45,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}{delete}',
+			'buttons'=>array(
+				'view'=>array(
+					'url'=>'Yii::app()->getUrlManager()->createURL("admin/radiostationlist",array("id"=>$data->id))',
+				),
+
+			),
 		),
 	),
 )); ?>

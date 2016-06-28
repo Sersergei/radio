@@ -6,7 +6,6 @@ class RadiostationListController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -120,26 +119,31 @@ class RadiostationListController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('RadiostationList');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionIndex($id=Null)
 	{
 		$model=new RadiostationList('search');
+		$radiostation= new RadiostationList();
 		$model->unsetAttributes();  // clear any default values
+		if($id){
+			$model->id_region=$id;
+			$radiostation->id_region=$id;
+		}
+
 		if(isset($_GET['RadiostationList']))
 			$model->attributes=$_GET['RadiostationList'];
 
+		if(isset($_POST['RadiostationList']))
+		{
+			$radiostation->attributes=$_POST['RadiostationList'];
+			$radiostation->save();
+		}
 		$this->render('admin',array(
-			'model'=>$model,
+			'model'=>$model,'radiostation'=>$radiostation,
 		));
 	}
 
