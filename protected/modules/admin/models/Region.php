@@ -79,6 +79,14 @@ class Region extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public static function All(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $region){
+			$array[$region->id] =Yii::t('radio', $region->name) ;
+		}
+		return $array;
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.

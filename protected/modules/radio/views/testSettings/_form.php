@@ -49,7 +49,9 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'region'); ?>
-		<?php echo $form->textField($model,'region'); ?>
+		<?php// echo $form->textField($model,'region'); ?>
+		<?php echo $form->checkBoxList($model,'region',Region::All(),array('separator'=>'',
+			'labelOptions'=>array('style'=>'display:inline'))); ?>
 		<?php echo $form->error($model,'region'); ?>
 	</div>
 
