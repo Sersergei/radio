@@ -171,6 +171,8 @@ class Radistations extends CActiveRecord
 		if ($this->isNewRecord){
 			$license=new License();
 			$license->id_radiostation=$this->id_radiostation;
+			$license->test_count=$this->test_count;
+			$license->date=$this->date;
 			$license->save();
 		}
 		else{

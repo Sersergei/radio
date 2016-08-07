@@ -57,6 +57,14 @@ class RadiostationList extends CActiveRecord
 			'name_radio' => 'Name Radio',
 		);
 	}
+	public static function all(){
+		$models=self::model()->findAll();
+		$array=array();
+		foreach($models as $radio){
+			$array[$radio->id] = $radio->name_radio;
+		}
+		return $array;
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

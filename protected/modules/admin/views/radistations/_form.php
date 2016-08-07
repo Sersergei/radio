@@ -23,14 +23,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->DropDownList($model,'name',RadiostationList::all());; ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'location'); ?>
+		<?php //echo $form->labelEx($model,'location'); ?>
+		<?php //echo $form->textField($model,'location',array('size'=>60,'maxlength'=>255)); ?>
+		<?php //echo $form->error($model,'location'); ?>
 	</div>
 
 	<div class="row">

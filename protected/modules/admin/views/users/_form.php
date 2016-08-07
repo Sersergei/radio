@@ -45,13 +45,13 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'radiostation'); ?>
-		<?php echo $form->textField($model,'radiostation'); ?>
+		<?php echo $form->DropDownList($model,'radiostation',RadiostationList::all()); ?>
 		<?php echo $form->error($model,'radiostation'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location'); ?>
-		<?php echo $form->error($model,'location'); ?>
+		<?php// echo $form->labelEx($model,'location'); ?>
+		<?php// echo $form->textField($model,'location'); ?>
+		<?php //echo $form->error($model,'location'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'lang'); ?>
