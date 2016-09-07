@@ -1,0 +1,248 @@
+.testsong_classic{
+
+    border: 0;
+    cellpadding:0;
+    cellspacing:0;
+    border-collapse: collapse;
+    width: 700px;
+    height:500px;
+    background: url("../images/bg.jpg") no-repeat;
+    margin-left: -97px;
+}
+
+.progress-bar_classic{
+    position: relative;
+    left: auto;
+    align-content: center;
+    text-align: center;
+    width: 553px;
+    height: 120px;
+    top: 110px;
+    left: 50px;
+}
+
+#progress_classic{
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 20px;
+}
+.ui-widget-content {
+    border: 4px solid #B9CBF9;
+    border-radius: 0px;
+}
+
+.text_classic{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+    font-size: 30px;
+
+
+    color: #fafaf5;
+    width: 550px;
+    height: 30px;
+}
+
+.divnever{
+    position: relative;
+    top: 15px;
+}
+.button{
+
+    top: 119px;
+    position: relative;
+    width: 553px;
+    height: 60px;
+    left: 50px;
+}
+.button2{
+
+    top:62px;
+    left: 280px;
+    width: 330px;
+    height: 52px;
+    position: relative;
+
+
+}
+.em1, .em2, .em3, .em4, .em5, .em6{
+    font-size: 11px;
+    line-height: 1em;
+}
+.em1{
+    border: none;
+    background-image: url("../images/first_time_listen.png");
+    width: 252px;
+    height: 50px;
+    border-radius: 13px;
+    color: #fafaf5;
+    text-align: right;
+
+    padding-left: 70px;
+    text-align: center;
+}
+
+.em1:hover{
+    background-image: url("../images/first_time_listen-click.png");
+}
+.em2{
+    position: relative;
+    left: 50px;
+    border: none;
+    background-image: url("../images/very_nice.png");
+    width: 138px;
+    height: 52px;
+    border-radius: 13px;
+    color: #fafaf5;
+    text-align: right;
+
+    padding-left: 50px;
+    white-space: normal;
+    text-align: center;
+    float: left;
+}
+.em2:hover{
+    background-image: url("../images/very_nice-click.png");
+}
+.em3{
+    position: relative;
+    left: 50px;
+    border: none;
+    margin-left: 5px;
+    float: left;
+    background-image: url("../images/like.png");
+    width: 138px;
+    height: 52px;
+    border-radius: 13px;
+    color: #fafaf5;
+    text-align: right;
+    padding-left: 50px;
+    white-space: normal;
+    text-align: center;
+}
+.em3:hover{
+    background-image: url("../images/like-click.png");
+}
+.em4{
+    position: relative;
+    left: 50px;
+    border: none;
+    margin-left: 5px;
+    float: left;
+    background-image: url("../images/normal.png");
+    width: 138px;
+    height: 52px;
+    border-radius: 13px;
+    color: #fafaf5;
+    text-align: right;
+    padding-left: 50px;
+    white-space: normal;
+    text-align: center;
+}
+.em4:hover{
+    background-image: url("../images/normal-click.png");
+}
+.em5{
+     position: relative;
+     left: 0px;
+     border: none;
+     margin-left: 5px;
+     float: left;
+     background-image: url("../images/tired.png");
+     width: 138px;
+     height: 52px;
+     border-radius: 13px;
+     color: #fafaf5;
+     text-align: right;
+    padding-left: 50px;
+    white-space: normal;
+    text-align: center;
+ }
+.em5:hover{
+    background-image: url("../images/tired-click.png");
+}
+.em6{
+    position: relative;
+    left: 0px;
+    border: none;
+    margin-left: 5px;
+    float: left;
+    background-image: url("../images/dislike.png");
+    width: 138px;
+    height: 52px;
+    border-radius: 13px;
+    color: #fafaf5;
+    padding-left: 40px;
+    white-space: normal;
+    text-align: center;
+    padding-right: 11px;
+}
+.em6:hover{
+    background-image: url("../images/dislike-click.png");
+}
+.navigation{
+    position: relative;
+    top: 125px;
+    width: 156px;
+    height: 50px;
+    left: 105px;
+}
+.previus{
+    background-image: url("../images/rewind.png");
+    left: 10px;
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 0;
+    height: 49px;
+    width: 50px;
+}
+.beck{
+    margin-left: -25px;
+    color: #fafaf5;
+    font-size: small;
+}
+.plaer{
+    font-size: small;
+    color: #72A9FF;
+    margin-right: -35px;
+
+}
+.previus:hover{
+    background-image: url("../images/rewind-click.png");
+}
+.play {
+    background-image: url("../images/repeat.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 49px;
+    width: 49px;
+    margin-left: 15px;
+
+}
+.play:hover{
+    background-image: url("../images/repeat-click.png");
+}
+.pause {
+    background-image: url("../images/repeat.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 49px;
+    width: 49px;
+    margin-left: 15px;
+
+}
+.never{
+    display: none;
+    color: white;
+}
+.pause:hover{
+    background-image: url("../images/repeat-click.png");
+}
+.lm-inner{
+
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}

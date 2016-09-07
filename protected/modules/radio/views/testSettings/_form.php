@@ -68,6 +68,10 @@
 																	3=>'приглашение только тем, кто указал микс нашей станции')); ?>
 		<?php echo $form->error($model,'Invitations'); ?>
 	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'teams'); ?>
+		<?php echo $form->radioButtonList($model,'teams',array('1'=>'<img src="/images/page-2_img01.jpg" width="270" height="270">','2'=>'<img src="/images/!READY.jpg" width="270" >')); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

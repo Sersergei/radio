@@ -35,7 +35,7 @@ class TestSettings extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Invitations,region', 'required'),
-			array('id_radiostation, age_from, after_age, Invitations,count_from,count_after,week', 'numerical', 'integerOnly'=>true),
+			array('id_radiostation,teams, age_from, after_age, Invitations,count_from,count_after,week', 'numerical', 'integerOnly'=>true),
 			array('sex,id_education','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -73,6 +73,7 @@ class TestSettings extends CActiveRecord
 			'count_after'=>Yii::t('radio','Count test max'),
 			'count_from'=>Yii::t('radio','Count test min'),
 			'week'=>Yii::t('radio','Week'),
+			'teams'=>Yii::t('radio','Team'),
 		);
 	}
 
@@ -114,6 +115,18 @@ class TestSettings extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return TestSettings the static model class
 	 */
+	public function getTeams(){
+		$teams=array();
+		$teams[1]=array('name'=>'Null','img'=>'<img src="/images/page-2_img01.jpg" width="270" height="270">');
+		$teams[2]=array('name'=>'Classic','img'=>'<img src="/images/!READY.jpg" width="270" >');
+		if (isset($this->teams)) {
+			return $teams[$this->teams];
+		}
+		else{
+			return array('name'=>'Null','img'=>'<img src="/images/page-2_img01.jpg" width="270" height="270">');
+		}
+
+	}
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

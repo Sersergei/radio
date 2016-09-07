@@ -130,6 +130,11 @@ $this->widget('zii.widgets.CDetailView', array(
                                                     'value' => $testsetings->getInvitations(),
                                                 ),
                                                 array(
+                                                    'name'=>'Teams',
+                                                    'type'=>'raw',
+                                                    'value'=>$testsetings->getTeams()['img'],
+                                                ),
+                                                array(
                                                     'name' => 'text_before_test',
                                                     'type' => 'raw',
                                                     'value' => $testsetingsmult->text_before_test,

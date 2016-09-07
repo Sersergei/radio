@@ -16,6 +16,8 @@ class RadiostationsController  extends Controller
         $session['radio']=$id;
         $session['url']=Yii::app()->request->requestUri;
         $model=Radistations::model()->findByPk($id);
+        $session['teams']=$model->testsettings->getTeams()['name'];
+       // Yii::app()->theme=$model->testsettings->getTeams()['name'];
         if(isset($session['url_repit'])){
             $messages=Yii::t('radio','Thank you for the answers. Have a nice day!');
             if(isset($session['new'])){
@@ -90,6 +92,7 @@ class RadiostationsController  extends Controller
     public function actionSongs(){
         $session = new CHttpSession;
         $session->open();
+        Yii::app()->theme=$session['teams'];
         //??????? ????? ?????
         if($session['test']){
 
@@ -379,7 +382,7 @@ class RadiostationsController  extends Controller
     public function actionFinish($id_user){
         $session=new CHttpSession;
         $session->open();
-
+        Yii::app()->theme=Null;
         if($session['testresult']) {
 
 
